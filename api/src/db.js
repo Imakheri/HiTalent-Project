@@ -37,19 +37,18 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
+
 const { Users, Posts, Categories,Review,Orders, Favorites,Payments,Question } = sequelize.models;
+
 
 // Aca vendrian las relaciones
 
 
+Users.hasMany(Posts, { foreignKey: "user_id" }); // un usuario tiene muchos posts
+Posts.belongsTo(Users, { foreignKey: "user_id" }); // un post pertenece a un unico usuario (quien CREA el post)
 
-
-
-Users.hasMany(Posts, { foreignKey: 'user_id' });  // un usuario tiene muchos posts
-Posts.belongsTo(Users, { foreignKey: 'user_id' }); // un post pertenece a un unico usuario (quien CREA el post)
-
-Categories.hasMany(Posts, { foreignKey: 'category_id' }); // una categoria esta en muchas publicaciones
-Posts.belongsTo(Categories, { foreignKey: 'category_id' }); // una publicacion puede tener una unica categoria
+Categories.hasMany(Posts, { foreignKey: "category_id" }); // una categoria esta en muchas publicaciones
+Posts.belongsTo(Categories, { foreignKey: "category_id" }); // una publicacion puede tener una unica categoria
 
 
 Users.hasMany(Review)
@@ -75,6 +74,7 @@ Favorites.belongsTo(Posts)
 
 Users.hasMany(Question)
 Question.belongsTo(Users)
+
 
 
 module.exports = {
