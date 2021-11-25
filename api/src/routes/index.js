@@ -6,7 +6,7 @@ const signUp = require("./SignUp");
 const router = Router();
 
 // Configurar los routers
-router.use("/signIn", signIn);
-router.use("/signUp", signUp);
+// router.use("/signIn", signIn);
+// router.use("/signUp", signUp);
 
 module.exports = router;

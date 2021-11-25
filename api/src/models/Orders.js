@@ -8,14 +8,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
         },
-        user_id: {			// id del user que crea la orden
-            type: DataTypes.UUID,
-            allowNull: false
-        },
-        orden_detail_id: {
-            type: DataTypes.UUID,
-            allowNull: false
-        },
+        // user_id: {			// id del user que crea la orden
+        //     type: DataTypes.UUID,
+        //     allowNull: false
+        // },
+        // orden_detail_id: {
+        //     type: DataTypes.UUID,
+        //     allowNull: false
+        // },
         price: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -28,11 +28,11 @@ module.exports = (sequelize) => {
             defaultValue: "created"
         },
 
-        payment_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 0
-        },
-
+        // payment_id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+            
+        // },
+        
     });
 };

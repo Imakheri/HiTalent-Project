@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    sequelize.define('users', {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -21,18 +21,18 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        sur_name: {
+        lastName: {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
         fullName: {
             type: DataTypes.VIRTUAL,
             get() {
-                return `${this.name} ${this.sur_name}`;
+                return `${this.name} ${this.lastName}`;
             }
         },
-        age: {
-            type: DataTypes.INTEGER,
+        birthdate: {
+            type: DataTypes.DATEONLY,
             allowNull: true,
         },
        
@@ -43,11 +43,12 @@ module.exports = (sequelize) => {
         },
         email_verified: {
             type: DataTypes.BOOLEAN,
-            allowNull: true
+            allowNull: true,
+            defaultValue:false
         },
       
         image: {
-            type: DataTypes.TEXT, // type.BLOB? Sequelize-file
+            type: DataTypes.TEXT, // ojo aca ver esto
             allowNull: true,
         },
         score: {
@@ -56,20 +57,12 @@ module.exports = (sequelize) => {
             defaultValue: 0
          
         },
-        language:{
+        country:{                               
             type:DataTypes.STRING
         },
-        country:{                               //lenguajes y social media serian 2 tablas mas
-            type:DataTypes.STRING
-        },
-        social:{
-            type:DataTypes.STRING
-        }
+        // social:{
+        //     type:DataTypes.STRING  //para luego
+        // }
   
-    
-   
-       
-        // deberia guardarse aca cualquier informacion de mercadopago. VER CON LA API COMO FUNCIONA 
-        // Ejemplo: un user quiere ofrecer servicios y cobrar por mercadopago, su info de mercado pago (solo la relevante), se tiene que guardar aca.
     });
 };
