@@ -19,7 +19,6 @@ function Form(){
         mantenerSesion: false
     })
 
-    console.log("USER LOGIN: ", userLogin)
     const [state, setState] = useState({
         type : 'password',
         button : 'mostrar'
@@ -31,7 +30,6 @@ function Form(){
 
     if(logginUser){
         let exito = logginUser.user.password === userLogin.contraseña
-        console.log("exito: ",exito)
     }
     //
 
@@ -61,7 +59,6 @@ function Form(){
     }
 
     function handleSession(e){
-        console.log("EVENTO DEL CHEKCBOX: ", e)
         setUserLogin({
             ...useState,
             mantenerSesion: !userLogin.mantenerSesion
