@@ -12,7 +12,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'landingImg': "url('assets/image-landing.jpg')"
+        'landingImg': "url('assets/image-landing.jpg')",
+        'landingImg2': "url('assets/landing-img.jpg')"
       }
     },
   },

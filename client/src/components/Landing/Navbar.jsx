@@ -13,7 +13,7 @@ export default function Navbar() {
 
             <div>
                 <Link to='/login'>
-                <button class="m-2 p-0 font-semibold">Ingresar</button>
+                <button class="m-2 p-0 font-semibold">Ingreso</button>
                 </Link>
 
                 <Link to='/register'>
