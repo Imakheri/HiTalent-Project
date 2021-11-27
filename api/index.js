@@ -105,10 +105,17 @@ conn.sync({ force: true }).then(() => {
     console.log(testquestion.toJSON()) //la muestro
     testquestion.answer="la respondo"
     testquestion.save()
-    console.log(testquestion.toJSON())
+    //console.log(testquestion.toJSON())
     
+    var userToDelete=await Users.create({     //test delete
+      id:"f30e3325-2dbe-4bd3-82a4-d9e827380f20",
+      name:"meborran",
+      lastName:"apellidomeborran",
+      username:"hola",
+      password:"lala",
+      email:"hola@gmail.com"
+    })
     
-
 
 
     console.log('%s listening at 3001 ahi va!!!!'); // eslint-disable-line no-console
