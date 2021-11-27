@@ -41,4 +41,4 @@ export function createUser(payload){
           type: POST_USER,
           payload: newUser
     })
-}
+}}

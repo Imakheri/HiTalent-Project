@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
     <div>
-      //<Form />
+      {/* <Form /> */}
         <Routes>
           <Route exact path='/' element={<Landing/>}/>
           <Route exact path='/home' element={<Home/>}/>
