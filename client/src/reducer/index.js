@@ -1,19 +1,24 @@
-let initialState = {
+import { SEARCH_TALENT, LOGUEAR_USUARIO } from "../actions"
+
+const initialState = {
     user : "",
+    talents: []
 }
 
-
-function rootReducer(state = initialState, action){
-    switch(action.type){
-        case "LOGUEAR_USUARIO":
+export default function rootReducer(state = initialState, action) {
+    switch(action.type) {
+        case SEARCH_TALENT:
+            return {
+                ...state,
+                talents: action.payload
+            }
+        case LOGUEAR_USUARIO:
             return {
                 ...state,
                 user : action.payload
             }
         default:
-            return state;
+            return state
     }
 }
 
-
-export default rootReducer;
