@@ -1,4 +1,4 @@
-import { SEARCH_TALENT, LOGUEAR_USUARIO } from "../actions"
+import { SEARCH_TALENT, LOGUEAR_USUARIO, POST_USER } from "../actions"
 
 const initialState = {
     user : "",
@@ -17,8 +17,10 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 user : action.payload
             }
+        case POST_USER:
+            return {
+                ...state
         default:
             return state
     }
 }
-
