@@ -1,14 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {
-  createUser,
-  deleteUser,
-  getUser,
-  getLogIn,
-  editUser,
-  confirm,
-} = require("../../controllers/userLogic");
-const router = Router();
+const { createUser, deleteUser, getUser, getLogIn,editUser, confirm } = require("../../controllers/userLogic");
 const { uploader } = require("../../middleware/uploader");
 
 router.post("/", uploader.single("image"), createUser);
