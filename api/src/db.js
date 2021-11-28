@@ -37,19 +37,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {
-  Users,
-  Posts,
-  Categories,
-  Orders,
-  Orden_detail,
-  Payments,
-  Reviews,
-  Favorites,
-} = sequelize.models;
+
+const { Users, Posts, Categories,Review,Orders, Favorites,Payments,Question } = sequelize.models;
+
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+
 
 Users.hasMany(Posts, { foreignKey: "user_id" }); // un usuario tiene muchos posts
 Posts.belongsTo(Users, { foreignKey: "user_id" }); // un post pertenece a un unico usuario (quien CREA el post)
@@ -57,33 +50,32 @@ Posts.belongsTo(Users, { foreignKey: "user_id" }); // un post pertenece a un uni
 Categories.hasMany(Posts, { foreignKey: "category_id" }); // una categoria esta en muchas publicaciones
 Posts.belongsTo(Categories, { foreignKey: "category_id" }); // una publicacion puede tener una unica categoria
 
-Users.hasMany(Orders, { foreignKey: "user_id" });
-Orders.belongsTo(Users, { foreignKey: "user_id" });
 
-Orders.hasOne(Orden_detail, { foreignKey: "orden_detail_id" });
-Orden_detail.belongsTo(Orders, { foreignKey: "orden_detail_id" });
+Users.hasMany(Review)
+Review.belongsTo(Users)       //relacion review n*m
+Posts.hasMany(Review)     
+Review.belongsTo(Posts)
 
-Orders.hasMany(Payments, { foreignKey: "payment_id" });
-Payments.belongsTo(Orders, { foreignKey: "payment_id" });
 
-Orden_detail.hasMany(Posts, { foreignKey: "post_id" });
-Posts.belongsTo(Orden_detail, { foreignKey: "post_id" });
 
-//review
+Users.hasMany(Orders)         //relacion user con orders
+Orders.belongsTo(Users)
 
-Users.hasMany(Reviews, { foreignKey: "user_id" });
-Reviews.belongsTo(Users, { foreignKey: "user_id" });
+Posts.hasMany(Orders)       //relacion post con orders
+Orders.belongsTo(Posts)
 
-Posts.hasMany(Reviews, { foreignKey: "post_id", constraints: false });
-Reviews.belongsTo(Posts, { foreignKey: "post_id", constraints: false });
+Payments.hasMany(Orders)      //relacion payments con orders
+Orders.belongsTo(Payments)
 
-//favorite
+Users.hasMany(Favorites)
+Favorites.belongsTo(Users)      //relacion favoritos n*m
+Posts.hasMany(Favorites)
+Favorites.belongsTo(Posts)
 
-Users.hasMany(Favorites, { foreignKey: "user_id" });
-Favorites.belongsTo(Users, { foreignKey: "user_id" });
+Users.hasMany(Question)
+Question.belongsTo(Users)
 
-Posts.belongsTo(Favorites, { foreignKey: "post_id" });
-Favorites.hasMany(Posts, { foreignKey: "post_id" });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

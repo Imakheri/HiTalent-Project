@@ -8,14 +8,14 @@ module.exports = (sequelize) => {
       //allowNull: false,
       primaryKey: true,
     },
-    user_id: {
-      type: DataTypes.UUID,
-      allowNull: false
-    },
-    category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    // user_id: {
+    //   type: DataTypes.UUID,      //estan pero mediante relaciones
+    //   allowNull: false
+    // },
+    // category_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
     
     title: {
       type: DataTypes.STRING,
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.STRING),  //array de imagenes ver esto luego
       allowNull: true,
     },
   
@@ -37,7 +37,12 @@ module.exports = (sequelize) => {
     oferta:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
-    }
+    },
+    cost:{
+      type:DataTypes.FLOAT,
+      allowNull:false
+    },
+    
 
   });
 };
