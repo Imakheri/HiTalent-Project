@@ -21,18 +21,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    sur_name: {
+    lastName: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    fullName: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return `${this.name} ${this.sur_name}`;
-      },
-    },
-    age: {
-      type: DataTypes.INTEGER,
+
+    birthdate: {
+      type: DataTypes.DATEONLY,
       allowNull: true,
     },
 
@@ -44,6 +39,7 @@ module.exports = (sequelize) => {
     email_verified: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
+      defaultValue: false,
     },
 
     image: {
@@ -55,16 +51,12 @@ module.exports = (sequelize) => {
       allowNull: true,
       defaultValue: 0,
     },
-    language: {
-      type: DataTypes.STRING,
-    },
     country: {
-      //lenguajes y social media serian 2 tablas mas
       type: DataTypes.STRING,
     },
-    social: {
-      type: DataTypes.STRING,
-    },
+    // social:{
+    //     type:DataTypes.STRING  //para luego
+    // }
 
     // deberia guardarse aca cualquier informacion de mercadopago. VER CON LA API COMO FUNCIONA
     // Ejemplo: un user quiere ofrecer servicios y cobrar por mercadopago, su info de mercado pago (solo la relevante), se tiene que guardar aca.
