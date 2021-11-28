@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
 export const NewPassword = () => {
+  const pfGreen = "pfGreen";
+  const red = "red-500";
   const [newPassword, setNewPassword] = useState({
     newPass: "",
     confirmPass: "",
+    errorMessage: "",
+    error: false,
+    inputBorder: pfGreen,
   });
 
   const handlePasswordChange = (e) => {
@@ -14,22 +19,43 @@ export const NewPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {confirmPass, newPass} = newPassword;
-    if(newPass === confirmPass){
-        console.log("Enviando al backend....");
+    const { confirmPass, newPass } = newPassword;
+    if (newPass !== confirmPass) {
+      return setNewPassword({
+        ...newPassword,
+        errorMessage: "Las contraseñas no coinciden",
+        error: true,
+        inputBorder: red,
+      });
     }
-    else {
-        console.log("contrase;as no coinciden");
+    if (newPass.length < 8) {
+      return setNewPassword({
+        ...newPassword,
+        errorMessage: "La contraseña es demasiado corta",
+        error: true,
+        inputBorder: red,
+      });
     }
-    console.log(newPassword);
+    setNewPassword({
+      ...newPassword,
+      errorMessage: "",
+      error: false,
+      inputBorder: pfGreen,
+    });
+    return console.log("Enviando al backend");
   };
 
   return (
     <div className="container mt-5 text-left">
       <h1 className="font-normal text-2xl mb-5">Cambia la contraseña</h1>
       <form onSubmit={handleSubmit}>
+        {newPassword.error ? (
+          <p className={`text-${red} mb-1`}>{newPassword.errorMessage}</p>
+        ) : (
+          ""
+        )}
         <input
-          className="border border-indigo-600 w-full mb-5 p-2"
+          className={`border border-${newPassword.inputBorder} w-full mb-5 p-2`}
           type="password"
           name="newPass"
           placeholder="Contraseña nueva"
@@ -38,7 +64,7 @@ export const NewPassword = () => {
           required
         />
         <input
-          className="border border-indigo-600 w-full mb-5 p-2"
+          className={`border border-${newPassword.inputBorder} w-full mb-5 p-2`}
           type="password"
           name="confirmPass"
           placeholder="Confirmar contraseña nueva"
@@ -47,7 +73,7 @@ export const NewPassword = () => {
           required
         />
         <br />
-        <button className="w-full bg-indigo-600 mt-2 p-3 text-xl text-white">
+        <button className={`w-full bg-${pfGreen} mt-2 p-3 text-xl text-white`}>
           Guardar
         </button>
       </form>

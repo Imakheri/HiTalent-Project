@@ -12,6 +12,16 @@ module.exports = {
         "2xl": "6rem",
       },
     },
+    extend: {
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        pfGreen: {
+          light: "#5E8B7E",
+          DEFAULT: "#2F5D62",
+        },
+      },
+    },
   },
   variants: {
     extend: {},
