@@ -42,6 +42,9 @@ async function createUser(req, res, next) {
     let isValid = expReg.test(email);
     if (isValid === false) return res.send("El email no es valido");
 
+    //-----GENERAR EL CODIGO-------
+    const code = uuidv4();
+
     //Si todo esta correcto, se crea el usuario
     const newUser = await Users.create({
       username: username,
@@ -53,12 +56,8 @@ async function createUser(req, res, next) {
       email_verified: email_verified,
       image,
       country: country,
+      code: code,
     });
-    //   const userSaved = await newUser.save();
-    //   transporter.sendMail(emailer(user));
-
-    //-----GENERAR EL CODIGO-------
-    const code = uuidv4();
 
     //-----GENERAR TOKEN-----
     const token = getToken({ email, code });
@@ -78,6 +77,55 @@ async function createUser(req, res, next) {
     next(err);
   }
 }
+
+const confirm = async (req, res) => {
+  try {
+    // Obtener el token
+    const { token } = req.params;
+
+    // Verificar la data
+    const data = await getTokenData(token);
+
+    if (data === null) {
+      return res.json({
+        success: false,
+        msg: "Error al obtener data",
+      });
+    }
+
+    console.log(data);
+
+    const { email, code } = data.data;
+
+    // Verificar existencia del usuario
+    const user = (await Users.findOne({ email })) || null;
+
+    if (user === null) {
+      return res.json({
+        success: false,
+        msg: "Usuario no existe",
+      });
+    }
+
+    // Verificar el código
+    if (code !== user.code) {
+      return res.redirect("/error.html");
+    }
+
+    // Actualizar usuario
+    user.email_verified = true;
+    await user.save();
+
+    // Redireccionar a la confirmación
+    return res.redirect("/confirm.html");
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      success: false,
+      msg: "Error al confirmar usuario",
+    });
+  }
+};
 
 async function getUser(req, res, next) {
   var all=await Users.findAll()
@@ -107,41 +155,37 @@ async function deleteUser(req, res, next) {
   }
 }
 
-async function getLogIn(req, res, next){
-    let { username, password, email } = req.body;
+async function getLogIn(req, res, next) {
+  let { username, password, email } = req.body;
 
-      if(email){
-        const userEmail= await Users.findOne({
-          where: {
-            email: email
-          }
-        })
-        if(userEmail) {
-          res.send(userEmail)
-        } else {
-          res.send('Email incorrecto')
-        }
-      }
-      else if(username){
-        const userMatch= await Users.findOne({
-          where: {
-            username: username
-          }
-        })
-      if(userMatch) {
-        if(userMatch.password === password){
-          res.send(userMatch)
-        }
-        else {
-          res.send('Password incorrecto')
-        }
-      }
-      else {
-        res.send('Usuario incorrecto')
-      }
+  if (email) {
+    const userEmail = await Users.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (userEmail) {
+      res.send(userEmail);
+    } else {
+      res.send("Email incorrecto");
     }
-
-
+  } else if (username) {
+    const userMatch = await Users.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (userMatch) {
+      if (userMatch.password === password) {
+        res.send(userMatch);
+      } else {
+        res.send("Password incorrecto");
+      }
+    } else {
+      res.send("Usuario incorrecto");
+    }
+  }
+}
 };
 
 const editUser = async(req,res,next)=>{
@@ -162,13 +206,11 @@ const editUser = async(req,res,next)=>{
   }
 }
 
-
-
 module.exports = {
   createUser,
   deleteUser,
   getUser,
   getLogIn,
+  confirm,
   editUser
 };
-
