@@ -1,14 +1,15 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createUser } from '../../actions/index';
 import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
+import ReactModal from 'react-modal';
 
 
-export default function Register(){
+export default function Register({ onModaleClick }) {
 const dispatch = useDispatch();
-const user = useSelector((state) => state.user);
 
+const [modalIsOpen, setIsOpen] = useState(true);
 const [input, setInput] = useState ({
     name: '',
     lastName: '',
@@ -49,10 +50,16 @@ const handleFacebookAuth = () => {
 
 
     return(
-        <div className='flex justify-around bg-dark items-center w-screen h-screen text-white' >
-            <div className='flex flex-col bg-semidark bg-opacity-40 border-white border-2 border-red-500 rounded-3xl w-80 min-h-full pt-14 pb-10 pl-8 pr-8'>
-                <h2 className='flex text-3xl font-extrabold mb-10'>Registro</h2>
-                    <form className='flex flex-col space-y-2 mb-8 ' onSubmit={(e) => handleOnSubmit(e)}>
+        <ReactModal 
+            isOpen={modalIsOpen}
+            onRequestClose={onModaleClick}
+            contentLabel="Example Modal"
+            className="h-screen absolute m-auto max-w-max inset-16 bg-semidark border border-dark rounded-lg"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50">
+        <div className='flex justify-around bg-dark items-center w-screen text-white m-auto max-w-max inset-16 border border-dark rounded-lg'>
+            <div className='flex flex-col bg-semidark bg-opacity-40 border-white border-2 border-red-500 rounded-lg w-80 p-8'>
+                <h2 className='flex text-3xl font-extrabold mb-2'>Registro</h2>
+                    <form className='flex flex-col space-y-2 mb-6 ' onSubmit={(e) => handleOnSubmit(e)}>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Nombre' type='text' value={input.name} name='name' onChange={(e) => handleChange(e)} required/>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Apellido' type='text' value={input.lastName} name='lastName' onChange={(e) => handleChange(e)} required/>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Correo electrónico' type='email' value={input.email} name='email' onChange={(e) => handleChange(e)} required/>
@@ -65,17 +72,18 @@ const handleFacebookAuth = () => {
                         </div>
                     </form>
                 <div className='flex justify-center'>
-                    <button className='btn-custom btn-logout' type='submit'>Registrarme</button>
+                    <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
-                <div className='mt-4'>
-                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
-                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
+                <div className='mt-2'>
+                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
+                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
                 </div>  
-                <div className='flex justify-center content-center items-center mt-6'>
+                <div className='flex justify-center content-center items-center m-4'>
                     <p className='text-sm mr-2'>¿Ya tienes cuenta?</p><button className='text-1xl font-semibold'>Iniciar sesión</button>
                 </div>
             </div>
         </div>
+            </ReactModal>
     )
 
 }

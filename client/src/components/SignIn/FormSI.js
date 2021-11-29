@@ -8,8 +8,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import { loguearUsuario } from '../../actions/index'
 import { useDispatch } from "react-redux";
+import { startFacebookAuth, startGoogleAuth } from '../../actions/auth';
 
-function Form({onModalClick}){
+function Form({ onModalClick }){
 
     let dispatch = useDispatch()
 
@@ -67,6 +68,14 @@ function Form({onModalClick}){
 
     const [modalIsOpen, setIsOpen] = useState(true);
 
+    const handleGoogleAuth = () => {
+        dispatch(startGoogleAuth());
+    }
+
+    const handleFacebookAuth = () => {
+        dispatch(startFacebookAuth());
+    }
+
     return(
         <ReactModal 
             isOpen={modalIsOpen}
@@ -74,7 +83,7 @@ function Form({onModalClick}){
             contentLabel="Example Modal"
             className=" absolute m-auto max-w-max inset-16 bg-semidark border border-dark rounded-lg"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50">
-            <div className="flex h-96 items-center flex-col">
+            <div className="flex h-96 items-center flex-col text-white">
                 <h2 className="text-3xl my-2 font-semibold">Iniciar sesion</h2>
                 <form className="text-center" onSubmit={e => handleOnSubmit(e)}>
                     <input name="usuario" 
@@ -96,14 +105,20 @@ function Form({onModalClick}){
                         { state.type === 'password' ? <Visibility/> : <VisibilityOff/>}
                         </button>
                         <br/>
-                        <Link to="/passwordRecovery" className="text-blue-800">Olvide mi contraseña</Link>
                     </div>
                     <label>Mantener la sesion iniciada</label>
-                    <input onChange={e=> handleSession(e)} value="" type="checkbox"/>
+                    <input onChange={handleSession} value="" type="checkbox"/>
                     <br/>
-                    <button> Ingresar </button>
+                    <Link to="/passwordRecovery" className="text-color-blue-200">Olvide mi contraseña</Link>
+                    <div className='flex justify-center'>
+                        <button className='btn-custom btn-colors justify-center mb-2'> Ingresar </button>
+                    </div>
                 </form>
-                <button onClick={onModalClick} className="text-red-800">Cancelar</button>
+                <button onClick={onModalClick} className="btn-custom btn-colors justify-center">Cancelar</button>
+                <div className='flex flex-col space-y-4'>
+                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
+                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
+                </div>
             </div>
         </ReactModal>
     )
