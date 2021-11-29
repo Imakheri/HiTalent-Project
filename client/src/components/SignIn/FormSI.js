@@ -9,7 +9,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import { loguearUsuario } from '../../actions/index'
 import { useDispatch } from "react-redux";
 
-function Form({onModalClick}){
+function Form({ onModalClick }){
 
     let dispatch = useDispatch()
 
@@ -99,7 +99,7 @@ function Form({onModalClick}){
                         <Link to="/passwordRecovery" className="text-blue-800">Olvide mi contraseña</Link>
                     </div>
                     <label>Mantener la sesion iniciada</label>
-                    <input onChange={e=> handleSession(e)} value="" type="checkbox"/>
+                    <input onChange={handleSession} value="" type="checkbox"/>
                     <br/>
                     <button> Ingresar </button>
                 </form>
