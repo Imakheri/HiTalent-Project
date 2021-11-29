@@ -73,7 +73,7 @@ const handleFacebookAuth = () => {
             isOpen={modalIsOpen}
             onRequestClose={onModaleClick}
             contentLabel="Example Modal"
-            className="absolute m-auto max-w-max inset-x-0.5 top-40 bg-semidark border rounded-lg"
+            className="absolute m-auto max-w-max inset-x-0.5  bg-semidark border rounded-lg"
             overlayClassName="fixed inset-0 bg-black bg-opacity-90">
         <div className='flex justify-around bg-dark items-center w-screen text-white m-auto max-w-max inset-16 border border-dark rounded-lg'>
             <div className='flex flex-col bg-semidark bg-opacity-40 border-white border-2 rounded-lg w-80 p-8'>
@@ -89,11 +89,11 @@ const handleFacebookAuth = () => {
                             <label className='mt-2'>Fecha de Nacimiento</label>
                             <input className='bg-semidark text-center hover:bg-dark transition duration-300 ease-in-out rounded-lg' type='date' value={input.birthday} name='birthday' onChange={(e) => handleChange(e)} required/>
                         </div>
-                    </form>
-                <div className='flex justify-center mb-2'>
+                <div className='flex justify-center m-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
-                <div className='mt-2'>
+                    </form>
+                <div className=''>
                     <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
                     <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
                 </div>  
