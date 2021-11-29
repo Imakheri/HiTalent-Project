@@ -1,0 +1,9 @@
+.reviews-info {
+    width: 100%;
+}
+
+.reviews-info li{
+    background-color: #ededed;
+    margin-bottom: 1rem;
+}
+
