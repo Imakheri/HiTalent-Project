@@ -81,43 +81,51 @@ function Form({ onModalClick }){
             isOpen={modalIsOpen}
             onRequestClose={onModalClick}
             contentLabel="Example Modal"
-            className=" absolute m-auto max-w-max inset-16 bg-semidark border border-dark rounded-lg"
-            overlayClassName="fixed inset-0 bg-black bg-opacity-50">
-            <div className="flex h-96 items-center flex-col text-white">
+            className=" absolute m-auto max-w-max inset-x-0 top-40 bg-dark border-2 border-white rounded-lg"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-90">
+            <div className="flex h-96 items-center flex-col bg-semidark bg-opacity-40 text-white w-96 space-y-4">
                 <h2 className="text-3xl my-2 font-semibold">Iniciar sesion</h2>
-                <form className="text-center" onSubmit={e => handleOnSubmit(e)}>
-                    <input name="usuario" 
-                    type="text"  
-                    placeholder="Usuario / Email" 
-                    onChange={e => handleOnChange(e)} 
-                    required
-                    className="h-8 bg-semidark border border-semilight rounded m-4"
-                    />
-                    <div>
-                        <input name="contraseña" 
-                        type={state.type} 
-                        placeholder="Contraseña" 
+                <form className="text-center space-y-4" onSubmit={e => handleOnSubmit(e)}>
+                    <div className='flex flex-col space-y-4'>
+                        <div className='w-full rounded'>
+                        <input name="usuario" 
+                        type="text"  
+                        placeholder="Usuario / Email" 
                         onChange={e => handleOnChange(e)} 
                         required
-                        className="h-8 w-4/5 bg-semidark border border-semilight rounded"
+                        className="h-8 w-11/12 bg-semidark bg-opacity-0 border-b-2 focus:outline-none placeholder-white"
                         />
-                        <button onClick={e => handleChange(e)}>
-                        { state.type === 'password' ? <Visibility/> : <VisibilityOff/>}
-                        </button>
-                        <br/>
+                        </div>
+                        <div className='w-full rounded'>
+                            <input name="contraseña" 
+                            type={state.type} 
+                            placeholder="Contraseña" 
+                            onChange={e => handleOnChange(e)} 
+                            required
+                            className="h-8 w-4/5 bg-semidark bg-opacity-0 border-b-2 focus:outline-none placeholder-white"
+                            />
+                            <button className='border-b-2 border-white'onClick={e => handleChange(e)}>
+                            { state.type === 'password' ? <Visibility/> : <VisibilityOff/>}
+                            </button>
+                            <br/>
+                        </div>
                     </div>
-                    <label>Mantener la sesion iniciada</label>
-                    <input onChange={handleSession} value="" type="checkbox"/>
-                    <br/>
-                    <Link to="/passwordRecovery" className="text-color-blue-200">Olvide mi contraseña</Link>
-                    <div className='flex justify-center'>
-                        <button className='btn-custom btn-colors justify-center mb-2'> Ingresar </button>
+                    <div className='flex flex-row items-center'>
+                        <label>Recuérdame</label>
+                        <input className='ml-2' onChange={handleSession} value="" type="checkbox"/>
+                        <Link to="/passwordRecovery" className="ml-14">Olvide mi contraseña</Link>
+                    </div>
+                    <div className='flex'>
+                        <button className='btn-custom btn-colors mb-2 mr-2'>Ingresar</button>
+                        <button onClick={onModalClick} className="btn-custom btn-colors ml-2">Cancelar</button>
                     </div>
                 </form>
-                <button onClick={onModalClick} className="btn-custom btn-colors justify-center">Cancelar</button>
                 <div className='flex flex-col space-y-4'>
-                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
-                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
+                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 mr-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
+                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
+                </div>
+                <div className='flex justify-center content-center items-center m-4'>
+                    <p className='text-sm mr-2'>¿No tienes cuenta?</p><button className='text-1xl font-semibold'>¡Registrate ahora!</button>
                 </div>
             </div>
         </ReactModal>

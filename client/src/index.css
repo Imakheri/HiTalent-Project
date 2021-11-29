@@ -17,5 +17,5 @@
 }
 
 .btn-social {
-    @apply flex items-center text-sm 
+    @apply flex items-center text-sm font-medium
 }

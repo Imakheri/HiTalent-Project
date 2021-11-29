@@ -4,7 +4,7 @@ import VideoLanding from '../../assets/videolanding.mp4'
 export default function Beneficios() {
     return (
         <div class="flex flex-wrap justify-center content-around items-center bg-light h-96 flex-col p-3">
-            <h3 class="font-semibold text-2xl">Que puedes encontrar</h3>
+            <h3 class="font-semibold text-2xl">¿Que puedes encontrar?</h3>
             <br/>
             <div class="flex">
                 <ul>
