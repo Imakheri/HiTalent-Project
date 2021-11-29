@@ -8,6 +8,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import { loguearUsuario } from '../../actions/index'
 import { useDispatch } from "react-redux";
+import { startFacebookAuth, startGoogleAuth } from '../../actions/auth';
 
 function Form({ onModalClick }){
 
@@ -67,6 +68,14 @@ function Form({ onModalClick }){
 
     const [modalIsOpen, setIsOpen] = useState(true);
 
+    const handleGoogleAuth = () => {
+        dispatch(startGoogleAuth());
+    }
+
+    const handleFacebookAuth = () => {
+        dispatch(startFacebookAuth());
+    }
+
     return(
         <ReactModal 
             isOpen={modalIsOpen}
@@ -106,6 +115,10 @@ function Form({ onModalClick }){
                     </div>
                 </form>
                 <button onClick={onModalClick} className="btn-custom btn-colors justify-center">Cancelar</button>
+                <div className='flex flex-col space-y-4'>
+                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
+                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
+                </div>
             </div>
         </ReactModal>
     )
