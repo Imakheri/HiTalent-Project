@@ -1,3 +1,4 @@
+
 import React from 'react';
 //import { Rout } from './routes/Routes';
 
@@ -5,8 +6,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home';
 import Landing from "./components/Landing/Landing";
+
 import { NewPassword } from "./components/ResetPassword/NewPassword/NewPassword";
 import { ResetPassword } from "./components/ResetPassword/ResetPassword";
+import { Profile } from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
           <Route exact path='/home' element={<Home/>}/>
           <Route exact path="/ResetPassword" element={<ResetPassword />} />
           <Route exact path="/NewPassword" element={<NewPassword />} />
+          <Route exact path="/Profile" element={<Profile />} />
             {/* <Register /> */}
         </Routes>
     </div>

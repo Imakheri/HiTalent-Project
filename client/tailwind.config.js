@@ -27,6 +27,16 @@ module.exports = {
         'landingImg2': "url('assets/landing-img.jpg')"
       }
     },
+    extend: {
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        pfGreen: {
+          light: "#5E8B7E",
+          DEFAULT: "#2F5D62",
+        },
+      },
+    },
   },
   variants: {
     extend: {},
