@@ -45,7 +45,7 @@ const getTemplate = (name, token) => {
           <img src="https://media1.giphy.com/media/xUPGGDNsLvqsBOhuU0/giphy.gif?cid=ecf05e47ke716v2cux6xhdzu346d98wutrc5xw6x9lzpgjzc&rid=giphy.gif&ct=g" alt="">
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href="http://localhost:4000/api/user/confirm/${token}"
+              href="http://localhost:3000/user/confirm/${token}"
               target="_blank"
           >Confirmar Cuenta</a>
       </div>
