@@ -4,9 +4,6 @@ const { getToken, getTokenData } = require("../config/jwt.config");
 const { getTemplate, sendEmail } = require("../config/mail.config");
 
 async function createUser(req, res, next) {
-  let file = req.file;
-  let image = "http://localhost:3001/" + file.filename;
-  console.log(file);
   console.log(req.body);
   let {
     username,
@@ -53,8 +50,6 @@ async function createUser(req, res, next) {
       lastName: lastName,
       birthdate: birthdate,
       email: email,
-      email_verified: email_verified,
-      image,
       country: country,
       code: code,
     });
