@@ -4,10 +4,10 @@ const { getToken, getTokenData } = require("../config/jwt.config");
 const { getTemplate, sendEmail } = require("../config/mail.config");
 
 async function createUser(req, res, next) {
-  let file=req.file
-  let image="http://localhost:3001/"+file.filename
-  console.log(file)
-  console.log(req.body)
+  let file = req.file;
+  let image = "http://localhost:3001/" + file.filename;
+  console.log(file);
+  console.log(req.body);
   let {
     username,
     password,
@@ -128,8 +128,8 @@ const confirm = async (req, res) => {
 };
 
 async function getUser(req, res, next) {
-  var all=await Users.findAll()
-  res.json(all)
+  var all = await Users.findAll();
+  res.json(all);
 }
 
 async function deleteUser(req, res, next) {
@@ -186,25 +186,24 @@ async function getLogIn(req, res, next) {
     }
   }
 }
-};
 
-const editUser = async(req,res,next)=>{
-  let file=req.file
-  let {username}=req.body
-  try{
-    var user=await Users.findOne({  where:{username}} )
-    let path="http://localhost:3001/"+file.filename
-    user.image=path
-    await user.save()
-    res.send(user.toJSON())
-  }catch(e){
-    console.log(e)
+const editUser = async (req, res, next) => {
+  let file = req.file;
+  let { username } = req.body;
+  try {
+    var user = await Users.findOne({ where: { username } });
+    let path = "http://localhost:3001/" + file.filename;
+    user.image = path;
+    await user.save();
+    res.send(user.toJSON());
+  } catch (e) {
+    console.log(e);
     res.status(400).json({
-      message:"error",
-      type:e.message
-    })
+      message: "error",
+      type: e.message,
+    });
   }
-}
+};
 
 module.exports = {
   createUser,
@@ -212,5 +211,5 @@ module.exports = {
   getUser,
   getLogIn,
   confirm,
-  editUser
+  editUser,
 };
