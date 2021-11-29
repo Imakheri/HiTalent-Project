@@ -4,6 +4,22 @@ export const SEARCH_TALENT = 'SEARCH_TALENT'
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 export const POST_USER = 'POST_USER';
 export const GET_USER_TOKEN = 'GET_USER_TOKEN';
+export const GET_TALENT = 'GET_TALENT';
+
+export function getTalents() {
+    return function(dispatch) {
+        axios.get('http://localhost:3001/talents')
+        .then(talents => {
+            dispatch({
+                type: GET_TALENT,
+                payload: talents.data
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
   
 export function searchTalent(search) {
     return function(dispatch) {
