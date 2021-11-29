@@ -8,11 +8,11 @@ const mail = {
 
 let transporter = nodemailer.createTransport({
   host: HOST,
-  port: 587,
+  port: 465,
   tls: {
     rejectUnauthorized: false,
   },
-  secure: false, // true for 465, false for other ports
+  secure: true, // true for 465, false for other ports
   auth: {
     user: mail.user, // generated ethereal user
     pass: mail.pass, // generated ethereal password
