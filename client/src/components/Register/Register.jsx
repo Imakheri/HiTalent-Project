@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { createUser } from '../../actions/index';
 import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
 import ReactModal from 'react-modal';
-
+import axios from 'axios';
 
 export default function Register({ onModaleClick }) {
 const dispatch = useDispatch();
@@ -17,8 +17,11 @@ const [input, setInput] = useState ({
     email: '',
     username: '',
     password: '',
+    password2: '',
     birthday: ''
 });
+
+console.log("INPUT: ", input)
 
 function handleChange(e){
     setInput({
@@ -26,10 +29,12 @@ function handleChange(e){
         [e.target.name] : e.target.value
     })
 }
+function createUser(input){
+    axios.post('http://localhost:3001/user', input)
+}
 
-function handleOnSubmit(e){
-    e.preventefault()
-    dispatch(createUser(input))
+function auxiliar(){
+    createUser(input)
     alert('¡El usuario ha sido creado correctamente!')
     setInput({
         name: '',
@@ -37,8 +42,21 @@ function handleOnSubmit(e){
         email: '',
         username: '',
         password: '',
+        password2: "",
         birthday: ''
     })
+    setIsOpen(false)
+}
+
+function comprobacionPw(a, b){
+    a === b ? 
+    auxiliar() : 
+    alert("Las contraseñas no coinciden")
+}
+
+function handleOnSubmit(e){
+    e.preventDefault();
+    comprobacionPw(input.password, input.password2)
 }
 
 const handleGoogleAuth = () => {
@@ -66,7 +84,7 @@ const handleFacebookAuth = () => {
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Correo electrónico' type='email' value={input.email} name='email' onChange={(e) => handleChange(e)} required/>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Nombre de usuario' type='text' value={input.username} name='username' onChange={(e) => handleChange(e)} required/>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Contraseña' type='password' value={input.password} name='password' onChange={(e) => handleChange(e)} required/>
-                        <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Repite la contraseña' type='password' value={input.password} name='password' onChange={(e) => handleChange(e)} required/>
+                        <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Repite la contraseña' type='password' value={input.password2} name='password2' onChange={(e) => handleChange(e)} required/>
                         <div className='flex flex-col'>
                             <label className='mt-2'>Fecha de Nacimiento</label>
                             <input className='bg-semidark text-center hover:bg-dark transition duration-300 ease-in-out rounded-lg' type='date' value={input.birthday} name='birthday' onChange={(e) => handleChange(e)} required/>
@@ -75,6 +93,7 @@ const handleFacebookAuth = () => {
                 <div className='flex justify-center mb-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
+                    </form>
                 <div className='mt-2'>
                     <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
                     <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
