@@ -5,6 +5,7 @@ import LandingSearchbar from "./LandingSearchbar";
 import Navbar from "./Navbar";
 import Footer from './Footer'
 import Form from "../SignIn/FormSI";
+import Reseñas from "./Reseñas";
 
 export default function Landing() {
 
@@ -30,6 +31,7 @@ export default function Landing() {
                 </div>
             </div>
                 <Beneficios/>
+                <Reseñas />
                 <Footer/>
         </div>
     )
