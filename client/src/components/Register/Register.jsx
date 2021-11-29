@@ -18,7 +18,7 @@ const [input, setInput] = useState ({
     username: '',
     password: '',
     password2: '',
-    birthday: ''
+    birthdate: ''
 });
 
 console.log("INPUT: ", input)
@@ -43,7 +43,7 @@ function auxiliar(){
         username: '',
         password: '',
         password2: "",
-        birthday: ''
+        birthdate: ''
     })
     setIsOpen(false)
 }
@@ -87,7 +87,7 @@ const handleFacebookAuth = () => {
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Repite la contraseña' type='password' value={input.password2} name='password2' onChange={(e) => handleChange(e)} required/>
                         <div className='flex flex-col'>
                             <label className='mt-2'>Fecha de Nacimiento</label>
-                            <input className='bg-semidark text-center hover:bg-dark transition duration-300 ease-in-out rounded-lg' type='date' value={input.birthday} name='birthday' onChange={(e) => handleChange(e)} required/>
+                            <input className='bg-semidark text-center hover:bg-dark transition duration-300 ease-in-out rounded-lg' type='date' value={input.birthdate} name='birthdate' onChange={(e) => handleChange(e)} required/>
                         </div>
                 <div className='flex justify-center m-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>

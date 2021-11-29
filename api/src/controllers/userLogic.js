@@ -15,6 +15,7 @@ async function createUser(req, res, next) {
     email_verified,
     country,
   } = req.body;
+  console.log(birthdate)
   // hacer un if donde si el email es "adminuser@admin.com", el isAdmin = true y isDataComplete = true
   //console.log(req.body)
   try {
@@ -93,7 +94,9 @@ const confirm = async (req, res) => {
     const { email, code } = data.data;
 
     // Verificar existencia del usuario
-    const user = (await Users.findOne({ email })) || null;
+    const user = (await Users.findOne({ where: {
+      email: email
+    }})) || null;
 
     if (user === null) {
       return res.json({
