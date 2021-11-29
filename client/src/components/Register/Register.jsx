@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createUser } from '../../actions/index';
 import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
 import ReactModal from 'react-modal';
@@ -8,7 +8,6 @@ import ReactModal from 'react-modal';
 
 export default function Register({ onModaleClick }) {
 const dispatch = useDispatch();
-const user = useSelector((state) => state.user);
 
 const [modalIsOpen, setIsOpen] = useState(true);
 const [input, setInput] = useState ({
@@ -73,7 +72,7 @@ const handleFacebookAuth = () => {
                         </div>
                     </form>
                 <div className='flex justify-center'>
-                    <button className='btn-custom btn-logout' type='submit'>Registrarme</button>
+                    <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
                 <div className='mt-2'>
                     <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
