@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+//AQUÍ VAN LAS CREDENCIALES DEL FIREBASE
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();

@@ -74,7 +74,7 @@ function Form({onModalClick}){
             contentLabel="Example Modal"
             className=" absolute m-auto max-w-max inset-16 bg-semidark border border-dark rounded-lg"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50">
-            <div className="flex h-96 items-center flex-col">
+            <div className="flex h-96 items-center flex-col text-white">
                 <h2 className="text-3xl my-2 font-semibold">Iniciar sesion</h2>
                 <form className="text-center" onSubmit={e => handleOnSubmit(e)}>
                     <input name="usuario" 
@@ -96,14 +96,16 @@ function Form({onModalClick}){
                         { state.type === 'password' ? <Visibility/> : <VisibilityOff/>}
                         </button>
                         <br/>
-                        <Link to="/passwordRecovery" className="text-blue-800">Olvide mi contraseña</Link>
                     </div>
-                    <label>Mantener la sesion iniciada</label>
+                    <label>Recuérdame</label>
                     <input onChange={e=> handleSession(e)} value="" type="checkbox"/>
                     <br/>
-                    <button> Ingresar </button>
+                    <Link to="/passwordRecovery" className="text-color-blue-200">Olvide mi contraseña</Link>
+                    <div className='flex justify-center'>
+                        <button className='btn-custom btn-colors justify-center mb-2'> Ingresar </button>
+                    </div>
                 </form>
-                <button onClick={onModalClick} className="text-red-800">Cancelar</button>
+                <button onClick={onModalClick} className="btn-custom btn-colors justify-center">Cancelar</button>
             </div>
         </ReactModal>
     )
