@@ -5,15 +5,18 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home';
 import Landing from "./components/Landing/Landing";
+import { NewPassword } from "./components/ResetPassword/NewPassword/NewPassword";
+import { ResetPassword } from "./components/ResetPassword/ResetPassword";
 
 function App() {
   return (
     <BrowserRouter>
     <div>
-      {/* <Form /> */}
         <Routes>
           <Route exact path='/' element={<Landing/>}/>
           <Route exact path='/home' element={<Home/>}/>
+          <Route exact path="/ResetPassword" element={<ResetPassword />} />
+          <Route exact path="/NewPassword" element={<NewPassword />} />
             {/* <Register /> */}
         </Routes>
     </div>
