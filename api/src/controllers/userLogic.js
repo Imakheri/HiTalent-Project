@@ -93,7 +93,7 @@ const confirm = async (req, res) => {
     const { email, code } = data.data;
 
     // Verificar existencia del usuario
-    const user = (await Users.findOne({ email })) || null;
+    const user = (await Users.findOne({ where: { email: email } })) || null;
 
     if (user === null) {
       return res.json({
