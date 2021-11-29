@@ -41,7 +41,7 @@ export const Rout = () => {
                 <Route exact path="/ResetPassword" element={<ResetPassword />} />
                 <Route exact path="/NewPassword" element={<NewPassword />} />
                 <Route exact path="/Profile" element={<Profile />} />
-                <Route exact path="/validate" element={<Validate />} />
+                <Route path="/user/confirm/:token" element={<Validate />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route path='/home' element={<Home
                     // <Route 
