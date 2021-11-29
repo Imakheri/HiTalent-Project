@@ -43,11 +43,11 @@ export const Rout = () => {
                 <Route exact path="/Profile" element={<Profile />} />
                 <Route exact path="/validate" element={<Validate />} />
                 <Route exact path="/register" element={<Register />} />
-                <Route path='/home' element={
-                    <Route 
-                    element = {(props) =>
-                    isLoggedIn ? <Home /> : <Navigate to='/' />
-                    }
+                <Route path='/home' element={<Home
+                    // <Route 
+                    // element = {(props) =>
+                    // isLoggedIn ? <Home /> : <Navigate to='/' />
+                    // }
                 />
                 }
                 />
