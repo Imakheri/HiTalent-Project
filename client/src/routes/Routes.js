@@ -5,9 +5,10 @@ import { firebase } from '../firebase/firebase-config';
 import { login } from '../actions/auth';
 // import { Private } from './Private';
 import Home from '../components/Home/Home';
-import Login from '../components/Login/Login';
-import Register from '../components/Register/Register';
-// import Home from '../Pages/Home';
+import Landing from '../components/Landing/Landing';
+import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
+import { ResetPassword } from "../components/ResetPassword/ResetPassword";
+import { Profile } from '../components/Profile/Profile';
 
 
 export const Rout = () => {
@@ -34,8 +35,10 @@ export const Rout = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path='/' element={<Login />} />
-                <Route path='/register' element={<Register />} />
+                <Route exact path='/' element={<Landing />} />
+                <Route exact path="/ResetPassword" element={<ResetPassword />} />
+                <Route exact path="/NewPassword" element={<NewPassword />} />
+                <Route exact path="/Profile" element={<Profile />} />
                 <Route path='/home' element={
                     <Route 
                     element = {(props) =>

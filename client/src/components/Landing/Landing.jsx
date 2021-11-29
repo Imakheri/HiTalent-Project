@@ -15,9 +15,6 @@ export default function Landing() {
         setVentanaLogIn(!ventanaLogIn)
     }
 
-    
-
-
     return (
         <div class="bg-semilight min-h-screen select-none">
             <Navbar onModalClick={onModalClick}/>

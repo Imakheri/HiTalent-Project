@@ -3,6 +3,7 @@ import axios from 'axios'
 export const SEARCH_TALENT = 'SEARCH_TALENT'
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 export const POST_USER = 'POST_USER';
+export const GET_USER_TOKEN = 'GET_USER_TOKEN';
   
 export function searchTalent(search) {
     return function(dispatch) {
@@ -40,5 +41,21 @@ export function createUser(payload){
         return dispatch({
           type: POST_USER,
           payload: newUser
-    })
-}}
+        })
+    }
+}
+
+export function getUserbyToken(token){
+    return async function (dispatch){
+        try{
+            var json = await axios.get('http://localhost:3001/user/confirm/' + token);
+            return dispatch ({
+                type: 'GET_USER_TOKEN',
+                payload: json.data
+            })
+        } 
+        catch (error) {
+            console.log(error)
+        }
+    }
+}
