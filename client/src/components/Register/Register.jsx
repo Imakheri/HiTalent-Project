@@ -10,6 +10,7 @@ export default function Register({ onModaleClick }) {
 const dispatch = useDispatch();
 
 const [modalIsOpen, setIsOpen] = useState(true);
+
 const [input, setInput] = useState ({
     name: '',
     lastName: '',
@@ -54,10 +55,10 @@ const handleFacebookAuth = () => {
             isOpen={modalIsOpen}
             onRequestClose={onModaleClick}
             contentLabel="Example Modal"
-            className="h-screen absolute m-auto max-w-max inset-16 bg-semidark border border-dark rounded-lg"
-            overlayClassName="fixed inset-0 bg-black bg-opacity-50">
+            className="absolute m-auto max-w-max inset-x-0.5 top-40 bg-semidark border rounded-lg"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-90">
         <div className='flex justify-around bg-dark items-center w-screen text-white m-auto max-w-max inset-16 border border-dark rounded-lg'>
-            <div className='flex flex-col bg-semidark bg-opacity-40 border-white border-2 border-red-500 rounded-lg w-80 p-8'>
+            <div className='flex flex-col bg-semidark bg-opacity-40 border-white border-2 rounded-lg w-80 p-8'>
                 <h2 className='flex text-3xl font-extrabold mb-2'>Registro</h2>
                     <form className='flex flex-col space-y-2 mb-6 ' onSubmit={(e) => handleOnSubmit(e)}>
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Nombre' type='text' value={input.name} name='name' onChange={(e) => handleChange(e)} required/>
@@ -71,7 +72,7 @@ const handleFacebookAuth = () => {
                             <input className='bg-semidark text-center hover:bg-dark transition duration-300 ease-in-out rounded-lg' type='date' value={input.birthday} name='birthday' onChange={(e) => handleChange(e)} required/>
                         </div>
                     </form>
-                <div className='flex justify-center'>
+                <div className='flex justify-center mb-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
                 <div className='mt-2'>

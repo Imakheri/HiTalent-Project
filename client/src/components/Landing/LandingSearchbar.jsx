@@ -19,8 +19,8 @@ export default function LandingSearchbar() {
     return (
         <div class="p-3 h-72 bg-light rounded-md m-5 flex flex-col items-center justify-around bg-opacity-70">
             <div class="flex flex-col items-center">
-                <h3 class="font-semibold text-3xl">Quieres aprender algo nuevo?</h3>
-                <small class="text-2xl">Busca por nuestro sitio y encuentra lo adecuado para ti</small>
+                <h3 class="font-semibold text-3xl mb-4">¿Quieres aprender algo nuevo?</h3>
+                <small class="text-2xl">¡Busca en este sitio y encuentra lo adecuado para ti!</small>
             </div>
             <form onSubmit={onSubmit}>
                 <div class="searchbar-inner bg-gray-200">
