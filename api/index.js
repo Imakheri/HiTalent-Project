@@ -6,36 +6,15 @@ const { conn,Users,Posts,Categories,Review,Orders,Favorites,Payments,Question } 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async() => {
-    var testuser=Users.create({
-      name:"pepe",
-      username:"pepe123",
-      password:"123",
-      birthdate:"2016-06-21",
-      lastName:"honguito",
-      email:"pepehonguito@gmail.com",
 
-    })
-    var testpost=Posts.create({
-      title:"algo",
-      description:"clases de algo",
-      cost:12
-    })
-    var testcategory=Categories.create({
-      title:"canto"
-    })
-    var testreview=Review.create({
-      rating:3,
-      description:"ta buena"
-    })
-    Promise.all([testpost,testuser,testcategory,testreview]).then(res=>{
-      res[0].setUser(res[1])
-      res[0].setCategory(res[2])
-      res[3].setUser(res[1])      //le seteo el usuario q creo la review
-      res[3].setPost(res[0])      // y la publicacion sobre la cual la hizo
+    Categories.bulkCreate([
+      {title:"Tecnologias"},
+      {title:"Arte"},
+      {title:"Educacion"},
+      {title:"Cocina"},
+    ]).then(e=>{
       
-
-      //console.log(res[3].toJSON())
-    })
+    }).catch(e=>console.log(e))
     //------------------------------------------------------------------------------
     var testpost1=await Posts.create({ //creo post 1
       title:"canto",
@@ -63,7 +42,7 @@ conn.sync({ force: true }).then(() => {
     await testorden.setUser(testuser1) //le vinculo un usuario
     await testorden.setPost(testpost2) // le vinculo un post
     
-    console.log(testorden.toJSON()) //la muestro y anda C:
+    //console.log(testorden.toJSON()) //la muestro y anda C:
 
     //-------------------------------------------------------------------------
 
@@ -102,7 +81,7 @@ conn.sync({ force: true }).then(() => {
       question:"probando pregunta??????"
     })
     await testquestion.setUser(testuser3)  //la bindeo a un usuario , q seria quien la pregunto
-    console.log(testquestion.toJSON()) //la muestro
+    //console.log(testquestion.toJSON()) //la muestro
     testquestion.answer="la respondo"
     testquestion.save()
     //console.log(testquestion.toJSON())
