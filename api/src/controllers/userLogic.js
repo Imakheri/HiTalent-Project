@@ -1,6 +1,7 @@
 const { Users } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { getToken, getTokenData } = require("../config/jwt.config");
+const bcrypt = require("bcrypt");
 const {
   getTemplate,
   sendEmail,
@@ -9,10 +10,6 @@ const {
 } = require("../config/mail.config");
 
 async function createUser(req, res, next) {
-  let file = req.file;
-  let image = "http://localhost:3001/" + file.filename;
-  console.log(file);
-  console.log(req.body);
   let {
     username,
     password,
@@ -47,19 +44,21 @@ async function createUser(req, res, next) {
     let isValid = expReg.test(email);
     if (isValid === false) return res.send("El email no es valido");
 
+    //Hashear contraseña
+    let passwordHash = await bcrypt.hash(password, 10);
+
     //-----GENERAR EL CODIGO-------
     const code = uuidv4();
 
     //Si todo esta correcto, se crea el usuario
     const newUser = await Users.create({
       username: username,
-      password: password,
+      password: passwordHash,
       name: name,
       lastName: lastName,
       birthdate: birthdate,
       email: email,
       email_verified: email_verified,
-      image,
       country: country,
       code: code,
     });
@@ -181,7 +180,8 @@ async function getLogIn(req, res, next) {
       },
     });
     if (userMatch) {
-      if (userMatch.password === password) {
+      let compare = bcrypt.compareSync(password, userMatch.password);
+      if (compare) {
         res.send(userMatch);
       } else {
         res.send("Password incorrecto");
@@ -217,7 +217,7 @@ async function emailResetPassword(req, res, next) {
     const template = getTemplatePassword();
 
     //-----ENVIAR EL EMAIL------
-    await sendEmail(email, "Recuperar", template);
+    await sendEmailPassword(email, "Recuperar", template);
 
     res.json({
       success: true,
@@ -231,7 +231,8 @@ const editPassword = async (req, res, next) => {
   let { email, password } = req.body;
   try {
     let user = await Users.findOne({ where: { email: email } });
-    user.password = password;
+    let passwordHash = await bcrypt.hash(password, 10);
+    user.password = passwordHash;
     await user.save();
     res.send(user.toJSON());
   } catch (error) {

@@ -15,7 +15,7 @@ const { uploader } = require("../../middleware/uploader");
 router.post("/", uploader.single("image"), createUser);
 router.delete("/", deleteUser);
 router.get("/", getUser);
-router.get("/", getLogIn);
+router.post("/loggin", getLogIn);
 router.put("/", uploader.single("image"), editUser);
 router.get("/confirm/:token", confirm);
 router.post("/emailResetPassword", emailResetPassword);
