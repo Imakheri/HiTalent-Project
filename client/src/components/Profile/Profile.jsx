@@ -1,12 +1,12 @@
-import React from "react";
-import { ProfileContent } from "./ProfileContent/ProfileContent";
-import { Sidebar } from "./Sidebar/Sidebar";
+import React from 'react';
 
-export const Profile = () => {
-  return (
-    <div className="container mt-5">
-      <Sidebar />
-      <ProfileContent />
-    </div>
-  );
-};
+import User from './User';
+
+export default function Profile(){
+    return(
+        <div className='flex flex-col items-center py-10 bg-dark max-w-xs border text-white border-dark rounded-lg'>
+            <User />
+            
+        </div>
+    )
+}
