@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const SEARCH_TALENT = 'SEARCH_TALENT'
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
-export const POST_USER = 'POST_USER';
+
 export const GET_USER_TOKEN = 'GET_USER_TOKEN';
 export const GET_TALENT = 'GET_TALENT';
 
@@ -51,22 +51,13 @@ export function loguearUsuario(){
     } 
 }
 
-export function createUser(payload){
-    return async function(dispatch){  
-      const newUser = await axios.post('http://localhost:3001/user', payload)
-        return dispatch({
-          type: POST_USER,
-          payload: newUser
-        })
-    }
-}
 
 export function getUserbyToken(token){
     return async function (dispatch){
         try{
-            var json = await axios.get('http://localhost:3001/user/confirm/' + token);
+            var json = await axios.post('http://localhost:3001/user/confirm/' + token);
             return dispatch ({
-                type: 'GET_USER_TOKEN',
+                type: GET_USER_TOKEN,
                 payload: json.data
             })
         } 
