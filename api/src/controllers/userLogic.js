@@ -1,13 +1,15 @@
 const { Users } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { getToken, getTokenData } = require("../config/jwt.config");
-const { getTemplate, sendEmail } = require("../config/mail.config");
+const bcrypt = require("bcrypt");
+const {
+  getTemplate,
+  sendEmail,
+  sendEmailPassword,
+  getTemplatePassword,
+} = require("../config/mail.config");
 
 async function createUser(req, res, next) {
-  let file = req.file;
-  let image = "http://localhost:3001/" + file.filename;
-  console.log(file);
-  console.log(req.body);
   let {
     username,
     password,
@@ -42,19 +44,21 @@ async function createUser(req, res, next) {
     let isValid = expReg.test(email);
     if (isValid === false) return res.send("El email no es valido");
 
+    //Hashear contraseña
+    let passwordHash = await bcrypt.hash(password, 10);
+
     //-----GENERAR EL CODIGO-------
     const code = uuidv4();
 
     //Si todo esta correcto, se crea el usuario
     const newUser = await Users.create({
       username: username,
-      password: password,
+      password: passwordHash,
       name: name,
       lastName: lastName,
       birthdate: birthdate,
       email: email,
       email_verified: email_verified,
-      image,
       country: country,
       code: code,
     });
@@ -176,7 +180,8 @@ async function getLogIn(req, res, next) {
       },
     });
     if (userMatch) {
-      if (userMatch.password === password) {
+      let compare = bcrypt.compareSync(password, userMatch.password);
+      if (compare) {
         res.send(userMatch);
       } else {
         res.send("Password incorrecto");
@@ -205,6 +210,40 @@ const editUser = async (req, res, next) => {
   }
 };
 
+async function emailResetPassword(req, res, next) {
+  let { email } = req.body;
+  try {
+    //-----OBTENER UN TEMPLATE-----
+    const template = getTemplatePassword();
+
+    //-----ENVIAR EL EMAIL------
+    await sendEmailPassword(email, "Recuperar", template);
+
+    res.json({
+      success: true,
+      msg: "Enviado",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+const editPassword = async (req, res, next) => {
+  let { email, password } = req.body;
+  try {
+    let user = await Users.findOne({ where: { email: email } });
+    let passwordHash = await bcrypt.hash(password, 10);
+    user.password = passwordHash;
+    await user.save();
+    res.send(user.toJSON());
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "error",
+      type: error.message,
+    });
+  }
+};
+
 module.exports = {
   createUser,
   deleteUser,
@@ -212,4 +251,6 @@ module.exports = {
   getLogIn,
   confirm,
   editUser,
+  emailResetPassword,
+  editPassword,
 };
