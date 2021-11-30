@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
     },
   
     duration: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     oferta:{
