@@ -1,4 +1,4 @@
-const {Posts,Users,Categories}=require("../db")
+const {Posts,Users,Categories, Review }=require("../db")
 
 const getPosts= async(req,res,next)=>{
     var post=await Posts.findAll()
@@ -104,6 +104,44 @@ const deleteImage = async(req,res,next)=>{
 
 }
 
+async function getTalentById(req, res, next){
+   let { id } = req.params;
+
+         if (id && id.length === 36) { 
+          try {
+              let gotId = await Posts.findOne({
+                  where: {
+                      id: id
+                  },
+                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost'],
+                  include: [{
+                      model: Users,
+                      attributes: ['id', 'username', 'score', 'country', 'image'],
+                  },
+                {
+                     model: Categories,
+                     attributes: ['id', 'title'], 
+                },
+                {
+                    model: Review,
+                    attributes: ['rating', 'description'],
+                }]
+              });
+              if (gotId) res.json(gotId);
+              else throw new Error('No se encontro el curso');
+          } catch (error) {
+              next(error)
+          }
+      };
+      if (id && id.length !== 36) {
+          try {
+              throw new TypeError('id invalido')
+          } catch (error) {
+              next(error);
+          }
+      }
+};
+
 
 
 module.exports={
@@ -112,5 +150,6 @@ module.exports={
     updatePost,
     deletePost,
     addImage,
-    deleteImage
-}
+    deleteImage,
+    getTalentById
+};
