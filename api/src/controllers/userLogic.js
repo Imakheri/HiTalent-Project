@@ -1,7 +1,12 @@
 const { Users } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { getToken, getTokenData } = require("../config/jwt.config");
-const { getTemplate, sendEmail } = require("../config/mail.config");
+const {
+  getTemplate,
+  sendEmail,
+  sendEmailPassword,
+  getTemplatePassword,
+} = require("../config/mail.config");
 
 async function createUser(req, res, next) {
   let file = req.file;
@@ -205,6 +210,39 @@ const editUser = async (req, res, next) => {
   }
 };
 
+async function emailResetPassword(req, res, next) {
+  let { email } = req.body;
+  try {
+    //-----OBTENER UN TEMPLATE-----
+    const template = getTemplatePassword();
+
+    //-----ENVIAR EL EMAIL------
+    await sendEmail(email, "Recuperar", template);
+
+    res.json({
+      success: true,
+      msg: "Enviado",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+const editPassword = async (req, res, next) => {
+  let { email, password } = req.body;
+  try {
+    let user = await Users.findOne({ where: { email: email } });
+    user.password = password;
+    await user.save();
+    res.send(user.toJSON());
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "error",
+      type: error.message,
+    });
+  }
+};
+
 module.exports = {
   createUser,
   deleteUser,
@@ -212,4 +250,6 @@ module.exports = {
   getLogIn,
   confirm,
   editUser,
+  emailResetPassword,
+  editPassword,
 };
