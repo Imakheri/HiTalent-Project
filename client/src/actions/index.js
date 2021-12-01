@@ -36,17 +36,18 @@ export function searchTalent(search) {
     }
 }
 
-export function loguearUsuario(){
+export function loguearUsuario(payload){
+    console.log(payload)
     return async function(dispatch){
         try{
-            let usuario = await axios.get('http://localhost:3001/usuario');
+            let usuario = await axios.post('http://localhost:3001/user/loggin', payload);
+            console.log('usuario', usuario)
             return dispatch({
                 type: LOGUEAR_USUARIO,
                 payload: usuario.data
                 })
-
         } catch(error){
-            console.log("Error al requerir el usuario: ",error);
+            console.log("Error al requerir el usuario: ", error);
         }
     } 
 }

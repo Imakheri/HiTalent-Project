@@ -15,8 +15,8 @@ function Form({ onModalClick }){
     let dispatch = useDispatch()
 
     const [userLogin, setUserLogin] = useState({
-        usuario : "",
-        contraseña : "",
+        username : "",
+        password : "",
         mantenerSesion: false
     })
 
@@ -26,11 +26,11 @@ function Form({ onModalClick }){
     });
 
     //Busqueda dentro del mockup
-    let logginUser = usuarios.find(e => e.user.username === userLogin.usuario)
+    let logginUser = usuarios.find(e => e.user.username === userLogin.username)
     
 
     if(logginUser){
-        let exito = logginUser.user.password === userLogin.contraseña
+        let exito = logginUser.user.password === userLogin.password
     }
     //
 
@@ -55,7 +55,7 @@ function Form({ onModalClick }){
         // !logginUser ? alert("Usuario no registrado") : 
         // (userLogin.contraseña === logginUser.user.password ?
         //
-            dispatch(loguearUsuario()) 
+            dispatch(loguearUsuario(userLogin)) 
         // : alert("Contraseña Incorrecta"))
     }
 
@@ -88,7 +88,7 @@ function Form({ onModalClick }){
                 <form className="text-center space-y-4" onSubmit={e => handleOnSubmit(e)}>
                     <div className='flex flex-col space-y-4'>
                         <div className='w-full rounded'>
-                        <input name="usuario" 
+                        <input name="username" 
                         type="text"  
                         placeholder="Usuario / Email" 
                         onChange={e => handleOnChange(e)} 
@@ -97,7 +97,7 @@ function Form({ onModalClick }){
                         />
                         </div>
                         <div className='w-full rounded'>
-                            <input name="contraseña" 
+                            <input name="password" 
                             type={state.type} 
                             placeholder="Contraseña" 
                             onChange={e => handleOnChange(e)} 

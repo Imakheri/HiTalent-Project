@@ -1,15 +1,27 @@
 import React from "react";
 import { Link } from 'react-router-dom'
+import Dropdown from "./Dropdown";
 
 export default function Nav() {
+
+
+    function onSubmit(e) {
+        e.preventDefault()
+    }
+
     return (
-        <nav class="bg-semidark place-content-center items-center">
-        <div class="flex justify-between">
-            <Link to='/home'>
-            <img src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg" alt="logo hitalent" />
-            </Link>
-        {/* <input class="flex self-center items-center" type="text" name="" placeholder="Ingrese su busqueda"/> */}
-        </div>
+        <nav class="flex flex-row justify-between bg-semidark items-center">
+            <div class="flex">
+                <Link to='/home'>
+                <img class="flex justify-start" src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg" alt="logo hitalent" />
+                </Link>
+                <form onSubmit={onSubmit}>
+                <input type="text" class="h-8 m-2" placeholder="Ingresa tu busqueda" name="" id="" />
+                <input type="submit" name="" id="" />
+                </form>
+                <button>Publicar</button>
+                <Dropdown/>
+            </div>
         </nav>
     )
 }
