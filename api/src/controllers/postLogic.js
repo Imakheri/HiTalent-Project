@@ -119,6 +119,7 @@ async function getTalentById(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
+                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
                   },
                 {
                      model: Categories,
