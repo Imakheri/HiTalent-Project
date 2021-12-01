@@ -20,7 +20,7 @@ async function createUser(req, res, next) {
     email_verified,
     country,
   } = req.body;
-  console.log(birthdate)
+  console.log(birthdate);
   // hacer un if donde si el email es "adminuser@admin.com", el isAdmin = true y isDataComplete = true
   //console.log(req.body)
   try {
@@ -102,9 +102,12 @@ const confirm = async (req, res) => {
     const { email, code } = data.data;
 
     // Verificar existencia del usuario
-    const user = (await Users.findOne({ where: {
-      email: email
-    }})) || null;
+    const user =
+      (await Users.findOne({
+        where: {
+          email: email,
+        },
+      })) || null;
 
     if (user === null) {
       return res.json({
@@ -171,7 +174,7 @@ async function getLogIn(req, res, next) {
       },
     });
     if (userEmail) {
-      res.send(userEmail);
+      res.json(userEmail);
     } else {
       res.send("Email incorrecto");
     }
@@ -184,7 +187,7 @@ async function getLogIn(req, res, next) {
     if (userMatch) {
       let compare = bcrypt.compareSync(password, userMatch.password);
       if (compare) {
-        res.send(userMatch);
+        res.json(userMatch);
       } else {
         res.send("Password incorrecto");
       }
