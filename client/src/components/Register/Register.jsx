@@ -6,7 +6,7 @@ import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
 import ReactModal from 'react-modal';
 import axios from 'axios';
 
-export default function Register({ onModaleClick }) {
+export default function Register({ onModaleClick, onModalChange }) {
 const dispatch = useDispatch();
 
 const [modalIsOpen, setIsOpen] = useState(true);
@@ -98,7 +98,7 @@ const handleFacebookAuth = () => {
                     <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
                 </div>  
                 <div className='flex justify-center content-center items-center m-4'>
-                    <p className='text-sm mr-2'>¿Ya tienes cuenta?</p><button className='text-1xl font-semibold'>Iniciar sesión</button>
+                    <p className='text-sm mr-2'>¿Ya tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>Iniciar sesión</button>
                 </div>
             </div>
         </div>

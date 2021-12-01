@@ -165,20 +165,24 @@ async function deleteUser(req, res, next) {
 }
 
 async function getLogIn(req, res, next) {
-  let { username, password, email } = req.body;
+  let { username, password } = req.body;
 
-  if (email) {
+  let regexMail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+  if (regexMail.test(username)) {
     const userEmail = await Users.findOne({
       where: {
-        email: email,
+        email: username,
       },
     });
     if (userEmail) {
-      res.json(userEmail);
+      !bcrypt.compareSync(password, userEmail.password)
+        ? res.send("Contraseña incorrecta")
+        : res.json(userEmail);
     } else {
       res.send("Email incorrecto");
     }
-  } else if (username) {
+  } else {
     const userMatch = await Users.findOne({
       where: {
         username: username,
