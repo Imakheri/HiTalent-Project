@@ -13,8 +13,8 @@ function Form({ onModalClick, onModalChange }){
     let dispatch = useDispatch()
 
     const [userLogin, setUserLogin] = useState({
-        username : "hola",
-        password : "lala",
+        username : "",
+        password : "",
         mantenerSesion: false
     })
 
@@ -43,8 +43,6 @@ function Form({ onModalClick, onModalChange }){
         let respuesta = await axios.post('http://localhost:3001/user/loggin/',userLogin)
         .then(res => res.data)
         dispatch(cargarUsuario(respuesta))
-        //! REDIRIGIR 
-        // redirect.push("/home")
     }
 
     function handleSession(e){

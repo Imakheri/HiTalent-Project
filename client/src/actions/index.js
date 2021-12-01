@@ -36,9 +36,7 @@ export function searchTalent(search) {
     }
 }
 
-
 export function cargarUsuario(payload){
-
     return{
         type: CARGAR_USUARIO,
         payload: payload
