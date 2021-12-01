@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const SEARCH_TALENT = 'SEARCH_TALENT'
-export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
+export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = 'POST_USER';
 export const GET_USER_TOKEN = 'GET_USER_TOKEN';
 export const GET_TALENT = 'GET_TALENT';
@@ -36,19 +36,13 @@ export function searchTalent(search) {
     }
 }
 
-export function loguearUsuario(){
-    return async function(dispatch){
-        try{
-            let usuario = await axios.get('http://localhost:3001/usuario');
-            return dispatch({
-                type: LOGUEAR_USUARIO,
-                payload: usuario.data
-                })
 
-        } catch(error){
-            console.log("Error al requerir el usuario: ",error);
-        }
-    } 
+export function cargarUsuario(payload){
+
+    return{
+        type: CARGAR_USUARIO,
+        payload: payload
+    }
 }
 
 export function createUser(payload){

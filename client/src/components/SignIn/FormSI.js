@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
-//MockUP
-import usuarios from './DataFormSI';
-//
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
-import { loguearUsuario } from '../../actions/index'
 import { useDispatch } from "react-redux";
 import { startFacebookAuth, startGoogleAuth } from '../../actions/auth';
+import axios from 'axios';
+import { cargarUsuario } from '../../actions/index';
 
-function Form({ onModalClick }){
+function Form({ onModalClick, onModalChange }){
 
     let dispatch = useDispatch()
 
     const [userLogin, setUserLogin] = useState({
-        usuario : "",
-        contraseña : "",
+        username : "hola",
+        password : "lala",
         mantenerSesion: false
     })
 
@@ -24,15 +22,6 @@ function Form({ onModalClick }){
         type : 'password',
         button : 'mostrar'
     });
-
-    //Busqueda dentro del mockup
-    let logginUser = usuarios.find(e => e.user.username === userLogin.usuario)
-    
-
-    if(logginUser){
-        let exito = logginUser.user.password === userLogin.contraseña
-    }
-    //
 
     function handleOnChange(e){
         setUserLogin({
@@ -48,20 +37,19 @@ function Form({ onModalClick }){
         setState({type : 'password', button: 'mostrar'})
     }
 
-    //Comprobacion de usuario 
-    function handleOnSubmit(e){
+
+    async function handleOnSubmit(e){
         e.preventDefault();     
-        // COMPROBACION DE USUARIO Y CONTRASEÑA
-        // !logginUser ? alert("Usuario no registrado") : 
-        // (userLogin.contraseña === logginUser.user.password ?
-        //
-            dispatch(loguearUsuario()) 
-        // : alert("Contraseña Incorrecta"))
+        let respuesta = await axios.post('http://localhost:3001/user/loggin/',userLogin)
+        .then(res => res.data)
+        dispatch(cargarUsuario(respuesta))
+        //! REDIRIGIR 
+        redirect.push("/home")
     }
 
     function handleSession(e){
         setUserLogin({
-            ...useState,
+            ...userLogin,
             mantenerSesion: !userLogin.mantenerSesion
         })
     }
@@ -88,7 +76,7 @@ function Form({ onModalClick }){
                 <form className="text-center space-y-4" onSubmit={e => handleOnSubmit(e)}>
                     <div className='flex flex-col space-y-4'>
                         <div className='w-full rounded'>
-                        <input name="usuario" 
+                        <input name="username" 
                         type="text"  
                         placeholder="Usuario / Email" 
                         onChange={e => handleOnChange(e)} 
@@ -97,7 +85,7 @@ function Form({ onModalClick }){
                         />
                         </div>
                         <div className='w-full rounded'>
-                            <input name="contraseña" 
+                            <input name="password" 
                             type={state.type} 
                             placeholder="Contraseña" 
                             onChange={e => handleOnChange(e)} 
@@ -125,7 +113,7 @@ function Form({ onModalClick }){
                     <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
                 </div>
                 <div className='flex justify-center content-center items-center m-4'>
-                    <p className='text-sm mr-2'>¿No tienes cuenta?</p><button className='text-1xl font-semibold'>¡Registrate ahora!</button>
+                    <p className='text-sm mr-2'>¿No tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>¡Registrate ahora!</button>
                 </div>
             </div>
         </ReactModal>
