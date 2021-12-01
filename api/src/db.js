@@ -38,11 +38,18 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Users, Posts, Categories,Review,Orders, Favorites,Payments,Question } = sequelize.models;
-
+const {
+  Users,
+  Posts,
+  Categories,
+  Review,
+  Orders,
+  Favorites,
+  Payments,
+  Question,
+} = sequelize.models;
 
 // Aca vendrian las relaciones
-
 
 Users.hasMany(Posts, { foreignKey: "user_id" }); // un usuario tiene muchos posts
 Posts.belongsTo(Users, { foreignKey: "user_id" }); // un post pertenece a un unico usuario (quien CREA el post)
@@ -50,32 +57,29 @@ Posts.belongsTo(Users, { foreignKey: "user_id" }); // un post pertenece a un uni
 Categories.hasMany(Posts, { foreignKey: "category_id" }); // una categoria esta en muchas publicaciones
 Posts.belongsTo(Categories, { foreignKey: "category_id" }); // una publicacion puede tener una unica categoria
 
+Users.hasMany(Review);
+Review.belongsTo(Users); //relacion review n*m
+Posts.hasMany(Review);
+Review.belongsTo(Posts);
 
-Users.hasMany(Review)
-Review.belongsTo(Users)       //relacion review n*m
-Posts.hasMany(Review)     
-Review.belongsTo(Posts)
+Users.hasMany(Orders); //relacion user con orders
+Orders.belongsTo(Users);
 
+Posts.hasMany(Orders); //relacion post con orders
+Orders.belongsTo(Posts);
 
+Payments.hasMany(Orders); //relacion payments con orders
+Orders.belongsTo(Payments);
 
-Users.hasMany(Orders)         //relacion user con orders
-Orders.belongsTo(Users)
+Users.hasMany(Favorites);
+Favorites.belongsTo(Users); //relacion favoritos n*m
+Posts.hasMany(Favorites);
+Favorites.belongsTo(Posts);
 
-Posts.hasMany(Orders)       //relacion post con orders
-Orders.belongsTo(Posts)
-
-Payments.hasMany(Orders)      //relacion payments con orders
-Orders.belongsTo(Payments)
-
-Users.hasMany(Favorites)
-Favorites.belongsTo(Users)      //relacion favoritos n*m
-Posts.hasMany(Favorites)
-Favorites.belongsTo(Posts)
-
-Users.hasMany(Question)
-Question.belongsTo(Users)
-
-
+Users.hasMany(Question);
+Question.belongsTo(Users);
+Posts.hasMany(Question);
+Question.belongsTo(Posts);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
