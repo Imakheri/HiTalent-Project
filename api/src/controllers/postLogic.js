@@ -106,7 +106,7 @@ const deleteImage = async(req,res,next)=>{
 
 }
 
-async function getTalentById(req, res, next){
+async function getPostId(req, res, next){
    let { id } = req.params;
 
          if (id && id.length === 36) { 
@@ -156,5 +156,5 @@ module.exports={
     deletePost,
     addImage,
     deleteImage,
-    getTalentById
+    getPostId
 };
