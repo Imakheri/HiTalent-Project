@@ -132,7 +132,9 @@ const confirm = async (req, res) => {
 };
 
 async function getUser(req, res, next) {
-  var all = await Users.findAll();
+  var all = await Users.findAll({
+    order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+  });
   res.json(all);
 }
 

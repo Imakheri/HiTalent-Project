@@ -54,6 +54,7 @@ async function getAllReviews(req, res, next) {
         {
           model: Users,
           attributes: ["id", "username", "name", "fullName", "lastName"],
+          order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
         },
         {
           model: Posts,
