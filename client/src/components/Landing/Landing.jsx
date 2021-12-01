@@ -23,15 +23,21 @@ export default function Landing() {
         setVentanaRegister(!ventanaRegister)
     }
 
+    function onModalChange(e){
+        e.preventDefault()
+        setVentanaLogIn(!ventanaLogIn)
+        setVentanaRegister(!ventanaRegister)
+    }
+
     return (
         <div class="bg-semilight min-h-screen select-none">
             <Navbar onModalClick={onModalClick} onModaleClick={onModaleClick} />
             <div class="flex justify-around items-center content-center bg-landingImg bg-cover min-h-screen object-cover">
                 {
-                    ventanaLogIn ? <Form onModalClick={onModalClick}/> : console.log("ingreso")
+                    ventanaLogIn ? <Form onModalClick={onModalClick} onModalChange={onModalChange}/> : console.log("ingreso")
                 }
                 {
-                    ventanaRegister ? <Register onModaleClick={onModaleClick}/> : console.log("registro")
+                    ventanaRegister ? <Register onModaleClick={onModaleClick} onModalChange={onModalChange}/> : console.log("registro")
                 }
                 <div class="flex flex-col items-center justify-between bg-dark rounded-md m-7 bg-opacity-70">
                     <LandingSearchbar/>
