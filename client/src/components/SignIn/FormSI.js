@@ -44,7 +44,7 @@ function Form({ onModalClick, onModalChange }){
         .then(res => res.data)
         dispatch(cargarUsuario(respuesta))
         //! REDIRIGIR 
-        redirect.push("/home")
+        // redirect.push("/home")
     }
 
     function handleSession(e){
