@@ -49,7 +49,7 @@ async function getAllReviews(req, res, next) {
   try {
     let allReviews = await Review.findAll({
       attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC'], ['rating', 'DESC']],
       include: [
         {
           model: Users,
@@ -58,6 +58,7 @@ async function getAllReviews(req, res, next) {
         {
           model: Posts,
           attributes: ["id", "title"],
+          order: [['createdAt', 'DESC'], ['title', 'ASC'], ['duration', 'ASC'], ['cost', 'ASC']]
         },
       ],
     });
@@ -82,6 +83,7 @@ async function getPostReview(req, res, next) {
           {
             model: Review,
             attributes: ["rating", "description"],
+            order: [['createdAt', 'DESC'], ['rating', 'DESC']],
           },
         ],
       });

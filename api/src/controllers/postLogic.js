@@ -1,7 +1,9 @@
 const {Posts,Users,Categories, Review }=require("../db")
 
 const getPosts= async(req,res,next)=>{
-    var post=await Posts.findAll()
+    var post=await Posts.findAll({
+        order: [['createdAt', 'DESC'], ['title', 'ASC'], ['duration', 'ASC'], ['cost', 'ASC']]
+    })
     res.json(post)
 }
 const createPost= async(req,res,next)=>{
@@ -120,11 +122,13 @@ async function getTalentById(req, res, next){
                   },
                 {
                      model: Categories,
-                     attributes: ['id', 'title'], 
+                     attributes: ['id', 'title'],
+                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
+                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
