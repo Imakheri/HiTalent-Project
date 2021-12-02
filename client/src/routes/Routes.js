@@ -8,10 +8,13 @@ import Home from '../components/Home/Home';
 import Landing from '../components/Landing/Landing';
 import Validate from '../components/Register/Validate';
 import Register from '../components/Register/Register';
+import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
+import TalentForm from '../components/Talents/TalentForm';
 import SeeMore from '../components/SeeMore/SeeMore';
 import Profile from '../components/Profile/Profile';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import EmailResetPassword from '../components/ResetPassword/EmailResetPassword';
+
 
 export const Rout = () => {
     const dispatch = useDispatch();
@@ -38,6 +41,9 @@ export const Rout = () => {
         <BrowserRouter>
             <Routes>
                 <Route exact path='/' element={<Landing />} />
+                <Route exact path="/ResetPassword" element={<ResetPassword />} />
+                <Route exact path="/NewPassword" element={<NewPassword />} />
+                <Route path="/createTalent" element={<TalentForm />} />
                 <Route path='/profile/:id' element={<Profile />} />
                 <Route path='/user/confirm/:token' element={<Validate />} />
                 <Route exact path='/register' element={<Register />} />
