@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from "./Nav";
 import Footer from '../Landing/Footer'
-import Categories from "./Categories";
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
 
@@ -17,7 +16,9 @@ export default function Home() {
     return(
         <div className="home_container">
             <Nav/>
-            <div class="flex">
+            <div>
+            </div>
+            <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
                 {skill?.length === 0 ? <div className="not_found">not found</div> : (skill?.map((talent) => {
                     return (
                         <TalentCard 
@@ -32,7 +33,6 @@ export default function Home() {
                         )
                     }))}
             </div>
-            <Categories/>
             <Footer/>
         </div>
     )

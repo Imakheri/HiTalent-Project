@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { firebase } from '../firebase/firebase-config';
 import { login } from '../actions/auth';
 // import { Private } from './Private';
@@ -12,7 +12,6 @@ import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword
 import { ResetPassword } from "../components/ResetPassword/ResetPassword";
 import { Profile } from '../components/Profile/Profile';
 import SeeMore from '../components/SeeMore/SeeMore';
-
 
 export const Rout = () => {
     const dispatch = useDispatch();
@@ -41,7 +40,7 @@ export const Rout = () => {
                 <Route exact path='/' element={<Landing />} />
                 <Route exact path="/ResetPassword" element={<ResetPassword />} />
                 <Route exact path="/NewPassword" element={<NewPassword />} />
-                <Route exact path="/Profile" element={<Profile />} />
+                <Route exact path="/profile" element={<Profile />} />
                 <Route path="/user/confirm/:token" element={<Validate />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route path='/home' element={<Home
