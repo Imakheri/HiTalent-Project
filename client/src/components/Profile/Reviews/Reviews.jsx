@@ -6,8 +6,6 @@ export default function Reviews(){
         <div className='flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>
             <div className='flex flex-col items-center py-2'>
                     <Review />
-                    <Review />
-                    <Review />
             </div>
         </div>
     )
