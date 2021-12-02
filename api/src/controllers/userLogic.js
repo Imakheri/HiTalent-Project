@@ -280,7 +280,7 @@ async function getUserById(req, res, next) {
           },
           {
             model: Review,
-            attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+            attributes: { exclude: ["updatedAt"] },
             order: [
               ["createdAt", "DESC"],
               ["rating", "DESC"],
