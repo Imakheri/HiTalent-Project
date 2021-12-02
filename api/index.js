@@ -52,7 +52,7 @@ conn.sync({ force: true }).then(() => {
           code:160
     })
     await testorden.setPayment(testpayment) //lo seteo a la orden de pago
-    //console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
+    console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
 
     //--------------------------------------------------------------------------
     var testuser3=await Users.create({ //usuario test 3

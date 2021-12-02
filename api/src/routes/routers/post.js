@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {getPosts,updatePost,createPost, deletePost, addImage, deleteImage, getTalentById}=require("../../controllers/postLogic");
+const {getPosts,updatePost,createPost, deletePost, addImage, deleteImage, getTalentById,getTalentsByTitle}=require("../../controllers/postLogic");
 const { uploader } = require("../../middleware/uploader");
 
 router.get("/",getPosts)
@@ -10,6 +10,7 @@ router.delete("/",deletePost)
 router.put("/image",uploader.single("image"),addImage)
 router.delete("/image",deleteImage)
 router.get('/:id', getTalentById);
+router.get("/title/:title",getTalentsByTitle)
 
 
 module.exports = router;
