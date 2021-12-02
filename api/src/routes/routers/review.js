@@ -3,7 +3,7 @@ const {
   createReview,
   deleteReview,
   updateReview,
-  getAllReviews,
+  getAllReviewsUser,
   getPostReview,
 } = require("../../controllers/reviewLogic");
 const router = Router();
@@ -11,7 +11,7 @@ const router = Router();
 router.post("/", createReview);
 router.delete("/:idReview", deleteReview);
 router.put("/:idReview", updateReview);
-router.get("/", getAllReviews);
+router.get("/:idUser", getAllReviewsUser);
 router.get("/:idPost", getPostReview);
 
 module.exports = router;
