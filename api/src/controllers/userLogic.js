@@ -138,7 +138,11 @@ const confirm = async (req, res) => {
 
 async function getUser(req, res, next) {
   var all = await Users.findAll({
-    order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+    order: [
+      ["score", "DESC"],
+      ["createdAt", "DESC"],
+      ["username", "ASC"],
+    ],
   });
   res.json(all);
 }
@@ -255,6 +259,91 @@ const editPassword = async (req, res, next) => {
   }
 };
 
+async function getUserById(req, res, next) {
+  let { idUser } = req.params;
+  if (idUser && idUser.length === 36) {
+    // 36 es la length del UUID /// TODA ESTA INFO DEBERIA VERLA SOLO EL ADMIN
+    try {
+      let result = await Users.findOne({
+        where: {
+          id: idUser,
+        },
+        include: [
+          {
+            model: Order,
+            order: [["createdAt", "DESC"]],
+          },
+          {
+            model: Post,
+            attributes: { exclude: ["user_id", "category_id"] },
+            order: [["createdAt", "DESC"]],
+          },
+          {
+            model: Review,
+            attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+            order: [
+              ["createdAt", "DESC"],
+              ["rating", "DESC"],
+            ],
+            include: [
+              {
+                model: Users,
+                attributes: ["id", "username", "name", "fullName", "lastName"],
+                order: [
+                  ["score", "DESC"],
+                  ["createdAt", "DESC"],
+                  ["username", "ASC"],
+                ],
+              },
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+                order: [
+                  ["createdAt", "DESC"],
+                  ["title", "ASC"],
+                  ["duration", "ASC"],
+                  ["cost", "ASC"],
+                ],
+              },
+            ],
+          },
+          {
+            model: Question,
+            attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+            order: [["createdAt", "DESC"]],
+            include: [
+              {
+                model: Users,
+                attributes: ["id", "username", "name", "fullName", "lastName"],
+              },
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+              },
+            ],
+          },
+        ],
+      });
+      if (result) res.json(result);
+      else
+        throw new Error(
+          "ERROR 500: El usuario no fue encontrado en la base de datos (UUID no existe)."
+        );
+    } catch (err) {
+      next(err);
+    }
+  }
+  if (idUser && idUser.length !== 36) {
+    try {
+      throw new TypeError(
+        "ERROR 404: ID inválido (ID no es un tipo UUID válido)."
+      );
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
 module.exports = {
   createUser,
   deleteUser,
@@ -264,4 +353,5 @@ module.exports = {
   editUser,
   emailResetPassword,
   editPassword,
+  getUserById,
 };
