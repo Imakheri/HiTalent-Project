@@ -7,10 +7,12 @@ import { useDispatch } from "react-redux";
 import { startFacebookAuth, startGoogleAuth } from '../../actions/auth';
 import axios from 'axios';
 import { cargarUsuario } from '../../actions/index';
+import {useNavigate } from "react-router-dom";
 
 function Form({ onModalClick, onModalChange }){
 
     let dispatch = useDispatch()
+    let navigate = useNavigate();
 
     const [userLogin, setUserLogin] = useState({
         username : "",
@@ -42,7 +44,19 @@ function Form({ onModalClick, onModalChange }){
         e.preventDefault();     
         let respuesta = await axios.post('http://localhost:3001/user/loggin/',userLogin)
         .then(res => res.data)
-        dispatch(cargarUsuario(respuesta))
+        switch(respuesta){
+            case "Contraseña incorrecta":
+                return(alert("Contraseña Incorrecta"))
+            case "Email incorrecto":
+                return(alert("Email incorrecto"))
+            case "Password incorrecto":
+                return(alert("Contraseña Erronea"))
+            case "Usuario incorrecto":
+                return(alert("Usuario incorrecto"))
+            default:
+                dispatch(cargarUsuario(respuesta))
+                navigate("/home");
+        }
     }
 
     function handleSession(e){

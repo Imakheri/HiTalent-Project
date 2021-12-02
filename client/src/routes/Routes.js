@@ -11,7 +11,7 @@ import Register from '../components/Register/Register';
 import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
 import { ResetPassword } from "../components/ResetPassword/ResetPassword";
 import { Profile } from '../components/Profile/Profile';
-
+import TalentForm from '../components/Talents/TalentForm';
 
 export const Rout = () => {
     const dispatch = useDispatch();
@@ -43,6 +43,7 @@ export const Rout = () => {
                 <Route exact path="/Profile" element={<Profile />} />
                 <Route path="/user/confirm/:token" element={<Validate />} />
                 <Route exact path="/register" element={<Register />} />
+                <Route path="/createTalent" element={<TalentForm />} />
                 <Route path='/home' element={<Home
                     // <Route 
                     // element = {(props) =>
