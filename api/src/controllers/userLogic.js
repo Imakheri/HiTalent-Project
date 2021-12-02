@@ -137,12 +137,12 @@ const confirm = async (req, res) => {
 };
 
 async function getUser(req, res, next) {
+  if(req.query.filter)
   var all = await Users.findAll({
-    order: [
-      ["score", "DESC"],
-      ["createdAt", "DESC"],
-      ["username", "ASC"],
-    ],
+    where: {
+      score: req.query.filter
+    },
+    order: [['username', req.query.order]]
   });
   res.json(all);
 }
@@ -274,36 +274,24 @@ async function getUserById(req, res, next) {
             order: [["createdAt", "DESC"]],
           },
           {
-            model: Post,
+            model: Posts,
             attributes: { exclude: ["user_id", "category_id"] },
             order: [["createdAt", "DESC"]],
           },
           {
             model: Review,
             attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
-            order: [
-              ["createdAt", "DESC"],
-              ["rating", "DESC"],
-            ],
+            order: [["createdAt", "DESC"]],
             include: [
               {
                 model: Users,
                 attributes: ["id", "username", "name", "fullName", "lastName"],
-                order: [
-                  ["score", "DESC"],
-                  ["createdAt", "DESC"],
-                  ["username", "ASC"],
-                ],
+                //order: [["score", "DESC"], ["createdAt", "DESC"], ["username", "ASC"]],
               },
               {
                 model: Posts,
                 attributes: ["id", "title"],
-                order: [
-                  ["createdAt", "DESC"],
-                  ["title", "ASC"],
-                  ["duration", "ASC"],
-                  ["cost", "ASC"],
-                ],
+                order: [["createdAt", "DESC"]]
               },
             ],
           },

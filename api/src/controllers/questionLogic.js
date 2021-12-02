@@ -56,6 +56,7 @@ async function getAllQuestions(req, res, next) {
         {
           model: Posts,
           attributes: ["id", "title"],
+          order: [["createdAt", "DESC"]]
         },
       ],
     });
@@ -80,6 +81,7 @@ async function getPostQuestions(req, res, next) {
           {
             model: Question,
             attributes: ["title", "question", "answer"],
+            order: [["createdAt", "DESC"]]
           },
         ],
       });

@@ -2,7 +2,7 @@ const { Posts, Users, Categories } = require("../db")
 
 async function getCategories(req, res, next){
     var post= await Categories.findAll({
-        order: [['createdAt', 'DESC'], ['title', 'ASC']]
+        order: [['title', req.query.order]]
     })
     res.json(post)
 };

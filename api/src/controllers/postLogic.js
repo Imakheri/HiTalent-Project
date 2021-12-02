@@ -1,8 +1,12 @@
 const {Posts,Users,Categories, Review }=require("../db")
 
 const getPosts= async(req,res,next)=>{
+    if(req.query.filter)
     var post=await Posts.findAll({
-        order: [['createdAt', 'DESC'], ['title', 'ASC'], ['duration', 'ASC'], ['cost', 'ASC']]
+        where: {
+            oferta: req.query.filter
+        },
+        order: [['title', req.query.order]]
     })
     res.json(post)
 }
@@ -119,17 +123,17 @@ async function getPostId(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
-                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+                      //order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
                   },
                 {
                      model: Categories,
                      attributes: ['id', 'title'],
-                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
+                     //order: [['createdAt', 'DESC'], ['title', 'ASC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
-                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
+                    order: [['createdAt', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
