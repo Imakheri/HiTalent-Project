@@ -9,8 +9,9 @@ router.put("/",updatePost)
 router.delete("/",deletePost)
 router.put("/image",uploader.single("image"),addImage)
 router.delete("/image",deleteImage)
-router.get('/:id', getTalentById);
 router.get("/title/:title",getTalentsByTitle)
+router.get('/:id', getPostId);
+
 
 
 module.exports = router;

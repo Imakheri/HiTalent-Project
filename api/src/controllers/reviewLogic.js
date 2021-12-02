@@ -45,19 +45,40 @@ async function updateReview(req, res, next) {
   }
 }
 
-async function getAllReviews(req, res, next) {
+async function getAllReviewsUser(req, res, next) {
+  let { idUser } = req.params;
   try {
-    let allReviews = await Review.findAll({
+    let allReviews = await Users.findOne({
+      where: {
+        id: idUser,
+      },
       attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
-      order: [["createdAt", "DESC"]],
       include: [
-        {
-          model: Users,
-          attributes: ["id", "username", "name", "fullName", "lastName"],
-        },
         {
           model: Posts,
           attributes: ["id", "title"],
+          order: [
+            ["createdAt", "DESC"],
+            ["title", "ASC"],
+            ["duration", "ASC"],
+            ["cost", "ASC"],
+          ],
+          include: [
+            {
+              model: Review,
+              attributes: ["rating", "description"],
+              order: [
+                ["createdAt", "DESC"],
+                ["rating", "DESC"],
+              ],
+              include: [
+                {
+                  model: Users,
+                  attributes: ["username"],
+                },
+              ],
+            },
+          ],
         },
       ],
     });
@@ -82,6 +103,16 @@ async function getPostReview(req, res, next) {
           {
             model: Review,
             attributes: ["rating", "description"],
+            order: [
+              ["createdAt", "DESC"],
+              ["rating", "DESC"],
+            ],
+            include: [
+              {
+                model: Users,
+                attributes: ["username"],
+              },
+            ],
           },
         ],
       });
@@ -109,6 +140,6 @@ module.exports = {
   createReview,
   deleteReview,
   updateReview,
-  getAllReviews,
+  getAllReviewsUser,
   getPostReview,
 };

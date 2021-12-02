@@ -1,5 +1,7 @@
 const {Posts,Users,Categories, Review }=require("../db")
 const {Op} = require('sequelize')
+
+
 const getPosts= async(req,res,next)=>{
     var post=await Posts.findAll({include:[{model:Users},{model:Review},{model:Categories}]})
     res.json(post)
@@ -105,7 +107,7 @@ const deleteImage = async(req,res,next)=>{
 
 }
 
-async function getTalentById(req, res, next){
+async function getPostId(req, res, next){
    let { id } = req.params;
 
          if (id && id.length === 36) { 
@@ -118,14 +120,17 @@ async function getTalentById(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
+                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
                   },
                 {
                      model: Categories,
-                     attributes: ['id', 'title'], 
+                     attributes: ['id', 'title'],
+                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
+                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
@@ -159,6 +164,7 @@ module.exports={
     deletePost,
     addImage,
     deleteImage,
-    getTalentById,
-    getTalentsByTitle
+    getTalentsByTitle,
+    getPostId
+
 };

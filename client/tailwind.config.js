@@ -8,7 +8,9 @@ module.exports = {
       semilight: "#A7C4BC",
       light: "#DFEEEA",
       white: "#FFF",
-      black: "#000000"
+      black: "#000000",
+      purple: "#4C0070",
+      gray: "#e5e7eb"
     },
     extend: {
       backgroundImage: {

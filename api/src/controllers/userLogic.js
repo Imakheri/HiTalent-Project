@@ -1,4 +1,4 @@
-const { Users } = require("../db");
+const { Users, Orders, Posts, Question, Review } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { getToken, getTokenData } = require("../config/jwt.config");
 const bcrypt = require("bcrypt");
@@ -20,7 +20,7 @@ async function createUser(req, res, next) {
     email_verified,
     country,
   } = req.body;
-  console.log(birthdate)
+  console.log(birthdate);
   // hacer un if donde si el email es "adminuser@admin.com", el isAdmin = true y isDataComplete = true
   //console.log(req.body)
   try {
@@ -102,9 +102,12 @@ const confirm = async (req, res) => {
     const { email, code } = data.data;
 
     // Verificar existencia del usuario
-    const user = (await Users.findOne({ where: {
-      email: email
-    }})) || null;
+    const user =
+      (await Users.findOne({
+        where: {
+          email: email,
+        },
+      })) || null;
 
     if (user === null) {
       return res.json({
@@ -134,7 +137,13 @@ const confirm = async (req, res) => {
 };
 
 async function getUser(req, res, next) {
-  var all = await Users.findAll();
+  var all = await Users.findAll({
+    order: [
+      ["score", "DESC"],
+      ["createdAt", "DESC"],
+      ["username", "ASC"],
+    ],
+  });
   res.json(all);
 }
 
@@ -162,20 +171,24 @@ async function deleteUser(req, res, next) {
 }
 
 async function getLogIn(req, res, next) {
-  let { username, password, email } = req.body;
+  let { username, password } = req.body;
 
-  if (email) {
+  let regexMail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+  if (regexMail.test(username)) {
     const userEmail = await Users.findOne({
       where: {
-        email: email,
+        email: username,
       },
     });
     if (userEmail) {
-      res.send(userEmail);
+      !bcrypt.compareSync(password, userEmail.password)
+        ? res.send("Contraseña incorrecta")
+        : res.json(userEmail);
     } else {
       res.send("Email incorrecto");
     }
-  } else if (username) {
+  } else {
     const userMatch = await Users.findOne({
       where: {
         username: username,
@@ -184,7 +197,7 @@ async function getLogIn(req, res, next) {
     if (userMatch) {
       let compare = bcrypt.compareSync(password, userMatch.password);
       if (compare) {
-        res.send(userMatch);
+        res.json(userMatch);
       } else {
         res.send("Password incorrecto");
       }
@@ -246,6 +259,91 @@ const editPassword = async (req, res, next) => {
   }
 };
 
+async function getUserById(req, res, next) {
+  let { idUser } = req.params;
+  if (idUser && idUser.length === 36) {
+    // 36 es la length del UUID /// TODA ESTA INFO DEBERIA VERLA SOLO EL ADMIN
+    try {
+      let result = await Users.findOne({
+        where: {
+          id: idUser,
+        },
+        include: [
+          {
+            model: Orders,
+            order: [["createdAt", "DESC"]],
+          },
+          {
+            model: Posts,
+            attributes: { exclude: ["user_id", "category_id"] },
+            order: [["createdAt", "DESC"]],
+          },
+          {
+            model: Review,
+            attributes: { exclude: ["updatedAt"] },
+            order: [
+              ["createdAt", "DESC"],
+              ["rating", "DESC"],
+            ],
+            include: [
+              {
+                model: Users,
+                attributes: ["id", "username", "name", "fullName", "lastName"],
+                order: [
+                  ["score", "DESC"],
+                  ["createdAt", "DESC"],
+                  ["username", "ASC"],
+                ],
+              },
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+                order: [
+                  ["createdAt", "DESC"],
+                  ["title", "ASC"],
+                  ["duration", "ASC"],
+                  ["cost", "ASC"],
+                ],
+              },
+            ],
+          },
+          {
+            model: Question,
+            attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+            order: [["createdAt", "DESC"]],
+            include: [
+              {
+                model: Users,
+                attributes: ["id", "username", "name", "fullName", "lastName"],
+              },
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+              },
+            ],
+          },
+        ],
+      });
+      if (result) res.json(result);
+      else
+        throw new Error(
+          "ERROR 500: El usuario no fue encontrado en la base de datos (UUID no existe)."
+        );
+    } catch (err) {
+      next(err);
+    }
+  }
+  if (idUser && idUser.length !== 36) {
+    try {
+      throw new TypeError(
+        "ERROR 404: ID inválido (ID no es un tipo UUID válido)."
+      );
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
 module.exports = {
   createUser,
   deleteUser,
@@ -255,4 +353,5 @@ module.exports = {
   editUser,
   emailResetPassword,
   editPassword,
+  getUserById,
 };
