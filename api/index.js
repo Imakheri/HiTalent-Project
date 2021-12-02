@@ -4,7 +4,7 @@ const { conn,Users,Posts,Categories,Review,Orders,Favorites,Payments,Question } 
 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(3001, async() => {
 
     Categories.bulkCreate([
@@ -95,7 +95,16 @@ conn.sync({ force: true }).then(() => {
       email:"hola@gmail.com"
     })
     
-
+    var testUserProfile = await Users.create({
+      //usuario test 3
+      name: "Perfil",
+      lastName: "Completo",
+      username: "perfil_prueba",
+      password: "1234abc",
+      birthdate: "2000-10-10",
+      email: "perfilUsuario@gmail.com",
+      country: "Argentina",
+    });
 
     console.log('%s listening at 3001 ahi va!!!!'); // eslint-disable-line no-console
   });

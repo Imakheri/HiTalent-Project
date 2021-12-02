@@ -3,7 +3,7 @@ import Orders from './Orders/Orders';
 import User from './User';
 import Reviews from './Reviews/Reviews';
 import Movements from './Movements/Movements';
-// import Qas from './QandA/QAs';
+import Qas from './QandA/QAs';
 
 export default function Profile(){
     return(
@@ -24,6 +24,10 @@ export default function Profile(){
                 <section>
                     <h2 className='text-xl font-medium pl-4'>Movimientos</h2>
                         <Movements />
+                </section>
+                <section>
+                    <h2 className='text-xl font-medium pl-4'>Movimientos</h2>
+                        <Qas />
                 </section>
             </section>
         </div>

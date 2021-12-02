@@ -1,10 +1,15 @@
-import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT } from "../actions"
+import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID } from "../actions"
 
 const initialState = {
     user : [],
     talents: [],
     filteredTalents: [],
-    token: ''
+    token: '',
+    profile: [],
+    order: [],
+    review: '',
+    movement: [],
+    qa: []
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -29,6 +34,31 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 token: action.payload
+            }
+        case GET_USER_ID:
+            return {
+                ...state,
+                profile: action.payload
+            }
+        case GET_ORDER_ID:
+            return {
+                ...state,
+                order: action.payload
+            }
+        case GET_REVIEW_ID:
+            return {
+                ...state,
+                review: action.payload
+            }
+        case GET_MOVE_ID:
+            return{
+                ...state,
+                movement: action.payload
+            }
+        case GET_QA_ID:
+            return{
+                ...state,
+                qa: action.payload
             }
         default:
             return state
