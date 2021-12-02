@@ -4,23 +4,17 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
 import { store } from './store/index';
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 ReactDOM.render(
-  //<BrowserRouter>
-    //<Provider store={store}>
-      //<React.StrictMode>
-        //<Routes>
-          //<Route path="/" element={<App />} />
-        //</Routes>
-      //</React.StrictMode>
-    //</Provider>
-  //</BrowserRouter>,
-  <React.StrictMode>
-  <Provider store={store}>
-  <App />
-  </Provider>
-</React.StrictMode>,
+  <ChakraProvider>
+    <React.StrictMode>
+    <Provider store={store}>
+    <App />
+    </Provider>
+    </React.StrictMode>
+  </ChakraProvider>,
   document.getElementById('root')
 );
 

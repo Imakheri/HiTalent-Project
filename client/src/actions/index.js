@@ -9,21 +9,37 @@ export const GET_ORDER_ID = 'GET_ORDER_ID';
 export const GET_REVIEW_ID = 'GET_REVIEW_ID';
 export const GET_MOVE_ID = 'GET_MOVE_ID';
 export const GET_QA_ID = 'GET_QA_ID';
+export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
+export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 
 export function getTalents() {
   return function (dispatch) {
-    axios
-      .get("http://localhost:3001/talents")
-      .then((talents) => {
-        dispatch({
-          type: GET_TALENT,
-          payload: talents.data,
-        });
-      })
+    axios.get("http://localhost:3001/post")
+    .then((talents) => {
+      dispatch({
+        type: GET_TALENT,
+        payload: talents.data,
+      });
+    })
       .catch((err) => {
         console.log(err);
       });
   };
+}
+
+export function getTalentById(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get("http://localhost:3001/post/" + id)
+      return dispatch ({
+        type: GET_TALENT_BY_ID,
+        payload: json.data
+      })
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
 }
 
 export function searchTalent(search) {
@@ -59,16 +75,18 @@ export function createUser(payload) {
   };
 }
 
-export function getUserbyToken(token) {
-  return async function (dispatch) {
-    try {
-      var json = await axios.get("http://localhost:3001/user/confirm/" + token);
-      return dispatch({
-        type: "GET_USER_TOKEN",
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error);
+export function getUserbyToken(token){
+    return async function (dispatch){
+        try{
+            var json = await axios.post('http://localhost:3001/user/confirm/' + token);
+            return dispatch ({
+                type: GET_USER_TOKEN,
+                payload: json.data
+            })
+        } 
+        catch (error) {
+            console.log(error)
+        }
     }
   };
 }
@@ -91,7 +109,7 @@ export function getOrderbyId(id){
   return async function (dispatch){
     try {
       var order = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(order)
+      // console.log(order)
       return dispatch({
         type: GET_ORDER_ID,
         payload: order.data
@@ -105,8 +123,21 @@ export function getOrderbyId(id){
 export function getReviewbyId(id){
   return async function (dispatch){
     try {
-      var review = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(review)
+      var review = await axios.get("http://localhost:3001/review/all/" + id); //el id es el del usuario(perfil)
+      return dispatch({
+        type: GET_REVIEW_ID,
+        payload: review.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function getUserofReviewbyId(id){
+  return async function (dispatch){
+    try {
+      var review = await axios.get("http://localhost:3001/review/" + id);
       return dispatch({
         type: GET_REVIEW_ID,
         payload: review.data
@@ -120,8 +151,8 @@ export function getReviewbyId(id){
 export function getMovebyId(id){
   return async function (dispatch){
     try {
-      var movement = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(movement)
+      var movement = await axios.get("http://localhost:3001/user/" + id); 
+      // console.log(movement)
       return dispatch({
         type: GET_MOVE_ID,
         payload: movement.data
@@ -135,8 +166,8 @@ export function getMovebyId(id){
 export function getQAbyId(id){
   return async function (dispatch){
     try {
-      var qa = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(qa)
+      var qa = await axios.get("http://localhost:3001/user/" + id); 
+      // console.log(qa)
       return dispatch({
         type: GET_QA_ID,
         payload: qa.data
