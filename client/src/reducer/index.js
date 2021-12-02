@@ -31,15 +31,11 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 user : action.payload
             }
-        case POST_USER:
-            return {
-                ...state
-            }
         case GET_USER_TOKEN:
             return {
                 ...state,
                 token: action.payload
-            }    
+            }
         default:
             return state
     }

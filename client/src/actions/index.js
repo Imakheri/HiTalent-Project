@@ -1,11 +1,12 @@
 import axios from "axios";
-
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
 export const GET_USER_TOKEN = "GET_USER_TOKEN";
 export const GET_TALENT = "GET_TALENT";
 export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
+export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
+
 
 export function getTalents() {
   return function (dispatch) {
@@ -70,16 +71,18 @@ export function createUser(payload) {
   };
 }
 
-export function getUserbyToken(token) {
-  return async function (dispatch) {
-    try {
-      var json = await axios.get("http://localhost:3001/user/confirm/" + token);
-      return dispatch({
-        type: "GET_USER_TOKEN",
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error);
+export function getUserbyToken(token){
+    return async function (dispatch){
+        try{
+            var json = await axios.post('http://localhost:3001/user/confirm/' + token);
+            return dispatch ({
+                type: GET_USER_TOKEN,
+                payload: json.data
+            })
+        } 
+        catch (error) {
+            console.log(error)
+        }
     }
   };
 }
