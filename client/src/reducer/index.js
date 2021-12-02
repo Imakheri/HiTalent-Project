@@ -1,11 +1,11 @@
-import { SEARCH_TALENT, LOGUEAR_USUARIO, GET_USER_TOKEN, GET_TALENT } from "../actions"
+import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_TALENT_BY_ID } from "../actions"
 
 const initialState = {
-    user : '',
-    register: {},
+    user : [],
     talents: [],
     filteredTalents: [],
-    token: ''
+    moreTalent: [],
+    token: ""
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -21,7 +21,12 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 talents: action.payload
             }
-        case LOGUEAR_USUARIO:
+        case GET_TALENT_BY_ID:
+            return {
+                ...state,
+                moreTalent: action.payload
+            }
+        case CARGAR_USUARIO:
             return {
                 ...state,
                 user : action.payload
@@ -35,3 +40,4 @@ export default function rootReducer(state = initialState, action) {
             return state
     }
 }
+
