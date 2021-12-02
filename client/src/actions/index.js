@@ -84,5 +84,4 @@ export function getUserbyToken(token){
             console.log(error)
         }
     }
-  };
-}
+};
