@@ -7,7 +7,7 @@ async function getCategories(req, res, next){
     })
     res.json(post)
 
- }
+}
 async function getCategoriesById(req, res, next){
     let { id } = req.params;
 

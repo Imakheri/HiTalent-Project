@@ -3,14 +3,6 @@ const {Op} = require('sequelize')
 
 
 const getPosts= async(req,res,next)=>{
-
-    if(req.query.filter)
-    var post=await Posts.findAll({
-        where: {
-            oferta: req.query.filter
-        },
-        order: [['title', req.query.order]]
-    })
     var post=await Posts.findAll({include:[{model:Users},{model:Review},{model:Categories}]})
     res.json(post)
 }
@@ -47,8 +39,8 @@ const createPost= async(req,res,next)=>{
 const updatePost= async(req,res,next)=>{
     console.log(req.body)
     let{title,description,duration,cost,id}=req.body
-    
-    console.log(id)
+  
+
     try{
         var post=await Posts.findByPk(id)
         
@@ -131,17 +123,17 @@ async function getPostId(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
-                      //order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
                   },
                 {
                      model: Categories,
                      attributes: ['id', 'title'],
-                     //order: [['createdAt', 'DESC'], ['title', 'ASC']] 
+                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
-                    order: [['createdAt', 'DESC']]
+                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
@@ -161,10 +153,11 @@ async function getPostId(req, res, next){
 
 const getTalentsByTitle=async(req,res,next)=>{
     let title=req.params.title
+    console.log(title)
     var post=await Posts.findAll()
     let array=post.filter(e=>e.title.includes(title))
     if(array.legth<1)return res.status(400).json({message:"no se encontro talento con ese titulo"})
-    res.json(post)
+    res.json(array)
 }
 
 
