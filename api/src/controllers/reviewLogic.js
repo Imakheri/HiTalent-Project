@@ -71,6 +71,12 @@ async function getAllReviewsUser(req, res, next) {
                 ["createdAt", "DESC"],
                 ["rating", "DESC"],
               ],
+              include: [
+                {
+                  model: Users,
+                  attributes: ["username"],
+                },
+              ],
             },
           ],
         },
@@ -100,6 +106,12 @@ async function getPostReview(req, res, next) {
             order: [
               ["createdAt", "DESC"],
               ["rating", "DESC"],
+            ],
+            include: [
+              {
+                model: Users,
+                attributes: ["username"],
+              },
             ],
           },
         ],
