@@ -31,7 +31,7 @@ export default function EmailResetPassword(){
                         <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Introduce tu correo electrónico' type='email' value={input.email} name='email' onChange={(e) => handleChange(e)} required/>
                         <button type='submit' className='btn-secondary btn-colors'>Enviar correo</button>
                     </form>
-                    <Link to='/'><button className='items-center btn-secondary btn-colors '>Regresar 🔙</button></Link>
+                    <Link to='/'><button className='items-center btn-secondary btn-colors'>Regresar 🔙</button></Link>
                 </div>
             </div>
         </div>

@@ -102,6 +102,7 @@ function Form({ onModalClick, onModalChange }) {
                 {state.type === "password" ? <Visibility /> : <VisibilityOff />}
               </button>
               <br />
+
             </div>
           </div>
           <div className="flex flex-row items-center">
@@ -112,7 +113,7 @@ function Form({ onModalClick, onModalChange }) {
               value=""
               type="checkbox"
             />
-            <Link to="/passwordRecovery" className="ml-14">
+            <Link to="/user/emailresetpassword" className="ml-14">
               Olvide mi contraseña
             </Link>
           </div>
