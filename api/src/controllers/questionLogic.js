@@ -56,7 +56,7 @@ async function getAllQuestions(req, res, next) {
         {
           model: Posts,
           attributes: ["id", "title"],
-          order: [["createdAt", "DESC"]]
+          order: [["createdAt", "DESC"]],
           include: [
             {
               model: Question,
