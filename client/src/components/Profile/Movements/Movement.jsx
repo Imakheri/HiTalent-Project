@@ -7,7 +7,7 @@ import { getMovebyId } from '../../../actions/index';
 export default function Movement(){
 
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
     const dispatch = useDispatch();
     const movement = useSelector((state) => state.index.movement)
     

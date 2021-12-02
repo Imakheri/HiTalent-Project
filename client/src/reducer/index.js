@@ -7,7 +7,7 @@ const initialState = {
     token: '',
     profile: [],
     order: [],
-    review: '',
+    review: [],
     movement: [],
     qa: []
 }

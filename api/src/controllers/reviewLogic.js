@@ -71,6 +71,12 @@ async function getAllReviewsUser(req, res, next) {
                 ["createdAt", "DESC"],
                 ["rating", "DESC"],
               ],
+            include: [
+              {
+                model: Users,
+                attributes: ["username"],
+              },
+            ],
             },
           ],
         },

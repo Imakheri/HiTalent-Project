@@ -91,7 +91,7 @@ export function getOrderbyId(id){
   return async function (dispatch){
     try {
       var order = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(order)
+      // console.log(order)
       return dispatch({
         type: GET_ORDER_ID,
         payload: order.data
@@ -105,8 +105,21 @@ export function getOrderbyId(id){
 export function getReviewbyId(id){
   return async function (dispatch){
     try {
-      var review = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(review)
+      var review = await axios.get("http://localhost:3001/review/all/" + id); //el id es el del usuario(perfil)
+      return dispatch({
+        type: GET_REVIEW_ID,
+        payload: review.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function getUserofReviewbyId(id){
+  return async function (dispatch){
+    try {
+      var review = await axios.get("http://localhost:3001/review/" + id); //el id es el del usuario(perfil)
       return dispatch({
         type: GET_REVIEW_ID,
         payload: review.data
@@ -121,7 +134,7 @@ export function getMovebyId(id){
   return async function (dispatch){
     try {
       var movement = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(movement)
+      // console.log(movement)
       return dispatch({
         type: GET_MOVE_ID,
         payload: movement.data
@@ -136,7 +149,7 @@ export function getQAbyId(id){
   return async function (dispatch){
     try {
       var qa = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
-      console.log(qa)
+      // console.log(qa)
       return dispatch({
         type: GET_QA_ID,
         payload: qa.data
