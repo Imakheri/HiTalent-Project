@@ -1,16 +1,13 @@
 
 const {Categories}=require("../db")
 
-const { Posts, Users, Categories } = require("../db")
-
-
 async function getCategories(req, res, next){
     var post= await Categories.findAll({
         order: [['createdAt', 'DESC'], ['title', 'ASC']]
     })
     res.json(post)
 
-
+ }
 async function getCategoriesById(req, res, next){
     let { id } = req.params;
 
@@ -93,4 +90,4 @@ module.exports={
     createCategories,
     updateCategories,
     deleteCategories
-};
+}

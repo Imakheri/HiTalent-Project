@@ -1,4 +1,4 @@
-const {Categories,Orders,Users,Posts,Payments}=require("../db")
+const {Orders,Users,Posts,Payments}=require("../db")
 
 const getAllOrden=async(req,res,next)=>{
     let allOrden=await Orders.findAll({include:[{model:Users},{model:Posts},{model:Payments}]})

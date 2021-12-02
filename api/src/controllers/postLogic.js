@@ -37,15 +37,18 @@ const createPost= async(req,res,next)=>{
     }
 }
 const updatePost= async(req,res,next)=>{
-    console.log("update post no imagen")
+    console.log(req.body)
     let{title,description,duration,cost,id}=req.body
+    
+    console.log(id)
     try{
         var post=await Posts.findByPk(id)
+        
         if(title)post.title=title
         if(description)post.description=description
         if(duration)post.duration=duration
         if(cost)post.cost=cost
-        post.save()
+        await post.save()
         res.json(post)
     }catch(e){
         res.status(500).json({
