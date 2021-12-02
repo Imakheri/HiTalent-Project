@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import ReactModal from 'react-modal';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import ReactModal from "react-modal";
+import { Link } from "react-router-dom";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import { useDispatch } from "react-redux";
@@ -23,22 +23,39 @@ function Form({ onModalClick, onModalChange }){
     const [state, setState] = useState({
         type : 'password',
         button : 'mostrar'
+
+  });
+
+function handleOnChange(e) {
+    setUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value,
     });
+  }
 
-    function handleOnChange(e){
-        setUserLogin({
-            ...userLogin,
-            [e.target.name] : e.target.value
-        })
-    }
+  function handleChange(e) {
+    e.preventDefault();
+    state.type === "password"
+      ? setState({ type: "text", button: "ocultar" })
+      : setState({ type: "password", button: "mostrar" });
+  }
+  
+  function handleSession(e) {
+    setUserLogin({
+      ...userLogin,
+      mantenerSesion: !userLogin.mantenerSesion,
+    });
+  }
 
-    function handleChange(e){
-        e.preventDefault();
-        state.type === 'password' ? 
-        setState({type : 'text', button: 'ocultar'}) :
-        setState({type : 'password', button: 'mostrar'})
-    }
+  const [modalIsOpen, setIsOpen] = useState(true);
 
+  const handleGoogleAuth = () => {
+    dispatch(startGoogleAuth());
+  };
+
+  const handleFacebookAuth = () => {
+    dispatch(startFacebookAuth());
+  };
 
     async function handleOnSubmit(e){
         e.preventDefault();     
@@ -57,23 +74,6 @@ function Form({ onModalClick, onModalChange }){
                 dispatch(cargarUsuario(respuesta))
                 navigate("/home");
         }
-    }
-
-    function handleSession(e){
-        setUserLogin({
-            ...userLogin,
-            mantenerSesion: !userLogin.mantenerSesion
-        })
-    }
-
-    const [modalIsOpen, setIsOpen] = useState(true);
-
-    const handleGoogleAuth = () => {
-        dispatch(startGoogleAuth());
-    }
-
-    const handleFacebookAuth = () => {
-        dispatch(startFacebookAuth());
     }
 
     return(
@@ -108,6 +108,7 @@ function Form({ onModalClick, onModalChange }){
                             { state.type === 'password' ? <Visibility/> : <VisibilityOff/>}
                             </button>
                             <br/>
+                              
                         </div>
                     </div>
                     <div className='flex flex-row items-center'>
@@ -127,11 +128,9 @@ function Form({ onModalClick, onModalChange }){
                 <div className='flex justify-center content-center items-center m-4'>
                     <p className='text-sm mr-2'>¿No tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>¡Registrate ahora!</button>
                 </div>
-            </div>
-        </ReactModal>
-    )
+      </div>
+    </ReactModal>
+  );
 }
 
 export default Form;
-
-
