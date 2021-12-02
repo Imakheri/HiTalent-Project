@@ -1,9 +1,9 @@
 const {Posts,Users,Categories, Review }=require("../db")
+const {Op} = require('sequelize')
+
 
 const getPosts= async(req,res,next)=>{
-    var post=await Posts.findAll({
-        order: [['createdAt', 'DESC'], ['title', 'ASC'], ['duration', 'ASC'], ['cost', 'ASC']]
-    })
+    var post=await Posts.findAll({include:[{model:Users},{model:Review},{model:Categories}]})
     res.json(post)
 }
 const createPost= async(req,res,next)=>{
@@ -12,7 +12,8 @@ const createPost= async(req,res,next)=>{
     let file=req.file
     let path = "http://localhost:3001/" + file.filename
     try{
-        var [categoryDB,created]= await Categories.findOrCreate({where:{ title:category}})
+        var categoryDB= await Categories.findOne({where:{ title:category}})
+        if(!categoryDB)return res.status(500).json({message:"categoria invalida"})
         var post=await Posts.create({
             title,
             description,
@@ -147,6 +148,13 @@ async function getPostId(req, res, next){
       }
 };
 
+const getTalentsByTitle=async(req,res,next)=>{
+    let title=req.params.title
+    var post=await Posts.findAll()
+    let array=post.filter(e=>e.title.includes(title))
+    if(array.legth<1)return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    res.json(post)
+}
 
 
 module.exports={
@@ -156,5 +164,7 @@ module.exports={
     deletePost,
     addImage,
     deleteImage,
+    getTalentsByTitle,
     getPostId
+
 };
