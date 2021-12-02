@@ -45,6 +45,7 @@ async function updateReview(req, res, next) {
   }
 }
 
+
 async function getAllReviews(req, res, next) {
   if(req.query.filter)
   try {
@@ -64,6 +65,37 @@ async function getAllReviews(req, res, next) {
           model: Posts,
           attributes: ["id", "title"],
           order: [['createdAt', 'DESC']]
+
+async function getAllReviewsUser(req, res, next) {
+  let { idUser } = req.params;
+  try {
+    let allReviews = await Users.findOne({
+      where: {
+        id: idUser,
+      },
+      attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+      include: [
+        {
+          model: Posts,
+          attributes: ["id", "title"],
+          order: [
+            ["createdAt", "DESC"]
+          ],
+          include: [
+            {
+              model: Review,
+              attributes: ["rating", "description"],
+              order: [
+                ["createdAt", "DESC"]
+              ],
+              include: [
+                {
+                  model: Users,
+                  attributes: ["username"],
+                },
+              ],
+            },
+          ],
         },
       ],
     });
@@ -89,6 +121,12 @@ async function getPostReview(req, res, next) {
             model: Review,
             attributes: ["rating", "description"],
             order: [['createdAt', 'DESC']]
+            include: [
+              {
+                model: Users,
+                attributes: ["username"],
+              },
+            ],
           },
         ],
       });
@@ -116,6 +154,6 @@ module.exports = {
   createReview,
   deleteReview,
   updateReview,
-  getAllReviews,
+  getAllReviewsUser,
   getPostReview,
 };

@@ -44,19 +44,32 @@ async function deleteQuestion(req, res) {
 }
 
 async function getAllQuestions(req, res, next) {
+  let { idUser } = req.params;
   try {
-    let allQuestions = await Question.findAll({
+    let allQuestions = await Users.findOne({
+      where: {
+        id: idUser,
+      },
       attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
       order: [["createdAt", "DESC"]],
       include: [
         {
-          model: Users,
-          attributes: ["id", "username", "name", "fullName", "lastName"],
-        },
-        {
           model: Posts,
           attributes: ["id", "title"],
           order: [["createdAt", "DESC"]]
+          include: [
+            {
+              model: Question,
+              attributes: ["title", "question", "answer"],
+              order: [["createdAt", "DESC"]],
+              include: [
+                {
+                  model: Users,
+                  attributes: ["username"],
+                },
+              ],
+            },
+          ],
         },
       ],
     });

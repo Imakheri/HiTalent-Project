@@ -16,7 +16,9 @@ export default function Footer() {
                     <Link to='/home'>
                     <li>Home</li>
                     </Link>
-                    <li>Terms of Services</li>
+                    <Link to='/faq'>
+                    <li>Preguntas frecuentes</li>
+                    </Link>
                     <li>Privacy Policy</li>
                     <li>Corporate</li>
                 </ul>

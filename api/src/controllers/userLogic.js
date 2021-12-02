@@ -1,4 +1,4 @@
-const { Users } = require("../db");
+const { Users, Orders, Posts, Question, Review } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { getToken, getTokenData } = require("../config/jwt.config");
 const bcrypt = require("bcrypt");
@@ -270,7 +270,7 @@ async function getUserById(req, res, next) {
         },
         include: [
           {
-            model: Order,
+            model: Orders,
             order: [["createdAt", "DESC"]],
           },
           {
@@ -280,6 +280,7 @@ async function getUserById(req, res, next) {
           },
           {
             model: Review,
+
             attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
             order: [["createdAt", "DESC"]],
             include: [
