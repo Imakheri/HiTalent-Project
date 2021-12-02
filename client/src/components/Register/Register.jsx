@@ -9,6 +9,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import axios from 'axios';
 
 export default function Register({ onModaleClick, onModalChange }) {
+
 const dispatch = useDispatch();
 
 const [modalIsOpen, setIsOpen] = useState(true);
