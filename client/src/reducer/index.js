@@ -1,4 +1,4 @@
-import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID } from "../actions"
+import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID,GET_TALENT_BY_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID } from "../actions"
 
 const initialState = {
     user : [],
@@ -9,7 +9,8 @@ const initialState = {
     order: [],
     review: [],
     movement: [],
-    qa: []
+    qa: [],
+    moreTalent: []
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -24,6 +25,11 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 talents: action.payload
+            }
+        case GET_TALENT_BY_ID:
+            return {
+                ...state,
+                moreTalent: action.payload
             }
         case CARGAR_USUARIO:
             return {
