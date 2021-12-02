@@ -40,7 +40,7 @@ const createOrden= async(req,res,next)=>{
 	};
 }
 const editOrden= async(req,res,next)=>{
-    let id =req.body.params
+    let id =req.params.id
     let change=req.body
     try{
         var orden=await Orders.update(change,{where:{id}})

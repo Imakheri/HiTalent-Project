@@ -46,63 +46,43 @@ async function updateReview(req, res, next) {
 }
 
 
-async function getAllReviews(req, res, next) {
-  if(req.query.filter)
-  try {
-    let allReviews = await Review.findAll({
-      where: {
-        rating: req.query.filter
-      },
-      attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
-      order: [['createdAt', req.query.order]],
-      include: [
-        {
-          model: Users,
-          attributes: ["id", "username", "name", "fullName", "lastName"],
-          //order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
-        },
-        {
-          model: Posts,
-          attributes: ["id", "title"],
-          order: [['createdAt', 'DESC']]
-
 async function getAllReviewsUser(req, res, next) {
-  let { idUser } = req.params;
-  try {
-    let allReviews = await Users.findOne({
-      where: {
-        id: idUser,
-      },
-      attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
-      include: [
-        {
-          model: Posts,
-          attributes: ["id", "title"],
-          order: [
-            ["createdAt", "DESC"]
-          ],
-          include: [
-            {
-              model: Review,
-              attributes: ["rating", "description"],
-              order: [
-                ["createdAt", "DESC"]
-              ],
-              include: [
-                {
-                  model: Users,
-                  attributes: ["username"],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-    res.json(allReviews);
-  } catch (err) {
-    next(err);
-  }
+  // let { idUser } = req.params;
+  // try {
+  //   let allReviews = await Users.findOne({
+  //     where: {
+  //       id: idUser,
+  //     },
+  //     attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
+  //     include: [
+  //       {
+  //         model: Posts,
+  //         attributes: ["id", "title"],
+  //         order: [
+  //           ["createdAt", "DESC"]
+  //         ],
+  //         include: [
+  //           {
+  //             model: Review,
+  //             attributes: ["rating", "description"],
+  //             order: [
+  //               ["createdAt", "DESC"]
+  //             ],
+  //             include: [
+  //               {
+  //                 model: Users,
+  //                 attributes: ["username"],
+  //               },
+  //             ],
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   });
+  //   res.json(allReviews);
+  // } catch (err) {
+  //   next(err);
+  // }
 }
 
 async function getPostReview(req, res, next) {
@@ -120,7 +100,7 @@ async function getPostReview(req, res, next) {
           {
             model: Review,
             attributes: ["rating", "description"],
-            order: [['createdAt', 'DESC']]
+            order: [['createdAt', 'DESC']],
             include: [
               {
                 model: Users,

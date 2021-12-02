@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {getPosts,updatePost,createPost, deletePost, addImage, deleteImage, getTalentById,getTalentsByTitle}=require("../../controllers/postLogic");
+const {getPosts,updatePost,createPost, deletePost, addImage, deleteImage, getPostId,getTalentsByTitle}=require("../../controllers/postLogic");
 const { uploader } = require("../../middleware/uploader");
 
 router.get("/",getPosts)

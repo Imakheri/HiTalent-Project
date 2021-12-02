@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const router = Router();
-const {getCategories}=require("../../controllers/categoriesLogic");
 const {getCategories,updateCategories,createCategories, deleteCategories, getCategoriesById}=require("../../controllers/categoriesLogic");
 
 
