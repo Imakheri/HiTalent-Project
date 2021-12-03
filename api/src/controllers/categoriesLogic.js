@@ -3,7 +3,7 @@ const {Categories}=require("../db")
 
 async function getCategories(req, res, next){
     var post= await Categories.findAll({
-        order: [['title', req.query.order]]
+        // order: [['title', req.query.order]]
     })
     res.json(post)
 

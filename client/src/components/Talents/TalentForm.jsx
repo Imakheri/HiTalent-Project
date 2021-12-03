@@ -80,7 +80,7 @@ function TalentForm(){
             url: "http://localhost:3001/post",
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
-          }) .then(res => console.log(res))
+          }).then(res => console.log(res))
           .catch(err => console.log(err));
           alert("Curso creado satisfactoriamente")
         navigate("/home");
