@@ -12,6 +12,7 @@ export const GET_QA_ID = 'GET_QA_ID';
 export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 export const PUT_ANSWER = 'PUT_ANSWER';
+export const GET_CATEGORIES = "GET_CATEGORIES"
 
 export function getTalents() {
   return function (dispatch) {
@@ -44,9 +45,9 @@ export function getTalentById(id) {
 }
 
 export function searchTalent(search) {
-  return function (dispatch) {
+  return function (dispatch) { 
     axios
-      .get("http://localhost:3001/talents?name=" + search)
+      .get("http://localhost:3001/post/title/" + search)
       .then((talents) => {
         dispatch({
           type: SEARCH_TALENT,
@@ -191,4 +192,13 @@ export function createAnswer(answer, id){
       console.log(error);
     }
   }; 
+}
+export function getCategories() {
+  return async function (dispatch) {
+    const allCategories = await axios.get("http://localhost:3001/categories");
+    return dispatch({
+      type: GET_CATEGORIES,
+      payload: allCategories.data,
+    });
+  };
 }
