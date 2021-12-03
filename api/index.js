@@ -23,18 +23,18 @@ conn.sync({ force: true }).then(() => {
       .then((e) => {})
       .catch((e) => console.log(e));
     //------------------------------------------------------------------------------
-    // var testpost1 = await Posts.create({
-    //   //creo post 1
-    //   title: "canto",
-    //   description: "clases de canto",
-    //   cost: 12,
-    // });
-    // var testpost2 = await Posts.create({
-    //   //creo post 2
-    //   title: "guitarra",
-    //   description: "clases de guitarra",
-    //   cost: 24,
-    // });
+    var testpost1 = await Posts.create({
+      //creo post 1
+      title: "canto",
+      description: "clases de canto",
+      cost: 12,
+    });
+    var testpost2 = await Posts.create({
+      //creo post 2
+      title: "guitarra",
+      description: "clases de guitarra",
+      cost: 24,
+    });
     var testuser1 = await Users.create({
       //creo usuario test1
       name: "pepe",
@@ -63,7 +63,7 @@ conn.sync({ force: true }).then(() => {
           code:160
     })
     await testorden.setPayment(testpayment) //lo seteo a la orden de pago
-    console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
+    //console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
 
     //--------------------------------------------------------------------------
     var testuser3 = await Users.create({
