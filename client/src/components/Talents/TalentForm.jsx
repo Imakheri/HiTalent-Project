@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../actions';
+import {useNavigate } from "react-router-dom";
+import NavBar from './BarraNav/NavBar';
 
 
 function TalentForm(){
 
     let dispatch = useDispatch();
+    let navigate = useNavigate();
+
     let usuario = useSelector(state => state.index.user.username);
     let categories = useSelector(state => state.index.categories)
 
@@ -31,7 +35,7 @@ function TalentForm(){
 
     function handleOnChange(e){
         if(e.target.name === "image"){
-            console.log("IMAGEN",e.target.files[0])
+            console.log("IMAGEN",e.target.value)
             setFile(e.target.files[0])
         }
         else{
@@ -71,8 +75,6 @@ function TalentForm(){
         fb.append("cost",form.cost)
         fb.append("image",file)
         fb.append("category",form.category)
-
-        console.log("ESTE ES EL FB: ", fb)
         axios({
             method: "post",
             url: "http://localhost:3001/post",
@@ -80,135 +82,153 @@ function TalentForm(){
             headers: { "Content-Type": "multipart/form-data" },
           }) .then(res => console.log(res))
           .catch(err => console.log(err));
+          alert("Curso creado satisfactoriamente")
+        navigate("/home");
     }
 
     return(
-        <div className="bg-semilight min-h-screen min-w-full flex items-center justify-center flex-col">
-            <form onSubmit={e => onSubmit(e)} className="flex flex-col">
-                <input 
-                onChange={handleOnChange} 
-                type="text" 
-                name="title"  
-                placeholder="Nombre curso" 
-                />
-                <textarea 
+        <div >
+            <NavBar/>
+            <div className="bg-semilight min-h-screen min-w-full ">
+                <form onSubmit={e => onSubmit(e)} className="grid grid-cols-4 auto-rows-min gap-2 bg-white" >
+                    <h1 className="col-start-1 col-end-5 justify-self-center self-center text-dark underline text-3xl font-semibold" >Crea un nuevo curso en base a tu talento!</h1>
+                    <input 
+                    className="h-16 row-start-2 col-start-1 col-end-3 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light text-center"
                     onChange={handleOnChange} 
-                    className="bg-dark resize-none overflow-y-auto" 
-                    name="description" 
-                    rows="8" cols="25"  
-                    placeholder="Ingrese la descripcion del curso" 
-                />  
-                <input 
-                    onChange={handleOnChange} 
-                    type="number" 
-                    name="duration"  
-                    placeholder="Duracion | Horas"
-                />
-                <input 
-                    onChange={handleOnChange} 
-                    type="number" 
-                    name="cost"  
-                    placeholder="Precio | Dolares"
-                />
-                <input 
-                    onChange={handleOnChange} 
-                    className="bg-dark" 
-                    type="file" 
-                    name="image"  
-                    placeholder="Arrastra aqui tus imagenes"
-                    //! Aca tengo que poner los tipos de archivos que admite
-                    accept="image/*,.pdf"
-                />
-                <select onChange={e => handleOnSelect(e)}>
-                <option>Selecciona una categoria</option>
-                    {
-                        !categories ? 
-                        <option>Cargando</option> : 
-                        (categories.map(el => {
-                            return(
-                                <option key={el.id}
-                                name="category">
-                                {el.title}
-                                </option>
-                            )
-                        }))
-                    }
-                </select>
-                <button> Revisar </button>
-                { !ventanaModal ? console.log("") : 
-                (<ReactModal
-                    isOpen={ventanaModal}
-                    onRequestClose={changeModal}
-                    contentLabel="Example Modal"
-                    // className=" absolute m-auto max-w-max inset-x-0 top-40 bg-dark border-2 border-white rounded-lg"
-                    overlayClassName="fixed inset-0 bg-black bg-opacity-90"
-                  >
-                    <div className="bg-semilight min-h-screen min-w-full flex items-center justify-center flex-col">
-                        <form onSubmit={e => onSubmitForm(e)} className="flex flex-col">
-                            <input 
-                                onChange={handleOnChange} 
-                                type="text" 
-                                name="title"  
-                                value={form.title}
-                                placeholder="Nombre curso" 
-                            />
-                            <textarea 
-                                onChange={handleOnChange} 
-                                className="bg-dark resize-none overflow-y-auto" 
-                                name="description" 
-                                rows="8" cols="25"  
-                                value={form.description}
-                                placeholder="Ingrese la descripcion del curso" 
-                            />  
-                            <input 
-                                onChange={handleOnChange} 
-                                type="number" 
-                                name="duration"  
-                                value={form.duration}
-                                placeholder="Duracion | Horas"
-                            />
-                            <input 
-                                onChange={handleOnChange} 
-                                type="number" 
-                                name="cost"  
-                                value={form.cost}
-                                placeholder="Precio | Dolares"
-                            />
-                            <input 
-                                onChange={handleOnChange} 
-                                className="bg-dark" 
-                                name="image"  
-                                type="file" 
-                                placeholder="Arrastra aqui tus imagenes"
-                                accept="image/*,.pdf"
-                                multiple
-                            />
-                            <select onChange={e => handleOnSelect(e)}>
-                            {
-                                form.category ? <option>{form.category}</option>
-                                : <option>Selecciona una categoria</option>}
-                            {
-                                !filteredCategories ? 
-                                <option>Cargando</option> : 
-                                (filteredCategories.map(el => {
-                                    return(
-                                        <option key={el.id}
-                                        name="category">
-                                        {el.title}
-                                        </option>
-                                    )
-                                }))
-                            }
-                            </select>
-                            <Link to="/home">
-                                <button>Cancelar</button>
-                            </Link>
-                            <button>Crear curso</button>
-                        </form>
+                    type="text" 
+                    name="title"  
+                    placeholder="Nombre curso" 
+                    required
+                    />
+                    <textarea 
+                        onChange={handleOnChange} 
+                        className="bg-light resize-none overflow-y-auto row-start-3 col-start-1 col-end-3 w-80 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 text-center p-8"  
+                        name="description" 
+                        rows="8" cols="25"  
+                        placeholder="Ingrese la descripcion del curso" 
+                        required
+                    />  
+                    <input 
+                        className="row-start-4 col-start-1 col-end-3 h-12 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light px-3"
+                        onChange={handleOnChange} 
+                        type="number" 
+                        name="duration"  
+                        placeholder="Duracion | Horas"
+                        required
+                    />
+                    <div className="grid bg-semidark col-start-3 col-end-5">
+                        {/* <img src="image(1).png" alt="portada" /> */}
+                        <input 
+                            className="bg-dark justify-self-center self-end " 
+                            onChange={handleOnChange} 
+                            type="file" 
+                            name="image"  
+                            placeholder="Arrastra aqui tus imagenes"
+                            required
+                        />
                     </div>
-                </ReactModal>)
-                }
-            </form>
+                    <input 
+                        className="row-start-4 col-start-3 col-end-5 h-12 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light px-3"
+                        onChange={handleOnChange} 
+                        type="number" 
+                        name="cost"  
+                        placeholder="Precio | Dolares"
+                        required
+                    />
+                    <select 
+                    className="col-start-3 col-end-5 h-12 w-56 justify-self-center self-center"
+                    onChange={e => handleOnSelect(e)}
+                    >
+                    <option>Selecciona una categoria</option>
+                        {
+                            !categories ? 
+                            <option>Cargando</option> : 
+                            (categories.map(el => {
+                                return(
+                                    <option key={el.id}
+                                    name="category">
+                                    {el.title}
+                                    </option>
+                                )
+                            }))
+                        }
+                    </select>
+                    <button className="col-start-1 col-end-5"> Revisar </button>
+                    { !ventanaModal ? console.log("") : 
+                    (<ReactModal
+                        isOpen={ventanaModal}
+                        onRequestClose={changeModal}
+                        contentLabel="Example Modal"
+                        // className=" absolute m-auto max-w-max inset-x-0 top-40 bg-dark border-2 border-white rounded-lg"
+                        overlayClassName="fixed inset-0 bg-black bg-opacity-90"
+                    >
+                        <div className="bg-semilight min-h-screen min-w-full flex items-center justify-center flex-col">
+                            <form onSubmit={e => onSubmitForm(e)} className="flex flex-col">
+                                <input 
+                                    onChange={handleOnChange} 
+                                    type="text" 
+                                    name="title"  
+                                    value={form.title}
+                                    placeholder="Nombre curso" 
+                                />
+                                <textarea 
+                                    onChange={handleOnChange} 
+                                    className="bg-dark resize-none overflow-y-auto" 
+                                    name="description" 
+                                    rows="8" cols="25"  
+                                    value={form.description}
+                                    placeholder="Ingrese la descripcion del curso" 
+                                />  
+                                <input 
+                                    onChange={handleOnChange} 
+                                    type="number" 
+                                    name="duration"  
+                                    value={form.duration}
+                                    placeholder="Duracion | Horas"
+                                />
+                                <input 
+                                    onChange={handleOnChange} 
+                                    type="number" 
+                                    name="cost"  
+                                    value={form.cost}
+                                    placeholder="Precio | Dolares"
+                                />
+                                <input 
+                                    onChange={handleOnChange} 
+                                    className="bg-dark" 
+                                    name="image"  
+                                    type="file" 
+                                    placeholder="Arrastra aqui tus imagenes"
+                                    accept="image/*,.pdf"
+                                    multiple
+                                />
+                                <select onChange={e => handleOnSelect(e)}>
+                                {
+                                    form.category ? <option>{form.category}</option>
+                                    : <option>Selecciona una categoria</option>}
+                                {
+                                    !filteredCategories ? 
+                                    <option>Cargando</option> : 
+                                    (filteredCategories.map(el => {
+                                        return(
+                                            <option key={el.id}
+                                            name="category">
+                                            {el.title}
+                                            </option>
+                                        )
+                                    }))
+                                }
+                                </select>
+                                <Link to="/home">
+                                    <button>Cancelar</button>
+                                </Link>
+                                <button>Crear curso</button>
+                            </form>
+                        </div>
+                    </ReactModal>)
+                    }
+                </form>
+            </div>
         </div>
     )
 }
