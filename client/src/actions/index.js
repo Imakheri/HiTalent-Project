@@ -165,8 +165,8 @@ export function getMovebyId(id){
 export function getQAbyId(id){
   return async function (dispatch){
     try {
-      var qa = await axios.get("http://localhost:3001/user/" + id); 
-      // console.log(qa)
+      var qa = await axios.get("http://localhost:3001/question/all/" + id); 
+      console.log('Esto es qa desde el back ' + qa)
       return dispatch({
         type: GET_QA_ID,
         payload: qa.data

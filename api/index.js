@@ -12,7 +12,7 @@ const {
 } = require("./src/db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(3001, async () => {
     Categories.bulkCreate([
       { title: "Tecnologias" },
@@ -170,6 +170,14 @@ conn.sync({ force: true }).then(() => {
 
     testQuestionProfile.answer = "Si, recibo mercado pago";
     testQuestionProfile.save();
+
+    var testQuestionProfile2 = await Question.create({
+      //creo una pregunta
+      title: "Titulo de la pregunta",
+      question: "¿Me querés?",
+    });
+    await testQuestionProfile2.setUser(testuser3); //le vinculo los 2 post al usuario test
+    await testQuestionProfile2.setPost(testPostProfile1);
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });
