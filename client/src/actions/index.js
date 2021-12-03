@@ -11,6 +11,7 @@ export const GET_MOVE_ID = 'GET_MOVE_ID';
 export const GET_QA_ID = 'GET_QA_ID';
 export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
+export const PUT_ANSWER = 'PUT_ANSWER';
 
 export function getTalents() {
   return function (dispatch) {
@@ -162,11 +163,10 @@ export function getMovebyId(id){
   };
 }
 
-export function getQAbyId(id){
+export function getQAbyId(idUser){
   return async function (dispatch){
     try {
-      var qa = await axios.get("http://localhost:3001/question/all/" + id); 
-      console.log('Esto es qa desde el back ' + qa)
+      var qa = await axios.get("http://localhost:3001/question/all/" + idUser); 
       return dispatch({
         type: GET_QA_ID,
         payload: qa.data
@@ -175,4 +175,20 @@ export function getQAbyId(id){
       console.log(error);
     }
   };
+}
+
+
+export function createAnswer(answer, id){
+  return async function (dispatch){
+    try {
+      var info = await axios.put('http://localhost:3001/question/' + id, {answer});
+      console.log(info.data)
+      return dispatch ({
+        type: PUT_ANSWER,
+        payload: info.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }; 
 }

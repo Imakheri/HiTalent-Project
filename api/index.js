@@ -12,7 +12,7 @@ const {
 } = require("./src/db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     Categories.bulkCreate([
       { title: "Tecnologias" },
@@ -173,7 +173,7 @@ conn.sync({ force: false }).then(() => {
 
     var testQuestionProfile2 = await Question.create({
       //creo una pregunta
-      title: "Titulo de la pregunta",
+      title: "Title question",
       question: "¿Me querés?",
     });
     await testQuestionProfile2.setUser(testuser3); //le vinculo los 2 post al usuario test
