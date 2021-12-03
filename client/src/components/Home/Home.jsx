@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import Footer from '../Landing/Footer'
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
+import Categories from "./Categories";
 
 export default function Home() {
     let skill = useSelector((state) => state.index.filteredTalents)
@@ -17,6 +18,9 @@ export default function Home() {
         <div className="home_container">
             <Nav/>
             <div>
+                <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
+                <Categories/> <hr />
+                <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
             </div>
             <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
                 {skill?.length === 0 ? <div className="not_found">not found</div> : (skill?.map((talent) => {

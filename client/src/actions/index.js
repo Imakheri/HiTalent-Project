@@ -45,7 +45,7 @@ export function getTalentById(id) {
 export function searchTalent(search) {
   return function (dispatch) {
     axios
-      .get("http://localhost:3001/talents?name=" + search)
+      .get("http://localhost:3001/post/title/" + search)
       .then((talents) => {
         dispatch({
           type: SEARCH_TALENT,

@@ -23,18 +23,18 @@ conn.sync({ force: true }).then(() => {
       .then((e) => {})
       .catch((e) => console.log(e));
     //------------------------------------------------------------------------------
-    var testpost1 = await Posts.create({
-      //creo post 1
-      title: "canto",
-      description: "clases de canto",
-      cost: 12,
-    });
-    var testpost2 = await Posts.create({
-      //creo post 2
-      title: "guitarra",
-      description: "clases de guitarra",
-      cost: 24,
-    });
+    // var testpost1 = await Posts.create({
+    //   //creo post 1
+    //   title: "canto",
+    //   description: "clases de canto",
+    //   cost: 12,
+    // });
+    // var testpost2 = await Posts.create({
+    //   //creo post 2
+    //   title: "guitarra",
+    //   description: "clases de guitarra",
+    //   cost: 24,
+    // });
     var testuser1 = await Users.create({
       //creo usuario test1
       name: "pepe",
