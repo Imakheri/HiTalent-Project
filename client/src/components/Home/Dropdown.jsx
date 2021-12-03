@@ -16,7 +16,9 @@ export default function Dropdown(id) {
             <Link to={'/profile/' + id}>
                 <MenuItem>Mi perfil</MenuItem>
             </Link>
-            <MenuItem>Publicar</MenuItem>
+            <Link to="/createTalent">
+                <MenuItem>Publicar</MenuItem>
+            </Link>
             <Link to='/faq'>
             <MenuItem>Preguntas frecuentes</MenuItem>
             </Link>

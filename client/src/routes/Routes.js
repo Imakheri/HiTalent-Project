@@ -40,6 +40,8 @@ export const Rout = () => {
         <BrowserRouter>
             <Routes>
                 <Route exact path='/' element={<Landing />} />
+                <Route exact path="/ResetPassword" element={<ResetPassword />} />
+                {/* <Route exact path="/NewPassword" element={<NewPassword />} /> */}
                 <Route path="/createTalent" element={<TalentForm />} />
                 <Route path='/profile/:id' element={<Profile />} />
                 <Route path='/user/confirm/:token' element={<Validate />} />

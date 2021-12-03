@@ -2,78 +2,84 @@ import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../actions';
+
 
 function TalentForm(){
 
-    // let usuario = useSelector(state => state.index.username);
+    let dispatch = useDispatch();
+    let usuario = useSelector(state => state.index.user.username);
+    let categories = useSelector(state => state.index.categories)
+
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [dispatch])
     
-
-    // const [categorias, setCategorias] = useState();
-
-    // useEffect(e => {
-    //     axios.get("http://localhost:3001/categories")
-    //     setCategorias()
-    // }, [usuario])
-
-    // console.log("categorias",categorias)
-
-
+    const [file, setFile]=useState(null)
     const [form, setForm] = useState({
         title: "",
         description: "",
         duration: "", 
         cost: "", 
-        image: [],
         category: ""
     })
-    console.log(form)
+
     //! VER EL PATH
     const [ventanaModal, setVentanaModal] = useState(false)
     
 
     function handleOnChange(e){
         if(e.target.name === "image"){
-            setForm({
-            ...form,
-            [e.target.name] :  [...form.image ,e.target.value]
-        })} else{
+            console.log("IMAGEN",e.target.files[0])
+            setFile(e.target.files[0])
+        }
+        else{
             setForm({
                 ...form,
                 [e.target.name] :  e.target.value
             })
         }
     }
+
+    const handleOnSelect = (e) => {
+        e.preventDefault();
+        setForm({
+            ...form,
+            category : e.target.value
+        })
+    }
+
+    let filteredCategories = categories.filter(el => el.title !== form.category)
         
     const onSubmit = (e) => {
         e.preventDefault();
         setVentanaModal(true)
     }
-
     const changeModal = (e) => {
         e.preventDefault();
         setVentanaModal(!ventanaModal)
     }
-
-    // const onSubmitForm = (e) => {
-    //     e.preventDefault()
-    //     axios.post("http://localhost:3001/post", form)
-    //     .then(res => res)
-    // }
-
+    
     function onSubmitForm(e){
         e.preventDefault()
         let fb= new FormData()
-        // let testfb=new FormData()
-        //!cambiar hernan1234 por usuario linea:9
-        fb.append("username", "hernan1234")
+        fb.append("username", usuario)
         fb.append("title",form.title)
         fb.append("description",form.description)
         fb.append("duration",form.duration)
         fb.append("cost",form.cost)
-        fb.append("image",form.image[0])
-        let a = axios.post("http://localhost:3001/post", fb)
-        console.log(a)
+        fb.append("image",file)
+        fb.append("category",form.category)
+
+        console.log("ESTE ES EL FB: ", fb)
+        axios({
+            method: "post",
+            url: "http://localhost:3001/post",
+            data: fb,
+            headers: { "Content-Type": "multipart/form-data" },
+          }) .then(res => console.log(res))
+          .catch(err => console.log(err));
     }
 
     return(
@@ -107,22 +113,29 @@ function TalentForm(){
                 <input 
                     onChange={handleOnChange} 
                     className="bg-dark" 
-                    name="image"  
                     type="file" 
+                    name="image"  
                     placeholder="Arrastra aqui tus imagenes"
                     //! Aca tengo que poner los tipos de archivos que admite
                     accept="image/*,.pdf"
-                    multiple
                 />
-                <select>
-                    <option>Algo</option>
-                    <option>Algo2</option>
-                    <option>Algo3</option>
-                    <option>Algo4</option>
-                    <option>Algo5</option>
+                <select onChange={e => handleOnSelect(e)}>
+                <option>Selecciona una categoria</option>
+                    {
+                        !categories ? 
+                        <option>Cargando</option> : 
+                        (categories.map(el => {
+                            return(
+                                <option key={el.id}
+                                name="category">
+                                {el.title}
+                                </option>
+                            )
+                        }))
+                    }
                 </select>
                 <button> Revisar </button>
-                { !ventanaModal ? console.log("No hay ventana modal") : 
+                { !ventanaModal ? console.log("") : 
                 (<ReactModal
                     isOpen={ventanaModal}
                     onRequestClose={changeModal}
@@ -170,6 +183,23 @@ function TalentForm(){
                                 accept="image/*,.pdf"
                                 multiple
                             />
+                            <select onChange={e => handleOnSelect(e)}>
+                            {
+                                form.category ? <option>{form.category}</option>
+                                : <option>Selecciona una categoria</option>}
+                            {
+                                !filteredCategories ? 
+                                <option>Cargando</option> : 
+                                (filteredCategories.map(el => {
+                                    return(
+                                        <option key={el.id}
+                                        name="category">
+                                        {el.title}
+                                        </option>
+                                    )
+                                }))
+                            }
+                            </select>
                             <Link to="/home">
                                 <button>Cancelar</button>
                             </Link>
