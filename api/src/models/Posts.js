@@ -28,6 +28,7 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.ARRAY(DataTypes.STRING),  //array de imagenes ver esto luego
       allowNull: true,
+      defaultValue:[]
     },
   
     duration: {
