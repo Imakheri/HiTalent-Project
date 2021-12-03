@@ -8,7 +8,7 @@ import Home from '../components/Home/Home';
 import Landing from '../components/Landing/Landing';
 import Validate from '../components/Register/Validate';
 import Register from '../components/Register/Register';
-import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
+// import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
 import TalentForm from '../components/Talents/TalentForm';
 import SeeMore from '../components/SeeMore/SeeMore';
 import Profile from '../components/Profile/Profile';
@@ -42,7 +42,7 @@ export const Rout = () => {
             <Routes>
                 <Route exact path='/' element={<Landing />} />
                 <Route exact path="/ResetPassword" element={<ResetPassword />} />
-                <Route exact path="/NewPassword" element={<NewPassword />} />
+                {/* <Route exact path="/NewPassword" element={<NewPassword />} /> */}
                 <Route path="/createTalent" element={<TalentForm />} />
                 <Route path='/profile/:id' element={<Profile />} />
                 <Route path='/user/confirm/:token' element={<Validate />} />

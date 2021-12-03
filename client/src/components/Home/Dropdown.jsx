@@ -17,7 +17,9 @@ export default function Dropdown() {
             <Link to='/profile'>
                 <MenuItem>Mi perfil</MenuItem>
             </Link>
-            <MenuItem>Publicar</MenuItem>
+            <Link to="/createTalent">
+                <MenuItem>Publicar</MenuItem>
+            </Link>
             <MenuItem>Preguntas frecuentes</MenuItem>
             <MenuDivider/>
             <MenuItem onClick={onClick}>Cerrar sesion</MenuItem>

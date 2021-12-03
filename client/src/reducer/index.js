@@ -1,4 +1,4 @@
-import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID,GET_TALENT_BY_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID } from "../actions"
+import { SEARCH_TALENT, CARGAR_USUARIO,GET_CATEGORIES, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID,GET_TALENT_BY_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID } from "../actions"
 
 const initialState = {
     user : [],
@@ -10,9 +10,10 @@ const initialState = {
     review: [],
     movement: [],
     qa: [],
-    moreTalent: []
+    moreTalent: [],
+    categories: []
 }
-
+ 
 export default function rootReducer(state = initialState, action) {
     switch(action.type) {
         case GET_TALENT:
@@ -65,6 +66,11 @@ export default function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 qa: action.payload
+            }
+        case GET_CATEGORIES:
+            return{
+                ...state,
+                categories: action.payload
             }
         default:
             return state

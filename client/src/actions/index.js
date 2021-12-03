@@ -11,6 +11,7 @@ export const GET_MOVE_ID = 'GET_MOVE_ID';
 export const GET_QA_ID = 'GET_QA_ID';
 export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
+export const GET_CATEGORIES = "GET_CATEGORIES"
 
 export function getTalents() {
   return function (dispatch) {
@@ -43,7 +44,7 @@ export function getTalentById(id) {
 }
 
 export function searchTalent(search) {
-  return function (dispatch) {
+  return function (dispatch) { 
     axios
       .get("http://localhost:3001/talents?name=" + search)
       .then((talents) => {
@@ -174,5 +175,16 @@ export function getQAbyId(id){
     } catch (error) {
       console.log(error);
     }
+  };
+}
+
+
+export function getCategories() {
+  return async function (dispatch) {
+    const allCategories = await axios.get("http://localhost:3001/categories");
+    return dispatch({
+      type: GET_CATEGORIES,
+      payload: allCategories.data,
+    });
   };
 }
