@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { firebase } from '../firebase/firebase-config';
 import { login } from '../actions/auth';
 // import { Private } from './Private';
@@ -8,10 +8,11 @@ import Home from '../components/Home/Home';
 import Landing from '../components/Landing/Landing';
 import Validate from '../components/Register/Validate';
 import Register from '../components/Register/Register';
-import { NewPassword } from "../components/ResetPassword/NewPassword/NewPassword";
-import { ResetPassword } from "../components/ResetPassword/ResetPassword";
-import { Profile } from '../components/Profile/Profile';
+import TalentForm from '../components/Talents/TalentForm';
 import SeeMore from '../components/SeeMore/SeeMore';
+import Profile from '../components/Profile/Profile';
+import ResetPassword from '../components/ResetPassword/ResetPassword';
+import EmailResetPassword from '../components/ResetPassword/EmailResetPassword';
 
 
 export const Rout = () => {
@@ -40,10 +41,13 @@ export const Rout = () => {
             <Routes>
                 <Route exact path='/' element={<Landing />} />
                 <Route exact path="/ResetPassword" element={<ResetPassword />} />
-                <Route exact path="/NewPassword" element={<NewPassword />} />
-                <Route exact path="/Profile" element={<Profile />} />
-                <Route path="/user/confirm/:token" element={<Validate />} />
-                <Route exact path="/register" element={<Register />} />
+                {/* <Route exact path="/NewPassword" element={<NewPassword />} /> */}
+                <Route path="/createTalent" element={<TalentForm />} />
+                <Route path='/profile/:id' element={<Profile />} />
+                <Route path='/user/confirm/:token' element={<Validate />} />
+                <Route exact path='/register' element={<Register />} />
+                <Route path='/user/emailresetpassword' element={<EmailResetPassword />} />
+                <Route path='/user/resetpassword' element={<ResetPassword />} />
                 <Route path='/home' element={<Home
                     // <Route 
                     // element = {(props) =>
