@@ -42,19 +42,30 @@ function handleOnChange(e){
     setState({type : 'password', button: 'mostrar'})
 }
 
+let regexMail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+let regexPw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+let regexUsername = /^(?=.{4,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
+let fecha = input.birthdate.split("-")
+
 function createPass(){
-    createUser(input)
-    alert('¡El usuario ha sido creado correctamente!')
-    setInput({
-        name: '',
-        lastName: '',
-        email: '',
-        username: '',
-        password: '',
-        password2: "",
-        birthdate: ''
-    })
-    setIsOpen(false)
+    if(!regexMail.test(input.email)) alert("Ingrese un mail valido")
+    else if(!regexUsername.test(input.username)) alert("Usuario: No puede tener _ ni al principio ni al final, no puede tener __ ni _. dentro y debe tener entre 4-16 caracteres")
+    else if(!regexPw.test(input.password)) alert("Ingrese una contraseña valida. Debe contener 1 Mayuscula, 1 numero y 8-16 caracteres")
+    else if(fecha[0]<1920 || fecha[0]>2018) alert("Ingrese un año valido, entre 1920 y 2018")
+    else{
+        createUser(input)
+        alert('¡El usuario ha sido creado correctamente!')
+        setInput({
+            name: '',
+            lastName: '',
+            email: '',
+            username: '',
+            password: '',
+            password2: "",
+            birthdate: ''
+        })
+        setIsOpen(false)
+    }
 }
 
 function createUser(input){
