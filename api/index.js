@@ -23,18 +23,18 @@ conn.sync({ force: true }).then(() => {
       .then((e) => {})
       .catch((e) => console.log(e));
     //------------------------------------------------------------------------------
-    var testpost1 = await Posts.create({
-      //creo post 1
-      title: "canto",
-      description: "clases de canto",
-      cost: 12,
-    });
-    var testpost2 = await Posts.create({
-      //creo post 2
-      title: "guitarra",
-      description: "clases de guitarra",
-      cost: 24,
-    });
+    // var testpost1 = await Posts.create({
+    //   //creo post 1
+    //   title: "canto",
+    //   description: "clases de canto",
+    //   cost: 12,
+    // });
+    // var testpost2 = await Posts.create({
+    //   //creo post 2
+    //   title: "guitarra",
+    //   description: "clases de guitarra",
+    //   cost: 24,
+    // });
     var testuser1 = await Users.create({
       //creo usuario test1
       name: "pepe",
@@ -170,6 +170,14 @@ conn.sync({ force: true }).then(() => {
 
     testQuestionProfile.answer = "Si, recibo mercado pago";
     testQuestionProfile.save();
+
+    var testQuestionProfile2 = await Question.create({
+      //creo una pregunta
+      title: "Title question",
+      question: "¿Me querés?",
+    });
+    await testQuestionProfile2.setUser(testuser3); //le vinculo los 2 post al usuario test
+    await testQuestionProfile2.setPost(testPostProfile1);
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });
