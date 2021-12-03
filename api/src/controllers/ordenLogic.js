@@ -62,10 +62,19 @@ const cancelOrden= async(req,res,next)=>{
    
 }
 
+async function getVentas(req,res,next){
+    let user=req.params.id
+    var ventas=await Orders.findAll({include:[{model:Posts},{model:Users}]})
+    let userVentas=ventas.filter(e=>e.post.user_id===user)
+    if(userVentas<1)return res.json({message:"el usuario seleccionado no tiene ventas"})
+    res.json(userVentas)
+}
+
 module.exports={
     getOrdenbyId,
     createOrden,
     editOrden,
     cancelOrden,
-    getAllOrden
+    getAllOrden,
+    getVentas
 }
