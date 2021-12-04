@@ -15,7 +15,7 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className="home_container">
+    <div  class='user-select-none'>
       <Nav />
       <div>
         <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
@@ -31,7 +31,7 @@ export default function Home() {
               <TalentCard
                 key={talent.id}
                 id={talent.id}
-                username={talent.username}
+                username={talent.user.username}
                 title={talent.title}
                 description={talent.description}
                 image={talent.image}

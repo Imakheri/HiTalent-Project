@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../actions';
 import {useNavigate } from "react-router-dom";
 import NavBar from './BarraNav/NavBar';
-
+import Footer from '../Landing/Footer';
 
 function TalentForm(){
 
@@ -89,46 +89,48 @@ function TalentForm(){
     return(
         <div >
             <NavBar/>
-            <div className="bg-semilight min-h-screen min-w-full ">
-                <form onSubmit={e => onSubmit(e)} className="grid grid-cols-4 auto-rows-min gap-2 bg-white" >
+            <div className=" min-h-screen min-w-full">
+                <form onSubmit={e => onSubmit(e)} className="grid grid-cols-4 auto-rows-min gap-2" >
                     <h1 className="col-start-1 col-end-5 justify-self-center self-center text-dark underline text-3xl font-semibold" >Crea un nuevo curso en base a tu talento!</h1>
                     <input 
-                    className="h-16 row-start-2 col-start-1 col-end-3 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light text-center"
+                    className="h-8 row-start-2 col-start-1 col-end-3 w-80 justify-self-center self-center border-2 rounded-md border-dark border-opacity-70 text-center"
                     onChange={handleOnChange} 
                     type="text" 
                     name="title"  
                     placeholder="Nombre curso" 
                     required
                     />
+                    <label class="row-start-3 col-start-1 col-end-3" >Descripcion:</label>
                     <textarea 
                         onChange={handleOnChange} 
-                        className="bg-light resize-none overflow-y-auto row-start-3 col-start-1 col-end-3 w-80 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 text-center p-8"  
+                        className=" resize-none overflow-y-auto row-start-3 col-start-1 col-end-3 w-80 justify-self-center self-center border-2 rounded-md border-dark border-opacity-70 text-center p-8"  
                         name="description" 
                         rows="8" cols="25"  
                         placeholder="Ingrese la descripcion del curso" 
                         required
-                    />  
+                    />
+                    <label className="row-start-4 col-start-1 col-end-3">Duracion:</label>  
                     <input 
-                        className="row-start-4 col-start-1 col-end-3 h-12 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light px-3"
+                        className="row-start-4 col-start-1 col-end-3 h-12 w-80 justify-self-center self-center border-2 rounded-md border-dark border-opacity-70 bg-light px-3"
                         onChange={handleOnChange} 
                         type="number" 
                         name="duration"  
                         placeholder="Duracion | Horas"
                         required
                     />
-                    <div className="grid bg-semidark col-start-3 col-end-5">
+                    <div className="grid col-start-3 col-end-5">
                         {/* <img src="image(1).png" alt="portada" /> */}
+                        <label class="" >Seleccione su imagen:</label>
                         <input 
                             className="bg-dark justify-self-center self-end " 
                             onChange={handleOnChange} 
                             type="file" 
-                            name="image"  
-                            placeholder="Arrastra aqui tus imagenes"
+                            name="image"
                             required
                         />
                     </div>
                     <input 
-                        className="row-start-4 col-start-3 col-end-5 h-12 w-56 justify-self-center self-center border-2 rounded-sm border-dark border-opacity-70 bg-light px-3"
+                        className="row-start-4 col-start-3 col-end-5 h-12 w-80 justify-self-center self-center border-2 rounded-md border-dark border-opacity-70 bg-light px-3"
                         onChange={handleOnChange} 
                         type="number" 
                         name="cost"  
@@ -153,7 +155,11 @@ function TalentForm(){
                             }))
                         }
                     </select>
-                    <button className="col-start-1 col-end-5"> Revisar </button>
+                    <button className="col-start-1 col-end-5 bg-semidark w-32 rounded-md font-semibold m-3"> Revisar </button>
+                    
+                    <Link to="/home">
+                    <button className="col-start-1 col-end-5 bg-semidark w-32 rounded-md font-semibold m-3"> Volver </button>
+                    </Link>
                     { !ventanaModal ? console.log("") : 
                     (<ReactModal
                         isOpen={ventanaModal}
@@ -229,6 +235,7 @@ function TalentForm(){
                     }
                 </form>
             </div>
+            <Footer/>
         </div>
     )
 }

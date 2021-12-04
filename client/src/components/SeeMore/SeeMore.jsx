@@ -9,6 +9,7 @@ import { Box, useToast, Button, Image } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
 import QyA from "./Q&A";
 import QyAanswer from "./Q&Aanswer";
+import Reviews from "./Reviews";
 
 export default function SeeMore() {
     const toast = useToast()
@@ -26,7 +27,7 @@ export default function SeeMore() {
             <Nav/>
                 {
                     seemore ? 
-                <Box m='2' maxW='lg' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                <Box m='auto' mt='2' mb='2' maxW='lg' maxH="80em" borderWidth='1px' borderRadius='lg' overflow='hidden'>
                 <Image src={seemore.image} alt="talent_image" />
   
                 <Box p='6'>
@@ -39,7 +40,7 @@ export default function SeeMore() {
                 textTransform='uppercase'
                 ml='2'
                 >
-                {id} USERNAME
+                {/* By: {seemore.user.username} */}
                 </Box>
                 </Box>
   
@@ -65,7 +66,7 @@ export default function SeeMore() {
               {seemore.cost}
               </Box>
   
-          <Box display='flex' mt='2' alignItems='center'>
+          {/* <Box display='flex' mt='2' alignItems='center'>
             {Array(5)
               .fill('')
               .map((_, i) => (
@@ -77,12 +78,12 @@ export default function SeeMore() {
             <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               {seemore.reviewCount} reviews
             </Box>
-          </Box>
-            <Box class="flex flex-col items-center">
+          </Box> */}
+            <Box class="flex flex-col items-center" m='2'>
               <Button>
                 Comprar
               </Button>
-            <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+            <Box as='span' m='2' color='gray.600' fontSize='sm'>
               <Button onClick={() =>toast({
                 position: 'bottom-right',
                 render: () => (
@@ -96,16 +97,17 @@ export default function SeeMore() {
                 </Button>
             </Box>
             </Box>
+        </Box>
+        <QyAanswer/>
+        <QyA/>
+        <Reviews/>
             <Box>
             <Link to='/home'>
-              <Button>
+              <Button m='2'>
                 Volver
               </Button>
             </Link>
             </Box>
-        </Box>
-        <QyAanswer/>
-        <QyA/>
       </Box> 
         : <p>Cargando</p>
                 }
