@@ -1,4 +1,15 @@
-import { SEARCH_TALENT, CARGAR_USUARIO, POST_USER, GET_USER_TOKEN, GET_TALENT, GET_USER_ID,GET_TALENT_BY_ID, GET_ORDER_ID, GET_REVIEW_ID, GET_MOVE_ID, GET_QA_ID, PUT_ANSWER, GET_CATEGORIES } from "../actions"
+import {    SEARCH_TALENT, 
+            CARGAR_USUARIO, 
+            GET_USER_TOKEN,
+            GET_TALENT, 
+            GET_USER_ID, 
+            GET_TALENT_BY_ID, 
+            GET_ORDER_ID, 
+            GET_REVIEW_ID, 
+            GET_MOVE_ID, 
+            GET_QA_ID, 
+            PUT_ANSWER, 
+            GET_CATEGORIES } from "../actions"
 
 const initialState = {
     user : [],

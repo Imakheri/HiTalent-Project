@@ -7,13 +7,14 @@ import Footer from "../Landing/Footer";
 import { Link } from 'react-router-dom'
 import { Box, useToast, Button, Image } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
+import QyA from "./Q&A";
+import QyAanswer from "./Q&Aanswer";
 
 export default function SeeMore() {
     const toast = useToast()
     const dispatch = useDispatch()
     const { id } = useParams()
     const seemore = useSelector((state) => state.index.moreTalent)
-    console.log(seemore)
     
     useEffect(() => {
         dispatch(getTalentById(id))
@@ -25,33 +26,6 @@ export default function SeeMore() {
             <Nav/>
                 {
                     seemore ? 
-                // <div class="flex flex-col items-center rounded-md border-2 bg-light border-semilight w-1/2 m-4">
-                //     <h1 class="text-3xl font-semibold">{seemore.title}</h1>
-                //     <div class="w-1/2">
-                //         <img src={seemore.image} alt="talent_image"/>
-                //     </div>
-                //     <h4 class="text-xl font-semibold">Acerca de este servicio</h4>
-                //     {seemore.description}
-                //     <h4>Costo: ${seemore.cost}</h4>
-                //     {/* <h4>{seemore.user.username}</h4> */}
-                //     <div class="flex">
-                //         <button class="bg-semidark w-24 rounded-full hover:bg-semilight text-black m-4">Comprar</button>
-                //         <Button onClick={() =>
-                //                 toast({
-                //                 position: 'bottom-right',
-                //                 render: () => (
-                //                 <Box color='white' p={3} bg='green.500'>
-                //                     Agregado al carrito
-                //                 </Box>
-                //                 ),
-                //                 })
-                //                 } 
-                //                 class="bg-semidark w-24 rounded-full hover:bg-semilight text-black m-4">Agregar al carrito</Button>
-                //     </div>
-                //     <Link to='/home'>
-                //     <button class="bg-semidark w-24 rounded-full hover:bg-semilight text-black m-4">Volver</button>
-                //     </Link>
-                // </div> : <p>Cargando...</p>
                 <Box m='2' maxW='lg' borderWidth='1px' borderRadius='lg' overflow='hidden'>
                 <Image src={seemore.image} alt="talent_image" />
   
@@ -96,14 +70,15 @@ export default function SeeMore() {
               .fill('')
               .map((_, i) => (
                 <StarIcon
-                  key={i}
-                  color={i < seemore.rating ? 'teal.500' : 'gray.300'}
+                key={i}
+                color={i < seemore.rating ? 'teal.500' : 'gray.300'}
                 />
-              ))}
+                ))}
             <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               {seemore.reviewCount} reviews
             </Box>
-            <Box>
+          </Box>
+            <Box class="flex flex-col items-center">
               <Button>
                 Comprar
               </Button>
@@ -128,9 +103,11 @@ export default function SeeMore() {
               </Button>
             </Link>
             </Box>
-          </Box>
         </Box>
-      </Box> : <p>Cargando</p>
+        <QyAanswer/>
+        <QyA/>
+      </Box> 
+        : <p>Cargando</p>
                 }
                 <Footer/>
         </div>

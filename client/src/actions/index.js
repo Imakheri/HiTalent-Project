@@ -13,6 +13,7 @@ export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 export const PUT_ANSWER = 'PUT_ANSWER';
 export const GET_CATEGORIES = "GET_CATEGORIES"
+export const POST_QUESTION = "POST_QUESTION"
 
 export function getTalents() {
   return function (dispatch) {
@@ -192,6 +193,16 @@ export function createAnswer(answer, id){
       console.log(error);
     }
   }; 
+}
+
+export function postQuestion() {
+  return async function (dispatch) {
+    const question = await axios.post("http://localhost:3001/question")
+    return dispatch({
+      type: POST_QUESTION,
+      payload: question.data
+    })
+  }
 }
 
 export function getCategories() {
