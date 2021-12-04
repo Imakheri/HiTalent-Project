@@ -163,13 +163,13 @@ async function getPostId(req, res, next){
 };
 
 const getTalentsByTitle=async(req,res,next)=>{
-    let title=req.params.title
-    console.log(title)
-    var post=await Posts.findAll()
-    let array=post.filter(e=>e.title.includes(title))
-    if(array.legth<1)return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    let title= req.params.title
+    //console.log(title)
+    var post= await Posts.findAll()
+    let array= post.filter(e => e.title.includes(title))
+    if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
     res.json(array)
-}
+};
 
 
 module.exports={
