@@ -2,24 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Image, Button } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
+import { useSelector } from "react-redux";
 
 
 export default function TalentCard({ title, username, description, image, cost, id }) {
-
-//HARCODEADO
-    const property = {
-      imageUrl: 'https://bit.ly/2Z4KKcF',
-      imageAlt: 'Rear view of modern home with pool',
-      beds: 3,
-      baths: 2,
-      title: 'Modern home in city center in the heart of historic Los Angeles',
-      formattedPrice: '$1,900.00',
-      reviewCount: 34,
-      rating: 4,
-    }
+    
+  const property = useSelector(state => state.index.filteredTalents)
   
     return (
-      <div>
+      <div class='user-select-none'>
 
       <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
         <Image src={image} alt="talent_image" />
@@ -34,10 +25,9 @@ export default function TalentCard({ title, username, description, image, cost, 
               fontWeight='semibold'
               letterSpacing='wide'
               fontSize='xs'
-              textTransform='uppercase'
               ml='2'
             >
-              {id}
+              By: {username}
             </Box>
           </Box>
   
@@ -57,9 +47,8 @@ export default function TalentCard({ title, username, description, image, cost, 
   
           <Box>
             <Box as='span' color='gray.600' fontSize='sm'>
-              $
+              ${cost}
             </Box>
-            {cost}
           </Box>
   
           <Box display='flex' mt='2' alignItems='center'>
@@ -71,9 +60,9 @@ export default function TalentCard({ title, username, description, image, cost, 
                   color={i < property.rating ? 'teal.500' : 'gray.300'}
                 />
               ))}
-            <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+            {/* <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               {property.reviewCount} reviews
-            </Box>
+            </Box> */}
             <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               <Link to={'/talent/' + id}>
               <Button>
