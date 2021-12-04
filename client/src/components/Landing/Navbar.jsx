@@ -11,7 +11,6 @@ export default function Navbar({ onModalClick, onModaleClick }) {
             <img src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg" alt="logo hitalent" />
             </Link>
             <div>
-                <Link to='/user/profile'><button className="btn-custom btn-colors">Perfil</button></Link>
                 <button onClick={onModalClick} class="m-4 font-semibold">Ingreso</button>
                 <button  onClick={onModaleClick} class="m-2 bg-transparent hover:bg-semilight  font-semibold hover:text-black py-2 px-4 border border-dark hover:border-semilight rounded p-0">Registro</button>
             </div>
