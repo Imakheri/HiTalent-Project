@@ -57,26 +57,18 @@ async function getAllReviewsUser(req, res, next) {
         {
           model: Posts,
           attributes: ["id", "title"],
-          order: [
-            ["createdAt", "DESC"],
-            ["title", "ASC"],
-            ["duration", "ASC"],
-            ["cost", "ASC"],
-          ],
+          order: [["createdAt", "DESC"]],
           include: [
             {
               model: Review,
               attributes: ["rating", "description"],
-              order: [
-                ["createdAt", "DESC"],
-                ["rating", "DESC"],
+              order: [["createdAt", "DESC"]],
+              include: [
+                {
+                  model: Users,
+                  attributes: ["username"],
+                },
               ],
-            include: [
-              {
-                model: Users,
-                attributes: ["username"],
-              },
-            ],
             },
           ],
         },
@@ -103,9 +95,12 @@ async function getPostReview(req, res, next) {
           {
             model: Review,
             attributes: ["rating", "description"],
-            order: [
-              ["createdAt", "DESC"],
-              ["rating", "DESC"],
+            order: [["createdAt", "DESC"]],
+            include: [
+              {
+                model: Users,
+                attributes: ["username"],
+              },
             ],
           },
         ],
@@ -130,10 +125,12 @@ async function getPostReview(req, res, next) {
   }
 }
 
+
+
 module.exports = {
   createReview,
   deleteReview,
   updateReview,
   getAllReviewsUser,
-  getPostReview,
+  getPostReview
 };

@@ -10,6 +10,7 @@ const {
   Payments,
   Question,
 } = require("./src/db.js");
+const bcrypt = require("bcrypt");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -23,23 +24,27 @@ conn.sync({ force: true }).then(() => {
       .then((e) => {})
       .catch((e) => console.log(e));
     //------------------------------------------------------------------------------
-    // var testpost1 = await Posts.create({
-    //   //creo post 1
-    //   title: "canto",
-    //   description: "clases de canto",
-    //   cost: 12,
-    // });
-    // var testpost2 = await Posts.create({
-    //   //creo post 2
-    //   title: "guitarra",
-    //   description: "clases de guitarra",
-    //   cost: 24,
-    // });
+    var testpost1 = await Posts.create({
+      //creo post 1
+      title: "canto",
+      description: "clases de canto",
+      cost: 12,
+    });
+    var testpost2 = await Posts.create({
+      //creo post 2
+      title: "guitarra",
+      description: "clases de guitarra",
+      cost: 24,
+    });
+
+    let password = "1234";
+    let passwordHash = await bcrypt.hash(password, 10);
+    
     var testuser1 = await Users.create({
       //creo usuario test1
       name: "pepe",
       username: "pepe1234",
-      password: "1234",
+      password: passwordHash,
       birthdate: "2016-06-21",
       lastName: "honguito2",
       email: "pepehon1guito@gmail.com",
@@ -63,14 +68,17 @@ conn.sync({ force: true }).then(() => {
       code: 160,
     });
     await testorden.setPayment(testpayment); //lo seteo a la orden de pago
+    
     //console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
 
     //--------------------------------------------------------------------------
+    let password2 = "hernan1234";
+    let passwordHash2 = await bcrypt.hash(password2, 10);
     var testuser3 = await Users.create({
       //usuario test 3
       name: "Hernan",
       lastName: "Lastname",
-      username: "hernan1234",
+      username: passwordHash2,
       password: "1234",
       birthdate: "1994-10-10",
       email: "hernan@gmail.com",
@@ -102,24 +110,27 @@ conn.sync({ force: true }).then(() => {
     testquestion.save();
     //console.log(testquestion.toJSON())
 
+    let password3 = "lala";
+    let passwordHash3 = await bcrypt.hash(password3, 10);
     var userToDelete = await Users.create({
       //test delete
       id: "f30e3325-2dbe-4bd3-82a4-d9e827380f20",
       name: "meborran",
       lastName: "apellidomeborran",
       username: "hola",
-      password: "lala",
+      password: passwordHash3,
       email: "hola@gmail.com",
     });
 
     //Testeo todo lo que necesita el profile de usuario: informacion, publicaciones, Q&A, reseñas...
-
+    let password4 = "1234abc";
+    let passwordHash4 = await bcrypt.hash(password4, 10);
     var testUserProfile = await Users.create({
       //usuario test 3
       name: "Perfil",
       lastName: "Completo",
       username: "perfil_prueba",
-      password: "1234abc",
+      password: passwordHash4,
       birthdate: "2000-10-10",
       email: "perfilUsuario@gmail.com",
       country: "Argentina",
@@ -170,14 +181,6 @@ conn.sync({ force: true }).then(() => {
 
     testQuestionProfile.answer = "Si, recibo mercado pago";
     testQuestionProfile.save();
-
-    var testQuestionProfile2 = await Question.create({
-      //creo una pregunta
-      title: "Title question",
-      question: "¿Me querés?",
-    });
-    await testQuestionProfile2.setUser(testuser3); //le vinculo los 2 post al usuario test
-    await testQuestionProfile2.setPost(testPostProfile1);
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });

@@ -8,6 +8,9 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
         },
+        title:{
+            type:DataTypes.STRING
+        },
         // user_id: {			// id del user que crea la orden
         //     type: DataTypes.UUID,
         //     allowNull: false

@@ -1,9 +1,20 @@
 const {Posts,Users,Categories, Review }=require("../db")
+const {Op} = require('sequelize')
+
 
 const getPosts= async(req,res,next)=>{
     var post=await Posts.findAll({
-        order: [['createdAt', 'DESC'], ['title', 'ASC'], ['duration', 'ASC'], ['cost', 'ASC']]
-    })
+        include:[{
+            model:Users,
+            order: [['createdAt', 'DESC']]
+        },
+        {model:Review,
+        order: [['createdAt', 'DESC']]
+        },
+        {model:Categories,
+        order: [['createdAt', 'DESC']] 
+        }
+    ]})
     res.json(post)
 }
 const createPost= async(req,res,next)=>{
@@ -12,7 +23,8 @@ const createPost= async(req,res,next)=>{
     let file=req.file
     let path = "http://localhost:3001/" + file.filename
     try{
-        var [categoryDB,created]= await Categories.findOrCreate({where:{ title:category}})
+        var categoryDB= await Categories.findOne({where:{ title:category}})
+        if(!categoryDB)return res.status(500).json({message:"categoria invalida"})
         var post=await Posts.create({
             title,
             description,
@@ -36,15 +48,18 @@ const createPost= async(req,res,next)=>{
     }
 }
 const updatePost= async(req,res,next)=>{
-    console.log("update post no imagen")
+    console.log(req.body)
     let{title,description,duration,cost,id}=req.body
+  
+
     try{
         var post=await Posts.findByPk(id)
+        
         if(title)post.title=title
         if(description)post.description=description
         if(duration)post.duration=duration
         if(cost)post.cost=cost
-        post.save()
+        await post.save()
         res.json(post)
     }catch(e){
         res.status(500).json({
@@ -106,7 +121,7 @@ const deleteImage = async(req,res,next)=>{
 
 }
 
-async function getTalentById(req, res, next){
+async function getPostId(req, res, next){
    let { id } = req.params;
 
          if (id && id.length === 36) { 
@@ -119,17 +134,17 @@ async function getTalentById(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
-                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+                      order: [['createdAt', 'DESC']]
                   },
                 {
                      model: Categories,
                      attributes: ['id', 'title'],
-                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
+                     order: [['createdAt', 'DESC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
-                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
+                    order: [['createdAt', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
@@ -147,6 +162,14 @@ async function getTalentById(req, res, next){
       }
 };
 
+const getTalentsByTitle=async(req,res,next)=>{
+    let title= req.params.title
+    //console.log(title)
+    var post= await Posts.findAll()
+    let array= post.filter(e => e.title.includes(title))
+    if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    res.json(array)
+};
 
 
 module.exports={
@@ -156,5 +179,7 @@ module.exports={
     deletePost,
     addImage,
     deleteImage,
-    getTalentById
+    getTalentsByTitle,
+    getPostId
+
 };
