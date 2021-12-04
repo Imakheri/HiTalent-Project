@@ -12,7 +12,7 @@ const {
 } = require("./src/db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(3001, async () => {
     Categories.bulkCreate([
       { title: "Tecnologias" },
@@ -56,14 +56,14 @@ conn.sync({ force: true }).then(() => {
 
     //-------------------------------------------------------------------------
 
-
-    var testpayment=await Payments.create({  //creo un medio de pago 
-          name:"visa",
-          number:"522154869522",
-          code:160
-    })
-    await testorden.setPayment(testpayment) //lo seteo a la orden de pago
-    console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
+    var testpayment = await Payments.create({
+      //creo un medio de pago
+      name: "visa",
+      number: "522154869522",
+      code: 160,
+    });
+    await testorden.setPayment(testpayment); //lo seteo a la orden de pago
+    console.log(testorden.toJSON()); //lo muestro , deberia estar bindeado al usuario?????
 
     //--------------------------------------------------------------------------
     var testuser3 = await Users.create({
