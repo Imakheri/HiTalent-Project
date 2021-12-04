@@ -3,7 +3,18 @@ const {Op} = require('sequelize')
 
 
 const getPosts= async(req,res,next)=>{
-    var post=await Posts.findAll({include:[{model:Users},{model:Review},{model:Categories}]})
+    var post=await Posts.findAll({
+        include:[{
+            model:Users,
+            order: [['createdAt', 'DESC']]
+        },
+        {model:Review,
+        order: [['createdAt', 'DESC']]
+        },
+        {model:Categories,
+        order: [['createdAt', 'DESC']] 
+        }
+    ]})
     res.json(post)
 }
 const createPost= async(req,res,next)=>{
@@ -123,17 +134,17 @@ async function getPostId(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
-                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+                      order: [['createdAt', 'DESC']]
                   },
                 {
                      model: Categories,
                      attributes: ['id', 'title'],
-                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
+                     order: [['createdAt', 'DESC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
-                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
+                    order: [['createdAt', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
