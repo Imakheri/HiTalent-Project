@@ -3,7 +3,18 @@ const {Op} = require('sequelize')
 
 
 const getPosts= async(req,res,next)=>{
-    var post=await Posts.findAll({include:[{model:Users},{model:Review},{model:Categories}]})
+    var post=await Posts.findAll({
+        include:[{
+            model:Users,
+            order: [['createdAt', 'DESC']]
+        },
+        {model:Review,
+        order: [['createdAt', 'DESC']]
+        },
+        {model:Categories,
+        order: [['createdAt', 'DESC']] 
+        }
+    ]})
     res.json(post)
 }
 const createPost= async(req,res,next)=>{
@@ -123,17 +134,17 @@ async function getPostId(req, res, next){
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
-                      order: [['score', 'DESC'], ['createdAt', 'DESC'], ['username', 'ASC']]
+                      order: [['createdAt', 'DESC']]
                   },
                 {
                      model: Categories,
                      attributes: ['id', 'title'],
-                     order: [['createdAt', 'DESC'], ['title', 'ASC']] 
+                     order: [['createdAt', 'DESC']] 
                 },
                 {
                     model: Review,
                     attributes: ['rating', 'description'],
-                    order: [['createdAt', 'DESC'], ['rating', 'DESC']]
+                    order: [['createdAt', 'DESC']]
                 }]
               });
               if (gotId) res.json(gotId);
@@ -152,13 +163,13 @@ async function getPostId(req, res, next){
 };
 
 const getTalentsByTitle=async(req,res,next)=>{
-    let title=req.params.title
-    console.log(title)
-    var post=await Posts.findAll()
-    let array=post.filter(e=>e.title.includes(title))
-    if(array.legth<1)return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    let title= req.params.title
+    //console.log(title)
+    var post= await Posts.findAll()
+    let array= post.filter(e => e.title.includes(title))
+    if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
     res.json(array)
-}
+};
 
 
 module.exports={
