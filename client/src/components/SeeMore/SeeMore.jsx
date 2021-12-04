@@ -20,7 +20,17 @@ export default function SeeMore() {
     useEffect(() => {
         dispatch(getTalentById(id))
     }, [dispatch, id])
-    
+     
+  let mercadopago = { title: seemore.title, total: seemore.cost };
+
+  async function handleCheckOut(e) {
+    e.preventDefault();
+    let response = await axios.post(
+      "http://localhost:3001/checkout/mercadopago/",
+      mercadopago
+    );
+    window.location.href = response.data.init_points;
+  }
     
     return (
         <div className="seemore">
@@ -43,29 +53,74 @@ export default function SeeMore() {
                 {/* By: {seemore.user.username} */}
                 </Box>
                 </Box>
-  
               <Box
-              mt='2'
-              fontWeight='semibold'
-              as='h4'
-              lineHeight='tight'
-              fontSize='25'
-              isTruncated
+                color="gray.500"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                fontSize="xs"
+                textTransform="uppercase"
+                ml="2"
               >
-              {seemore.title}
+                {id} USERNAME
               </Box>
+            </Box>
 
-              <Box>
-              {seemore.description}
-              </Box>
-  
-              <Box>
-              <Box as='span' color='gray.600' fontSize='sm'>
-              $
+            <Box
+              mt="2"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+              fontSize="25"
+              isTruncated
+            >
+              {seemore.title}
+            </Box>
+
+            <Box>{seemore.description}</Box>
+
+            <Box>
+              <Box as="span" color="gray.600" fontSize="sm">
+                $
               </Box>
               {seemore.cost}
+            </Box>
+
+            <Box display="flex" mt="2" alignItems="center">
+              {Array(5)
+                .fill("")
+                .map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    color={i < seemore.rating ? "teal.500" : "gray.300"}
+                  />
+                ))}
+              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                {seemore.reviewCount} reviews
               </Box>
-  
+              <Box>
+                <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
+                <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                  <Button
+                    onClick={() =>
+                      toast({
+                        position: "bottom-right",
+                        render: () => (
+                          <Box color="white" p={3} bg="green.500">
+                            Agregado al carrito
+                          </Box>
+                        ),
+                      })
+                    }
+                  >
+                    Agregar al carrito
+                  </Button>
+                </Box>
+              </Box>
+              <Box>
+                <Link to="/home">
+                  <Button>Volver</Button>
+                </Link>
+              </Box>
           {/* <Box display='flex' mt='2' alignItems='center'>
             {Array(5)
               .fill('')

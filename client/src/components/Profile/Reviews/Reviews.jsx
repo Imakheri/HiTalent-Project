@@ -11,8 +11,10 @@ export default function Reviews() {
 
   useEffect(() => {
     dispatch(getReviewbyId(id));
+
     // dispatch(getReviewbyId(reviews?.posts?.map((e) => e.id)));
   }, [dispatch, id]);
+
 
   return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
@@ -30,7 +32,13 @@ export default function Reviews() {
               <span>{e.reviews[0]?.rating}</span>
             </div>
           ))
-          )}
+        )}
+        {review.posts.map((e) => !e.reviews) ? (
+          <h1>No tienes reseñas por el momento...</h1>
+        ) : (
+          ""
+        )}
+
       </div>
     </div>
   );
