@@ -41,7 +41,8 @@ export default function rootReducer(state = initialState, action) {
         case GET_TALENT_BY_ID:
             return {
                 ...state,
-                moreTalent: action.payload
+                moreTalent: action.payload,
+                qa: action.payload
             }
         case CARGAR_USUARIO:
             return {

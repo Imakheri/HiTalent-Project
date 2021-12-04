@@ -40,7 +40,7 @@ export default function SeeMore() {
                 textTransform='uppercase'
                 ml='2'
                 >
-                By: {seemore.user.username}
+                {/* By: {seemore.user.username} */}
                 </Box>
                 </Box>
   
