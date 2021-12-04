@@ -142,7 +142,7 @@ async function getUser(req, res, next) {
     where: {
       score: req.query.filter
     },
-    order: [['username', req.query.order]]
+    order: [['username', 'ASC']]
   });
   res.json(all);
 }

@@ -1,7 +1,14 @@
 const {Orders,Users,Posts,Payments}=require("../db")
 
 const getAllOrden=async(req,res,next)=>{
-    let allOrden=await Orders.findAll({include:[{model:Users},{model:Posts},{model:Payments}]})
+    let allOrden=await Orders.findAll({
+        include:[
+            {model:Users,
+            order: [['createdAt', 'DESC']]},
+            {model:Posts,
+            order: [['createdAt', 'DESC']]},
+            {model:Payments}
+        ]})
     if(!allOrden) return res.json({message:"no hay ordenes"})
     res.json(allOrden)
 }
@@ -11,8 +18,12 @@ const getOrdenbyId= async(req,res,next)=>{
     var order=await Orders.findAll({
         where:{id},
         include: [
-            {model: Users},
-            {model:Posts},
+            {model: Users,
+            order: [['createdAt', 'DESC']]
+        },
+            {model:Posts,
+             order: [['createdAt', 'DESC']]    
+            },
             {model:Payments}
         ]
     })

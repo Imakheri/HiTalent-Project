@@ -130,10 +130,12 @@ async function getPostReview(req, res, next) {
   }
 }
 
+
+
 module.exports = {
   createReview,
   deleteReview,
   updateReview,
   getAllReviewsUser,
-  getPostReview,
+  getPostReview
 };
