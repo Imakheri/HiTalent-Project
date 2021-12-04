@@ -25,7 +25,7 @@ export default function rootReducer(state = initialState, action) {
         case SEARCH_TALENT:
             return {
                 ...state,
-                talents: action.payload
+                filteredTalents: action.payload
             }
         case GET_TALENT_BY_ID:
             return {
@@ -67,19 +67,16 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 qa: action.payload
             }
-<<<<<<< HEAD
         // case PUT_ANSWER:
         //     return{
         //         ...state,
         //         qa: action.payload
         //     }
-=======
         case GET_CATEGORIES:
             return{
                 ...state,
                 categories: action.payload
             }
->>>>>>> 1f5f676b1c008b6980d9d00718d511ae05270cb9
         default:
             return state
     }

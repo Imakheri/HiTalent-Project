@@ -193,6 +193,7 @@ export function createAnswer(answer, id){
     }
   }; 
 }
+
 export function getCategories() {
   return async function (dispatch) {
     const allCategories = await axios.get("http://localhost:3001/categories");
