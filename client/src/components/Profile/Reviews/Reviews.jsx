@@ -16,10 +16,10 @@ export default function Reviews() {
    return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
       <div className="flex flex-col items-center py-2">
-        {!(reviews.posts?.length > 0) ? (
+        {!(review.posts?.length > 0) ? (
           <h2>No tienes publicaciones para obtener reseñas...</h2>
-        ) : reviews.posts[0].reviews.length > 0 ? (
-          reviews.posts.map((e) => (
+        ) : review.posts[0].reviews.length > 0 ? (
+          review.posts.map((e) => (
             <div className="flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-auto m-1">
               <span className="p-2">{e.title}</span>
               <span className="px-2">{e.reviews[0]?.description}</span>

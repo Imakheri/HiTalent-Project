@@ -9,7 +9,7 @@ export default function Reviews() {
         <div class="m-3">
             <h3 class="text-xl font-semibold">Reviews del talento</h3> <hr />
             {
-                seemore.reviews.length
+                seemore.reviews
                 ?
                 (<Box display='flex' mt='2' alignItems='center'>
                 {
