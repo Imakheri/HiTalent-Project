@@ -45,7 +45,7 @@ export default function SeeMore() {
           mb="2"
           maxW="lg"
           maxH="80em"
-          borderWidth="1px"
+          borderWidth="2px"
           borderRadius="lg"
           overflow="hidden"
         >
