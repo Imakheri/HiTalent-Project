@@ -15,7 +15,6 @@ export default function Reviews() {
     // dispatch(getReviewbyId(reviews?.posts?.map((e) => e.id)));
   }, [dispatch, id]);
 
-
   return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
       <div className="flex flex-col items-center py-2">
@@ -25,7 +24,11 @@ export default function Reviews() {
           reviews?.posts?.map((e) => (
             <div className="flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-auto m-1">
               <span className="p-2">{e.title}</span>
-              <span className="px-2">{e?.reviews[0]?.description ? e.reviews[0].description : "No tienes reviews"}</span>
+              <span className="px-2">
+                {e?.reviews[0]?.description
+                  ? e.reviews[0].description
+                  : "No tienes reviews"}
+              </span>
               <span className="px-2 font-black italic">
                 {e.reviews[0]?.user?.username}
               </span>
@@ -33,12 +36,11 @@ export default function Reviews() {
             </div>
           ))
         )}
-        {review.posts.map((e) => !e.reviews) ? (
+        {reviews.posts.map((e) => !e.reviews) ? (
           <h1>No tienes reseñas por el momento...</h1>
         ) : (
           ""
         )}
-
       </div>
     </div>
   );
