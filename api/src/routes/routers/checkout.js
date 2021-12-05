@@ -29,7 +29,7 @@ router.post("/mercadopago", async (req, res) => {
     //     failure: 'http://localhost:3001/mp/failure',
     //     pending: 'http://localhost:3001/mp/pending',
     // },
-    auto_return: "approved",
+    // auto_return: "approved",
   };
 
   let answer = await mercadopago.preferences.create(preference);
