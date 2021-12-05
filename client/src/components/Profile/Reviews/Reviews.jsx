@@ -9,8 +9,8 @@ export default function Reviews() {
   const dispatch = useDispatch();
   const review = useSelector((state) => state.index.review);
   useEffect(() => {
-    // dispatch(getReviewbyId(id));
-    dispatch(getUserbyId(review.posts?.map((e) => e.id)));
+    dispatch(getReviewbyId(id));
+    //dispatch(getUserbyId(review.posts?.map((e) => e.id)));
   }, [dispatch]);
 
   return (
@@ -30,7 +30,11 @@ export default function Reviews() {
             </div>
           ))
         )}
-        <h1>No tienes reseñas por el momento...</h1>
+        {review.posts.map((e) => !e.reviews) ? (
+          <h1>No tienes reseñas por el momento...</h1>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

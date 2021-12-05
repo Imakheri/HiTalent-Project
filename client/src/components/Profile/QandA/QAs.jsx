@@ -30,7 +30,7 @@ export default function Qas() {
 
   return (
     <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4 space-y-4">
-      {Array.isArray(qa.posts) || qa.posts[0].questions.length === 0 ? (
+      {Array.isArray(qa) ? (
         <h1>No tienes preguntas por el momento...</h1>
       ) : (
         qa.posts?.map((e) => (
@@ -38,7 +38,11 @@ export default function Qas() {
             <div className="flex flex-row justify-center items-center  bg-semidark text-white w-11/12 h-auto m-1">
               <div className="flex flex-row justify-between items-center border w-full p-1">
                 <div>
-                  <span>{e.questions.map((e) => e.question)}</span>
+                  <span>
+                    {e.questions
+                      ? e.questions.map((e) => e.question)
+                      : "No tienes preguntas por el momento..."}
+                  </span>
                 </div>
                 <span className="ml-2 italic">
                   {e.questions.map((e) => e.user.username)}
@@ -70,6 +74,11 @@ export default function Qas() {
             </div>
           </div>
         ))
+      )}
+      {Array.isArray(qa.posts) && !qa.posts ? (
+        <h1>No tienes preguntas por el momento...</h1>
+      ) : (
+        ""
       )}
     </div>
   );
