@@ -18,7 +18,7 @@ export default function Reviews() {
   return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
       <div className="flex flex-col items-center py-2">
-        {!reviews ? (
+        {/* {reviews ? (
           <h2>No tienes publicaciones para obtener reseñas...</h2>
         ) : (
           reviews?.posts?.map((e) => (
@@ -40,7 +40,7 @@ export default function Reviews() {
           <h1>No tienes reseñas por el momento...</h1>
         ) : (
           ""
-        )}
+        )} */}
       </div>
     </div>
   );
