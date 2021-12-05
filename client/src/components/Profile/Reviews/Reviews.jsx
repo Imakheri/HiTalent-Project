@@ -7,13 +7,13 @@ import { getReviewbyId } from "../../../actions/index";
 export default function Reviews() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.index.review);
+  const review = useSelector((state) => state.index.review);
 
   useEffect(() => {
     dispatch(getReviewbyId(id));
   }, [dispatch, id]);
 
-  return (
+   return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
       <div className="flex flex-col items-center py-2">
         {!(reviews.posts?.length > 0) ? (
