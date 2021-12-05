@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchTalent } from "../../actions";
 
-export default function Nav() {
+export default function Nav({onModalClick, onModaleClick, onModalChange}) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
+  let usuario = useSelector(state => state.index.user)
+
 
   function onSubmit(e) {
     e.preventDefault();
@@ -54,7 +56,14 @@ export default function Nav() {
             </div>
           </form>
         </div>
-        <Dropdown />
+        {
+        usuario.length === 0 ? 
+          (<div>
+              <button onClick={onModalClick} class="m-4 font-semibold">Ingreso</button>
+              <button onClick={onModaleClick} class="m-2 bg-transparent hover:bg-semilight  font-semibold hover:text-black py-2 px-4 border border-dark hover:border-semilight rounded p-0">Registro</button>
+          </div>) :
+           <Dropdown />
+        }
       </div>
     </nav>
   );

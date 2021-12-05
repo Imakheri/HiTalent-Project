@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "./Nav";
 import Footer from "../Landing/Footer";
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
 import Categories from "./Categories";
+import Form from "../SignIn/FormSI";
+import Register from "../Register/Register";
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
@@ -14,10 +16,32 @@ export default function Home() {
     dispatch(getTalents());
   }, [dispatch]);
 
+  const [ventanaLogIn, setVentanaLogIn] = useState(false)
+  const [ ventanaRegister, setVentanaRegister ] = useState(false)
+  
+  function onModalClick(e){
+      e.preventDefault()
+      setVentanaLogIn(!ventanaLogIn)
+  }
+  function onModaleClick(e) {
+      e.preventDefault()
+      setVentanaRegister(!ventanaRegister)
+  }
+  function onModalChange(e){
+      e.preventDefault()
+      setVentanaLogIn(!ventanaLogIn)
+      setVentanaRegister(!ventanaRegister)
+  }
+
   return (
     <div  class='user-select-none'>
-      <Nav />
+      <Nav onModalChange={onModalChange} onModaleClick={onModaleClick} onModalClick={onModalClick}/>
       <div>
+        {
+          ventanaLogIn ? <Form onModalClick={onModalClick} onModalChange={onModalChange}/> : console.log("ingreso")
+        }{
+          ventanaRegister ? <Register onModaleClick={onModaleClick} onModalChange={onModalChange}/> : console.log("registro")
+        }
         <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr />
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
