@@ -183,5 +183,4 @@ module.exports={
     deleteImage,
     getTalentsByTitle,
     getPostId
-
 };
