@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { PROXY } from '../../actions';
 import ReactModal from 'react-modal';
 import { Link } from "react-router-dom";
 import axios from 'axios';
