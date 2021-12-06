@@ -59,7 +59,7 @@ export default function Home() {
               <TalentCard
                 key={talent.id}
                 id={talent.id}
-                username={talent.user.username}
+                username={talent?.user?.username}
                 title={talent.title}
                 description={talent.description}
                 image={talent.image}

@@ -6,7 +6,7 @@ import Nav from "../Home/Nav";
 import Footer from "../Landing/Footer";
 import { Link } from "react-router-dom";
 import { Box, useToast, Button, Image } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+// import { StarIcon } from "@chakra-ui/icons";
 import QyA from "./Q&A";
 import QyAanswer from "./Q&Aanswer";
 import Reviews from "./Reviews";

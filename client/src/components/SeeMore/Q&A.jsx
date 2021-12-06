@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input, Button } from "@chakra-ui/react";
 import { postQuestion } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +9,6 @@ export default function QyA() {
   const dispatch = useDispatch();
   const [question, setQuestion] = useState("");
 
-  // useEffect(() => {
-  //     dispatch(postQuestion(userState.id))
-  // })
 
   let body = {
     question: question,
