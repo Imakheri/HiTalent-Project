@@ -15,8 +15,9 @@ export default function Profile(){
     return(
 
         <div className='flex w-full h-screen bg-semilight'>
-            {
+        {
             user.length === 0 ? (<h1>No estas registrado, no podes acceder al perfil</h1>) : (
+            <div className='flex flex-row'>
             <div className='w-96 mx-6 mt-6'>
                 <sidebar className='w-1/4'>
                     <User />
@@ -47,8 +48,9 @@ export default function Profile(){
                     </Link>
                 </div>
             </div>
+            </div>
             ) 
-            }
+        }
         </div>
     )
 }
