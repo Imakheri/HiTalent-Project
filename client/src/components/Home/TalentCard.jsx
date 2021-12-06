@@ -12,8 +12,8 @@ export default function TalentCard({ title, username, description, image, cost, 
     return (
       <div class='user-select-none'>
 
-      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-        <Image src={image} alt="talent_image" />
+      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' h="500px">
+        <Image src={image} alt="talent_image" h="250px" w="sm"/>
   
         <Box p='6'>
           <Box display='flex' alignItems='baseline'>
@@ -41,7 +41,7 @@ export default function TalentCard({ title, username, description, image, cost, 
             {title}
           </Box>
 
-          <Box>
+          <Box overflowY='scroll' maxH="100px">
             {description}
           </Box>
   
