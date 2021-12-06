@@ -3,11 +3,7 @@ const {Op} = require('sequelize')
 
 
 const getPosts= async(req,res,next)=>{
-    //if(req.query.filter)
     var post=await Posts.findAll({
-        // where: {
-        //     cost: req.query.filter
-        //   },
         include:[{
             model:Users,
             order: [['createdAt', 'DESC']]
