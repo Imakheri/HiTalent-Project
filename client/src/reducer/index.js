@@ -13,7 +13,11 @@ import {
   GET_CATEGORIES,
   GET_POST_QUESTION,
   POST_QUESTION,
+  SORT_BY_PRICE
 } from "../actions";
+
+import { ASCENDENTE } from "../const"
+
 
 const initialState = {
   user: [],
@@ -104,6 +108,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         questionsPost: [...initialState.questionsPost, action.payload],
       };
+     case SORT_BY_PRICE:
+            let talentPrice = [...state.filteredTalents]
+            talentPrice = talentPrice.sort((a, b) => {
+                if (a.cost < b.cost) {
+                    return action.payload === ASCENDENTE ? -1 : 1;
+                }
+                if (a.cost > b.cost) {
+                    return action.payload === ASCENDENTE ? 1 : -1;
+                }
+                return 0
+            })
+            return{
+                ...state,
+                filteredTalents: talentPrice
+            }
     default:
       return state;
   }

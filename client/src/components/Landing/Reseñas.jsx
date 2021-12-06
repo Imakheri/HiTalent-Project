@@ -15,7 +15,7 @@ function Reseñas(){
         centerMode: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        className: "bg-semilight flex flex-row border border-dark",
+        className: "bg-semilight flex flex-row",
         adaptiveHeight: true,
         autoplay: true,
         autoplaySpeed: 5000,

@@ -9,12 +9,18 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import defaultImage from '../../assets/profile_default.png'
+import { cargarUsuario } from "../../actions";
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
+  let dispatch = useDispatch();
 
+const logOut = (e) => {
+  e.preventDefault();
+  dispatch(cargarUsuario([]))
+}    
   return (
     <Menu>
       <MenuButton class="m-3 h-9 w-9" as={Button}>
@@ -25,7 +31,7 @@ export default function Dropdown() {
         />
       </MenuButton>
       <MenuList class="bg-light m-2">
-        <MenuGroup>Hola {userState.name}</MenuGroup>
+        <MenuGroup>Hola <b>{userState.username}</b></MenuGroup>
         <MenuDivider/>
         <Link to={"/profile/" + userState.id}>
           <MenuItem>Mi perfil</MenuItem>
@@ -37,7 +43,7 @@ export default function Dropdown() {
           <MenuItem>Preguntas frecuentes</MenuItem>
         </Link>
         <MenuDivider />
-        <MenuItem>Cerrar sesion</MenuItem>
+        <MenuItem onClick={e=> logOut(e)}>Cerrar sesion</MenuItem>
       </MenuList>
     </Menu>
   );
