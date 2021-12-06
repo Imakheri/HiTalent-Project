@@ -119,8 +119,8 @@ export default function SeeMore() {
             </Box>
           </Box>
           <QyAanswer />
-          <QyA />
           <Reviews />
+          <QyA />
           <Box>
             <Link to="/home">
               <Button m="2">Volver</Button>

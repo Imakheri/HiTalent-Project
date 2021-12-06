@@ -14,7 +14,7 @@ export default function Profile(){
     console.log("user: ", user)
     return(
 
-        <div className='flex w-full h-screen bg-semilight'>
+        <div className='flex w-full h-full bg-semilight'>
         {
             user.length === 0 ? (<h1>No estas registrado, no podes acceder al perfil</h1>) : (
             <div className='flex flex-row'>
