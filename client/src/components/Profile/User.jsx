@@ -18,9 +18,9 @@ export default function Profile(){
     return(
         <div>
         {!user ? (<h2>Cargando...</h2>) : (
-        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg w-80 space-y-6'>
+        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight' src='https://codes.unidepix.com/codes/mio.png' alt='{user.image}'/>
+                <img className='rounded-full border-4 border-semilight w-72' src='https://codes.unidepix.com/codes/mio.png' alt='{user.image}'/>
             </div>
 
             <div className='flex flex-col w-full'>

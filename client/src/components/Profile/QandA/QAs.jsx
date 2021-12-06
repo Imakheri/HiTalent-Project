@@ -29,12 +29,12 @@ export default function Qas() {
 
   return (
     <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4 space-y-4">
-    {
-    (qa.posts?.questions) ? 
-        
-          <span>No tienes preguntas por el momento...</span>
-        
-         : (
+      {/* {Array.isArray(qa) ? (
+        <h1>No tienes preguntas por el momento...</h1>
+      ) : ( */}
+      {qa.posts?.questions ? (
+        <span>No tienes preguntas por el momento...</span>
+      ) : (
         qa.posts?.map((e) => (
           <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
             <div className="flex flex-row justify-center items-center  bg-semidark text-white w-11/12 h-auto m-1">
@@ -72,8 +72,12 @@ export default function Qas() {
             </div>
           </div>
         ))
-      )
-      }
+      )}
+      {Array.isArray(qa.posts) && !qa.posts ? (
+        <h1>No tienes preguntas por el momento...</h1>
+      ) : (
+        ""
+      )}
     </div>
   );
 

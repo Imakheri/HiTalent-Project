@@ -39,7 +39,7 @@ conn.sync({ force: true }).then(() => {
 
     let password = "1234";
     let passwordHash = await bcrypt.hash(password, 10);
-    
+
     var testuser1 = await Users.create({
       //creo usuario test1
       name: "pepe",
@@ -68,7 +68,7 @@ conn.sync({ force: true }).then(() => {
       code: 160,
     });
     await testorden.setPayment(testpayment); //lo seteo a la orden de pago
-    
+
     //console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
 
     //--------------------------------------------------------------------------
