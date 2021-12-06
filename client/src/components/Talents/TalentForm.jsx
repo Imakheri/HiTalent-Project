@@ -77,7 +77,7 @@ function TalentForm(){
         fb.append("category",form.category)
         axios({
             method: "post",
-            url: "http://localhost:3001/post",
+            url: `${PROXY}/post`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))

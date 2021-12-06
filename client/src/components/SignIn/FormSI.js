@@ -59,7 +59,7 @@ function handleOnChange(e) {
 
     async function handleOnSubmit(e){
         e.preventDefault();     
-        let respuesta = await axios.post('http://localhost:3001/user/loggin/',userLogin)
+        let respuesta = await axios.post(`${PROXY}/user/loggin/`,userLogin)
         .then(res => res.data)
         switch(respuesta){
             case "Contraseña incorrecta":

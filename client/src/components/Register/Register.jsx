@@ -69,7 +69,7 @@ function createPass(){
 }
 
 function createUser(input){
-    axios.post('http://localhost:3001/user', input)
+    axios.post(`${PROXY}/user`, input)
 }
 
 function passCheck(a, b){

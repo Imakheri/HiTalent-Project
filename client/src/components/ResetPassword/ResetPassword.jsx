@@ -20,7 +20,7 @@ function reset(){
 }
 
 function resetPassword(input){
-    axios.put('http://localhost:3001/user/editPassword', input)
+    axios.put(`${PROXY}/user/editPassword`, input)
 }
 
 function handleChange(e){

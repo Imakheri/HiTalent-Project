@@ -28,7 +28,7 @@ export default function SeeMore() {
     console.log(mercadopago);
     e.preventDefault();
     let response = await axios.post(
-      "http://localhost:3001/checkout/mercadopago/",
+      `${PROXY}/checkout/mercadopago/`,
       mercadopago
     );
     console.log(response);

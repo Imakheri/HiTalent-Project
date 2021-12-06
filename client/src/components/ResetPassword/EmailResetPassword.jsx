@@ -7,7 +7,7 @@ export default function EmailResetPassword(){
     const [input, setInput] = useState('');
 
     function sendEmailPass(input){
-        axios.post('http://localhost:3001/user/emailResetPassword', input)
+        axios.post(`${PROXY}/user/emailResetPassword`, input)
     }
 
     function handleChange(e){
