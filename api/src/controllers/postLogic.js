@@ -3,11 +3,11 @@ const {Op} = require('sequelize')
 
 
 const getPosts= async(req,res,next)=>{
-    if(req.query.filter)
+    //if(req.query.filter)
     var post=await Posts.findAll({
-        where: {
-            cost: req.query.filter
-          },
+        // where: {
+        //     cost: req.query.filter
+        //   },
         include:[{
             model:Users,
             order: [['createdAt', 'DESC']]
@@ -64,7 +64,7 @@ const updatePost= async(req,res,next)=>{
         if(description)post.description=description
         if(duration)post.duration=duration
         if(cost)post.cost=cost
-        if(rating) post.rating= rating
+        if(rating)post.rating= rating
         await post.save()
         res.json(post)
     }catch(e){
