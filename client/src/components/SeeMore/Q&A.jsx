@@ -1,40 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { Input, Button } from '@chakra-ui/react'
+import { Input, Button } from "@chakra-ui/react";
 import { postQuestion } from "../../actions";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 
 export default function QyA() {
-    const userState = useSelector(state => state.index.user)
-    const dispatch = useDispatch()
-    const [ question, setQuestion ] = useState('')
-    console.log(question)
-    
-    useEffect(() => {
-        dispatch(postQuestion(userState.id))
-    })
+  const questionsPost = useSelector((state) => state.index.questionsPost);
+  const user = useSelector((state) => state.index.user);
+  const dispatch = useDispatch();
+  const [question, setQuestion] = useState("");
 
-    function onSubmit(e) {
-        e.preventDefault()
-        dispatch(postQuestion())
-    }
+  // useEffect(() => {
+  //     dispatch(postQuestion(userState.id))
+  // })
 
-    function onChange(e) {
-        e.preventDefault()
-        setQuestion(e.target.value)
-    }
+  let body = {
+    question: question,
+    user_id: user.id,
+    post_id: questionsPost.id,
+  };
+  console.log("body del state", body);
 
-    function onClick(e) {
-        e.preventDefault()
-        dispatch(postQuestion())
-    }
+  function onSubmit(e) {
+    e.preventDefault();
+    // console.log("body del dispatch", body);
+    // dispatch(
+    //   postQuestion({
+    //     question: question,
+    //     user_id: user.id,
+    //     post_id: questionsPost.id,
+    //   })
+    // );
+    // setQuestion("");
+  }
 
-    return (
-        <div class="m-3">
-            <h3 class="text-xl font-semibold">Deja tu pregunta</h3>
-            <form onSubmit={onSubmit}>
-                <Input value={question} onChange={onChange} placeholder='Ingrese su pregunta' size="md"/>
-                <Button onClick={onClick}>Enviar</Button>
-            </form>
-        </div>
-    )
+  function onChange(e) {
+    e.preventDefault();
+    setQuestion(e.target.value);
+  }
+
+  function onClick(e) {
+    console.log("body del dispatch", body);
+    e.preventDefault();
+    dispatch(postQuestion(body));
+  }
+
+  return (
+    <div class="m-3">
+      <h3 class="text-xl font-semibold">Deja tu pregunta</h3>
+      <form onSubmit={(e) => onSubmit(e)}>
+        <Input
+          value={question}
+          onChange={onChange}
+          placeholder="Ingrese su pregunta"
+          size="md"
+        />
+        <Button onClick={(e) => onClick(e)}>Enviar</Button>
+      </form>
+    </div>
+  );
 }
