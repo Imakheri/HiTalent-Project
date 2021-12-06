@@ -13,7 +13,7 @@ export default function Profile(){
 
     useEffect(() => {
         dispatch(getUserbyId(id));
-    },[dispatch])
+    },[dispatch, id])
 
 
     return(
@@ -21,7 +21,7 @@ export default function Profile(){
         {!user ? (<h2>Cargando...</h2>) : (
         <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg w-80 space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight' src={defaultImage} alt='{user.image}'/>
+                <img className='rounded-full border-4 border-semilight' src={user.image? user.image : defaultImage} alt={user.username}/>
             </div>
 
             <div className='flex flex-col w-full'>

@@ -7,7 +7,7 @@ export default function Footer() {
             <div class="grid col-start-1 col-end-2 m-3">
                 <img src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg" alt="logo hitalent" />
                 <small>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit, maiores iste. Ipsam tempora repellat deserunt quia accusantium provident unde sapiente veritatis ut aperiam. Quod vero ipsum in nesciunt quasi impedit?
+                    En nuestra plataforma puedes conectar con personas que esten interesadas en compartir su talento contigo, podras aprender lo que quieras en solo un click. Deja tu valoracion para que ellos puedan ganar prestigio!
                 </small>
             </div>
             <div class="grid col-start-2 col-end-3 m-3">

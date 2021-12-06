@@ -42,7 +42,7 @@ export default function Landing() {
                 <div class="flex flex-col items-center justify-between bg-dark rounded-md m-7 bg-opacity-70">
                     <LandingSearchbar/>
                     <Link to='/home'>
-                        <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">Home</button>
+                        <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">Ir al sitio</button>
                     </Link>
                 </div>
             </div>

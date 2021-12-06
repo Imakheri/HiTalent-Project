@@ -7,6 +7,7 @@ import { getTalents } from "../../actions";
 import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
+import { SortByPrice } from "../Sort/SortByPrice";
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
@@ -45,6 +46,9 @@ export default function Home() {
         <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr />
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
+      </div>
+      <div class='flex justify-end'>
+        <SortByPrice/>
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
         {skill?.length === 0 ? (
