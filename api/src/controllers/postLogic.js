@@ -19,7 +19,7 @@ const getPosts= async(req,res,next)=>{
 }
 const createPost= async(req,res,next)=>{
     
-    let{title,description,category,duration,cost,username}=req.body
+    let{title,description,category,duration,cost,username, rating}=req.body
     let file=req.file
     let path = "http://localhost:3001/" + file.filename
     try{
@@ -28,6 +28,7 @@ const createPost= async(req,res,next)=>{
         var post=await Posts.create({
             title,
             description,
+            rating,
             duration:Number(duration),
             cost:Number(cost),
             image:[path]
@@ -49,7 +50,7 @@ const createPost= async(req,res,next)=>{
 }
 const updatePost= async(req,res,next)=>{
     console.log(req.body)
-    let{title,description,duration,cost,id}=req.body
+    let{title,description,duration,cost,id, rating}=req.body
   
 
     try{
@@ -59,6 +60,7 @@ const updatePost= async(req,res,next)=>{
         if(description)post.description=description
         if(duration)post.duration=duration
         if(cost)post.cost=cost
+        if(rating)post.rating= rating
         await post.save()
         res.json(post)
     }catch(e){
@@ -130,7 +132,7 @@ async function getPostId(req, res, next){
                   where: {
                       id: id
                   },
-                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost'],
+                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost', 'rating'],
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
@@ -143,7 +145,7 @@ async function getPostId(req, res, next){
                 },
                 {
                     model: Review,
-                    attributes: ['rating', 'description'],
+                    attributes: ['qualification', 'description'],
                     order: [['createdAt', 'DESC']]
                 }]
               });

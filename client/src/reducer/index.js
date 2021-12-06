@@ -9,7 +9,11 @@ import {    SEARCH_TALENT,
             GET_MOVE_ID, 
             GET_QA_ID, 
             PUT_ANSWER, 
-            GET_CATEGORIES } from "../actions"
+            GET_CATEGORIES, 
+            SORT_BY_PRICE
+} from "../actions"
+
+import { ASCENDENTE } from "../const"
 
 const initialState = {
     user : [],
@@ -88,6 +92,21 @@ export default function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 categories: action.payload
+            }
+        case SORT_BY_PRICE:
+            let talentPrice = [...state.filteredTalents]
+            talentPrice = talentPrice.sort((a, b) => {
+                if (a.cost < b.cost) {
+                    return action.payload === ASCENDENTE ? -1 : 1;
+                }
+                if (a.cost > b.cost) {
+                    return action.payload === ASCENDENTE ? 1 : -1;
+                }
+                return 0
+            })
+            return{
+                ...state,
+                filteredTalents: talentPrice
             }
         default:
             return state

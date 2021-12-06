@@ -12,8 +12,9 @@ export const GET_QA_ID = 'GET_QA_ID';
 export const GET_TALENT_BY_ID = "GET_TALENT_BY_ID"
 export const LOGUEAR_USUARIO = "LOGUEAR_USUARIO";
 export const PUT_ANSWER = 'PUT_ANSWER';
-export const GET_CATEGORIES = "GET_CATEGORIES"
-export const POST_QUESTION = "POST_QUESTION"
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const POST_QUESTION = "POST_QUESTION";
+export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 
 export function getTalents() {
   return function (dispatch) {
@@ -213,4 +214,11 @@ export function getCategories() {
       payload: allCategories.data,
     });
   };
+}
+
+export function sortByPrice(order) {
+  return {
+    type: SORT_BY_PRICE,
+    payload: order
+  }
 }

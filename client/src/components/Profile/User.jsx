@@ -3,16 +3,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserbyId } from '../../actions';
+import defaultImage from '../../assets/profile_default.png'
 
 export default function Profile(){
     const { id } = useParams();
     console.log(id);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
-    
+
     useEffect(() => {
         dispatch(getUserbyId(id));
-    },[dispatch])
+    },[dispatch, id])
 
 
     return(
@@ -20,7 +21,7 @@ export default function Profile(){
         {!user ? (<h2>Cargando...</h2>) : (
         <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight w-72' src='https://codes.unidepix.com/codes/mio.png' alt='{user.image}'/>
+                <img className='rounded-full border-4 border-semilight w-72' src={user.image? user.image : defaultImage} alt={user.username}/>
             </div>
 
             <div className='flex flex-col w-full'>

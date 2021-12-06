@@ -25,7 +25,7 @@ export default function Dropdown() {
         />
       </MenuButton>
       <MenuList class="bg-light m-2">
-        <MenuGroup>Hola {userState.name}</MenuGroup>
+        <MenuGroup>Hola <b>{userState.username}</b></MenuGroup>
         <MenuDivider/>
         <Link to={"/profile/" + userState.id}>
           <MenuItem>Mi perfil</MenuItem>

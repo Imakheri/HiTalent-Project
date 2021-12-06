@@ -5,10 +5,18 @@ import Reviews from './Reviews/Reviews';
 import Movements from './Movements/Movements';
 import Qas from './QandA/QAs';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+
 
 export default function Profile(){
+
+    const user = useSelector((state) => state.index.user)
+    console.log("user: ", user)
     return(
+
         <div className='flex w-full h-screen bg-semilight'>
+            {
+            user.length === 0 ? (<h1>No estas registrado, no podes acceder al perfil</h1>) : (
             <div className='w-96 mx-6 mt-6'>
                 <sidebar className='w-1/4'>
                     <User />
@@ -22,7 +30,7 @@ export default function Profile(){
                     </section>
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Reseñas</h2>
-                            {/* <Reviews /> */}
+                            <Reviews />
                     </section>
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Movimientos</h2>
@@ -39,6 +47,8 @@ export default function Profile(){
                     </Link>
                 </div>
             </div>
+            ) 
+            }
         </div>
     )
 }
