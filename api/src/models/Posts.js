@@ -48,10 +48,7 @@ module.exports = (sequelize) => {
       allowNull: true,
       defaultValue: 0
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+
     timeZone: {
       type: DataTypes.STRING,
       allowNull: false
