@@ -5,6 +5,7 @@ import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import QyAanswer from "./Q&Aanswer";
+import { useToast } from '@chakra-ui/react'
 
 export default function QyA() {
   const questionsPost = useSelector((state) => state.index.questionsPost);
@@ -13,6 +14,7 @@ export default function QyA() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [question, setQuestion] = useState("");
+  const toast = useToast()
 
   // useEffect(() => {
   //     dispatch(postQuestion(userState.id))
@@ -48,14 +50,16 @@ export default function QyA() {
   }
 
   function onClick(e) {
-    console.log("body del dispatch", body);
     e.preventDefault();
     dispatch(postQuestion(body));
     dispatch(getPostQuestion(id));
-    // alert(
-    //   "¡Tu pregunta fue enviada! El dueño de la publicación fue notificado."
-    // );
     setQuestion("");
+    toast({
+      title: 'Pregunta enviada',
+      status: 'success',
+      duration: 4000,
+      isClosable: true,
+    })
     navigate(`/talent/${id}`); //La pregunta se va a mostrar, el usuario la tiene que responder desde su panel
     <QyAanswer />;
   }
@@ -70,7 +74,7 @@ export default function QyA() {
           placeholder="Ingrese su pregunta"
           size="md"
         />
-        <Button onClick={(e) => onClick(e)}>Enviar</Button>
+        <Button onClick={onClick}>Enviar</Button>
       </form>
     </div>
   );
