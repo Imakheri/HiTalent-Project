@@ -44,7 +44,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2020/05/cantar-1955117.jpg?itok=fCPDYcVi",
       ],
-      category: "Música y Audio",
       timeZone: "GMT-3",
       language: "español"
     });
@@ -57,7 +56,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://www.superprof.com.ar/blog/wp-content/uploads/2020/03/aprender-guitarra-principiante-1060x704.jpg",
       ],
-      category: "Música y Audio",
       timeZone: "GMT-6",
       language: "español"
     });
@@ -168,7 +166,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1566492620/content-items/003/212/919/2-original.png?1566492620",
       ],
-      category: "Programación y Tecnologias",
       timeZone: "GMT-3",
       language: "español"
     });
@@ -181,7 +178,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://images-ext-1.discordapp.net/external/HI1Ac92dYdKO1WGZO18Up6geo4F9VG1apGPU1f7TfMg/https/t1.pb.ltmcdn.com/es/posts/5/4/1/pasos_para_aprender_a_meditar_en_casa_4145_orig.jpg?width=730&height=438",
       ],
-      category: "Meditación",
       timeZone: "GMT-5",
       language: "español"
     });
@@ -246,7 +242,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",
       ],
-      category: "Botánica",
       timeZone: "GMT-3",
       language: "español"
     });
@@ -291,7 +286,6 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://casapropiacolombia.com/sites/default/files/2019-12/11_0.jpg",
       ],
-      category: "Mantenimiento del hogar",
       timeZone: "GMT-6",
       language: "español"
     });

@@ -19,7 +19,7 @@ const getPosts= async(req, res, next) => {
 };
 
 const createPost= async(req, res, next) => {
-    let { title, description, category, duration, cost, username, rating, timeZone, language } = req.body;
+    let { title, description, duration, cost, username, rating, timeZone, language } = req.body;
     let file = req.file;
     let path = "http://localhost:3001/" + file.filename;
 
@@ -58,7 +58,7 @@ const createPost= async(req, res, next) => {
 };
 
 const updatePost= async(req, res, next) => {
-    let { title, description, duration, cost, id, rating, category, timeZone, language }= req.body;
+    let { title, description, duration, cost, id, rating, timeZone, language }= req.body;
   
     try{
         var post= await Posts.findByPk(id)
@@ -68,7 +68,6 @@ const updatePost= async(req, res, next) => {
         if(duration) post.duration=duration
         if(cost) post.cost=cost
         if(rating) post.rating= rating
-        if(category) post.category= category
         if(timeZone) post.timeZone= timeZone
         if(language) post.language= language
         await post.save()
@@ -144,7 +143,7 @@ async function getPostId(req, res, next){
                   where: {
                       id: id
                   },
-                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost', 'rating', 'category', 'timeZone', 'language'],
+                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost', 'rating', 'timeZone', 'language'],
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
