@@ -7,6 +7,7 @@ const routerReviews = require("./routers/review");
 const routerQuestion = require("./routers/question");
 const routerOrden=require("./routers/orden")
 const routerFavorites=require("./routers/favorites")
+const routerAdmin=require("./routers/admin")
 const router = Router();
 
 // Configurar los routers
@@ -18,4 +19,5 @@ router.use("/review", routerReviews);
 router.use("/question", routerQuestion);
 router.use("/orden",routerOrden)
 router.use("/favorites",routerFavorites)
+router.use("/admin",routerAdmin)
 module.exports = router;

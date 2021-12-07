@@ -37,8 +37,8 @@ const createPost= async(req,res,next)=>{
         if(!user)return res.status(500).json({
             message:"usuario invalido"
         })
-        post.setCategory(categoryDB)
-        post.setUser(user)
+        await post.setCategory(categoryDB)
+        await post.setUser(user)
         res.json(post)
     }catch(e){
         res.status(500).json({
