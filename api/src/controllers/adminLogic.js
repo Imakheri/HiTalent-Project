@@ -30,10 +30,45 @@ async function aprobar(req,res,next){
         res.json(post)
     }
 }
-
+async function deleteNoAprobado(req,res,next){
+    let id=req.body.id
+    let name=req.body.name
+    if(name==="user"){
+        var user=await Users.findByPk(id)
+        if(!user)return res.status(400).json({message:"usuario no encontrado"})
+        await Users.destroy({
+            // de existir, lo destruye
+            where: {
+              id,
+            },
+          });
+        res.json(user)
+    }else if(name==="review"){
+        var review=await Review.findByPk(Number(id))
+        if(!review)return res.status(400).json({message:"review no encontrada"})
+        await Review.destroy({
+            // de existir, lo destruye
+            where: {
+              id:Number(id),
+            },
+          });
+        res.json(review)
+    }else{
+        var post=await Posts.findByPk(id)
+        if(!post)return res.status(400).json({message:"post no encontrado"})
+        await Posts.destroy({
+            // de existir, lo destruye
+            where: {
+              id,
+            },
+          });
+        res.json(post)
+    }
+}
 
 
 module.exports={
     getAll,
-    aprobar
+    aprobar,
+    deleteNoAprobado
 }
