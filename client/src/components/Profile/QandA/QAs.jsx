@@ -31,7 +31,7 @@ export default function Qas() {
       <div className="flex flex-col items-center py-2">
         {!(qa.posts?.length > 0) ? (
           <h2>No tienes publicaciones para obtener preguntas...</h2>
-        ) : qa.posts[0].questions.length > 0 ? (
+        ) : qa.posts.map((e) => e.questions?.length > 0) ? (
           qa.posts?.map((e) => (
             <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
               <div className="flex flex-row justify-center items-center  bg-semidark text-white w-11/12 h-auto m-1">

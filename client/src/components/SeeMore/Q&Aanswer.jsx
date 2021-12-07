@@ -19,7 +19,7 @@ export default function QyAanswer() {
         {questionsPost?.questions?.length > 0 ? (
           questionsPost.questions.map((e) => <div>{e.question}</div>)
         ) : (
-          <span>Aun no hay preguntas</span>
+          <span>Aún no hay preguntas</span>
         )}
       </div>
       <hr />

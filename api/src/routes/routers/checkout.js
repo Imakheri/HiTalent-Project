@@ -21,15 +21,11 @@ router.post("/mercadopago", async (req, res) => {
       },
     ],
 
-    // back_urls: {
-    //     // success: URL de retorno ante la aprobación del pago.
-    //     // pending: URL de retorno ante el pago pendiente.
-    //     // failure: URL de retorno ante el pago rechazado.
-    //     success: 'http://localhost:3001/mp/success',
-    //     failure: 'http://localhost:3001/mp/failure',
-    //     pending: 'http://localhost:3001/mp/pending',
-    // },
-    // auto_return: "approved",
+    back_urls: {
+      success: "http://localhost:3000/home",
+      failure: "http://localhost:3000/home",
+      pending: "http://localhost:3000/home",
+    },
   };
 
   let answer = await mercadopago.preferences.create(preference);
