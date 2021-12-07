@@ -13,7 +13,7 @@ export default function Orders(){
     
     useEffect(() => {
         dispatch(getOrderbyId(id));
-    },[dispatch])
+    },[dispatch, id])
 
     return(
         <div className='flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>
