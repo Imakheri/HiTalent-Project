@@ -21,14 +21,17 @@ export default function Reviews() {
       {review?.reviews?.length > 0 ? (
         <Box display="flex" mt="2" alignItems="center">
           {
-            review?.reviews.map((e) => (
-              <StarIcon
-                key={e}
-                color={
-                  e <= review?.reviews?.qualification ? "teal.500" : "gray.300"
-                }
-              />
-            ))
+            review.reviews.map((e) => e.qualification)
+          //  [...Array(5)]
+          //  .fill('')
+          //  .map((_, i) => (
+          //     <StarIcon
+          //       key={i}
+          //       color={
+          //       i > 5 ? "teal.500" : "gray.300"
+          //       }
+          //     />
+          //   ))
             // Array(5)
             // .fill('')
             // .map((i) => (
