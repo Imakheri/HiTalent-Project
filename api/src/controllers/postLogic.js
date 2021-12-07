@@ -1,5 +1,5 @@
-const {Posts,Users,Categories, Review }=require("../db")
-const {Op} = require('sequelize')
+const { Posts, Users, Categories, Review } = require("../db");
+const { Op } = require("sequelize");
 
 
 const getPosts= async(req, res, next) => {

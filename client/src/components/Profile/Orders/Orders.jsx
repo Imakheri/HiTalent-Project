@@ -13,12 +13,12 @@ export default function Orders(){
     
     useEffect(() => {
         dispatch(getOrderbyId(id));
-    },[dispatch])
+    },[dispatch, id])
 
     return(
         <div className='flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>
             <div className='flex flex-col items-center py-2'>
-                    <section className='flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-10 m-1'>
+                    <section className='flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-12 m-1'>
                     <span>{order.username}</span>
                     <span>{order.talent}</span>
                     <Link to='/order'><button className='btn-primary btn-colors'>Ver pedido</button></Link>

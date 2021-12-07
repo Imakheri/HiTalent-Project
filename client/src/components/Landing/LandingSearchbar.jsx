@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
-import { searchTalent } from "../../actions";
+import React from "react";
+// import { useDispatch } from 'react-redux'
+// import { searchTalent } from "../../actions";
 
 export default function LandingSearchbar() {
 
-    const [ search, setSearch ] = useState('')
-    const dispatch = useDispatch()
+    // const [ search, setSearch ] = useState('')
+    // const dispatch = useDispatch()
 
-    function onSubmit(e) {
-        e.preventDefault()
-        dispatch(searchTalent(search))
-    }
-    function onChange(e) {
-        e.preventDefault()
-        setSearch(e.target.value)
-    }
+    // function onSubmit(e) {
+    //     e.preventDefault()
+    //     dispatch(searchTalent(search))
+    // }
+    // function onChange(e) {
+    //     e.preventDefault()
+    //     setSearch(e.target.value)
+    // }
 
     return (
         <div class="p-3 h-72 bg-light rounded-md m-5 flex flex-col items-center justify-around bg-opacity-70">

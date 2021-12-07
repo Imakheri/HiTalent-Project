@@ -12,7 +12,7 @@ export default function Movements(){
     
     useEffect(() => {
         dispatch(getMovebyId(id));
-    },[dispatch])
+    },[dispatch, id])
 
     return (
         <div className='flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>

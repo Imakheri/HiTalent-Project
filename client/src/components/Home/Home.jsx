@@ -43,8 +43,6 @@ export default function Home() {
         }{
           ventanaRegister ? <Register onModaleClick={onModaleClick} onModalChange={onModalChange}/> : console.log("registro")
         }
-        <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
-        <Categories /> <hr />
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
       </div>
       <div class='flex justify-end'>
@@ -53,22 +51,24 @@ export default function Home() {
       <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
         {skill?.length === 0 ? (
           <div className="not_found">not found</div>
-        ) : (
-          skill?.map((talent) => {
-            return (
-              <TalentCard
+          ) : (
+            skill?.map((talent) => {
+              return (
+                <TalentCard
                 key={talent.id}
                 id={talent.id}
-                username={talent.user.username}
+                username={talent?.user?.username}
                 title={talent.title}
                 description={talent.description}
                 image={talent.image}
                 cost={talent.cost}
-              />
-            );
-          })
-        )}
+                />
+                );
+              })
+              )}
       </div>
+      <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
+      <Categories /> <hr />
       <Footer />
     </div>
   );

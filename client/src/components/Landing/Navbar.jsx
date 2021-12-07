@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import pfImage from '../../assets/logo8-removebg-preview.png'
 
 
 export default function Navbar({ onModalClick, onModaleClick }) {
