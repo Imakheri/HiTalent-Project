@@ -13,7 +13,7 @@ const {
 const bcrypt = require("bcrypt");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     Categories.bulkCreate([
       { title: "Tecnologias" },
