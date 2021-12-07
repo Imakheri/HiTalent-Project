@@ -47,6 +47,18 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: true,
       defaultValue: 0
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    timeZone: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    language: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
 
   });
