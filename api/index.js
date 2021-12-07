@@ -179,7 +179,7 @@ conn.sync({ force: true }).then(() => {
     // await testorden.setPost(testpost2) // le vinculo un post
 
     var testReviewProfile1 = await Review.create({
-      rating: 4,
+      qualification: 4,
       description: "Muy bueno",
     });
 
@@ -187,7 +187,7 @@ conn.sync({ force: true }).then(() => {
     await testReviewProfile1.setPost(testPostProfile1);
 
     var testReviewProfile2 = await Review.create({
-      rating: 1,
+      qualification: 1,
       description: "No me gusto la explicacion",
     });
 
@@ -236,7 +236,7 @@ conn.sync({ force: true }).then(() => {
     await testPostProfile3.setUser(testUserProfile2);
 
     var testReviewProfile3 = await Review.create({
-      rating: 5,
+      qualification: 5,
       description: "Gracias a este curso pude crear mi propia huerta",
     });
 

@@ -15,8 +15,8 @@ export const PUT_ANSWER = "PUT_ANSWER";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const POST_QUESTION = "POST_QUESTION";
 export const GET_POST_QUESTION = "GET_POST_QUESTION";
-export const SORT_BY_PRICE = 'SORT_BY_PRICE';
-
+export const SORT_BY_PRICE = "SORT_BY_PRICE";
+export const GET_POST_REVIEW = "GET_POST_REVIEW";
 
 export function getTalents() {
   return function (dispatch) {
@@ -203,9 +203,7 @@ export function createAnswer(answer, id) {
 export function postQuestion(body) {
   console.log("body de la action", body);
   return async function (dispatch) {
-    const question = await axios.post("http://localhost:3001/question", {
-      body,
-    });
+    const question = await axios.post("http://localhost:3001/question", body);
     console.log("data", question.data);
     return dispatch({
       type: POST_QUESTION,
@@ -239,6 +237,20 @@ export function getCategories() {
 export function sortByPrice(order) {
   return {
     type: SORT_BY_PRICE,
-    payload: order
-  }
+    payload: order,
+  };
+}
+
+export function getPostReview(idPost) {
+  return async function (dispatch) {
+    try {
+      var review = await axios.get("http://localhost:3001/review/" + idPost); //el id es el del usuario(perfil)
+      return dispatch({
+        type: GET_POST_REVIEW,
+        payload: review.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
