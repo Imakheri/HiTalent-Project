@@ -26,7 +26,7 @@ const createPost= async(req, res, next) => {
     try{
         var categoryDB= await Categories.findOne({
             where:{ 
-                title: title
+                title: category
             }
         })
         if(!categoryDB) return res.status(500).json({message:"categoria invalida"})
@@ -39,7 +39,6 @@ const createPost= async(req, res, next) => {
             duration:Number(duration),
             cost:Number(cost),
             image:[path],
-            
         })
         var user= await Users.findOne({
             where:{
