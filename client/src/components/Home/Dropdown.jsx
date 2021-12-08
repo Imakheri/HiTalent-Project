@@ -15,6 +15,7 @@ import { cargarUsuario } from "../../actions";
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
+  console.log("user state: ", userState)
   let dispatch = useDispatch();
 
 const logOut = (e) => {

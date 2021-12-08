@@ -15,6 +15,7 @@ import {
   POST_QUESTION,
   SORT_BY_PRICE,
   GET_POST_REVIEW,
+  LOGIN_GOOGLE
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -128,6 +129,26 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         review: action.payload,
       };
+    case LOGIN_GOOGLE:
+      console.log("login con google",action.payload.user)
+      return {
+        ...state,
+        user: {
+          fullName: action.payload.user.displayName,
+          id: action.payload.user.uid,
+          username: action.payload.user.email.split("@")[0],
+          password: "",
+          name: action.payload.user.displayName.split(" ")[0],
+          lastName: action.payload.user.displayName.split(" ")[1],
+          birthdate: "",
+          email: action.payload.user.email,
+          email_verifies: action.payload.user.emailVerifies,
+          image: `${action.payload.user.photoURL}`,
+          score: 0,
+          country: "",
+          code: 0
+        }
+      }
     default:
       return state;
   }

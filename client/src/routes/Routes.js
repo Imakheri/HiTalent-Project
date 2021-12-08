@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { firebase } from '../firebase/firebase-config';
-import { login } from '../actions/auth';
+import { SignInWithGoogle } from '../actions/auth';
 // import { Private } from './Private';
 import Home from '../components/Home/Home';
 import Landing from '../components/Landing/Landing';
@@ -24,7 +24,7 @@ export const Rout = () => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if(user?.uid) {
-                dispatch(login(user.uid, user.displayName));
+                // dispatch(SignInWithGoogle(user.uid, user.displayName));
                 setIsLoggedIn(true);
             } else {
                 setIsLoggedIn(false);

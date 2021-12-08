@@ -1,4 +1,5 @@
 import axios from "axios";
+import { firebase } from '../firebase/firebase-config'
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
@@ -17,6 +18,7 @@ export const POST_QUESTION = "POST_QUESTION";
 export const GET_POST_QUESTION = "GET_POST_QUESTION";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const GET_POST_REVIEW = "GET_POST_REVIEW";
+export const LOGIN_GOOGLE = "LOGIN_GOOGLE"
 
 export function getTalents() {
   return function (dispatch) {
@@ -254,3 +256,16 @@ export function getPostReview(idPost) {
     }
   };
 }
+
+export function SignInWithGoogle(){
+  console.log("function de la action")
+  return function(dispatch){
+    var google_provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(google_provider)
+    .then(res => {
+      dispatch({type:LOGIN_GOOGLE, payload: res})
+    })
+    .catch(err => console.log(err))
+  }
+}
+

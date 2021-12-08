@@ -1,26 +1,26 @@
-import { types } from "../types";
+import { LOGIN_GOOGLE, LOGOUT }  from '../actions/auth'
 
 const initialState = {
-    uid: null,
-    displayName: null,
+    usuario : null
 };
 
 export const authReducer = (state = initialState, action) => {
     switch(action.type){
-        case types.LOGIN:
+        case LOGIN_GOOGLE:
+            console.log(action.payload)
             return {
-                uid: action.payload.uid,
-                name: action.payload.displayName,
+                usuario : action.payload
             }
-        case types.BASIC_AUTH:
-            return {
-                uid: null,
-                displayName: action.payload.name,
-                JWT: action.payload.JWT,
-            };
-        case types.LOGOUT:
-            return initialState;
-            
-        default: return state
+        // case types.BASIC_AUTH:
+        //     return {
+        //         uid: null,
+        //         displayName: action.payload.name,
+        //         JWT: action.payload.JWT,
+        //     };
+        case LOGOUT:
+            return initialState
+
+        default: 
+            return state
     }
 }
