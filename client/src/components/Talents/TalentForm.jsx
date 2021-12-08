@@ -26,9 +26,11 @@ function TalentForm(){
         description: "",
         duration: "", 
         cost: "", 
-        category: ""
+        category: "",
+        timeZone: "",
+        language: "",
     })
-
+    console.log("FORMULARIO: ", form)
     //! VER EL PATH
     const [ventanaModal, setVentanaModal] = useState(false)
     
@@ -75,6 +77,8 @@ function TalentForm(){
         fb.append("cost",form.cost)
         fb.append("image",file)
         fb.append("category",form.category)
+        fb.append("timeZone",form.timeZone)
+        fb.append("language",form.language)
         axios({
             method: "post",
             url: "http://localhost:3001/post",
@@ -175,7 +179,22 @@ function TalentForm(){
                             placeholder="Horas"
                             required
                             />
-                        
+                            <input 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            onChange={handleOnChange} 
+                            type="text" 
+                            name="timeZone"  
+                            placeholder="Zona Horari"
+                            required
+                            />
+                            <input 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            onChange={handleOnChange} 
+                            type="text" 
+                            name="language"  
+                            placeholder="Language"
+                            required
+                            />
                         {/* <div className="grid col-start-3 col-end-5 border border-purple">
                             <img src="image(1).png" alt="portada" />
                             <label class="" >Seleccione su imagen:</label>
@@ -281,6 +300,22 @@ function TalentForm(){
                                             placeholder="Arrastra aqui tus imagenes"
                                             accept="image/*,.pdf"
                                             multiple
+                                        />
+                                        <input 
+                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                                            onChange={handleOnChange} 
+                                            type="text" 
+                                            name="timeZone"  
+                                            placeholder="Zona Horari"
+                                            required
+                                        />
+                                        <input 
+                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                                            onChange={handleOnChange} 
+                                            type="text" 
+                                            name="language"  
+                                            placeholder="Language"
+                                            required
                                         />
                                         <div className='bg-semilight flex flex-row justify-center items-center py-2'>
                                             <button className='btn-primary btn-colors mx-2'>Crear curso</button>

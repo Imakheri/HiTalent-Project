@@ -19,7 +19,7 @@ const getPosts= async(req, res, next) => {
 };
 
 const createPost= async(req, res, next) => {
-    let { title, description, duration, cost, username, rating, timeZone, language } = req.body;
+    let { title, description, duration, cost, username, rating, timeZone, language, category } = req.body;
     let file = req.file;
     let path = "http://localhost:3001/" + file.filename;
 
@@ -39,6 +39,7 @@ const createPost= async(req, res, next) => {
             duration:Number(duration),
             cost:Number(cost),
             image:[path],
+            category
         })
         var user= await Users.findOne({
             where:{
