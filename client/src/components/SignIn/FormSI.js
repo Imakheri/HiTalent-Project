@@ -72,6 +72,7 @@ function handleOnChange(e) {
                 return(alert("Usuario incorrecto"))
             default:
                 dispatch(cargarUsuario(respuesta))
+                setIsOpen(false)
                 navigate("/home");
         }
     }

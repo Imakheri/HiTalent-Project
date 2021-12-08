@@ -3,26 +3,64 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserbyId } from '../../actions';
+import defaultImage from '../../assets/profile_default.png'
+import {useState} from "react"
+import axios from "axios"
 
 export default function Profile(){
     const { id } = useParams();
-    console.log(id);
+    
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
-    
+    const[file,setFile]=useState(null)
+    const [previewSource,setPreviewSource]=useState()
+    var flag=false
+
     useEffect(() => {
+        console.log("estoy en el useffect")
         dispatch(getUserbyId(id));
-    },[dispatch])
+    },[dispatch, id,flag])
 
+    function  handleSubmit(e) {
+        let fb=new FormData()
+        fb.append("username",user.username)
+        fb.append("image",file)
+        axios({
+            method: "put",
+            url: "http://localhost:3001/user",
+            data: fb,
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then(res => console.log(res))
+        .catch(err => console.log(err));
+        dispatch(getUserbyId(id));
+        setPreviewSource(null)
 
+    }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        setPreviewSource(reader.result)
+    
+    }
+    function  handleFile(e) {
+        setFile(e.target.files[0])
+        previewFile(e.target.files[0])
+    }
     return(
         <div>
         {!user ? (<h2>Cargando...</h2>) : (
-        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg w-80 space-y-6'>
+        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight' src='https://codes.unidepix.com/codes/mio.png' alt='{user.image}'/>
+                <img className='rounded-full border-4 border-semilight w-72' src={user.image? user.image : defaultImage} alt={user.username}/>
             </div>
-
+            <button onClick={handleSubmit}>agregar imagen</button>
+            <label>imagen de perfil</label>
+            <input  
+                                onChange={handleFile} 
+                                type="file" 
+                                name="image"
+                                required />
+            {previewSource&&<img scr={previewSource} style={{height:"150px"}}/>}
             <div className='flex flex-col w-full'>
                 <h4 className='text-2xl font-medium italic underline'>{user.fullName}</h4>
                 <h5 className='text-xl text-gray'>{user.username}</h5>

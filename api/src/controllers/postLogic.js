@@ -1,9 +1,9 @@
-const {Posts,Users,Categories, Review }=require("../db")
-const {Op} = require('sequelize')
+const { Posts, Users, Categories, Review } = require("../db");
+const { Op } = require("sequelize");
 
 
-const getPosts= async(req,res,next)=>{
-    var post=await Posts.findAll({
+const getPosts= async(req, res, next) => {
+    var post= await Posts.findAll({
         include:[{
             model:Users,
             order: [['createdAt', 'DESC']]
@@ -16,49 +16,64 @@ const getPosts= async(req,res,next)=>{
         }
     ]})
     res.json(post)
-}
-const createPost= async(req,res,next)=>{
-    
-    let{title,description,category,duration,cost,username}=req.body
-    let file=req.file
-    let path = "http://localhost:3001/" + file.filename
+};
+
+const createPost= async(req, res, next) => {
+    let { title, description, duration, cost, username, rating, timeZone, language, category } = req.body;
+    let file = req.file;
+    let path = "http://localhost:3001/" + file.filename;
+
     try{
-        var categoryDB= await Categories.findOne({where:{ title:category}})
-        if(!categoryDB)return res.status(500).json({message:"categoria invalida"})
-        var post=await Posts.create({
+        var categoryDB= await Categories.findOne({
+            where:{ 
+                title: category
+            }
+        })
+        if(!categoryDB) return res.status(500).json({message:"categoria invalida"})
+        var post= await Posts.create({
             title,
             description,
+            timeZone,
+            language,
+            rating,
             duration:Number(duration),
             cost:Number(cost),
-            image:[path]
+            image:[path],
+        })
+        var user= await Users.findOne({
+            where:{
+                username
+            }
+        })
 
-        })
-        var user=await Users.findOne({where:{username}})
-        if(!user)return res.status(500).json({
-            message:"usuario invalido"
-        })
         await post.setCategory(categoryDB)
         await post.setUser(user)
+
+        if(!user) return res.status(500).json({message:"usuario invalido"})
+        post.setCategory(categoryDB)
+        post.setUser(user)
         res.json(post)
-    }catch(e){
+    } catch(e){
         res.status(500).json({
             message:"algo salio mal",
             error:e.message
         })
     }
-}
-const updatePost= async(req,res,next)=>{
-    console.log(req.body)
-    let{title,description,duration,cost,id}=req.body
-  
+};
 
+const updatePost= async(req, res, next) => {
+    let { title, description, duration, cost, id, rating, timeZone, language }= req.body;
+  
     try{
-        var post=await Posts.findByPk(id)
+        var post= await Posts.findByPk(id)
         
-        if(title)post.title=title
-        if(description)post.description=description
-        if(duration)post.duration=duration
-        if(cost)post.cost=cost
+        if(title) post.title=title
+        if(description) post.description=description
+        if(duration) post.duration=duration
+        if(cost) post.cost=cost
+        if(rating) post.rating= rating
+        if(timeZone) post.timeZone= timeZone
+        if(language) post.language= language
         await post.save()
         res.json(post)
     }catch(e){
@@ -67,8 +82,9 @@ const updatePost= async(req,res,next)=>{
             error:e.message
         })
     }
-}
-const deletePost= async(req,res,next)=>{
+};
+
+const deletePost= async(req, res, next) => {
     let { id } = req.body;
     try {
       let existsInDB = await Posts.findByPk(id); // primero busca si existe el user en la DB. Si existe lo guarda en esta variable
@@ -83,9 +99,9 @@ const deletePost= async(req,res,next)=>{
     } catch (err) {
       next(err);
     }
-}
+};
 
-const addImage = async(req,res,next)=>{
+const addImage = async(req, res, next) => {
     let {id}=req.body
     let file=req.file
     let path = "http://localhost:3001/" + file.filename
@@ -103,8 +119,9 @@ const addImage = async(req,res,next)=>{
             error:e.message})
     }
 
-}
-const deleteImage = async(req,res,next)=>{
+};
+
+const deleteImage = async(req, res, next) => {
     var {image,id}=req.body
     var post=await Posts.findByPk(id)
     try{
@@ -119,7 +136,7 @@ const deleteImage = async(req,res,next)=>{
         })
     }
 
-}
+};
 
 async function getPostId(req, res, next){
    let { id } = req.params;
@@ -130,7 +147,7 @@ async function getPostId(req, res, next){
                   where: {
                       id: id
                   },
-                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost'],
+                  attributes: ['title', 'description', 'image', 'duration', 'oferta', 'cost', 'rating', 'timeZone', 'language'],
                   include: [{
                       model: Users,
                       attributes: ['id', 'username', 'score', 'country', 'image'],
@@ -143,7 +160,7 @@ async function getPostId(req, res, next){
                 },
                 {
                     model: Review,
-                    attributes: ['rating', 'description'],
+                    attributes: ['qualification', 'description'],
                     order: [['createdAt', 'DESC']]
                 }]
               });
@@ -162,9 +179,9 @@ async function getPostId(req, res, next){
       }
 };
 
-const getTalentsByTitle=async(req,res,next)=>{
-    let title= req.params.title
-    //console.log(title)
+const getTalentsByTitle=async(req, res, next) => {
+    let title= req.params.title;
+
     var post= await Posts.findAll()
     let array= post.filter(e => e.title.includes(title))
     if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
@@ -181,5 +198,4 @@ module.exports={
     deleteImage,
     getTalentsByTitle,
     getPostId
-
 };

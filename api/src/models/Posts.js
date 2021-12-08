@@ -47,6 +47,19 @@ module.exports = (sequelize) => {
       type:DataTypes.BOOLEAN,
       defaultValue:false,
       allowNull:true
+
+    rating: {
+      type: DataTypes.DECIMAL,
+      allowNull: true,
+      defaultValue: 0
+    },
+    timeZone: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    language: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
 
   });

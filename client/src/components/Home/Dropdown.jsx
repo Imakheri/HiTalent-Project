@@ -5,28 +5,35 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  MenuGroup
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import defaultImage from '../../assets/profile_default.png'
+import { cargarUsuario } from "../../actions";
 
 export default function Dropdown() {
-  const user = useSelector((state) => state.index.user);
+  const userState = useSelector((state) => state.index.user);
+  let dispatch = useDispatch();
 
-  function onClick(e) {
-    e.preventDefault();
-  }
+const logOut = (e) => {
+  e.preventDefault();
+  dispatch(cargarUsuario([]))
+}    
   return (
     <Menu>
       <MenuButton class="m-3 h-9 w-9" as={Button}>
         <img
           class="h-9 w-9 border-solid border-black rounded-full"
-          src="https://upload.wikimedia.org/wikipedia/commons/0/04/Labrador_Retriever_%281210559%29.jpg"
-          alt=""
+          src={userState.image? userState.image : defaultImage}
+          alt="user_image"
         />
       </MenuButton>
       <MenuList class="bg-light m-2">
-        <Link to={"/profile/" + user.id}>
+        <MenuGroup>Hola <b>{userState.username}</b></MenuGroup>
+        <MenuDivider/>
+        <Link to={"/profile/" + userState.id}>
           <MenuItem>Mi perfil</MenuItem>
         </Link>
         <Link to="/createTalent">
@@ -36,7 +43,7 @@ export default function Dropdown() {
           <MenuItem>Preguntas frecuentes</MenuItem>
         </Link>
         <MenuDivider />
-        <MenuItem onClick={onClick}>Cerrar sesion</MenuItem>
+        <MenuItem onClick={e=> logOut(e)}>Cerrar sesion</MenuItem>
       </MenuList>
     </Menu>
   );
