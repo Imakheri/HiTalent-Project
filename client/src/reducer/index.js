@@ -33,7 +33,7 @@ const initialState = {
   moreTalent: [],
   categories: [],
   questionsPost: [],
-  filteredCategories: [],
+  allCategories: []
   
 };
 
@@ -100,6 +100,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.payload,
+        allCategories: action.payload
       };
     case GET_POST_QUESTION:
       return {
@@ -132,13 +133,13 @@ export default function rootReducer(state = initialState, action) {
         review: action.payload,
       };
     case FILTRO_CAT:
-      let allCat= [...state.categories];
+      let allCat= state.allCategories
       let filtered= action.payload === 'todas' ? 
       allCat : 
-      allCat.filter(e => e.title.includes(action.payload))
+      allCat.filter(e => e.title === action.payload)
       return {
         ...state,
-        filteredCategories: filtered
+        categories: filtered
       };
     default:
       return state;
