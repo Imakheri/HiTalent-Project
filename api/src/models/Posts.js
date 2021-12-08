@@ -43,6 +43,11 @@ module.exports = (sequelize) => {
       type:DataTypes.FLOAT,
       allowNull:false
     },
+    aprobado:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false,
+      allowNull:true
+
     rating: {
       type: DataTypes.DECIMAL,
       allowNull: true,

@@ -39,13 +39,16 @@ const createPost= async(req, res, next) => {
             duration:Number(duration),
             cost:Number(cost),
             image:[path],
-            category
         })
         var user= await Users.findOne({
             where:{
                 username
             }
         })
+
+        await post.setCategory(categoryDB)
+        await post.setUser(user)
+
         if(!user) return res.status(500).json({message:"usuario invalido"})
         post.setCategory(categoryDB)
         post.setUser(user)
