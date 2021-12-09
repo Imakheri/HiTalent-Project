@@ -16,7 +16,7 @@ import {
 export default function Faq(){
 
     return (
-        <section className='min-h-screen w-full'>
+        <Box width="100%" minHeight='100%'>
             <Nav/> 
             <h1 className="flex bg-semilight justify-center font-semibold pt-3 text-2xl p-6">FAQ - Preguntas frecuentes</h1>
             <div className='flex flex-col items-center bg-semilight'>
@@ -131,6 +131,6 @@ export default function Faq(){
                     </div>
             </div>
             <Footer/>
-        </section>
+        </Box>
     )
 }
