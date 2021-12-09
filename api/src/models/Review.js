@@ -31,6 +31,11 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: true,
         },
+        aprobado:{
+            type:DataTypes.BOOLEAN,
+            allowNull:true,
+            defaultValue:false
+        }
     });
 };
 
