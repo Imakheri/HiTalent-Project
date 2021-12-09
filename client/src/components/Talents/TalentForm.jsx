@@ -211,81 +211,92 @@ function TalentForm(){
                             className=" absolute m-auto w-1/2 inset-x-0 bg-semilight border-2 border-white rounded-lg"
                             overlayClassName="fixed inset-0 bg-black bg-opacity-90"
                         >
-                            <div className='flex justify-center items-center text-dark bg-semilight text-4xl font-semibold mt-6'>
+                            <div className='flex justify-center items-center text-dark bg-semilight text-4xl font-semibold mt-6 py-6'>
                                 <h1>Por favor, revisa la información antes de enviarla</h1>
                             </div>
-                            <div className='grid grid-cols-2 items-baseline justify-items-end bg-semilight'>
-                                <div className='flex flex-col text-2xl font-semibold text-white bg-dark'>
-                                    <h1>Título:</h1>
-                                    <h1 className='mt-5'>Descripción:</h1>
-                                    <h1 className='mt-48'>Categoría:</h1>
-                                    <h1 className='mt-4'>Duración:</h1>
-                                    <h1 className='mt-4 mb-6'>Precio:</h1>
-                                </div>
-                                <div className="bg-semilight min-h-screen min-w-full flex justify-center flex-col">
-                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col bg-dark text-white space-y-6 w-80 ">
-                                        <input 
-                                            className='bg-dark text-white text-2xl'
-                                            onChange={handleOnChange} 
-                                            type="text" 
-                                            name="title"  
-                                            value={form.title}
-                                            placeholder="Nombre curso" 
-                                        />
-                                        <textarea 
-                                            onChange={handleOnChange} 
-                                            className="bg-dark" 
-                                            name="description" 
-                                            rows="8" cols="25"  
-                                            value={form.description}
-                                            placeholder="Ingrese la descripcion del curso" 
-                                        />  
-                                        <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
-                                        {
-                                            form.category ? <option>{form.category}</option>
-                                            : <option>Selecciona una categoria</option>}
-                                        {
-                                            !filteredCategories ? 
-                                            <option>Cargando</option> : 
-                                            (filteredCategories.map(el => {
-                                                return(
-                                                    <option key={el.id}
-                                                    name="category">
-                                                    {el.title}
-                                                    </option>
-                                                )
-                                            }))
-                                        }
-                                        </select>
-                                        <input 
-                                            className='bg-dark'
-                                            onChange={handleOnChange} 
-                                            type="number" 
-                                            name="duration"  
-                                            value={form.duration}
-                                            placeholder="Duracion | Horas"
-                                        />
-                                        <input 
-                                            className='bg-dark'
-                                            onChange={handleOnChange} 
-                                            type="number" 
-                                            name="cost"  
-                                            value={form.cost}
-                                            placeholder="Precio | Dolares"
-                                        />
-                                        <input 
-                                            onChange={handleOnChange} 
-                                            className="bg-dark hidden" 
-                                            name="image"  
-                                            type="file" 
-                                            placeholder="Arrastra aqui tus imagenes"
-                                            accept="image/*,.pdf"
-                                            multiple
-                                        />
+                            <div className='flex flex-col bg-semilight'>
+                                <div className="flex justify-center h-2/3 bg-semilight">
+                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-4 bg-dark text-white py-4 space-y-6 w-3/5 rounded border-2 border-white">
+                                        <div>
+                                            <label className='mr-4 text-2xl'>Titulo:</label>
+                                            <input 
+                                                className='bg-dark text-white text-2xl'
+                                                onChange={handleOnChange} 
+                                                type="text" 
+                                                name="title"  
+                                                value={form.title}
+                                                placeholder="Nombre curso" 
+                                                />
+                                        </div>
+                                        <div className='flex items-start'>
+                                            <label className='mr-4'>Descripcion:</label>
+                                            <textarea 
+                                                onChange={handleOnChange} 
+                                                className="bg-dark" 
+                                                name="description" 
+                                                rows="8" cols="25"  
+                                                value={form.description}
+                                                placeholder="Ingrese la descripcion del curso" 
+                                                />  
+                                        </div>
+                                        <div>
+                                            <label className='mr-4 text-2xl'>Categoria:</label>
+                                            <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
+                                            {
+                                                form.category ? <option>{form.category}</option>
+                                                : <option>Selecciona una categoria</option>}
+                                            {
+                                                !filteredCategories ? 
+                                                <option>Cargando</option> : 
+                                                (filteredCategories.map(el => {
+                                                    return(
+                                                        <option key={el.id}
+                                                        name="category">
+                                                        {el.title}
+                                                        </option>
+                                                    )
+                                                }))
+                                            }
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className='mr-4 text-2xl'>Duracion:</label>
+                                            <input 
+                                                className='bg-dark'
+                                                onChange={handleOnChange} 
+                                                type="number" 
+                                                name="duration"  
+                                                value={form.duration}
+                                                placeholder="Duracion | Horas"
+                                                />
+                                        </div>
+                                        <div>
+                                            <label className='mr-4 text-2xl'>Precio:</label>
+                                            <input 
+                                                className='bg-dark'
+                                                onChange={handleOnChange} 
+                                                type="number" 
+                                                name="cost"  
+                                                value={form.cost}
+                                                placeholder="Precio | Dolares"
+                                                />
+                                            </div>
+                                        {/* <div>
+                                            <label></label>
+                                            <input 
+                                                onChange={handleOnChange} 
+                                                className="bg-dark hidden" 
+                                                name="image"  
+                                                type="file" 
+                                                placeholder="Arrastra aqui tus imagenes"
+                                                accept="image/*,.pdf"
+                                                multiple
+                                                />
+                                        </div> */}
                                         <div className='bg-semilight flex flex-row justify-center items-center py-2'>
                                             <button className='btn-primary btn-colors mx-2'>Crear curso</button>
                                             <Link to="/home">
-                                                <button className='btn-primary btn-colors '>Cancelar</button>
+                                                <button className='btn-primary btn-colors'>Cancelar</button>
                                             </Link>
                                         </div>
                                     </form>
