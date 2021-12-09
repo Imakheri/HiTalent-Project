@@ -6,23 +6,23 @@ import Nav from "../Home/Nav";
 import Footer from "../Landing/Footer";
 import { Link } from "react-router-dom";
 import { Box, useToast, Button, Image } from "@chakra-ui/react";
-// import { StarIcon } from "@chakra-ui/icons";
 import QyA from "./Q&A";
 import QyAanswer from "./Q&Aanswer";
 import Reviews from "./Reviews";
 import axios from "axios";
+import  { addToCart }  from "../../actions/shoppingActions";
 
 export default function SeeMore() {
   const toast = useToast();
   const dispatch = useDispatch();
   const { id } = useParams();
   const seemore = useSelector((state) => state.index.moreTalent);
+  let mercadopago = { title: seemore.title, total: seemore.cost };
 
   useEffect(() => {
     dispatch(getTalentById(id));
   }, [dispatch, id]);
 
-  let mercadopago = { title: seemore.title, total: seemore.cost };
 
   async function handleCheckOut(e) {
     console.log(mercadopago);
@@ -33,6 +33,18 @@ export default function SeeMore() {
     );
     console.log(response);
     window.location.href = response.data.init_points;
+  }
+
+  function onClick(e) {
+    e.preventDefault()
+    dispatch(addToCart({title: seemore.title, cost: seemore.cost, id: seemore.id}))
+    toast({
+      position: "bottom-right",
+      render: () => (
+        <Box color="white" p={3} bg="green.500">
+          Agregado al carrito
+        </Box>
+      )})
   }
 
   return (
@@ -101,18 +113,7 @@ export default function SeeMore() {
             <Box class="flex flex-col items-center" m="2">
               <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
               <Box as="span" m="2" color="gray.600" fontSize="sm">
-                <Button
-                  onClick={() =>
-                    toast({
-                      position: "bottom-right",
-                      render: () => (
-                        <Box color="white" p={3} bg="green.500">
-                          Agregado al carrito
-                        </Box>
-                      ),
-                    })
-                  }
-                >
+                <Button onClick={onClick}>
                   Agregar al carrito
                 </Button>
               </Box>

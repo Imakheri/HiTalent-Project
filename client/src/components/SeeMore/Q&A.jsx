@@ -61,7 +61,7 @@ export default function QyA() {
       isClosable: true,
     })
     navigate(`/talent/${id}`); //La pregunta se va a mostrar, el usuario la tiene que responder desde su panel
-    <QyAanswer />;
+    // <QyAanswer />;
   }
 
   return (
