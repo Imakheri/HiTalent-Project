@@ -260,6 +260,7 @@ export function getPostReview(idPost) {
 export function filteredCat(payload) {
   return {
     type: FILTRO_CAT,
-    payload
+    payload,
+  
   };
 };

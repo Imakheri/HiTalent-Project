@@ -24,8 +24,10 @@ export default function Nav({onModalClick, onModaleClick, onModalChange}) {
       <div class="flex justify-between items-center">
         <Link to="/home">
           <img
-            src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg"
+            src="https://codes.unidepix.com/img/hi.png"
             alt="logo hitalent"
+            width='160px'
+            alt='hitalent logo'
           />
         </Link>
         <div class="flex">
@@ -35,13 +37,13 @@ export default function Nav({onModalClick, onModaleClick, onModalChange}) {
                 <input
                   onChange={onChange}
                   type="search"
-                  class="h-10 w-52 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
+                  class="h-10 w-64 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
                   placeholder="Prueba con 'cocinar'"
                 />
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    class="h-8 w-8 pl-1 text-white"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
