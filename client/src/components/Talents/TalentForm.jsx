@@ -113,7 +113,7 @@ function TalentForm(){
                                 onChange={handleOnChange} 
                                 className="resize-none overflow-y-auto justify-self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 text-center p-8"  
                                 name="description" 
-                                rows="8" cols="25"  
+                                rows="11" cols="25"  
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
@@ -187,6 +187,7 @@ function TalentForm(){
                             placeholder="Zona Horaria"
                             required
                             />
+                            <label className='text-lg'>Idioma:</label>
                             <input 
                             className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange} 
@@ -225,7 +226,7 @@ function TalentForm(){
                             </div>
                             <div className='flex flex-col bg-semilight'>
                                 <div className="flex justify-center h-2/3 bg-semilight">
-                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-4 bg-dark text-white py-4 space-y-6 w-3/5 rounded border-2 border-white">
+                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-2/5 rounded border-2 border-white">
                                         <div>
                                             <label className='mr-4 text-2xl'>Titulo:</label>
                                             <input 
@@ -243,13 +244,13 @@ function TalentForm(){
                                                 onChange={handleOnChange} 
                                                 className="bg-dark" 
                                                 name="description" 
-                                                rows="8" cols="25"  
+                                                rows="3" cols="50"
                                                 value={form.description}
                                                 placeholder="Ingrese la descripcion del curso" 
                                                 />  
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-2xl'>Categoria:</label>
+                                            <label className='mr-4 text-xl'>Categoria:</label>
                                             <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
                                             {
                                                 form.category ? <option>{form.category}</option>
@@ -269,7 +270,7 @@ function TalentForm(){
                                             </select>
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-2xl'>Duracion:</label>
+                                            <label className='mr-4 text-xl'>Duracion:</label>
                                             <input 
                                                 className='bg-dark'
                                                 onChange={handleOnChange} 
@@ -290,44 +291,32 @@ function TalentForm(){
                                                 placeholder="Precio | Dolares"
                                                 />
                                             </div>
-                                        <input 
-                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
-                                            onChange={handleOnChange} 
-                                            type="text" 
-                                            name="timeZone"  
-                                            placeholder="Zona Horaria"
-                                            required
-                                        />
-                                        <input 
-                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
-                                            onChange={handleOnChange} 
-                                            type="text" 
-                                            name="language"  
-                                            placeholder="Idioma"
-                                            required
-                                        />
-                                         <input 
-                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
-                                            onChange={handleOnChange} 
-                                            type="text" 
-                                            name="timeZone"  
-                                            placeholder="Zona Horaria"
-                                            required
-                                        />
-                                        <input 
-                                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
-                                            onChange={handleOnChange} 
-                                            type="text" 
-                                            name="language"  
-                                            placeholder="Idioma"
-                                            required
-                                        />
-                                        <div className='bg-semilight flex flex-row justify-center items-center py-2'>
-                                            <button className='btn-primary btn-colors mx-2'>Crear curso</button>
-                                            <Link to="/home">
-                                                <button className='btn-primary btn-colors'>Cancelar</button>
-                                            </Link>
+                                        <div>
+                                            <label className='mr-4 text-l'>Zona Horaria:</label>
+                                            <input 
+                                                className='bg-dark'
+                                                onChange={handleOnChange} 
+                                                type="text" 
+                                                name="timeZone"  
+                                                value={form.timeZone}
+                                                />
                                         </div>
+                                        <div>
+                                            <label className='mr-4 text-2xl'>Idioma:</label>
+                                            <input 
+                                                className='bg-dark'
+                                                onChange={handleOnChange} 
+                                                type="text" 
+                                                name="language"  
+                                                value={form.language}
+                                                />
+                                        </div>
+                                <div className='bg-dark flex flex-row justify-center items-center'>
+                                    <button type='submit' className='btn-primary btn-colors mx-2'>Crear curso</button>
+                                    <Link to="/home">
+                                        <button className='btn-primary btn-colors'>Cancelar</button>
+                                    </Link>
+                                </div>
                                     </form>
                                 </div>
                             </div>

@@ -96,8 +96,8 @@ export default function Home() {
               })
               )}
       </div>
-      <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
-      <Categories /> <hr />
+      {/* <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
+      <Categories /> <hr /> */}
       <Footer />
     </div>
   );

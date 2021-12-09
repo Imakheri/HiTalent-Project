@@ -7,9 +7,10 @@ export default function Navbar({ onModalClick, onModaleClick }) {
 
     return (
         <nav class="bg-semidark place-content-center items-center">
-        <div class="flex justify-between">
+        <div class="flex items-center justify-between">
             <Link to='/'>
-            <img src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg" alt="logo hitalent" />
+            <img
+            src="https://codes.unidepix.com/img/hi.png" alt="logo hitalent" width='160px' alt='hitalent logo'/>
             </Link>
             <div>
                 <button onClick={onModalClick} class="m-4 font-semibold">Ingreso</button>

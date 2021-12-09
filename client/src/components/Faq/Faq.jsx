@@ -18,8 +18,8 @@ export default function Faq(){
     return (
         <Box width="100%" minHeight='100%'>
             <Nav/> 
-            <h1 className="flex bg-semilight justify-center font-semibold pt-3 text-2xl p-6">FAQ - Preguntas frecuentes</h1>
-            <div className='flex flex-col items-center bg-semilight'>
+            <h1 className="flex bg-semilight justify-center font-semibold pt-3 text-2xl text-dark p-6">FAQ - Preguntas frecuentes</h1>
+            <div className='flex flex-col items-center bg-semilight text-black'>
                     <div class="flex flex-col justify-center items-center max-w-4xl px-4">
                         <Accordion defaultIndex={[0]} allowMultiple>
                             <AccordionItem>
