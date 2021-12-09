@@ -184,7 +184,7 @@ function TalentForm(){
                             onChange={handleOnChange} 
                             type="text" 
                             name="timeZone"  
-                            placeholder="Zona Horari"
+                            placeholder="Zona Horaria"
                             required
                             />
                             <input 
@@ -192,7 +192,7 @@ function TalentForm(){
                             onChange={handleOnChange} 
                             type="text" 
                             name="language"  
-                            placeholder="Language"
+                            placeholder="Idioma"
                             required
                             />
                         {/* <div className="grid col-start-3 col-end-5 border border-purple">

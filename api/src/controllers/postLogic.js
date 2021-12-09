@@ -12,6 +12,7 @@ const getPosts= async(req, res, next) => {
         order: [['createdAt', 'DESC']]
         },
         {model:Categories,
+        attributes: ["title"],
         order: [['createdAt', 'DESC']] 
         }
     ]})
@@ -33,6 +34,7 @@ const createPost= async(req, res, next) => {
         var post= await Posts.create({
             title,
             description,
+            category,
             timeZone,
             language,
             rating,
