@@ -15,7 +15,8 @@ import {
   POST_QUESTION,
   SORT_BY_PRICE,
   GET_POST_REVIEW,
-  FILTRO_CAT
+  FILTRO_CAT,
+  SORT_BY_QUALI
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -98,8 +99,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_CATEGORIES:
       return {
         ...state,
-        categories: action.payload,
-        // allCategories: action.payload
+        categories: action.payload
       };
     case GET_POST_QUESTION:
       return {
@@ -137,6 +137,45 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         filteredTalents: fil
+      };
+    case SORT_BY_QUALI:
+      // let acomodados = state.filteredTalents.reviews?
+      // acomodados= action.payload === 'baja' ?
+      //           state.filteredTalents.sort(function(a, b) {
+      //            if(a.qualification > b.qualification) {
+      //                return 1;
+      //            }
+      //           if(b.qualification > a.qualification) {
+      //               return -1;
+      //           }
+      //           return 0;
+      //           }) :
+      //           state.filteredTalents.sort(function(a, b) {
+      //            if(a.qualification > b.qualification) {
+      //                return -1;
+      //            }
+      //            if(b.qualification > a.qualification) {
+      //                return 1;
+      //            }
+      //            return 0;
+      //           })
+      //           return {
+      //               ...state,
+      //               filteredTalents: acomodados
+      //       } 
+      let talentQuali = state.talents
+      talentQuali = talentQuali.sort((a, b) => {
+        if (a.reviews.qualification < b.reviews.qualification) {
+          return action.payload === 'baja' ? -1 : 1;
+        }
+        if (a.qualification > b.qualification) {
+          return action.payload === 'baja' ? 1 : -1;
+        }
+        return 0;
+      });
+      return {
+        ...state,
+        talents: talentQuali
       };
     default:
       return state;

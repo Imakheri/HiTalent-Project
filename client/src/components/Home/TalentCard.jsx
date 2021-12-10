@@ -28,7 +28,7 @@ export default function TalentCard({ title, username, description, image, cost, 
               ml='2'
             >
               <span>By: {username}</span><br />
-              <span className='text-sm'>Category: {category}</span>
+              <span className='text-sm'>Categoria: {category}</span>
             </Box>
           </Box>
           <Box

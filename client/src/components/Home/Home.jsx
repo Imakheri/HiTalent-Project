@@ -4,11 +4,12 @@ import Nav from "./Nav";
 import Footer from "../Landing/Footer";
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
-import Categories from "./Categories";
+//import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
 import { filteredCat } from "../../actions";
+import { sortByQuali } from "../../actions";
 
 
 export default function Home() {
@@ -39,6 +40,11 @@ export default function Home() {
   function handleCatFilter(e){
     e.preventDefault();
     dispatch(filteredCat(e.target.value));
+  };
+
+   function handleSort(e){
+        e.preventDefault();
+        dispatch(sortByQuali(e.target.value))
   };
 
   return (
@@ -75,10 +81,19 @@ export default function Home() {
             </select>
         </div>
         <SortByPrice/>
+        {/* <SortByQuali/> */}
+        <div>
+        <label class='font-semibold'>Calificación: </label>
+        <select onChange={(e) => handleSort(e)}>
+            <option default value=''></option>
+            <option value='baja'>Baja</option>
+            <option value='alta'>Alta</option>
+        </select>
+       </div>
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around">
         {skill?.length === 0 ? (
-          <div className="not_found">not found</div>
+          <div class="text-4xl font-bold m-4"> <h3>Ups! no encontramos la categoría que buscas, intenta de nuevo</h3></div>
           ) : (
             skill?.map((talent) => {
               return (

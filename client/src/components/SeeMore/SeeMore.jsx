@@ -76,7 +76,7 @@ export default function SeeMore() {
               {seemore.title}
             </Box>
 
-            <Box>{seemore.description}</Box>
+            <Box>{seemore.description}</Box>      
 
             <Box>
               <Box as='span' color='gray.600 fontSize=-sm'>
