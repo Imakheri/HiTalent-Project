@@ -14,6 +14,7 @@ import Profile from '../components/Profile/Profile';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import EmailResetPassword from '../components/ResetPassword/EmailResetPassword';
 import Faq from '../components/Faq/Faq';
+import AdminProfile from '../components/AdminProfile/AdminProfile';
 
 
 export const Rout = () => {
@@ -49,6 +50,7 @@ export const Rout = () => {
                 <Route exact path='/register' element={<Register />} />
                 <Route path='/user/emailresetpassword' element={<EmailResetPassword />} />
                 <Route path='/user/resetpassword' element={<ResetPassword />} />
+                <Route path="/admin" element={<AdminProfile />} />
                 <Route path='/home' element={<Home
                     // <Route 
                     // element = {(props) =>
