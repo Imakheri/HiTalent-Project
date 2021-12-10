@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Button } from "@chakra-ui/react";
 import { postQuestion, getTalentById, getPostQuestion } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";

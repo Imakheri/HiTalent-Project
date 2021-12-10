@@ -9,6 +9,8 @@ const {
   Favorites,
   Payments,
   Question,
+  Message,
+  Conversation,
 } = require("./src/db.js");
 const bcrypt = require("bcrypt");
 
@@ -276,6 +278,22 @@ conn.sync({ force: true }).then(() => {
       ],
     });
     await testPostProfile4.setUser(testUserProfile3);
+
+    //PROBANDO CHAT-----------------------
+    let conversation1 = await Conversation.create({
+      members: [testUserProfile.id, testUserProfile3.id],
+    });
+    await Message.create({
+      conversationId: conversation1.id,
+      sender: testUserProfile.id,
+      text: "Hola Ricardo",
+    });
+
+    await Message.create({
+      conversationId: conversation1.id,
+      sender: testUserProfile3.id,
+      text: "Hola Santi",
+    });
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });

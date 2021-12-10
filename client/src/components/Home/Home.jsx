@@ -8,6 +8,7 @@ import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
@@ -17,38 +18,55 @@ export default function Home() {
     dispatch(getTalents());
   }, [dispatch]);
 
-  const [ventanaLogIn, setVentanaLogIn] = useState(false)
-  const [ ventanaRegister, setVentanaRegister ] = useState(false)
-  
-  function onModalClick(e){
-      e.preventDefault()
-      setVentanaLogIn(!ventanaLogIn)
+  const [ventanaLogIn, setVentanaLogIn] = useState(false);
+  const [ventanaRegister, setVentanaRegister] = useState(false);
+
+  function onModalClick(e) {
+    e.preventDefault();
+    setVentanaLogIn(!ventanaLogIn);
   }
   function onModaleClick(e) {
-      e.preventDefault()
-      setVentanaRegister(!ventanaRegister)
+    e.preventDefault();
+    setVentanaRegister(!ventanaRegister);
   }
-  function onModalChange(e){
-      e.preventDefault()
-      setVentanaLogIn(!ventanaLogIn)
-      setVentanaRegister(!ventanaRegister)
+  function onModalChange(e) {
+    e.preventDefault();
+    setVentanaLogIn(!ventanaLogIn);
+    setVentanaRegister(!ventanaRegister);
   }
 
   return (
-    <div  class='user-select-none'>
-      <Nav onModalChange={onModalChange} onModaleClick={onModaleClick} onModalClick={onModalClick}/>
+    <div class="user-select-none">
+      <Nav
+        onModalChange={onModalChange}
+        onModaleClick={onModaleClick}
+        onModalClick={onModalClick}
+      />
       <div>
-        {
-          ventanaLogIn ? <Form onModalClick={onModalClick} onModalChange={onModalChange}/> : console.log("ingreso")
-        }{
-          ventanaRegister ? <Register onModaleClick={onModaleClick} onModalChange={onModalChange}/> : console.log("registro")
-        }
+        {ventanaLogIn ? (
+          <Form onModalClick={onModalClick} onModalChange={onModalChange} />
+        ) : (
+          console.log("ingreso")
+        )}
+        {ventanaRegister ? (
+          <Register
+            onModaleClick={onModaleClick}
+            onModalChange={onModalChange}
+          />
+        ) : (
+          console.log("registro")
+        )}
         <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr />
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
+        <Link to="/messenger">
+          <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">
+            Chat
+          </button>
+        </Link>
       </div>
-      <div class='flex justify-end'>
-        <SortByPrice/>
+      <div class="flex justify-end">
+        <SortByPrice />
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
         {skill?.length === 0 ? (
