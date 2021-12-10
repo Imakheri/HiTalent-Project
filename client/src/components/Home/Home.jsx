@@ -9,7 +9,7 @@ import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
 import { filteredCat } from "../../actions";
-import { sortByQuali } from "../../actions";
+//import { SortByQuali } from '../Sort/SortByQuali';
 
 
 export default function Home() {
@@ -42,10 +42,6 @@ export default function Home() {
     dispatch(filteredCat(e.target.value));
   };
 
-   function handleSort(e){
-        e.preventDefault();
-        dispatch(sortByQuali(e.target.value))
-  };
 
   return (
     <div  class='user-select-none'>
@@ -80,16 +76,10 @@ export default function Home() {
              <option value='Mantenimiento del hogar'>Mantenimiento del hogar</option> 
             </select>
         </div>
+        <div>
         <SortByPrice/>
         {/* <SortByQuali/> */}
-        <div>
-        <label class='font-semibold'>Calificación: </label>
-        <select onChange={(e) => handleSort(e)}>
-            <option default value=''></option>
-            <option value='baja'>Baja</option>
-            <option value='alta'>Alta</option>
-        </select>
-       </div>
+        </div>
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around">
         {skill?.length === 0 ? (
