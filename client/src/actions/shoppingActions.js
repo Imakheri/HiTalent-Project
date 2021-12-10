@@ -13,9 +13,15 @@ export function addToCart(payload) {
     }
 }
 
-export function removeFromCart(payload) {
+export function clearItemsCart() {
     return {
-        type: REMOVE_ALL_FROM_CART,
+        type: CLEAR_CART
+    }
+}
+
+export function deleteTalent(payload) {
+    return {
+        type: REMOVE_ONE_FROM_CART,
         payload
     }
 }

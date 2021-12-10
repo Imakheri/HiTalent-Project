@@ -96,20 +96,6 @@ export default function SeeMore() {
               </Box>
               {seemore.cost}
             </Box>
-
-            {/* <Box display='flex' mt='2' alignItems='center'>
-      {Array(5)
-        .fill('')
-        .map((_, i) => (
-          <StarIcon
-          key={i}
-          color={i < seemore.rating ? 'teal.500' : 'gray.300'}
-          />
-          ))}
-      <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-        {seemore.reviewCount} reviews
-      </Box>
-    </Box> */}
             <Box class="flex flex-col items-center" m="2">
               <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
               <Box as="span" m="2" color="gray.600" fontSize="sm">
