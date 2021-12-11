@@ -47,7 +47,8 @@ const createPost= async(req, res, next) => {
                 username
             }
         })
-
+        let status=await user.aprobado
+        if (!status)return res.json({message:"usuario no aprobado"})
         await post.setCategory(categoryDB)
         await post.setUser(user)
 
@@ -183,7 +184,6 @@ async function getPostId(req, res, next){
 
 const getTalentsByTitle=async(req, res, next) => {
     let title= req.params.title;
-
     var post= await Posts.findAll()
     let array= post.filter(e => e.title.toLowerCase().includes(title.toLowerCase()))
     if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})

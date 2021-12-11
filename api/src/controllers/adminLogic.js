@@ -2,9 +2,9 @@ const {Users,Posts,Review}=require("../db")
 
 
 async function getAll(req,res,next){
-    var users=await Users.findAll({where:{aprobado:false}})
-    var posts=await Posts.findAll({where:{aprobado:false}})
-    var review=await Review.findAll({where:{aprobado:false}})
+    var users=await Users.findAll()
+    var posts=await Posts.findAll()
+    var review=await Review.findAll()
     res.json({users,posts,review})
 }
 async function aprobar(req,res,next){
@@ -36,11 +36,14 @@ async function deleteNoAprobado(req,res,next){
     if(name==="user"){
         var user=await Users.findByPk(id)
         if(!user)return res.status(400).json({message:"usuario no encontrado"})
+        await Posts.destroy({
+          where:{user_id:id}
+        })
+        await Review.destroy({
+          where:{user_id:id}
+        })
         await Users.destroy({
-            // de existir, lo destruye
-            where: {
-              id,
-            },
+            where: {id}
           });
         res.json(user)
     }else if(name==="review"){
