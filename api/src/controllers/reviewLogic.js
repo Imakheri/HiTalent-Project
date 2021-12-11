@@ -7,13 +7,14 @@ async function createReview(req, res, next) {
       description,
       qualification
     });
-    let userId = Users.findByPk(user_id);
-    let status=await userId.aprobado
-    if (!status)return res.json({message:"usuario no aprobado"})
+
+    let userId =await Users.findByPk(user_id);
+  
+    if (!userId.aprobado)return res.json({message:"usuario no aprobado"})
 
 
     
-    let post = Posts.findByPk(post_id);
+    let post =await  Posts.findByPk(post_id);
     await newReview.setUser(userId);
     await newReview.setPost(post);
     post.rating=Number(Math.round((post.rating+Number(qualification))/2))

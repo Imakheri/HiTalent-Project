@@ -4,7 +4,7 @@ const {getPosts,updatePost,createPost, deletePost, addImage, deleteImage, getPos
 const { uploader } = require("../../middleware/uploader");
 
 
-router.get("/rating",getTalentosporRating)
+router.get("/rating/:modo",getTalentosporRating)
 router.get("/",getPosts)
 router.post("/",uploader.single("image"),createPost)
 router.put("/",updatePost)

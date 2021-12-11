@@ -193,7 +193,7 @@ const getTalentsByTitle=async(req, res, next) => {
 
 
 const getTalentosporRating=async(req,res,next)=>{
-    let modo=req.body.modo
+    let modo=req.params.modo
     if (modo==="desc"){
         var post=await Posts.findAll()
         post.sort(function(a, b) {
