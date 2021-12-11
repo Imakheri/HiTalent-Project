@@ -6,18 +6,13 @@ import Footer from "../Landing/Footer";
 import { Link } from 'react-router-dom'
 import { Button, useToast } from "@chakra-ui/react";
 import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions'
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
+import { postOrder } from "../../actions";
 
 
 export default function ShoppingCart() {
 const cart = useSelector(state => state.cart)
+const user = useSelector(state => state.index.user)
 const reducer = (a, b) => a + b;
 let mercadopago = cart.cart.length > 0 ? { title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost * e.quantity))).reduce(reducer) } : 'asd';
 const dispatch = useDispatch()
@@ -25,16 +20,30 @@ const toast = useToast()
 let total = 0 // Voy a ir sumando los totales para mostrar en el carrito
 cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los valores a total con +=
 
-    async function handleCheckOut(e) {
-        e.preventDefault();
+async function handleCheckOut(e) {
+    e.preventDefault();
+    let payload = {carrito: []}
+    
+    cart.cart.length > 0 ? (cart.cart.map((e) => payload.carrito.push({
+        user_id: user?.id,
+        post_id: e.id,
+        title: e.title,
+        price: e.cost
+    }))) : (alert("Llena el carrito antes de comprar"))
+        
+        axios.post("http://localhost:3001/orden", payload)
+        .then (res => console.log(res))
+        .catch (error => console.log(error))
+        // dispatch(postOrder(payload))
+        console.log('order payload', payload)
         console.log("MP carrito",mercadopago);
-        let response = await axios.post(
-            "http://localhost:3001/checkout/mercadopago/",
-            mercadopago
-            );
-            console.log(response);
-            window.location.href = response.data.init_points;
-    }
+        // let response = await axios.post(
+        //     "http://localhost:3001/checkout/mercadopago/",
+        //     mercadopago
+        //     );
+        //     console.log(response);
+        //     window.location.href = response.data.init_points;
+}
 
     function clearCart() {
         dispatch(clearItemsCart())

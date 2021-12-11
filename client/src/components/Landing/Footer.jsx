@@ -24,7 +24,9 @@ export default function Footer() {
                     <Link to='/faq'>
                     <li>Preguntas frecuentes</li>
                     </Link>
-                    <li>Privacy Policy</li>
+                    <Link to='/about'>
+                    <li>Acerca de nosotros</li>
+                    </Link>
                     <li>Corporate</li>
                 </ul>
             </div>

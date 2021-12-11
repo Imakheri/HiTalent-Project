@@ -19,6 +19,7 @@ import ShoppingCart from '../components/ShoppingCart/ShoppingCart';
 import CheckoutMP from "../components/Checkout/CheckoutMP";
 import ProfilePublic from "../components/ProfilePublic/ProfilePublic";
 import Messenger from "../components/Chat/Messenger";
+import AboutUs from "../components/AboutUs/AboutUs";
 
 export const Rout = () => {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ export const Rout = () => {
         <Route path="/messenger" element={<Messenger />} />
         <Route path='/faq' element={<Faq/>} />
         <Route path='/cart' element={<ShoppingCart/>} />
+        <Route path='/about' element={<AboutUs/>} />
         {/* <ProtectedRoute isLoggedIn={isLoggedIn} path='/home' element={<Home />} /> */}
       </Routes>
     </BrowserRouter>

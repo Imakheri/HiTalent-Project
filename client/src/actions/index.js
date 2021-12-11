@@ -18,7 +18,8 @@ export const GET_POST_QUESTION = "GET_POST_QUESTION";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const GET_POST_REVIEW = "GET_POST_REVIEW";
 export const FILTRO_CAT = 'FILTRO_CAT';
-//export const SORT_BY_QUALI = 'SORT_BY_QUALI';
+//export const SORT_BY_QUALI = 'SORT_BY_QUALI';\
+export const POST_ORDER = 'POST_ORDER';
 
 
 export function getTalents() {
@@ -272,3 +273,19 @@ export function filteredCat(payload) {
 //     payload
 //   }
 // };
+
+// export function postOrder(payload) {
+//   console.log('action', payload)
+//   return async function() {
+//     try {
+//       let order = axios.post("http://localhost:3001/orden", payload)
+//       return {
+//         type: "POST_ORDER",
+//         payload: order.payload
+//       }
+//     }
+//     catch(err) {
+//       console.log(err)
+//     }
+//   }
+// }

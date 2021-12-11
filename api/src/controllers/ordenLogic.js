@@ -32,23 +32,27 @@ const getOrdenbyId= async(req,res,next)=>{
    
 }
 const createOrden= async(req,res,next)=>{
-    let { user_id, post_id, title, price,payment_id } = req.body;
-	try {
-		let newOrder = await Orders.create({
-			title,
-			price
-		})
-        var user=await Users.findByPk(user_id)
-        var post=await Posts.findByPk(post_id)
-        var payment=await Payments.findByPk(payment_id)
-        if(!user&&!post&&!payment)return res.status(500).json({message:"user , post o payment invalido"})
-		await newOrder.setUser(user);
-		await newOrder.setPost(post);
-        await newOrder.setPayment(payment)
-		res.send(newOrder);
-	} catch (err) {
-		res.status(500).json({message:"error no se pudo crear orden", error:err.message})
-	};
+    var carrito=req.body.carrito
+    var ordenes=[]
+    for(let i in carrito){
+        let { user_id, post_id, title, price } = carrito[i];
+        try {
+            let newOrder = await Orders.create({
+                title,
+                price
+            })
+            var user=await Users.findByPk(user_id)
+            var post=await Posts.findByPk(post_id)
+
+            if(!user&&!post)return res.status(500).json({message:"user o post invalido"})
+            await newOrder.setUser(user);
+            await newOrder.setPost(post);
+            ordenes.push(newOrder)
+        } catch (err) {
+            res.status(500).json({message:"error no se pudo crear orden", error:err.message})
+        };
+    }
+    res.send(ordenes)
 }
 const editOrden= async(req,res,next)=>{
     let id =req.params.id
