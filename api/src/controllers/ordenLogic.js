@@ -43,7 +43,7 @@ const createOrden= async(req,res,next)=>{
             })
             var user=await Users.findByPk(user_id)
             var post=await Posts.findByPk(post_id)
-
+           
             if(!user&&!post)return res.status(500).json({message:"user o post invalido"})
             await newOrder.setUser(user);
             await newOrder.setPost(post);
@@ -55,7 +55,7 @@ const createOrden= async(req,res,next)=>{
     res.send(ordenes)
 }
 const editOrden= async(req,res,next)=>{
-    let id =req.params.id
+    let id=req.body.id
     let change=req.body
     try{
         var orden=await Orders.update(change,{where:{id}})
@@ -66,10 +66,11 @@ const editOrden= async(req,res,next)=>{
    
 }
 const cancelOrden= async(req,res,next)=>{
-    let id=req.params.id
+    let id=req.body.id
     try{
         var orden=await Orders.findByPk(id)
-        await orden.destroy({where:id})
+        orden.status="cancelled"
+        await orden.save()
         res.json(orden)
     }catch(e){
         res.status(500).json({message:"algo salio mal",error:e.message})

@@ -8,6 +8,11 @@ async function createReview(req, res, next) {
       qualification
     });
     let userId = Users.findByPk(user_id);
+    let status=await userId.aprobado
+    if (!status)return res.json({message:"usuario no aprobado"})
+
+
+    
     let postId = Posts.findByPk(post_id);
     newReview.setUser(userId);
     newReview.setPost(postId);
