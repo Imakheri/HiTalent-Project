@@ -22,7 +22,7 @@ router.post("/mercadopago", async (req, res) => {
     ],
 
     back_urls: {
-      success: "http://localhost:3000/home",
+      success: "http://localhost:3000/checkoutApro",
       failure: "http://localhost:3000/home",
       pending: "http://localhost:3000/home",
     },
