@@ -34,7 +34,131 @@ conn.sync({ force: true }).then(() => {
     ])
       .then((e) => {})
       .catch((e) => console.log(e));
-    //------------------------------------------------------------------------------
+
+      var password = "123abc";
+      var passwordHash = await bcrypt.hash(password, 10);
+
+    //------------------------------------USUARIOS------------------------------------------
+
+    var usuarioPrueba = await Users.create({
+      name: "Bruno",
+      lastName: "Herrera",
+      username: "bruno_herrera",
+      password: passwordHash,
+      birthdate: "1994-10-10",
+      email: "brunoherrera@gmail.com",
+      country: "Rusia",
+      aprobado:false,
+      email_verified:true
+    });
+    var usuarioPrueba2 = await Users.create({
+      name: "Martina",
+      lastName: "Pipi",
+      username: "martina_pipi",
+      password: passwordHash,
+      birthdate: "1994-10-10",
+      email: "martinapipi@gmail.com",
+      country: "Corea",
+      aprobado:false,
+      email_verified:true
+    });
+    var usuarioPrueba3 = await Users.create({
+      name: "Cristian",
+      lastName: "Albornoz",
+      username: "facilito",
+      password: passwordHash,
+      birthdate: "1994-10-10",
+      email: "facilito@gmail.com",
+      country: "NewYorkCity",
+      aprobado:true,
+      email_verified:true
+    });
+    var usuarioPrueba4 = await Users.create({
+      name: "Sebastian",
+      lastName: "Cepeda",
+      username: "sacout",
+      password: passwordHash,
+      birthdate: "1994-10-10",
+      email: "sacout@gmail.com",
+      country: "NewYorkCity",
+      aprobado:true,
+      email_verified:true
+    });
+    var testuser1 = await Users.create({
+      //creo usuario test1
+      name: "Franco",
+      lastName: "Benitez",
+      username: "franco.benitez",
+      password: passwordHash,
+      birthdate: "2016-06-21",
+      email: "franco.benitez@gmail.com",
+      country: "Bolivia",
+      aprobado:true,
+      email_verified:true
+    });
+    var testuser3 = await Users.create({
+      //usuario test 3
+      name: "Hernan",
+      lastName: "Lopez",
+      username: "hernan_lopez",
+      password: passwordHash,
+      birthdate: "1994-10-10",
+      email: "hernan_lopez@gmail.com",
+      country: "Uruguay",
+      aprobado:true,
+      email_verified:true
+    });
+    var testUserProfile2 = await Users.create({
+      name: "Agustina",
+      lastName: "Gonzalez",
+      username: "agus1gonzalez",
+      password: passwordHash,
+      birthdate: "2000-10-10",
+      email: "agus1gonzalez@gmail.com",
+      country: "Brasil",
+      aprobado:true,
+      email_verified:true
+    });
+    var testUserProfile = await Users.create({
+      //usuario test 3
+      name: "Santiago",
+      lastName: "Alvarez",
+      username: "santi_alvarez",
+      password: passwordHash,
+      birthdate: "2000-10-10",
+      email: "santi_alvarez@gmail.com",
+      country: "Argentina",
+      aprobado:true,
+      email_verified:true
+    });
+    var userToDelete = await Users.create({
+      //test delete
+      id: "f30e3325-2dbe-4bd3-82a4-d9e827380f20",
+      name: "Micaela",
+      lastName: "Garcia",
+      username: "mica-garcia",
+      password: passwordHash,
+      email: "mica-garcia@gmail.com",
+      country: "Chile",
+      aprobado:true,
+      email_verified:true
+    });
+    var testUserProfile3 = await Users.create({
+      name: "Ricardo",
+      lastName: "Contreras",
+      username: "ricky123",
+      password: passwordHash,
+      birthdate: "2000-10-10",
+      email: "ricky123@gmail.com",
+      country: "Argentina",
+      aprobado:true,
+      email_verified:true
+    });
+
+
+
+    //------------------------------------PUBLICACIONES-------------------------------------------------------------------------
+
     var testpost1 = await Posts.create({
       //creo post 1
       title: "Canto",
@@ -47,6 +171,9 @@ conn.sync({ force: true }).then(() => {
       timeZone: "GMT-3",
       language: "español"
     });
+    await testpost1.setCategory(7)//Le agrego musica y audio de categoria al post canto testpost1
+    await testpost1.setUser(testuser1); //Clase de canto testpost1
+
     var testpost2 = await Posts.create({
       //creo post 2
       title: "Guitarra",
@@ -59,103 +186,21 @@ conn.sync({ force: true }).then(() => {
       timeZone: "GMT-6",
       language: "español"
     });
+    await testpost1.setCategory(7)//Le agrego musica y audio de categoria al post Guitarra testpost2
+    await testpost2.setUser(testuser1);//Franco Bennitez crea el post clase de canto
 
-    var password = "123abc";
-    var passwordHash = await bcrypt.hash(password, 10);
-
-    var testuser1 = await Users.create({
-      //creo usuario test1
-      name: "Franco",
-      lastName: "Benitez",
-      username: "franco.benitez",
-      password: passwordHash,
-      birthdate: "2016-06-21",
-      email: "franco.benitez@gmail.com",
-      country: "Bolivia",
+    var testPostProfile3 = await Posts.create({
+      title: "Clases de Cultivos",
+      description: "Les explicaré como hacer un correcto cultivo de vegetales",
+      cost: 230,
+      image: [
+        "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",
+      ],
+      timeZone: "GMT-3",
+      language: "español"
     });
-
-    await testpost1.setUser(testuser1); //le vinculo los 2 post al usuario test
-    await testpost2.setUser(testuser1);
-
-    var testorden = await Orders.create({}); // creo una orden vacia
-    await testorden.setUser(testuser1); //le vinculo un usuario
-    await testorden.setPost(testpost2); // le vinculo un post
-
-    //console.log(testorden.toJSON()) //la muestro y anda C:
-
-    //-------------------------------------------------------------------------
-
-    var testpayment = await Payments.create({
-      //creo un medio de pago
-      name: "visa",
-      number: "522154869522",
-      code: 160,
-    });
-    await testorden.setPayment(testpayment); //lo seteo a la orden de pago
-
-    //console.log(testorden.toJSON())   //lo muestro , deberia estar bindeado al usuario?????
-
-    //--------------------------------------------------------------------------
-    var testuser3 = await Users.create({
-      //usuario test 3
-      name: "Hernan",
-      lastName: "Lopez",
-      username: "hernan_lopez",
-      password: passwordHash,
-      birthdate: "1994-10-10",
-      email: "hernan_lopez@gmail.com",
-      country: "Uruguay",
-    });
-    var testfavoritos1 = await Favorites.create({
-      //una lista favoritos
-      description: "favoritos de hernan",
-    });
-    var testfavoritos2 = await Favorites.create({
-      description: "favoritos de hernan publicacion 2",
-    }); //lista  favoritos 2
-    await testfavoritos2.setUser(testuser3);
-    await testfavoritos2.setPost(testpost2); //les bindeo un usuario y un post a cada lista favorito
-    await testfavoritos1.setUser(testuser3);
-    await testfavoritos1.setPost(testpost1);
-    //console.log(testfavoritos2.toJSON())
-    let aux = await Favorites.findAll({ raw: true }); //busco todo lo de la tabla favoritos
-    //console.log(aux)  //las muestro
-
-    //-----------------------------------------------
-    var testquestion = await Question.create({
-      //creo una pregunta
-      title: "titulo de la pregunta",
-      question: "probando pregunta??????",
-    });
-    await testquestion.setUser(testuser3); //la bindeo a un usuario , q seria quien la pregunto
-    //console.log(testquestion.toJSON()) //la muestro
-    testquestion.answer = "la respondo";
-    testquestion.save();
-    //console.log(testquestion.toJSON())
-
-    var userToDelete = await Users.create({
-      //test delete
-      id: "f30e3325-2dbe-4bd3-82a4-d9e827380f20",
-      name: "Micaela",
-      lastName: "Garcia",
-      username: "mica-garcia",
-      password: passwordHash,
-      email: "mica-garcia@gmail.com",
-      country: "Chile",
-    });
-
-    //Testeo todo lo que necesita el profile de usuario: informacion, publicaciones, Q&A, reseñas...
-
-    var testUserProfile = await Users.create({
-      //usuario test 3
-      name: "Santiago",
-      lastName: "Alvarez",
-      username: "santi_alvarez",
-      password: passwordHash,
-      birthdate: "2000-10-10",
-      email: "santi_alvarez@gmail.com",
-      country: "Argentina",
-    });
+    await testPostProfile3.setCategory(3)//le agrego la categoria Botanica a el post clases de cultivos
+    await testPostProfile3.setUser(testUserProfile2);//Agustina Gonzales crea un post de clases de cultivos testUserProfile2
 
     var testPostProfile1 = await Posts.create({
       //creo post 1
@@ -169,6 +214,9 @@ conn.sync({ force: true }).then(() => {
       timeZone: "GMT-3",
       language: "español"
     });
+    await testPostProfile1.setCategory(1)//Le agrego la categoria Programacion y tecnologia al post Desarrollo web testpostprifile1
+    await testPostProfile1.setUser(testUserProfile); //El usuario Santiago alvarez crea el post desarrolo web
+
     var testPostProfile2 = await Posts.create({
       //creo post 1
       title: "Yoga",
@@ -181,102 +229,8 @@ conn.sync({ force: true }).then(() => {
       timeZone: "GMT-5",
       language: "español"
     });
-    await testPostProfile1.setUser(testUserProfile); //le vinculo los 2 post al usuario test
-    await testPostProfile2.setUser(testUserProfile);
-
-    // var testorden=await Orders.create({}) // creo una orden vacia
-    // await testorden.setUser(testuser1) //le vinculo un usuario
-    // await testorden.setPost(testpost2) // le vinculo un post
-
-    var testReviewProfile1 = await Review.create({
-      qualification: 4,
-      description: "Muy bueno",
-    });
-
-    await testReviewProfile1.setUser(testuser3); //le vinculo los 2 post al usuario test
-    await testReviewProfile1.setPost(testPostProfile1);
-
-    var testReviewProfile2 = await Review.create({
-      qualification: 1,
-      description: "No me gusto la explicacion",
-    });
-
-    await testReviewProfile2.setUser(testuser1);
-    await testReviewProfile2.setPost(testPostProfile2);
-
-    var testQuestionProfile = await Question.create({
-      //creo una pregunta
-      title: "Titulo de la pregunta",
-      question: "Recibis mercado pago??",
-    });
-    await testQuestionProfile.setUser(testuser1);
-    await testQuestionProfile.setPost(testPostProfile2);
-
-    testQuestionProfile.answer = "Si, recibo mercado pago";
-    testQuestionProfile.save();
-
-    var testQuestionProfile2 = await Question.create({
-      //creo una pregunta
-      title: "Horarios",
-      question: "Hola, queria saber si das este curso por la mañana",
-    });
-    await testQuestionProfile2.setUser(testUserProfile2);
-    await testQuestionProfile2.setPost(testPostProfile2);
-
-    //USUARIO 4---------------------------------------------------------------
-
-    var testUserProfile2 = await Users.create({
-      name: "Agustina",
-      lastName: "Gonzalez",
-      username: "agus1gonzalez",
-      password: passwordHash,
-      birthdate: "2000-10-10",
-      email: "agus1gonzalez@gmail.com",
-      country: "Brasil",
-    });
-
-    var testPostProfile3 = await Posts.create({
-      title: "Cultivos",
-      description: "Les explicaré como hacer un correcto cultivo de vegetales",
-      cost: 230,
-      image: [
-        "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",
-      ],
-      timeZone: "GMT-3",
-      language: "español"
-    });
-    await testPostProfile3.setUser(testUserProfile2);
-
-    var testReviewProfile3 = await Review.create({
-      qualification: 5,
-      description: "Gracias a este curso pude crear mi propia huerta",
-    });
-
-    await testReviewProfile3.setUser(testUserProfile2);
-    await testReviewProfile3.setPost(testPostProfile3);
-
-    var testQuestionProfile1 = await Question.create({
-      title: "Tipo de vegetales",
-      question:
-        "Hola, queria saber si explicas el cultivo de zanahorias en tu curso",
-    });
-    await testQuestionProfile1.setUser(testuser1);
-    await testQuestionProfile1.setPost(testPostProfile3);
-
-    testQuestionProfile1.answer =
-      "Hola Franco, si, mi curso contempla esa explicación";
-    testQuestionProfile1.save();
-
-    //USUARIO 5---------------------------------
-    var testUserProfile3 = await Users.create({
-      name: "Ricardo",
-      lastName: "Contreras",
-      username: "ricky123",
-      password: passwordHash,
-      birthdate: "2000-10-10",
-      email: "ricky123@gmail.com",
-      country: "Argentina",
-    });
+    await testPostProfile2.setCategory(12)//Le agrego  la categoria Baile a el post yoga testpostprofile2
+    await testPostProfile2.setUser(testUserProfile);// El usuario Santiago alvarez crea el post Yoga
 
     var testPostProfile4 = await Posts.create({
       title: "Plomeria",
@@ -289,7 +243,113 @@ conn.sync({ force: true }).then(() => {
       timeZone: "GMT-6",
       language: "español"
     });
-    await testPostProfile4.setUser(testUserProfile3);
+    await testPostProfile4.setCategory(15)//Le asigno la categoria de mantenimiento del hogar al post testpostprofile4
+    await testPostProfile4.setUser(testUserProfile3);//Post plomeria creado por Ricardo Cortez
+
+
+    //-------------------------------------------------------FAVORITOS------------------------------------------------------------------------
+    var testfavoritos1 = await Favorites.create({
+      //una lista favoritos
+      description: "favoritos de hernan",
+    });
+    await testfavoritos1.setUser(testuser3);
+    await testfavoritos1.setPost(testpost1);
+
+    var testfavoritos2 = await Favorites.create({
+      description: "favoritos de hernan publicacion 2",
+    }); //lista  favoritos 2
+    await testfavoritos2.setUser(testuser3);
+    await testfavoritos2.setPost(testpost2); //les bindeo un usuario y un post a cada lista favorito
+    
+
+
+    
+    
+    //-----------------------------------------------  REVIEWS-------------------------------------------------------------------------------
+    var testReviewProfile1 = await Review.create({
+      qualification: 4,
+      description: "Muy bueno",
+    });
+    await testReviewProfile1.setUser(testuser3); //Hernan lopez crea una review testReviewprofile1
+    await testReviewProfile1.setPost(testPostProfile1);//La crea sobre el post Desarrolo web
+
+    var testReviewProfile2 = await Review.create({
+      qualification: 1,
+      description: "No me gusto la explicacion",
+    });
+    await testReviewProfile2.setUser(testuser1);//Franco Benitez deja una review testuser1
+    await testReviewProfile2.setPost(testPostProfile2);//La crea sobre post yoga
+
+    var testReviewProfile3 = await Review.create({
+      qualification: 5,
+      description: "Gracias a este curso pude crear mi propia huerta",
+    });
+    await testReviewProfile3.setUser(usuarioPrueba4);//Sebastian Cepeda hace una review sobre el post q compro
+    await testReviewProfile3.setPost(testPostProfile3);//EL post sobre el q se hizo la review Clases de cultivos
+
+    //----------------------------------------------- QUESTIONS---------------------------------------------------------------------
+    var testQuestionProfile = await Question.create({
+      //creo una pregunta
+      title: "Titulo de la pregunta",
+      question: "Recibis mercado pago??",
+    });
+    await testQuestionProfile.setUser(testuser1);//Franco Benitez crea un apregunta testuser1
+    await testQuestionProfile.setPost(testPostProfile2);// La crea sobre el post yoga
+
+    testQuestionProfile.answer = "Si, recibo mercado pago";
+    testQuestionProfile.save();
+
+    var testQuestionProfile2 = await Question.create({
+      //creo una pregunta
+      title: "Horarios",
+      question: "Hola, queria saber si das este curso por la mañana",
+    });
+    await testQuestionProfile2.setUser(testUserProfile2);
+    await testQuestionProfile2.setPost(testPostProfile2);
+
+    var testquestion = await Question.create({
+      //creo una pregunta
+      title: "titulo de la pregunta",
+      question: "probando pregunta??????",
+    });
+    await testquestion.setUser(testuser3); //la bindeo a un usuario , q seria quien la pregunto
+    testquestion.answer = "la respondo";
+    testquestion.save();
+
+    var testQuestionProfile1 = await Question.create({
+      title: "Tipo de vegetales",
+      question:
+        "Hola, queria saber si explicas el cultivo de zanahorias en tu curso",
+    });
+    await testQuestionProfile1.setUser(testuser1);
+    await testQuestionProfile1.setPost(testPostProfile3);
+
+    testQuestionProfile1.answer =
+      "Hola Franco, si, mi curso contempla esa explicación";
+    testQuestionProfile1.save();
+      //----------------------------------------------- ORDENES------------------------------------------------------------------------
+      var ordenSebaCultivos=await Orders.create({
+        title:"Orden de Sebastian sobre cultivos",
+        price:500
+      })
+      ordenSebaCultivos.setUser(usuarioPrueba4) //Orden de compra de sebastian 
+      ordenSebaCultivos.setPost(testPostProfile3)// Sobre post de cultivos
+
+      var ordenHernanGuitarra = await Orders.create({
+        title:"orden de compra de  Hernan a clase de guitarra",
+        price:790
+      }); // creo una orden vacia
+      await ordenHernanGuitarra.setUser(testuser3); //Orden a nombre de Hernan Lopez q es testuser3
+      await ordenHernanGuitarra.setPost(testpost2); // Compro clases de Guitarra testpost2
+
+      var ordenFrancoYoga=await Orders.create({
+        title:"orden de compra de Franco a la clase Yoga",
+        price:200
+      })
+      await ordenFrancoYoga.setUser(testuser1)//Orden de compra para Franco q es testuser1
+      await ordenFrancoYoga.setPost(testPostProfile2)//Compro clases de Yoga testpostprofile2
+
+    
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });
