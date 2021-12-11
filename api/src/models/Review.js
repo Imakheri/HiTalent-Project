@@ -26,6 +26,12 @@ module.exports = (sequelize) => {
         qualification: {
             type: DataTypes.ENUM('1', '2', '3', '4', '5'),
             allowNull: true
+            // type: DataTypes.INTEGER,
+            // allowNull: false,
+            // validate: {
+            //     min: 1,
+            //     max: 5
+            // }
         },    
         description: {
             type: DataTypes.TEXT,

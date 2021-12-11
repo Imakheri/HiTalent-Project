@@ -4,12 +4,13 @@ import Nav from "./Nav";
 import Footer from "../Landing/Footer";
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
-import Categories from "./Categories";
+//import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
 import { Link } from "react-router-dom";
 import { filteredCat } from "../../actions";
+//import { SortByQuali } from '../Sort/SortByQuali';
 
 
 export default function Home() {
@@ -41,6 +42,7 @@ export default function Home() {
     e.preventDefault();
     dispatch(filteredCat(e.target.value));
   };
+
 
   return (
     <div class="user-select-none">
@@ -94,11 +96,14 @@ export default function Home() {
              <option value='Mantenimiento del hogar'>Mantenimiento del hogar</option> 
             </select>
         </div>
+        <div>
         <SortByPrice/>
+        {/* <SortByQuali/> */}
+        </div>
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around">
         {skill?.length === 0 ? (
-          <div className="not_found">not found</div>
+          <div class="text-4xl font-bold m-4"> <h3>Ups! no encontramos la categoría que buscas, intenta de nuevo</h3></div>
           ) : (
             skill?.map((talent) => {
               return (

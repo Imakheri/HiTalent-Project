@@ -77,7 +77,7 @@ function TalentForm(){
         fb.append("cost",form.cost)
         fb.append("image",file)
         fb.append("category",form.category)
-        fb.append("timeZone",form.timeZone)
+        fb.append("timeZone",form.timeZone)  
         fb.append("language",form.language)
         axios({
             method: "post",
@@ -99,7 +99,7 @@ function TalentForm(){
                     <form onSubmit={e => onSubmit(e)} className='grid grid-cols-2 gap-x-16 w-auto h-auto bg-semidark p-4 border-white border-2 rounded mb-32' >
                             <div className='flex flex-col space-y-2'>
                             <h1 className='font-semibold text-2xl'>Datos generales</h1>
-                            <label className='text-lg'>Nombre del curso:</label>
+                            <label className='text-lg'>Nombre del curso: </label>
                             <input 
                             className="w-full text-lg justify-self-center self-center border-2 rounded-md text-white placeholder-white border-white border-opacity-70 text-center bg-dark"
                             onChange={handleOnChange} 
@@ -108,7 +108,7 @@ function TalentForm(){
                             placeholder="Nombre curso" 
                             required
                             />
-                            <label class="text-lg" >Descripcion:</label>
+                            <label class="text-lg" >Descripcion: </label>
                             <textarea 
                                 onChange={handleOnChange} 
                                 className="resize-none overflow-y-auto justify-self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 text-center p-8"  
@@ -150,7 +150,7 @@ function TalentForm(){
                                 name="image"
                                 required />
                             </label>
-                            <h1 className='text-lg'>Categoría:</h1>
+                            <h1 className='text-lg'>Categoría: </h1>
                             <select 
                             className="h-10 w-full pl-2 justify-center bg-dark rounded text-white border-2"
                             onChange={e => handleOnSelect(e)}
@@ -167,7 +167,7 @@ function TalentForm(){
                                 }
                             </select>
                         
-                        <label className='text-lg'>Duracion:</label>  
+                        <label className='text-lg'>Duracion: </label>  
                         <input 
                             className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange} 
@@ -179,8 +179,11 @@ function TalentForm(){
                             <select className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange}
                             name='timeZone'
-                            required
-                            >
+                            required/>
+                              
+                            <label className='text-lg'>Idioma: </label>
+                            <input 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3">
                                 <option name="timeZone">Selecciona una zona horaria:</option>
                                 <option value='GMT+1'>GMT+1</option>
                                 <option value='GMT-0'>GMT 0</option>
@@ -238,7 +241,7 @@ function TalentForm(){
                                 <div className="flex justify-center h-2/3 bg-semilight">
                                     <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-2/5 rounded border-2 border-white">
                                         <div>
-                                            <label className='mr-4 text-2xl'>Titulo:</label>
+                                            <label className='mr-4 text-2xl'>Titulo: </label>
                                             <input 
                                                 className='bg-dark text-white text-2xl'
                                                 onChange={handleOnChange} 
@@ -249,7 +252,7 @@ function TalentForm(){
                                                 />
                                         </div>
                                         <div className='flex items-start'>
-                                            <label className='mr-4'>Descripcion:</label>
+                                            <label className='mr-4'>Descripcion: </label>
                                             <textarea 
                                                 onChange={handleOnChange} 
                                                 className="bg-dark" 
@@ -260,7 +263,7 @@ function TalentForm(){
                                                 />  
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-xl'>Categoria:</label>
+                                            <label className='mr-4 text-xl'>Categoria: </label>
                                             <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
                                             {
                                                 form.category ? <option>{form.category}</option>
@@ -280,7 +283,7 @@ function TalentForm(){
                                             </select>
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-xl'>Duracion:</label>
+                                            <label className='mr-4 text-xl'>Duracion: </label>
                                             <input 
                                                 className='bg-dark'
                                                 onChange={handleOnChange} 
@@ -291,7 +294,7 @@ function TalentForm(){
                                                 />
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-2xl'>Precio:</label>
+                                            <label className='mr-4 text-2xl'>Precio: </label>
                                             <input 
                                                 className='bg-dark'
                                                 onChange={handleOnChange} 
@@ -302,7 +305,7 @@ function TalentForm(){
                                                 />
                                             </div>
                                         <div>
-                                            <label className='mr-4 text-l'>Zona Horaria:</label>
+                                            <label className='mr-4 text-l'>Zona Horaria: </label>
                                             <input 
                                                 className='bg-dark'
                                                 onChange={handleOnChange} 
@@ -312,7 +315,7 @@ function TalentForm(){
                                                 />
                                         </div>
                                         <div>
-                                            <label className='mr-4 text-2xl'>Idioma:</label>
+                                            <label className='mr-4 text-2xl'>Idioma: </label>
                                             <input 
                                                 className='bg-dark'
                                                 onChange={handleOnChange} 

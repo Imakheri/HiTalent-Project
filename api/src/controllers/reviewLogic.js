@@ -4,7 +4,6 @@ async function createReview(req, res, next) {
   let { qualification, description, user_id, post_id } = req.body;
   try {
     let newReview = await Review.create({
-      rating,
       description,
       qualification
     });

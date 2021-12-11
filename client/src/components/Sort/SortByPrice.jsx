@@ -16,7 +16,8 @@ export const SortByPrice = () => {
         <div>
             <label class='font-semibold'>Ordenar por: </label>
             <select onChange={onChange}>
-                <option value={RATING}>Mas relevante</option>
+                {/* <option value={RATING}>Mas relevante</option> */}
+                <option default value=''></option>
                 <option value={DESCENDENTE}>Mayor precio</option>
                 <option value={ASCENDENTE}>Menor precio</option>
             </select>
