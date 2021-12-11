@@ -6,7 +6,7 @@ import Movements from './Movements/Movements';
 import Qas from './QandA/QAs';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import Nav from '../Home/Nav';
+import Nav from '../Profile/Nav';
 
 
 export default function Profile(){

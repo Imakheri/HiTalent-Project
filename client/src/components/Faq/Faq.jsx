@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import Nav from "../Home/Nav";
+import Nav from "../Profile/Nav";
 import Footer from "../Landing/Footer";
 import {
     Accordion,

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../actions';
 import {useNavigate } from "react-router-dom";
-import Nav from '../Home/Nav';
+import Nav from '../Profile/Nav';
 import Footer from '../Landing/Footer';
 
 function TalentForm(){
@@ -152,7 +152,7 @@ function TalentForm(){
                             </label>
                             <h1 className='text-lg'>Categoría: </h1>
                             <select 
-                            className="h-12 w-full pl-2 justify-center bg-dark rounded text-white border-2"
+                            className="h-10 w-full pl-2 justify-center bg-dark rounded text-white border-2"
                             onChange={e => handleOnSelect(e)}
                             >
                             <option>Selecciona una categoria</option>
@@ -161,10 +161,7 @@ function TalentForm(){
                                     <option>Cargando</option> : 
                                     (categories.map(el => {
                                         return(
-                                            <option key={el.id}
-                                            name="category">
-                                            {el.title}
-                                            </option>
+                                            <option key={el.id} name="category">{el.title}</option>
                                         )
                                     }))
                                 }
@@ -179,24 +176,40 @@ function TalentForm(){
                             placeholder="Horas"
                             required
                             />
-                            <input 
-                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
-                            onChange={handleOnChange} 
-                            type="text" 
-                            name="timeZone"  
-                            placeholder="Zona Horaria"
-                            required
-                            />
+                            <select className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            onChange={handleOnChange}
+                            name='timeZone'
+                            required/>
+                              
                             <label className='text-lg'>Idioma: </label>
                             <input 
-                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3">
+                                <option name="timeZone">Selecciona una zona horaria:</option>
+                                <option value='GMT+1'>GMT+1</option>
+                                <option value='GMT-0'>GMT 0</option>
+                                <option value='GMT-1'>GMT-1</option>
+                                <option value='GMT-2'>GMT-2</option>
+                                <option value='GMT-3'>GMT-3</option>
+                                <option value='GMT-4'>GMT-4</option>
+                                <option value='GMT-5'>GMT-5</option>
+                                <option value='GMT-6'>GMT-6</option>
+                            </select>
+                            <label className='text-lg'>Idioma:</label>
+                            <select 
+                            className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange} 
-                            type="text" 
                             name="language"  
-                            placeholder="Idioma"
                             required
-                            />
-                        
+                            >
+                                <option name="timeZone">Selecciona el idioma:</option>
+                                <option value='Alemán'>Alemán 🇩🇪</option>
+                                <option value='Español'>Español 🇪🇸</option>
+                                <option value='Francés'>Francés 🇫🇷</option>
+                                <option value='Inglés'>Inglés 🇺🇸/🇬🇧</option>
+                                <option value='Italiano'>Italiano 🇮🇹</option>
+                                <option value='Japonés'>Japonés 🇯🇵</option>
+                                <option value='Portugués'>Portugués 🇧🇷/🇵🇹</option>
+                            </select>
                             <h1>Precio:</h1>
                             <input 
                                 className=" h-8 border-2 rounded-md border-white border-opacity-70 bg-dark placeholder-white text-white px-3"
