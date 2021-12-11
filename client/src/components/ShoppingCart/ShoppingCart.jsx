@@ -30,7 +30,7 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
         console.log("MP carrito",mercadopago);
         let response = await axios.post(
             "http://localhost:3001/checkout/mercadopago/",
-            {mercadopago}
+            mercadopago
             );
             console.log(response);
             window.location.href = response.data.init_points;
@@ -56,13 +56,14 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
     return (
         <div class="bg-semilight">
             <Nav/>
-            <Table class='h-screen bg-light rounded-md m-auto mt-3 mb-3' variant='simple'>
+            <Table class=' min-h-screen max-h-screen bg-light rounded-md m-auto mt-3 mb-3' variant='simple'>
                 <Thead>
                     <Tr>
                     <Th>Titulo</Th>
                     <Th>Cantidad</Th>
                     <Th isNumeric>Precio</Th>
                     <Th isNumeric>Total</Th>
+                    <Th></Th>
                     </Tr>
                 </Thead>
             <Tbody class='h-screen'>
@@ -76,21 +77,24 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
                     <Td>{e.quantity}</Td>
                     <Td isNumeric>${e.cost}</Td>
                     <Td isNumeric>${e.quantity * e.cost}</Td>
-                    <Button onClick={onClick} value={e.id}>Eliminar</Button>
+                    <button class=" w-5 rounded-full bg-red text-white font-semibold" onClick={onClick} value={e.id}>X</button>
                     </Tr>
                     )) 
                     : 
-                    ("Tu carrito se encuentra vacio")
+                    (<Td>Tu carrito se encuentra vacio</Td>)
             }
-            <Tr class="font-semibold">Total
+            <Tr class="font-semibold">
+            <Td>Total</Td>
             <Td>${total}</Td>
             </Tr>
             </Tbody>
+            <Tr>
             <Button onClick={handleCheckOut} class='w-32 h-8 bg-semidark rounded-md m-3'>Comprar</Button>
-            <Link to='/home'>
-            <Button class='w-32 h-8 bg-semidark rounded-md m-3'>Volver</Button>
-            </Link>
             <Button onClick={clearCart} class='w-32 h-8 bg-semidark rounded-md m-3'>Vaciar carrito</Button>
+            <Link to='/home'>
+            <Button class='w-32 h-8 border-2 border-dark rounded-md m-3 hover:bg-semilight'>Volver</Button>
+            </Link>
+            </Tr>
             </Table>
             <Footer/>
         </div>
