@@ -115,7 +115,7 @@ function handleOnChange(e) {
                     <div className='flex flex-row items-center'>
                         <label>Recuérdame</label>
                         <input className='ml-2' onChange={handleSession} value="" type="checkbox"/>
-                        <Link to="/passwordRecovery" className="ml-14">Olvide mi contraseña</Link>
+                        <Link to="/user/emailresetpassword" className="ml-14">Olvide mi contraseña</Link>
                     </div>
                     <div className='flex'>
                         <button className='btn-custom btn-colors mb-2 mr-2'>Ingresar</button>

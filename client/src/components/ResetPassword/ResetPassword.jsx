@@ -45,9 +45,9 @@ function handleOnSubmit(e){
         <div className='flex bg-semidark justify-center items-center w-screen h-screen text-white' >
             <div className='flex flex-col items-center bg-opacity-40 min-h-full pt-20 pb-10 pl-8 pr-8'>
                 <h1 className='max-w-xs text-center text-3xl mb-10'>Restablecer contraseña</h1>
-                <form className='flex flex-col items-center space-y-6 mb-6' onSubmit={(e) => handleOnSubmit(e)}>
-                    <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Introduce la nueva contraseña' type='text' value={input.password} name='password' onChange={(e) => handleChange(e)} required/>
-                    <input className='h-4 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Repite la nueva contraseña' type='text' value={input.password2} name='password2' onChange={(e) => handleChange(e)} required/>
+                <form className='flex flex-col w-11/12 items-center space-y-6 mb-6' onSubmit={(e) => handleOnSubmit(e)}>
+                    <input className='h-4 w-10/12 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Introduce la nueva contraseña' type='text' value={input.password} name='password' onChange={(e) => handleChange(e)} required/>
+                    <input className='h-4 w-10/12 py-5 border-b-2 bg-semidark bg-opacity-0 border-white outline-none placeholder-white' placeholder='Repite la nueva contraseña' type='text' value={input.password2} name='password2' onChange={(e) => handleChange(e)} required/>
                     <button type='submit' className='items-center btn-tertiary btn-colors'>Restablecer contraseña</button>
                 </form>
                 <Link to='/'><button className='items-center btn-secondary btn-colors '>Regresar 🔙</button></Link>

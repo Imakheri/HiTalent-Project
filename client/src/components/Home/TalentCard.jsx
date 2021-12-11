@@ -5,14 +5,14 @@ import { StarIcon } from '@chakra-ui/icons'
 import { useSelector } from "react-redux";
 
 
-export default function TalentCard({ title, username, description, image, cost, id }) {
+export default function TalentCard({ title, username, description, image, cost, id, category }) {
     
   const property = useSelector(state => state.index.filteredTalents)
   
     return (
       <div class='user-select-none'>
 
-      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' h="500px">
+      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' h="530px">
         <Image src={image} alt="talent_image" h="250px" w="sm"/>
   
         <Box p='6'>
@@ -27,10 +27,10 @@ export default function TalentCard({ title, username, description, image, cost, 
               fontSize='xs'
               ml='2'
             >
-              By: {username}
+              <span>By: {username}</span><br />
+              <span className='text-sm'>Category: {category}</span>
             </Box>
           </Box>
-  
           <Box
             mt='1'
             fontWeight='semibold'

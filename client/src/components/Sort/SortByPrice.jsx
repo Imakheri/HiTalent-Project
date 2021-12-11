@@ -9,16 +9,18 @@ export const SortByPrice = () => {
     function onChange(e) {
         e.preventDefault()
         dispatch(sortByPrice(e.target.value))
+        console.log()
     }
 
     return (
         <div>
-            <label class='font-semibold'>Ordenar por </label>
+            <label class='font-semibold'>Ordenar por: </label>
             <select onChange={onChange}>
                 <option value={RATING}>Mas relevante</option>
                 <option value={DESCENDENTE}>Mayor precio</option>
                 <option value={ASCENDENTE}>Menor precio</option>
             </select>
         </div>
-    )
+)
 }
+

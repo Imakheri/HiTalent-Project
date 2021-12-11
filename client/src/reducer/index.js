@@ -15,6 +15,7 @@ import {
   POST_QUESTION,
   SORT_BY_PRICE,
   GET_POST_REVIEW,
+  FILTRO_CAT
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -31,7 +32,8 @@ const initialState = {
   qa: [],
   moreTalent: [],
   categories: [],
-  questionsPost: [],
+  questionsPost: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -97,6 +99,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.payload,
+        // allCategories: action.payload
       };
     case GET_POST_QUESTION:
       return {
@@ -127,6 +130,13 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         review: action.payload,
+      };
+    case FILTRO_CAT:
+      let allCat = state.talents
+      let fil = action.payload === 'todas' ? allCat : allCat.filter(el => el?.category?.title === action.payload)
+      return {
+        ...state,
+        filteredTalents: fil
       };
     default:
       return state;

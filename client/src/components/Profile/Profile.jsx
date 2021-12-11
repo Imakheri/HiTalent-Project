@@ -6,6 +6,7 @@ import Movements from './Movements/Movements';
 import Qas from './QandA/QAs';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import Nav from '../Profile/Nav';
 
 
 export default function Profile(){
@@ -13,8 +14,9 @@ export default function Profile(){
     const user = useSelector((state) => state.index.user)
     console.log("user: ", user)
     return(
-
-        <div className='flex w-full h-screen bg-semilight'>
+        <section className='flex flex-col w-full h-screen bg-semilight'>
+            <Nav/>
+        <div className='flex'>
         {
             user.length === 0 ? (<h1>No estas registrado, no podes acceder al perfil</h1>) : (
             <div className='flex flex-row'>
@@ -52,5 +54,6 @@ export default function Profile(){
             ) 
         }
         </div>
+        </section>
     )
 }

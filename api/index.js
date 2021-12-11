@@ -31,6 +31,8 @@ conn.sync({ force: true }).then(() => {
       { title: "Idioma" },
       { title: "Baile" },
       { title: "Historia y Cultura" },
+      { title: "Educación" },
+      { title: "Mantenimiento del hogar" },
     ])
       .then((e) => {})
       .catch((e) => console.log(e));
@@ -44,16 +46,20 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2020/05/cantar-1955117.jpg?itok=fCPDYcVi",
       ],
+      timeZone: "GMT-3",
+      language: "español"
     });
     var testpost2 = await Posts.create({
       //creo post 2
       title: "Guitarra",
       description:
-        "Conocimiento del instrumento, colocacion de las manos, partes de la guitarra, afinación, nombre de las notas al aire,tipos de acordes, riff basados en canciones que les gusten, escalitas sencillas, tecnicas de guitarras, ligados, picking, alternate, tapping.",
+        "Conocimiento del instrumento, colocacion de las manos, partes de la guitarra, afinación, nombre de las notas al aire, tipos de acordes, riff basados en canciones que les gusten, escalitas sencillas, técnicas de guitarras, ligados, picking, tapping.",
       cost: 790,
       image: [
         "https://www.superprof.com.ar/blog/wp-content/uploads/2020/03/aprender-guitarra-principiante-1060x704.jpg",
       ],
+      timeZone: "GMT-6",
+      language: "español"
     });
 
     var password = "123abc";
@@ -162,16 +168,20 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1566492620/content-items/003/212/919/2-original.png?1566492620",
       ],
+      timeZone: "GMT-3",
+      language: "español"
     });
     var testPostProfile2 = await Posts.create({
       //creo post 1
-      title: "Meditación",
+      title: "Yoga",
       description:
-        "Técnicas de relajación y conexión con nuestro lado inconsciente muy positiva para tratar diferentes problemas de ansiedad, miedos o estrés.",
+        "Técnicas y ejercicios de relajación y conexión con nuestro lado inconsciente, muy positiva para tratar diferentes problemas de ansiedad, miedos o estrés.",
       cost: 980,
       image: [
         "https://images-ext-1.discordapp.net/external/HI1Ac92dYdKO1WGZO18Up6geo4F9VG1apGPU1f7TfMg/https/t1.pb.ltmcdn.com/es/posts/5/4/1/pasos_para_aprender_a_meditar_en_casa_4145_orig.jpg?width=730&height=438",
       ],
+      timeZone: "GMT-5",
+      language: "español"
     });
     await testPostProfile1.setUser(testUserProfile); //le vinculo los 2 post al usuario test
     await testPostProfile2.setUser(testUserProfile);
@@ -228,12 +238,14 @@ conn.sync({ force: true }).then(() => {
     });
 
     var testPostProfile3 = await Posts.create({
-      title: "Botánica",
+      title: "Cultivos",
       description: "Les explicaré como hacer un correcto cultivo de vegetales",
       cost: 230,
       image: [
         "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",
       ],
+      timeZone: "GMT-3",
+      language: "español"
     });
     await testPostProfile3.setUser(testUserProfile2);
 
@@ -276,6 +288,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://casapropiacolombia.com/sites/default/files/2019-12/11_0.jpg",
       ],
+      timeZone: "GMT-6",
+      language: "español"
     });
     await testPostProfile4.setUser(testUserProfile3);
 
