@@ -91,6 +91,20 @@ export default function SeeMore() {
             <Box>{seemore.description}</Box>
 
             <Box>
+              <Box as='span' color='gray.600 fontSize=-sm'>
+              Idioma: 
+              </Box>
+              {seemore?.language}
+            </Box>
+
+            <Box>
+              <Box as='span' color='gray.600 fontSize=-sm'>
+              Huso horario: 
+              </Box>
+              {seemore?.timeZone}
+            </Box>
+
+            <Box>
               <Box as="span" color="gray.600" fontSize="sm">
                 $
               </Box>
