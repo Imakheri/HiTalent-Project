@@ -27,6 +27,7 @@ export default function QyAanswer() {
               </div>
             </>
           ))
+
         ) : (
           <span class="text-gray-400">Aún no hay preguntas</span>
         )}

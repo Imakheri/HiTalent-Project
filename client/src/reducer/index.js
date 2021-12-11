@@ -91,11 +91,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         qa: action.payload,
       };
-    // case PUT_ANSWER:
-    //     return{
-    //         ...state,
-    //         qa: action.payload
-    //     }
+    case PUT_ANSWER:
+        return{
+            ...state,
+            qa: action.payload
+        }
     case GET_CATEGORIES:
       return {
         ...state,

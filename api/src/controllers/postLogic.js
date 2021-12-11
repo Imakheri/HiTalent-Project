@@ -19,59 +19,49 @@ const getPosts = async (req, res, next) => {
   res.json(post);
 };
 
-const createPost = async (req, res, next) => {
-  let {
-    title,
-    description,
-    duration,
-    cost,
-    username,
-    rating,
-    timeZone,
-    language,
-    category,
-  } = req.body;
-  let file = req.file;
-  let path = "http://localhost:3001/" + file.filename;
+const createPost= async(req, res, next) => {
+    let { title, description, duration, cost, username, rating, timeZone, language, category } = req.body;
+    let file = req.file;
+    let path = "http://localhost:3001/" + file.filename;
 
-  try {
-    var categoryDB = await Categories.findOne({
-      where: {
-        title: category,
-      },
-    });
-    if (!categoryDB)
-      return res.status(500).json({ message: "categoria invalida" });
-    var post = await Posts.create({
-      title,
-      description,
-      category,
-      timeZone,
-      language,
-      rating,
-      duration: Number(duration),
-      cost: Number(cost),
-      image: [path],
-    });
-    var user = await Users.findOne({
-      where: {
-        username,
-      },
-    });
+    try{
+        var categoryDB= await Categories.findOne({
+            where:{ 
+                title: category
+            }
+        })
+        if(!categoryDB) return res.status(500).json({message:"categoria invalida"})
+        var post= await Posts.create({
+            title,
+            description,
+            category,
+            timeZone,
+            language,
+            rating,
+            duration:Number(duration),
+            cost:Number(cost),
+            image:[path],
+        })
+        var user= await Users.findOne({
+            where:{
+                username
+            }
+        })
+        let status=await user.aprobado
+        if (!status)return res.json({message:"usuario no aprobado"})
+        await post.setCategory(categoryDB)
+        await post.setUser(user)
 
-    await post.setCategory(categoryDB);
-    await post.setUser(user);
-
-    if (!user) return res.status(500).json({ message: "usuario invalido" });
-    post.setCategory(categoryDB);
-    post.setUser(user);
-    res.json(post);
-  } catch (e) {
-    res.status(500).json({
-      message: "algo salio mal",
-      error: e.message,
-    });
-  }
+        if(!user) return res.status(500).json({message:"usuario invalido"})
+        post.setCategory(categoryDB)
+        post.setUser(user)
+        res.json(post)
+    } catch(e){
+        res.status(500).json({
+            message:"algo salio mal",
+            error:e.message
+        })
+    }
 };
 
 const updatePost = async (req, res, next) => {
@@ -151,6 +141,7 @@ const deleteImage = async (req, res, next) => {
   }
 };
 
+
 async function getPostId(req, res, next) {
   let { id } = req.params;
 
@@ -205,28 +196,45 @@ async function getPostId(req, res, next) {
     }
   }
 }
-
-const getTalentsByTitle = async (req, res, next) => {
-  let title = req.params.title;
-
-  var post = await Posts.findAll();
-  let array = post.filter((e) =>
-    e.title.toLowerCase().includes(title.toLowerCase())
-  );
-  if (array.length < 1)
-    return res
-      .status(400)
-      .json({ message: "no se encontro talento con ese titulo" });
-  res.json(array);
+const getTalentsByTitle=async(req, res, next) => {
+    let title= req.params.title;
+    var post= await Posts.findAll()
+    let array= post.filter(e => e.title.toLowerCase().includes(title.toLowerCase()))
+    if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    res.json(array)
 };
 
-module.exports = {
-  getPosts,
-  createPost,
-  updatePost,
-  deletePost,
-  addImage,
-  deleteImage,
-  getTalentsByTitle,
-  getPostId,
+
+
+const getTalentosporRating=async(req,res,next)=>{
+    let modo=req.params.modo
+    if (modo==="desc"){
+        var post=await Posts.findAll()
+        post.sort(function(a, b) {
+            if(a.rating>b.rating)return 1
+            if(b.rating>a.rating)return -1
+            return 0
+        });
+        res.json(post)
+    }
+    var post=await Posts.findAll()
+        post.sort(function(a, b) {
+            if(a.rating>b.rating)return -1
+            if(b.rating>a.rating)return 1
+            return 0
+        });
+        res.json(post)
+}
+
+
+module.exports={
+    getPosts,
+    createPost,
+    updatePost,
+    deletePost,
+    addImage,
+    deleteImage,
+    getTalentsByTitle,
+    getPostId,
+    getTalentosporRating
 };

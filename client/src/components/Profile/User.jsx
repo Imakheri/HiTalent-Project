@@ -14,14 +14,19 @@ export default function Profile(){
     const user = useSelector((state) => state.index.profile)
     const[file,setFile]=useState(null)
     const [previewSource,setPreviewSource]=useState()
-    var flag=false
+    const [flag,setFlag]=useState(false)
 
     useEffect(() => {
-        console.log("estoy en el useffect")
         dispatch(getUserbyId(id));
-    },[dispatch, id,flag])
+    },[dispatch, id])
+    useEffect(() => {
+        dispatch(getUserbyId(id));
+    },[flag])
 
     function  handleSubmit(e) {
+        if(!file){
+            return console.log("no hay foto")
+        }
         let fb=new FormData()
         fb.append("username",user.username)
         fb.append("image",file)
@@ -34,12 +39,16 @@ export default function Profile(){
         .catch(err => console.log(err));
         dispatch(getUserbyId(id));
         setPreviewSource(null)
+        setFile(null)
+        setFlag(!flag)
 
     }
     function  previewFile(file) {
         const reader=new FileReader()
         reader.readAsDataURL(file)
-        setPreviewSource(reader.result)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
     
     }
     function  handleFile(e) {
@@ -60,7 +69,7 @@ export default function Profile(){
                                 type="file" 
                                 name="image"
                                 required />
-            {previewSource&&<img scr={previewSource} style={{height:"150px"}}/>}
+            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
             <div className='flex flex-col w-full'>
                 <h4 className='text-2xl font-medium italic underline'>{user.fullName}</h4>
                 <h5 className='text-xl text-gray'>{user.username}</h5>

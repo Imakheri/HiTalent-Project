@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import {
   Menu,
   MenuButton,
@@ -11,22 +11,36 @@ import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from '../../assets/profile_default.png'
-import { cargarUsuario } from "../../actions";
+import { cargarUsuario,getUserbyId } from "../../actions";
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
   let dispatch = useDispatch();
-
-const logOut = (e) => {
+  const [image,setImage]=useState()
+  const logOut = (e) => {
   e.preventDefault();
   dispatch(cargarUsuario([]))
-}    
+  }     
+  useEffect(()=>{
+    getImage()
+    return ()=>{
+      getImage()
+      dispatch(getUserbyId(userState.id));
+    }
+  },[])
+    function  getImage() {
+      dispatch(getUserbyId(userState.id));
+      if (!userState.image)return defaultImage
+      return userState.image
+    }
+
   return (
     <Menu>
       <MenuButton class="m-3 h-9 w-9" as={Button}>
         <img
           class="h-9 w-9 border-solid border-black rounded-full"
-          src={userState.image? userState.image : defaultImage}
+          // src={userState.image ? userState.image : defaultImage}
+          src={getImage()}
           alt="user_image"
         />
       </MenuButton>
