@@ -9,6 +9,8 @@ const {
   Favorites,
   Payments,
   Question,
+  Message,
+  Conversation,
 } = require("./src/db.js");
 const bcrypt = require("bcrypt");
 
@@ -211,8 +213,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1566492620/content-items/003/212/919/2-original.png?1566492620",
       ],
-      timeZone: "GMT-3",
-      language: "español"
+      timeZone: " GMT-3",
+      language: " español"
     });
     await testPostProfile1.setCategory(1)//Le agrego la categoria Programacion y tecnologia al post Desarrollo web testpostprifile1
     await testPostProfile1.setUser(testUserProfile); //El usuario Santiago alvarez crea el post desarrolo web
@@ -226,8 +228,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://images-ext-1.discordapp.net/external/HI1Ac92dYdKO1WGZO18Up6geo4F9VG1apGPU1f7TfMg/https/t1.pb.ltmcdn.com/es/posts/5/4/1/pasos_para_aprender_a_meditar_en_casa_4145_orig.jpg?width=730&height=438",
       ],
-      timeZone: "GMT-5",
-      language: "español"
+      timeZone: " GMT-5",
+      language: " español"
     });
     await testPostProfile2.setCategory(12)//Le agrego  la categoria Baile a el post yoga testpostprofile2
     await testPostProfile2.setUser(testUserProfile);// El usuario Santiago alvarez crea el post Yoga
@@ -307,14 +309,6 @@ conn.sync({ force: true }).then(() => {
     await testQuestionProfile2.setUser(testUserProfile2);
     await testQuestionProfile2.setPost(testPostProfile2);
 
-    var testquestion = await Question.create({
-      //creo una pregunta
-      title: "titulo de la pregunta",
-      question: "probando pregunta??????",
-    });
-    await testquestion.setUser(testuser3); //la bindeo a un usuario , q seria quien la pregunto
-    testquestion.answer = "la respondo";
-    testquestion.save();
 
     var testQuestionProfile1 = await Question.create({
       title: "Tipo de vegetales",
@@ -324,10 +318,9 @@ conn.sync({ force: true }).then(() => {
     await testQuestionProfile1.setUser(testuser1);
     await testQuestionProfile1.setPost(testPostProfile3);
 
-    testQuestionProfile1.answer =
-      "Hola Franco, si, mi curso contempla esa explicación";
+    testQuestionProfile1.answer ="Hola Franco, si, mi curso contempla esa explicación";
     testQuestionProfile1.save();
-      //----------------------------------------------- ORDENES------------------------------------------------------------------------
+    //----------------------------------------------- ORDENES------------------------------------------------------------------------
       var ordenSebaCultivos=await Orders.create({
         title:"Orden de Sebastian sobre cultivos",
         price:500
@@ -349,7 +342,22 @@ conn.sync({ force: true }).then(() => {
       await ordenFrancoYoga.setUser(testuser1)//Orden de compra para Franco q es testuser1
       await ordenFrancoYoga.setPost(testPostProfile2)//Compro clases de Yoga testpostprofile2
 
-    
+
+    //PROBANDO CHAT-----------------------
+    let conversation1 = await Conversation.create({
+      members: [testUserProfile.id, testUserProfile3.id],
+    });
+    await Message.create({
+      conversationId: conversation1.id,
+      sender: testUserProfile.id,
+      text: "Hola Ricardo",
+    });
+
+    await Message.create({
+      conversationId: conversation1.id,
+      sender: testUserProfile3.id,
+      text: "Hola Santi",
+    });
 
     console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
   });

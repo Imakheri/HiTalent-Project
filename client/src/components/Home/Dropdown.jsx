@@ -52,6 +52,9 @@ export default function Dropdown() {
         <Link to="/createTalent">
           <MenuItem>Publicar</MenuItem>
         </Link>
+        <Link to={"/cart"}>
+          <MenuItem>Carrito</MenuItem>
+        </Link>
         <Link to="/faq">
           <MenuItem>Preguntas frecuentes</MenuItem>
         </Link>
