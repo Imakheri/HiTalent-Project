@@ -39,7 +39,16 @@ conn.sync({ force: true }).then(() => {
 
       var password = "123abc";
       var passwordHash = await bcrypt.hash(password, 10);
-
+    //------------------------------------------------------------------------------------
+    async function calcularRating(post,review){
+      if(post.rating===0){
+        post.rating=Number(review.qualification)
+        await post.save()
+        return post
+      }
+      post.rating=Number(Math.round((post.rating+Number(review.qualification))/2))
+      await post.save()
+    }
     //------------------------------------USUARIOS------------------------------------------
 
     var usuarioPrueba = await Users.create({
@@ -274,6 +283,23 @@ conn.sync({ force: true }).then(() => {
     });
     await testReviewProfile1.setUser(testuser3); //Hernan lopez crea una review testReviewprofile1
     await testReviewProfile1.setPost(testPostProfile1);//La crea sobre el post Desarrolo web
+    calcularRating(testPostProfile1,testReviewProfile1)
+
+    var reviewSebaporYoga=await Review.create({
+      qualification:1,
+      description:"no estaba op"
+    })
+    await reviewSebaporYoga.setUser(usuarioPrueba4)//Sebastian Cepeda crea una review usuarioPrueba4
+    await reviewSebaporYoga.setPost(testPostProfile2)//La crea sobre el post Yoga testPostProfile2
+    calcularRating(testPostProfile2,reviewSebaporYoga)
+
+    var reviewCristianporYoga=await Review.create({
+      qualification:5,
+      description:"Me encanto la clase C:"
+    })
+    await reviewCristianporYoga.setUser(usuarioPrueba3)//Cristian Alvornoz crea una review usuarioPrueba3
+    await reviewCristianporYoga.setPost(testPostProfile2)//La crea sobre el post Yoga testPostProfile2
+    calcularRating(testPostProfile2,reviewCristianporYoga)
 
     var testReviewProfile2 = await Review.create({
       qualification: 1,
@@ -281,6 +307,7 @@ conn.sync({ force: true }).then(() => {
     });
     await testReviewProfile2.setUser(testuser1);//Franco Benitez deja una review testuser1
     await testReviewProfile2.setPost(testPostProfile2);//La crea sobre post yoga
+    calcularRating(testPostProfile2,testReviewProfile2)
 
     var testReviewProfile3 = await Review.create({
       qualification: 5,
@@ -288,6 +315,7 @@ conn.sync({ force: true }).then(() => {
     });
     await testReviewProfile3.setUser(usuarioPrueba4);//Sebastian Cepeda hace una review sobre el post q compro
     await testReviewProfile3.setPost(testPostProfile3);//EL post sobre el q se hizo la review Clases de cultivos
+    calcularRating(testPostProfile3,testReviewProfile3)
 
     //----------------------------------------------- QUESTIONS---------------------------------------------------------------------
     var testQuestionProfile = await Question.create({
@@ -325,8 +353,8 @@ conn.sync({ force: true }).then(() => {
         title:"Orden de Sebastian sobre cultivos",
         price:500
       })
-      ordenSebaCultivos.setUser(usuarioPrueba4) //Orden de compra de sebastian 
-      ordenSebaCultivos.setPost(testPostProfile3)// Sobre post de cultivos
+      await ordenSebaCultivos.setUser(usuarioPrueba4) //Orden de compra de sebastian 
+      await ordenSebaCultivos.setPost(testPostProfile3)// Sobre post de cultivos
 
       var ordenHernanGuitarra = await Orders.create({
         title:"orden de compra de  Hernan a clase de guitarra",
@@ -342,6 +370,19 @@ conn.sync({ force: true }).then(() => {
       await ordenFrancoYoga.setUser(testuser1)//Orden de compra para Franco q es testuser1
       await ordenFrancoYoga.setPost(testPostProfile2)//Compro clases de Yoga testpostprofile2
 
+      var ordenSebastianYoga=await Orders.create({
+        title:"Orden de compra de Sebastian a la clase de Yoga",
+        price:123
+      })
+      await ordenSebastianYoga.setUser(usuarioPrueba4)//Orden de compra para Sebastian q es usuarioPrueba4
+      await ordenSebastianYoga.setPost(testPostProfile2)//Compro clases de yoga testPostProfile2
+
+      var ordenSebastianYoga=await Orders.create({
+        title:"Orden de compra de Cristian alias el gran FACILITO a la clase de Yoga",
+        price:666
+      })
+      await ordenSebastianYoga.setUser(usuarioPrueba3)//Orden de compra para el FACILITO q es usuarioPrueba3
+      await ordenSebastianYoga.setPost(testPostProfile2)//Compro clases de yoga testPostProfile2
 
     //PROBANDO CHAT-----------------------
     let conversation1 = await Conversation.create({
