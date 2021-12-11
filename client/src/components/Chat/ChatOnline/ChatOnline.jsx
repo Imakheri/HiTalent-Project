@@ -1,7 +1,19 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./chatOnline.css";
 
-export default function ChatOnline() {
+export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
+  const [friends, setFriends] = useState([]);
+  const [onlineFriends, setOnlineFriends] = useState([]);
+
+  // useEffect(() => {
+  //   const getFriends = async ()=>{
+  //     const res = await axios.get("http://localhost:3001/user/friends" + currentId)
+  //     setFriends(res.data)
+  //   }
+  //   getFriends()
+  // },[])
+
   return (
     <div className="chatOnline">
       <div className="chatOnlineFriend">

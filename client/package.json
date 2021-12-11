@@ -34,6 +34,7 @@
     "redux-thunk": "^2.4.0",
     "slick-carousel": "^1.8.1",
     "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
     "timeago.js": "^4.0.2",
     "web-vitals": "^0.2.4",
     "webpack": "4.44.2"

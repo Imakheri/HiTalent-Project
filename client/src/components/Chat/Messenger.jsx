@@ -7,6 +7,7 @@ import ChatOnline from "./ChatOnline/ChatOnline";
 import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 export default function Messenger() {
   const user = useSelector((state) => state.index.user);
@@ -15,7 +16,34 @@ export default function Messenger() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
   const scrollRef = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", user.id);
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(users);
+    });
+  }, [user]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -54,6 +82,14 @@ export default function Messenger() {
       conversationId: currentChat.id,
     };
 
+    const receiverId = currentChat.members.find((member) => member !== user.id);
+
+    socket.current.emit("sendMessage", {
+      senderId: user.id,
+      receiverId,
+      text: newMessage,
+    });
+
     try {
       const res = await axios.post("http://localhost:3001/messages", message);
       setMessages([...messages, res.data]);
@@ -89,7 +125,7 @@ export default function Messenger() {
           <div className="chatBoxWrapper">
             {currentChat ? (
               <>
-                <div className="chatBowTop">
+                <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
                       <Message message={m} own={m.sender === user.id} />
@@ -117,9 +153,11 @@ export default function Messenger() {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentId={user.id}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>
