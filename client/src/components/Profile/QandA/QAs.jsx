@@ -27,7 +27,7 @@ export default function Qas() {
   }, [dispatch, id]);
 
   return (
-    <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
+    <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 h-full py-4">
       <div className="flex flex-col items-center py-2">
         {!(qa.posts?.length > 0) ? (
           <h2>No tienes publicaciones para obtener preguntas...</h2>
@@ -47,9 +47,7 @@ export default function Qas() {
               </div>
               <div className="flex  items-center bg-semidark w-11/12 rounded">
                 {e.questions.map((el) =>
-                  el.answer ? (
-                    el.answer
-                  ) : (
+                  !el.answer ? (
                     <form onSubmit={(e) => handleOnSubmit(e, el.id)}>
                       <input
                         className="w-full rounded bg-semidark text-white placeholder-light"
@@ -65,6 +63,8 @@ export default function Qas() {
                         Enviar
                       </button>
                     </form>
+                  ) : (
+                    el.answer
                   )
                 )}
               </div>

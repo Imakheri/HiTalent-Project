@@ -32,9 +32,8 @@ const initialState = {
   qa: [],
   moreTalent: [],
   categories: [],
-  questionsPost: [],
-  allCategories: []
-  
+  questionsPost: []
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -100,7 +99,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         categories: action.payload,
-        allCategories: action.payload
+        // allCategories: action.payload
       };
     case GET_POST_QUESTION:
       return {
@@ -133,13 +132,11 @@ export default function rootReducer(state = initialState, action) {
         review: action.payload,
       };
     case FILTRO_CAT:
-      let allCat= state.allCategories
-      let filtered= action.payload === 'todas' ? 
-      allCat : 
-      allCat.filter(e => e.title === action.payload)
+      let allCat = state.talents
+      let fil = action.payload === 'todas' ? allCat : allCat.filter(el => el?.category?.title === action.payload)
       return {
         ...state,
-        categories: filtered
+        filteredTalents: fil
       };
     default:
       return state;

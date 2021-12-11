@@ -8,7 +8,8 @@ import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
-import { FilteredCat } from "../Filter/FilteredCat";
+import { filteredCat } from "../../actions";
+
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
@@ -35,6 +36,11 @@ export default function Home() {
       setVentanaRegister(!ventanaRegister)
   }
 
+  function handleCatFilter(e){
+    e.preventDefault();
+    dispatch(filteredCat(e.target.value));
+  };
+
   return (
     <div  class='user-select-none'>
       <Nav onModalChange={onModalChange} onModaleClick={onModaleClick} onModalClick={onModalClick}/>
@@ -46,13 +52,31 @@ export default function Home() {
         }
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
       </div>
-      <div class='flex justify-end'>
+      <div class='flex justify-center space-x-10 font-semibold text-xl'>
+        <div>
+            <span>Categorias: </span>
+             <select onChange= {(e) => handleCatFilter(e)}>
+             <option value='todas'>Todas</option>
+             <option value='Programación y Tecnologias'>Programación y Tecnologias</option>
+             <option value='Arte'>Arte</option>
+             <option value='Botánica'>Botánica</option>
+             <option value='Cocina'>Cocina</option>
+             <option value='Negocios'>Negocios</option>
+             <option value='Deporte'>Deporte</option>
+             <option value='Música y Audio'>Música y Audio</option>
+             <option value='Ilustración, Video y Fotografia'>Ilustración, Video y Fotografia</option>
+             <option value='Marketing'>Marketing</option>
+             <option value='Escritura y Traducción'>Escritura y Traducción</option>
+             <option value='Idioma'>Idioma</option>
+             <option value='Baile'>Baile</option>
+             <option value='Historia y Cultura'>Historia y Cultura</option>
+             <option value='Educación'>Educación</option>
+             <option value='Mantenimiento del hogar'>Mantenimiento del hogar</option> 
+            </select>
+        </div>
         <SortByPrice/>
       </div>
-      <div class='flex justify-center'>
-        <FilteredCat/>
-      </div>
-      <div class="flex flex-row flex-wrap items-center content-around justify-around m-3">
+      <div class="flex flex-row flex-wrap items-center content-around justify-around">
         {skill?.length === 0 ? (
           <div className="not_found">not found</div>
           ) : (
@@ -60,6 +84,7 @@ export default function Home() {
               return (
                 <TalentCard
                 key={talent.id}
+                category={talent?.category?.title}
                 id={talent.id}
                 username={talent?.user?.username}
                 title={talent.title}
@@ -71,8 +96,8 @@ export default function Home() {
               })
               )}
       </div>
-      <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
-      <Categories /> <hr />
+      {/* <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
+      <Categories /> <hr /> */}
       <Footer />
     </div>
   );
