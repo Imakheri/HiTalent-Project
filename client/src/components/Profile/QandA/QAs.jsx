@@ -32,25 +32,24 @@ export default function Qas() {
         {!(qa.posts?.length > 0) ? (
           <h2>No tienes publicaciones para obtener preguntas...</h2>
         ) : qa.posts.map((e) => e.questions?.length > 0) ? (
-          qa.posts?.map((e) => (
-            <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4">
-              <div className="flex flex-row justify-center items-center  bg-semidark text-white w-11/12 h-auto m-1">
-                <div className="flex flex-row justify-between items-center border w-full p-1">
-                  {e.questions?.map((e) => (
+          qa.posts?.map((el) =>
+            el.questions?.map((e) => (
+              <div className="flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4 mb-4">
+                <div className="flex flex-row justify-center items-center  bg-semidark text-white w-11/12 h-auto m-1">
+                  <div className="flex flex-row justify-around items-center border w-full p-1">
+                    <div>{el.title}</div>
                     <div>{e.question}</div>
-                  ))}
-
-                  <span className="ml-2 italic">
-                    {e.questions?.map((e) => e.user?.username)}
-                  </span>
+                    <span className="ml-2 italic"> {e.user?.username}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex  items-center bg-semidark w-11/12 rounded">
-                {e.questions.map((el) =>
-                  !el.answer ? (
-                    <form onSubmit={(e) => handleOnSubmit(e, el.id)}>
+                <div className="flex  items-center bg-semidark w-11/12 rounded">
+                  {!e.answer ? (
+                    <form
+                      className=" w-full pb-3 pt-3"
+                      onSubmit={(e) => handleOnSubmit(e, e.id)}
+                    >
                       <input
-                        className="w-full rounded bg-semidark text-white placeholder-light"
+                        className="w-full rounded bg-semidark text-white placeholder-light pl-10 w-full"
                         name="answer"
                         value={answer}
                         onChange={(e) => handleChange(e)}
@@ -58,18 +57,18 @@ export default function Qas() {
                       />
                       <button
                         type="submit"
-                        className="btn-quaternary btn-colors mx-2"
+                        className="flex btn-quaternary btn-colors w-full ml-80"
                       >
                         Enviar
                       </button>
                     </form>
                   ) : (
-                    el.answer
-                  )
-                )}
+                    e.answer
+                  )}
+                </div>
               </div>
-            </div>
-          ))
+            ))
+          )
         ) : (
           <h1>No tienes preguntas por el momento...</h1>
         )}

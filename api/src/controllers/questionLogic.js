@@ -94,7 +94,7 @@ async function getPostQuestions(req, res, next) {
         include: [
           {
             model: Question,
-            attributes: ["title", "question", "answer"],
+            attributes: ["title", "question", "answer", "userId"],
             order: [["createdAt", "DESC"]],
           },
         ],

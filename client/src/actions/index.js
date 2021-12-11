@@ -21,7 +21,6 @@ export const FILTRO_CAT = 'FILTRO_CAT';
 //export const SORT_BY_QUALI = 'SORT_BY_QUALI';\
 export const POST_ORDER = 'POST_ORDER';
 
-
 export function getTalents() {
   return function (dispatch) {
     axios
@@ -263,9 +262,8 @@ export function filteredCat(payload) {
   return {
     type: FILTRO_CAT,
     payload,
-  
   };
-};
+}
 
 // export function sortByQuali(payload){
 //   return {
