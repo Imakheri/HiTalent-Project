@@ -26,7 +26,7 @@ export default function Reviews() {
               <span className="px-2 font-black italic">
                 {e.reviews[0]?.user?.username}
               </span>
-              {/* <span>{e.reviews[0].qualification}</span> */}
+              <span>{e.reviews[0]?.qualification}</span>
             </div>
           ))
         ) : (

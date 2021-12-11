@@ -14,6 +14,7 @@ import Profile from '../components/Profile/Profile';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import EmailResetPassword from '../components/ResetPassword/EmailResetPassword';
 import Faq from '../components/Faq/Faq';
+import ShoppingCart from '../components/ShoppingCart/ShoppingCart';
 
 
 export const Rout = () => {
@@ -59,6 +60,7 @@ export const Rout = () => {
                 />
                 <Route path="/talent/:id" element={<SeeMore/>} />
                 <Route path='/faq' element={<Faq/>} />
+                <Route path='/cart' element={<ShoppingCart/>} />
                 {/* <ProtectedRoute isLoggedIn={isLoggedIn} path='/home' element={<Home />} /> */}
             </Routes>
         </BrowserRouter>

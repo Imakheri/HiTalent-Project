@@ -9,6 +9,7 @@ export const SortByPrice = () => {
     function onChange(e) {
         e.preventDefault()
         dispatch(sortByPrice(e.target.value))
+        console.log()
     }
 
     return (
@@ -20,5 +21,6 @@ export const SortByPrice = () => {
                 <option value={ASCENDENTE}>Menor precio</option>
             </select>
         </div>
-    )
+)
 }
+
