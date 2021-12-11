@@ -39,10 +39,12 @@ const createOrden= async(req,res,next)=>{
         try {
             let newOrder = await Orders.create({
                 title,
-                price
+                price:Number(price)
             })
             var user=await Users.findByPk(user_id)
             var post=await Posts.findByPk(post_id)
+            let dueño=post.user_id
+            if(dueño===user_id)return res.status(500).json({message:"no podes comprar tu misma publicacion C:"})
            
             if(!user&&!post)return res.status(500).json({message:"user o post invalido"})
             await newOrder.setUser(user);

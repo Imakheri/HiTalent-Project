@@ -191,6 +191,28 @@ const getTalentsByTitle=async(req, res, next) => {
 };
 
 
+
+const getTalentosporRating=async(req,res,next)=>{
+    let modo=req.body.modo
+    if (modo==="desc"){
+        var post=await Posts.findAll()
+        post.sort(function(a, b) {
+            if(a.rating>b.rating)return 1
+            if(b.rating>a.rating)return -1
+            return 0
+        });
+        res.json(post)
+    }
+    var post=await Posts.findAll()
+        post.sort(function(a, b) {
+            if(a.rating>b.rating)return -1
+            if(b.rating>a.rating)return 1
+            return 0
+        });
+        res.json(post)
+}
+
+
 module.exports={
     getPosts,
     createPost,
@@ -199,5 +221,6 @@ module.exports={
     addImage,
     deleteImage,
     getTalentsByTitle,
-    getPostId
+    getPostId,
+    getTalentosporRating
 };

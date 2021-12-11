@@ -13,23 +13,31 @@ async function createReview(req, res, next) {
 
 
     
-    let postId = Posts.findByPk(post_id);
-    newReview.setUser(userId);
-    newReview.setPost(postId);
-    let totalQual= await Review.findAll();
-    let posibleQuali= totalQual.length;
-    let count= 0;
-    totalQual.forEach(e => {
-        count += Number(e.qualification)
-    });
-    let result= count / posibleQuali
-    result= result.toString()
-    if(result.length > 4) result= result.slice(0,3)
-    result= Number(result)
-    await Posts.update({
-      rating: result
-    })
-    res.json(newReview);
+    let post = Posts.findByPk(post_id);
+    await newReview.setUser(userId);
+    await newReview.setPost(post);
+    post.rating=Number(Math.round((post.rating+Number(qualification))/2))
+    let test=post.rating
+    await post.save()
+    console.log(test)
+    res.json(newReview)
+
+
+
+    // let totalQual= await Review.findAll();
+    // let posibleQuali= totalQual.length;
+    // let count= 0;
+    // totalQual.forEach(e => {
+    //     count += Number(e.qualification)
+    // });
+    // let result= count / posibleQuali
+    // result= result.toString()
+    // if(result.length > 4) result= result.slice(0,3)
+    // result= Number(result)
+    // await Posts.update({
+    //   rating: result
+    // })
+    // res.json(newReview);
   } catch (err) {
     next(err);
   }
