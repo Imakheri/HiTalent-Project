@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import NavAdmin from './NavAdmin';
 import AdminData from './AdminData';
-import NavBar from '../Talents/BarraNav/NavBar';
+// import NavBar from '../Talents/BarraNav/NavBar';
+import Nav from '../Profile/Nav';
 
 function AdminProfile(){
 
@@ -25,7 +26,7 @@ function AdminProfile(){
 
     return(
         <div className='bg-light h-screen'>
-            <NavBar />
+            <Nav />
             <div className='flex flex-col'>
                 <NavAdmin setPestaña={setPestaña}/>
                 <AdminData pestaña={pestaña} data={data} setData={setData}/>

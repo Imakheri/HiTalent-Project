@@ -48,8 +48,8 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
 
     function onClick(payload) {
         payload.preventDefault()
-        let talent = cart.cart.filter(item => item.id === payload.target.value)
-            dispatch(deleteTalent(talent[0].id))
+        let talent = cart?.cart?.filter(item => item?.id === payload.target.value)
+            dispatch(deleteTalent(talent[0]?.id))
     }
 
 
@@ -68,9 +68,9 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
                 </Thead>
             <Tbody class='h-screen'>
                     {
-                    cart.cart.length > 0 
+                    cart?.cart?.length > 0 
                     ?
-                    (cart.cart.map((e) =>
+                    (cart?.cart?.map((e) =>
 
                     <Tr>
                     <Td>{e.title}</Td>

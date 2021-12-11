@@ -1,6 +1,6 @@
+import React from "react";
 
-
-function NavAdmin({setPestaña}){
+export default function NavAdmin({setPestaña}){
 
     const onClick = (e) => {
         e.preventDefault();
@@ -15,5 +15,3 @@ function NavAdmin({setPestaña}){
         </nav>
     )
 }
-
-export default NavAdmin;
