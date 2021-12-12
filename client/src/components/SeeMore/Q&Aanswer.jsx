@@ -17,9 +17,18 @@ export default function QyAanswer() {
       <h3 class="text-xl font-semibold">Preguntas</h3>
       <div>
         {questionsPost?.questions?.length > 0 ? (
-          questionsPost.questions.map((e) => <div>{e.question}</div>)
+          questionsPost.questions.map((e) => (
+            <>
+              <div>{"+" + e.question}</div>
+              <div>
+                {e.answer
+                  ? "-" + e.answer
+                  : "- Esta pregunta aún no tiene respuesta"}
+              </div>
+            </>
+          ))
         ) : (
-          <span class="text-gray-400">Aun no hay preguntas</span>
+          <span class="text-gray-400">Aún no hay preguntas</span>
         )}
       </div>
       <hr />

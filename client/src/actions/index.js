@@ -17,9 +17,8 @@ export const POST_QUESTION = "POST_QUESTION";
 export const GET_POST_QUESTION = "GET_POST_QUESTION";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const GET_POST_REVIEW = "GET_POST_REVIEW";
-export const FILTRO_CAT = 'FILTRO_CAT';
+export const FILTRO_CAT = "FILTRO_CAT";
 //export const SORT_BY_QUALI = 'SORT_BY_QUALI';
-
 
 export function getTalents() {
   return function (dispatch) {
@@ -262,9 +261,8 @@ export function filteredCat(payload) {
   return {
     type: FILTRO_CAT,
     payload,
-  
   };
-};
+}
 
 // export function sortByQuali(payload){
 //   return {
