@@ -4,13 +4,13 @@ import Nav from "./Nav";
 import Footer from "../Landing/Footer";
 import TalentCard from "./TalentCard";
 import { getTalents } from "../../actions";
-import Categories from "./Categories";
+//import Categories from "./Categories";
 import Form from "../SignIn/FormSI";
 import Register from "../Register/Register";
 import { SortByPrice } from "../Sort/SortByPrice";
 import { Link } from "react-router-dom";
 import { filteredCat } from "../../actions";
-//import { SortByQuali } from '../Sort/SortByQuali';
+import { SortByQuali } from "../Sort/SortByQuali";
 
 
 export default function Home() {
@@ -65,8 +65,8 @@ export default function Home() {
         ) : (
           console.log("registro")
         )}
-        <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
-        <Categories /> <hr />
+        {/* <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
+        <Categories /> <hr /> */}
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
         <Link to="/messenger">
           <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">
@@ -98,7 +98,9 @@ export default function Home() {
         </div>
         <div>
         <SortByPrice/>
-        {/* <SortByQuali/> */}
+        </div>
+        <div>
+        <SortByQuali/>
         </div>
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around">

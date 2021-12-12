@@ -16,7 +16,7 @@ import {
   SORT_BY_PRICE,
   GET_POST_REVIEW,
   FILTRO_CAT,
-  //SORT_BY_QUALI
+  TALENT_BY_RATING
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -141,7 +141,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         filteredTalents: fil,
       };
-    //case SORT_BY_QUALI:
+    case TALENT_BY_RATING:
+      return {
+        ...state,
+        filteredTalents: action.payload
+      };
     default:
       return state;
   }
