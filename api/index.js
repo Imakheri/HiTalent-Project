@@ -33,6 +33,7 @@ conn.sync({ force: true }).then(() => {
       { title: "Historia y Cultura" },
       { title: "Educación" },
       { title: "Mantenimiento del hogar" },
+      { title: "Meditación" },
     ])
       .then((e) => {})
       .catch((e) => console.log(e));
@@ -240,7 +241,7 @@ conn.sync({ force: true }).then(() => {
       timeZone: " GMT-5",
       language: " español"
     });
-    await testPostProfile2.setCategory(12)//Le agrego  la categoria Baile a el post yoga testpostprofile2
+    await testPostProfile2.setCategory(16)//Le agrego  la categoria Meditación a el post yoga testpostprofile2
     await testPostProfile2.setUser(testUserProfile);// El usuario Santiago alvarez crea el post Yoga
 
     var testPostProfile4 = await Posts.create({
