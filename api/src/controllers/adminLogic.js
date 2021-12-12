@@ -1,6 +1,5 @@
 const {Users,Posts,Review}=require("../db")
 
-
 async function getAll(req,res,next){
     var users=await Users.findAll()
     var posts=await Posts.findAll()
@@ -34,18 +33,34 @@ async function deleteNoAprobado(req,res,next){
     let id=req.body.id
     let name=req.body.name
     if(name==="user"){
-        var user=await Users.findByPk(id)
+        var user=await Users.findOne({where:{id}})
         if(!user)return res.status(400).json({message:"usuario no encontrado"})
-        await Posts.destroy({
-          where:{user_id:id}
-        })
-        await Review.destroy({
-          where:{user_id:id}
-        })
-        await Users.destroy({
-            where: {id}
+        try{
+          // let post=await Posts.findAll({where:{user_id:id}})
+          // if(post.length>=1){
+          //   for(let i in post){
+          //     await post[i].destroy()
+          //   }
+          // }
+          // let review=await Review.findAll({where:{userId:id}})
+          // if(review.length>=1){
+          //   for(let i in review){
+          //     await review[i].destroy()
+          //   }
+          // }
+          await Posts.destroy({
+            where:{user_id:id}
+          })
+          await Review.destroy({
+            where:{userId:id}
+          })
+          await Users.destroy({
+              where: {id}
           });
-        res.json(user)
+          res.json(user)
+        }catch(e){
+          console.log(e)
+        }
     }else if(name==="review"){
         var review=await Review.findByPk(Number(id))
         if(!review)return res.status(400).json({message:"review no encontrada"})
