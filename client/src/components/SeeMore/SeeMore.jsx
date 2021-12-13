@@ -132,6 +132,11 @@ export default function SeeMore() {
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
                   <Button onClick={onClick}>Agregar al carrito</Button>
                 </Box>
+                <Link to={"/profilePublic/" + seemore.user_id}>
+                  <button className="btn-custom btn-colors mt-10">
+                    Ver perfil
+                  </button>
+                </Link>
               </Box>
             ) : (
               <>

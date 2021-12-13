@@ -269,6 +269,18 @@ async function getUserById(req, res, next) {
           {
             model: Orders,
             order: [["createdAt", "DESC"]],
+            include: [
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+                include: [
+                  {
+                    model: Users,
+                    attributes: ["id", "username"],
+                  },
+                ],
+              },
+            ],
           },
           {
             model: Posts,
