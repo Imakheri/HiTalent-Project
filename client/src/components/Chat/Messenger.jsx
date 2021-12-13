@@ -109,11 +109,7 @@ export default function Messenger() {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Buscar docente" className="chatMenuInput" />
-            <div className="chatMenuInfo">
-              Ten en cuenta que sólo podras chatear con un docente luego de
-              adquirir su curso.
-            </div>
+            <p className="chatMenuInput">Chats habilitados</p>
             {conversations?.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user.id} />
@@ -153,11 +149,23 @@ export default function Messenger() {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline
+            <div className="chatMenuInfo1">
+              Ten en cuenta que sólo podras chatear con un docente luego de
+              adquirir su curso.
+            </div>
+            <div className="chatMenuInfo2">
+              Te brindamos esta herramienta para que puedas coordinar con tu
+              docente una videollamada por la plataforma que deseen.
+            </div>
+            <div className="chatMenuInfo3">
+              Ante cualquier inconveniente podes contactarnos a
+              hitalent09@gmail.com
+            </div>
+            {/* <ChatOnline
               onlineUsers={onlineUsers}
               currentId={user.id}
               setCurrentChat={setCurrentChat}
-            />
+            /> */}
           </div>
         </div>
       </div>
