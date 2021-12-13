@@ -11,6 +11,7 @@ import QyAanswer from "./Q&Aanswer";
 import Reviews from "./Reviews";
 import axios from "axios";
 import { addToCart } from "../../actions/shoppingActions";
+import Spinner from "../Spinner/Spinner";
 
 export default function SeeMore() {
   const toast = useToast();
@@ -144,6 +145,11 @@ export default function SeeMore() {
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
                   <Button onClick={onClick}>Agregar al carrito</Button>
                 </Box>
+                <Link to={"/profilePublic/" + seemore.user_id}>
+                  <button className="btn-custom btn-colors mt-10">
+                    Ver perfil
+                  </button>
+                </Link>
               </Box>
             ) : (
               <>
@@ -164,7 +170,7 @@ export default function SeeMore() {
           </Box>
         </Box>
       ) : (
-        <p>Cargando</p>
+        <Spinner />
       )}
       <Footer />
     </div>

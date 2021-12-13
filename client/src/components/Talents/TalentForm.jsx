@@ -19,7 +19,8 @@ function TalentForm(){
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch])
-    
+
+    const [previewSource,setPreviewSource]=useState()
     const [file, setFile]=useState(null)
     const [form, setForm] = useState({
         title: "",
@@ -39,6 +40,7 @@ function TalentForm(){
         if(e.target.name === "image"){
             console.log("IMAGEN",e.target.value)
             setFile(e.target.files[0])
+            previewFile(e.target.files[0])
         }
         else{
             setForm({
@@ -66,6 +68,14 @@ function TalentForm(){
         e.preventDefault();
         setVentanaModal(!ventanaModal)
     }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
+    
+    }
     
     function onSubmitForm(e){
         e.preventDefault()
@@ -86,6 +96,7 @@ function TalentForm(){
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))
         .catch(err => console.log(err));
+            setPreviewSource(null)
           alert("Curso creado satisfactoriamente")
           navigate("/home");
     }
@@ -117,6 +128,7 @@ function TalentForm(){
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
+                            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
                         </div>
                     <div>
                         <div className='flex flex-col space-y-2'>
@@ -182,8 +194,10 @@ function TalentForm(){
                             required/> */}
                               
                             <label className='text-lg'>Zona horaria: </label>
-                            <select 
-                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3">
+                            <select onChange={handleOnChange} 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            required
+                            name="timeZone">
                                 <option name="timeZone">Selecciona una zona horaria:</option>
                                 <option value='GMT+1'>GMT+1</option>
                                 <option value='GMT-0'>GMT 0</option>
@@ -202,7 +216,7 @@ function TalentForm(){
                             name="language"  
                             required
                             >
-                                <option name="timeZone">Selecciona el idioma:</option>
+                                <option name="language">Selecciona el idioma:</option>
                                 <option value='Alemán'>Alemán 🇩🇪</option>
                                 <option value='Español'>Español 🇪🇸</option>
                                 <option value='Francés'>Francés 🇫🇷</option>

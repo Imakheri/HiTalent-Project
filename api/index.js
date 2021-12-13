@@ -180,8 +180,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2020/05/cantar-1955117.jpg?itok=fCPDYcVi",
       ],
-      timeZone: "GMT-3",
-      language: "español"
+      timeZone: " GMT-3",
+      language: " español"
     });
     await testpost1.setCategory(7)//Le agrego musica y audio de categoria al post canto testpost1
     await testpost1.setUser(testuser1); //Clase de canto testpost1
@@ -195,8 +195,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://www.superprof.com.ar/blog/wp-content/uploads/2020/03/aprender-guitarra-principiante-1060x704.jpg",
       ],
-      timeZone: "GMT-6",
-      language: "español"
+      timeZone: " GMT-6",
+      language: " español"
     });
     await testpost1.setCategory(7)//Le agrego musica y audio de categoria al post Guitarra testpost2
     await testpost2.setUser(testuser1);//Franco Bennitez crea el post clase de canto
@@ -208,8 +208,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",
       ],
-      timeZone: "GMT-3",
-      language: "español"
+      timeZone: " GMT-3",
+      language: " español"
     });
     await testPostProfile3.setCategory(3)//le agrego la categoria Botanica a el post clases de cultivos
     await testPostProfile3.setUser(testUserProfile2);//Agustina Gonzales crea un post de clases de cultivos testUserProfile2
@@ -252,8 +252,8 @@ conn.sync({ force: true }).then(() => {
       image: [
         "https://casapropiacolombia.com/sites/default/files/2019-12/11_0.jpg",
       ],
-      timeZone: "GMT-6",
-      language: "español"
+      timeZone: " GMT-6",
+      language: " español"
     });
     await testPostProfile4.setCategory(15)//Le asigno la categoria de mantenimiento del hogar al post testpostprofile4
     await testPostProfile4.setUser(testUserProfile3);//Post plomeria creado por Ricardo Cortez

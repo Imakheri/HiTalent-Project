@@ -197,11 +197,26 @@ async function getPostId(req, res, next) {
   }
 }
 const getTalentsByTitle=async(req, res, next) => {
+  try {
+    
     let title= req.params.title;
-    var post= await Posts.findAll()
+    var post= await Posts.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["username"]
+        },
+        {
+          model: Categories,
+          attributes: ["title"]
+        }
+      ]})
     let array= post.filter(e => e.title.toLowerCase().includes(title.toLowerCase()))
-    if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
+    // if(array.length < 1) return res.status(400).json({message:"no se encontro talento con ese titulo"})
     res.json(array)
+  } catch (error) {
+    next(error)
+  }
 };
 
 
@@ -209,7 +224,18 @@ const getTalentsByTitle=async(req, res, next) => {
 const getTalentosporRating=async(req,res,next)=>{
     let modo=req.params.modo
     if (modo==="asc"){
-        var post=await Posts.findAll()
+        var post=await Posts.findAll({
+          include: [
+            {
+              model: Users,
+              attributes: ["username"]
+            },
+            {
+              model: Categories,
+              attributes: ["title"]
+            }
+          ]
+        })
         post.sort(function(a, b) {
             if(a.rating>b.rating)return 1
             if(b.rating>a.rating)return -1
@@ -217,7 +243,18 @@ const getTalentosporRating=async(req,res,next)=>{
         });
         res.json(post)
     }
-    var post=await Posts.findAll()
+    var post=await Posts.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["username"]
+        },
+        {
+          model: Categories,
+          attributes: ["title"]
+        }
+      ]
+    })
         post.sort(function(a, b) {
             if(a.rating>b.rating)return -1
             if(b.rating>a.rating)return 1

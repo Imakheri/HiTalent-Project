@@ -12,11 +12,12 @@ export default function Nav({onModalClick, onModaleClick, onModalChange}) {
 
   function onSubmit(e) {
     e.preventDefault();
-    dispatch(searchTalent(state));
+    dispatch(searchTalent(state)) 
   }
+
   function onChange(e) {
     e.preventDefault();
-    setState(e.target.value);
+   setState(e.target.value);
   }
 
   return (
@@ -38,7 +39,7 @@ export default function Nav({onModalClick, onModaleClick, onModalChange}) {
                   onChange={onChange}
                   type="search"
                   class="h-10 w-64 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-                  placeholder="Prueba con 'cocinar'"
+                  placeholder="Prueba con 'yoga'"
                 />
                 <button>
                   <svg
@@ -57,7 +58,7 @@ export default function Nav({onModalClick, onModaleClick, onModalChange}) {
               </div>
             </div>
           </form>
-        </div>
+        </div> 
         {
         usuario.length === 0 ? 
           (<div>

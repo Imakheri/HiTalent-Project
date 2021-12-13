@@ -11,10 +11,11 @@ import { SortByPrice } from "../Sort/SortByPrice";
 import { Link } from "react-router-dom";
 import { filteredCat } from "../../actions";
 import { SortByQuali } from "../Sort/SortByQuali";
-
+import Spinner from "../Spinner/Spinner";
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
+  const cargando = useSelector((state) => state.index.cargando);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,11 +39,10 @@ export default function Home() {
     setVentanaRegister(!ventanaRegister);
   }
 
-  function handleCatFilter(e){
+  function handleCatFilter(e) {
     e.preventDefault();
     dispatch(filteredCat(e.target.value));
-  };
-
+  }
 
   return (
     <div class="user-select-none">
@@ -74,38 +74,53 @@ export default function Home() {
           </button>
         </Link>
       </div>
-      <div class='flex justify-center space-x-10 font-semibold text-xl'>
+
+      <div class="flex justify-center space-x-10 font-semibold text-xl">
         <div>
-            <span>Categorias: </span>
-             <select onChange= {(e) => handleCatFilter(e)}>
-             <option value='todas'>Todas</option>
-             <option value='Programación y Tecnologias'>Programación y Tecnologias</option>
-             <option value='Arte'>Arte</option>
-             <option value='Botánica'>Botánica</option>
-             <option value='Cocina'>Cocina</option>
-             <option value='Negocios'>Negocios</option>
-             <option value='Deporte'>Deporte</option>
-             <option value='Música y Audio'>Música y Audio</option>
-             <option value='Ilustración, Video y Fotografia'>Ilustración, Video y Fotografia</option>
-             <option value='Marketing'>Marketing</option>
-             <option value='Escritura y Traducción'>Escritura y Traducción</option>
-             <option value='Idioma'>Idioma</option>
-             <option value='Baile'>Baile</option>
-             <option value='Historia y Cultura'>Historia y Cultura</option>
-             <option value='Educación'>Educación</option>
-             <option value='Mantenimiento del hogar'>Mantenimiento del hogar</option> 
-            </select>
+          <span>Categorias: </span>
+          <select onChange={(e) => handleCatFilter(e)}>
+            <option value="todas">Todas</option>
+            <option value="Programación y Tecnologias">
+              Programación y Tecnologias
+            </option>
+            <option value="Arte">Arte</option>
+            <option value="Botánica">Botánica</option>
+            <option value="Cocina">Cocina</option>
+            <option value="Negocios">Negocios</option>
+            <option value="Deporte">Deporte</option>
+            <option value="Música y Audio">Música y Audio</option>
+            <option value="Ilustración, Video y Fotografia">
+              Ilustración, Video y Fotografia
+            </option>
+            <option value="Marketing">Marketing</option>
+            <option value="Escritura y Traducción">
+              Escritura y Traducción
+            </option>
+            <option value="Idioma">Idioma</option>
+            <option value="Baile">Baile</option>
+            <option value="Historia y Cultura">Historia y Cultura</option>
+            <option value="Educación">Educación</option>
+            <option value="Mantenimiento del hogar">
+              Mantenimiento del hogar
+            </option>
+          </select>
         </div>
         <div>
-        <SortByPrice/>
+          <SortByPrice />
         </div>
         <div>
-        <SortByQuali/>
+          <SortByQuali />
         </div>
       </div>
-      <div class="flex flex-row flex-wrap items-center content-around justify-around">
-        {skill?.length === 0 ? (
-          <div class="text-4xl font-bold m-4"> <h3>Ups! no encontramos la categoría que buscas, intenta de nuevo</h3></div>
+      {cargando ? (
+        <Spinner />
+      ) : (
+        <div class="flex flex-row flex-wrap items-center content-around justify-around">
+          {skill?.length === 0 ? (
+            <div class="text-4xl font-bold m-4">
+              {" "}
+              <h3>Ups! no encontramos lo que buscas, intenta de nuevo</h3>
+            </div>
           ) : (
             skill?.map((talent) => {
               return (
@@ -120,10 +135,12 @@ export default function Home() {
                 cost={talent.cost}
                 rating={talent.rating}
                 />
-                );
-              })
-              )}
-      </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
       {/* <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
       <Categories /> <hr /> */}
       <Footer />
