@@ -12,7 +12,7 @@ export default function Profile() {
   const user = useSelector((state) => state.index.user);
   console.log("user: ", user);
   return (
-    <section className="flex flex-col w-full h-screen bg-semilight">
+    <section className="flex flex-col w-full h-full bg-semilight">
       <Nav />
       <div className="flex w-full">
         {user.length === 0 ? (

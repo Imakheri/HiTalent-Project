@@ -25,7 +25,20 @@ export default function SeeMore() {
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-    console.log(mercadopago);
+      let payload = {carrito: []}
+
+      payload.carrito.push({
+      user_id: user?.id,
+      post_id: seemore.id,
+      title: seemore.title,
+      price: seemore.cost
+    })
+      console.log('ordenes', payload)
+      axios.post("http://localhost:3001/orden", payload)
+      .then (res => console.log('res de seemore',res))
+      .catch (error => console.log('err de seemore',error))
+
+    console.log('mercadopago',mercadopago);
     e.preventDefault();
     let response = await axios.post(
       "http://localhost:3001/checkout/mercadopago/",

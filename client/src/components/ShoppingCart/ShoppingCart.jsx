@@ -7,14 +7,13 @@ import { Link } from 'react-router-dom'
 import { Button, useToast } from "@chakra-ui/react";
 import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions'
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
-import { postOrder } from "../../actions";
 
 
 export default function ShoppingCart() {
 const cart = useSelector(state => state.cart)
 const user = useSelector(state => state.index.user)
 const reducer = (a, b) => a + b;
-let mercadopago = cart.cart.length > 0 ? { title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost * e.quantity))).reduce(reducer) } : 'asd';
+let mercadopago = cart.cart.length > 0 ? { title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost * e.quantity))).reduce(reducer) } : 'Algo fallo en el carrito, reintente luego.';
 const dispatch = useDispatch()
 const toast = useToast()
 let total = 0 // Voy a ir sumando los totales para mostrar en el carrito
@@ -37,12 +36,12 @@ async function handleCheckOut(e) {
         // dispatch(postOrder(payload))
         console.log('order payload', payload)
         console.log("MP carrito",mercadopago);
-        // let response = await axios.post(
-        //     "http://localhost:3001/checkout/mercadopago/",
-        //     mercadopago
-        //     );
-        //     console.log(response);
-        //     window.location.href = response.data.init_points;
+        let response = await axios.post(
+            "http://localhost:3001/checkout/mercadopago/",
+            mercadopago
+          );
+          console.log(response);
+          window.location.href = response.data.init_points;
 }
 
     function clearCart() {
@@ -75,18 +74,18 @@ async function handleCheckOut(e) {
                     <Th></Th>
                     </Tr>
                 </Thead>
-            <Tbody class='h-screen'>
+            <Tbody class='flex items-center'>
                     {
                     cart?.cart?.length > 0 
                     ?
                     (cart?.cart?.map((e) =>
 
-                    <Tr>
+                    <Tr class="flex items-center">
                     <Td>{e.title}</Td>
                     <Td>{e.quantity}</Td>
                     <Td isNumeric>${e.cost}</Td>
                     <Td isNumeric>${e.quantity * e.cost}</Td>
-                    <button class=" w-5 rounded-full bg-red text-white font-semibold" onClick={onClick} value={e.id}>X</button>
+                    <Button class="w-5 rounded-full bg-red text-white font-semibold" onClick={onClick} value={e.id}>X</Button>
                     </Tr>
                     )) 
                     : 
@@ -97,7 +96,7 @@ async function handleCheckOut(e) {
             <Td>${total}</Td>
             </Tr>
             </Tbody>
-            <Tr>
+            <Tr class="flex flex-row justify-center items-center">
             <Button onClick={handleCheckOut} class='w-32 h-8 bg-semidark rounded-md m-3'>Comprar</Button>
             <Button onClick={clearCart} class='w-32 h-8 bg-semidark rounded-md m-3'>Vaciar carrito</Button>
             <Link to='/home'>

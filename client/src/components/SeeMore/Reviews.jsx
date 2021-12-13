@@ -34,7 +34,7 @@ export default function Reviews() {
           }
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             {review?.reviews ? (
-              review?.reviews?.map((e) => e?.description)
+              review?.reviews?.map((e) => <div class="bg-light mb-2 rounded-md">{e?.description}</div>)
             ) : (
               <span>No han dejado ningún comentario</span>
             )}
