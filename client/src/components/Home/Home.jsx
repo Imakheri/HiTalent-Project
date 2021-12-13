@@ -105,7 +105,7 @@ export default function Home() {
       </div>
       <div class="flex flex-row flex-wrap items-center content-around justify-around">
         {skill?.length === 0 ? (
-          <div class="text-4xl font-bold m-4"> <h3>Ups! no encontramos la categoría que buscas, intenta de nuevo</h3></div>
+          <div class="text-4xl font-bold m-4"> <h3>Ups! no encontramos lo que buscas, intenta de nuevo</h3></div>
           ) : (
             skill?.map((talent) => {
               return (
@@ -122,6 +122,7 @@ export default function Home() {
                 );
               })
               )}
+                    
       </div>
       {/* <h1 class="text-2xl font-bold m-4">CATEGORIAS</h1>
       <Categories /> <hr /> */}
