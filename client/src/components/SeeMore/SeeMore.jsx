@@ -19,32 +19,43 @@ export default function SeeMore() {
   const { id } = useParams();
   const seemore = useSelector((state) => state.index.moreTalent);
   const user = useSelector((state) => state.index.user);
-  let mercadopago = { title: seemore.title, total: seemore.cost };
+  // let mercadopago = [{ title: seemore.title, total: seemore.cost }];
 
   useEffect(() => {
     dispatch(getTalentById(id));
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-    let payload = { carrito: [] };
+      // let payload = {carrito: []}
+    //   let carrito = []
 
-    payload.carrito.push({
-      user_id: user?.id,
-      post_id: seemore.id,
-      title: seemore.title,
-      price: seemore.cost,
-    });
-    console.log("ordenes", payload);
-    axios
-      .post("http://localhost:3001/orden", payload)
-      .then((res) => console.log("res de seemore", res))
-      .catch((error) => console.log("err de seemore", error));
+    //   carrito.push({
+    //   user_id: user?.id,
+    //   post_id: seemore.id,
+    //   title: seemore.title,
+    //   price: seemore.cost
+    // })
+    
+    let payloadMp = {items: [
+  {    title: seemore.title,
+      unit_price: seemore.cost,
+      quantity: 1}
+    ]}
+    // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
+    //     title: e.title,
+    //     unit_price: e.cost,
+    //     quantity: e.quantity}))) : console.log('mercadopago')
+    
+      console.log('ordenes', payloadMp)
+      axios.post("http://localhost:3001/orden", {payloadMp})
+      .then (res => console.log('res de seemore',res))
+      .catch (error => console.log('err de seemore',error))
 
-    console.log("mercadopago", mercadopago);
+    console.log('mercadopago',payloadMp);
     e.preventDefault();
     let response = await axios.post(
       "http://localhost:3001/checkout/mercadopago/",
-      mercadopago
+      {payloadMp}
     );
     console.log(response);
     window.location.href = response.data.init_points;

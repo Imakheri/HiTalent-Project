@@ -60,7 +60,7 @@ export default function Profile(){
         {!user ? (<h2>Cargando...</h2>) : (
         <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight w-72' src={user.image? user.image : defaultImage} alt={user.username}/>
+                <img className='rounded-full border-4 border-semilight w-72 h-72 object-cover' src={user.image? user.image : defaultImage} alt={user.username}/>
             </div>
             <button onClick={handleSubmit}>agregar imagen</button>
             <label>imagen de perfil</label>

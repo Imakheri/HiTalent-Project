@@ -10,16 +10,25 @@ mercadopago.configure({
 });
 
 router.post("/mercadopago", async (req, res) => {
-  const { title, total } = req.body;
+  const { payloadMp } = req.body;
+  console.log('back payloadmp', payloadMp)
+  
+  let itemsCart = payloadMp?.items?.map((e) => 
+    ({title: e.title,
+    unit_price: e.unit_price,
+    quantity: e.quantity
+    })
+  )
 
   let preference = {
-    items: [
-      {
-        title: title,
-        unit_price: total,
-        quantity: 1,
-      },
-    ],
+    // items: [
+    //   {
+    //     title: title,
+    //     unit_price: total,
+    //     quantity: 1,
+    //   },
+    // ],
+    items: itemsCart,
 
     back_urls: {
       success: "http://localhost:3000/checkoutApro",

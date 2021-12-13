@@ -32,7 +32,8 @@ export default function Footer() {
             </div>
             <div class="grid col-start-3 col-end-4 m-3">
                 <h4 class="font-semibold">Social media</h4>
-                <ul class="flex">
+                <ul class="flex flex-col">
+                    
                     <li class="m-3"><a href="https://www.facebook.com/"><img class="h-5" src="https://www.vectorlogo.zone/logos/facebook/facebook-tile.svg" alt="facebook-logo" /></a></li>
                     <li class="m-3"><a href="https://www.instagram.com/"><img class="h-5" src="https://www.vectorlogo.zone/logos/instagram/instagram-icon.svg" alt="instagram-logo" /></a></li>
                     <li class="m-3"><a href="https://www.linkedin.com/"><img class="h-5" src="https://www.vectorlogo.zone/logos/linkedin/linkedin-tile.svg" alt="linkedin-logo"/></a></li>
