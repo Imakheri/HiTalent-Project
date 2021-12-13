@@ -19,6 +19,7 @@ export default function Qas() {
   function handleOnSubmit(e, id) {
     e.preventDefault();
     dispatch(createAnswer(answer, id));
+    setAnswer("");
     console.log("Este es el id del input " + id);
   }
 
@@ -50,7 +51,7 @@ export default function Qas() {
                     >
                       <input
                         className="w-full rounded bg-semidark text-white placeholder-light pl-10 w-full"
-                        name="answer"
+                        name={answer}
                         value={answer}
                         onChange={(e) => handleChange(e)}
                         placeholder="Añade tu respuesta aquí..."
