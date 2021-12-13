@@ -203,7 +203,7 @@ conn.sync({ force: true }).then(() => {
 
     var testPostProfile3 = await Posts.create({
       title: "Clases de Cultivos",
-      description: "Les explicaré como hacer un correcto cultivo de vegetales",
+      description: "Les explicaré como hacer un correcto cultivo de vegetales y asi podras obtener las mejores frutas y verduras en tu propia casa",
       cost: 230,
       image: [
         "https://cdn.euroinnova.edu.es/img/subidasEditor/fotolia_104339124_subscription_xxl-1611919696.webp",

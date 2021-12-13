@@ -12,7 +12,7 @@ export default function Landing() {
 
     const [ventanaLogIn, setVentanaLogIn] = useState(false)
     const [ ventanaRegister, setVentanaRegister ] = useState(false)
-    
+
     function onModalClick(e){
         e.preventDefault()
         setVentanaLogIn(!ventanaLogIn)

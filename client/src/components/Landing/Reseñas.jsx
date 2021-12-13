@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import RESEÑAS from './MOCKUP';
 import Slider from "react-slick";
+import { useDispatch, useSelector } from "react-redux";
+import { getTalents } from "../../actions";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
 function Reseñas(){
 
-    let positivas = RESEÑAS.filter(e=> e.user.calificacion > 1)
+    // const rev = useSelector(state => state.index.talents)
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+       dispatch(getTalents()) 
+    }, [dispatch])
+    
+
+    let positivas = RESEÑAS.filter(e=> e.user.calificacion > 3)
 
     const settings = {
         dots: false,
@@ -23,17 +33,17 @@ function Reseñas(){
       };
 
       return (
-          <Slider {...settings}>
-                {positivas.map(el => (
-                    <div className="bg-semilight"> 
-                        <h1 className=" text-center text-dark text-3xl font-semibold py-6">-{el.user.username}</h1>
-                        <p className="text-center text-2xl font-light p-8">{el.user.reseña}</p>
-                    </div>
-                    )
-                )}
-          </Slider>
+        <Slider {...settings}>
+              {positivas.map(el => (
+                  <div className="bg-semilight"> 
+                      <h1 className=" text-center text-dark text-3xl font-semibold py-6">-{el.user.username}</h1>
+                      <p className="text-center text-2xl font-light p-8">{el.user.reseña}</p>
+                  </div>
+                  )
+              )}
+        </Slider>
 
-      );
+    );
     // return(
         // <div>
         //     {positivas.map(el => {

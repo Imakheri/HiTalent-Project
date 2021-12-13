@@ -31,12 +31,12 @@ export default function Profile() {
                   <Orders />
                 </section>
                 <section>
-                  <h2 className="text-2xl font-medium pl-4">Reseñas</h2>
-                  <Reviews />
-                </section>
-                <section>
                   <h2 className="text-2xl font-medium pl-4">Movimientos</h2>
                   <Movements />
+                </section>
+                <section>
+                  <h2 className="text-2xl font-medium pl-4">Reseñas</h2>
+                  <Reviews />
                 </section>
                 <section>
                   <h2 className="text-2xl font-medium pl-4">Preguntas</h2>
