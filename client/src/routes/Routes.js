@@ -51,7 +51,7 @@ export const Rout = () => {
         {/* <Route exact path="/NewPassword" element={<NewPassword />} /> */}
         <Route path="/createTalent" element={<TalentForm />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/profilePublic" element={<ProfilePublic />} />
+        <Route path="/profilePublic/:idVendedor" element={<ProfilePublic />} />
         <Route path="/user/confirm/:token" element={<Validate />} />
         <Route exact path="/register" element={<Register />} />
         <Route
@@ -72,7 +72,7 @@ export const Rout = () => {
         />
         <Route path="/talent/:id" element={<SeeMore />} />
         <Route path="/checkoutApro" element={<CheckoutMP />} />
-        <Route path="/messenger" element={<Messenger />} />
+        <Route path="/messenger/" element={<Messenger />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/about" element={<AboutUs />} />
