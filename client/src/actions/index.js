@@ -62,7 +62,7 @@ export function searchTalent(search) {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log('no se encontró el curso')
       });
   };
 }

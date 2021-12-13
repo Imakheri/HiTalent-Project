@@ -182,8 +182,10 @@ function TalentForm(){
                             required/> */}
                               
                             <label className='text-lg'>Zona horaria: </label>
-                            <select 
-                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3">
+                            <select onChange={handleOnChange} 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            required
+                            name="timeZone">
                                 <option name="timeZone">Selecciona una zona horaria:</option>
                                 <option value='GMT+1'>GMT+1</option>
                                 <option value='GMT-0'>GMT 0</option>
@@ -202,7 +204,7 @@ function TalentForm(){
                             name="language"  
                             required
                             >
-                                <option name="timeZone">Selecciona el idioma:</option>
+                                <option name="language">Selecciona el idioma:</option>
                                 <option value='Alemán'>Alemán 🇩🇪</option>
                                 <option value='Español'>Español 🇪🇸</option>
                                 <option value='Francés'>Francés 🇫🇷</option>
