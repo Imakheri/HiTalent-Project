@@ -118,6 +118,7 @@ export default function Home() {
                 description={talent.description}
                 image={talent.image}
                 cost={talent.cost}
+                rating={talent.rating}
                 />
                 );
               })

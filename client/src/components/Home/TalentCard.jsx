@@ -5,7 +5,7 @@ import { StarIcon } from '@chakra-ui/icons'
 import { useSelector } from "react-redux";
 
 
-export default function TalentCard({ title, username, description, image, cost, id, category }) {
+export default function TalentCard({ title, username, description, image, cost, id, category, rating }) {
     
   const property = useSelector(state => state.index.filteredTalents)
   
@@ -52,14 +52,16 @@ export default function TalentCard({ title, username, description, image, cost, 
           </Box>
   
           <Box display='flex' mt='2' alignItems='center'>
-            {Array(5)
-              .fill('')
-              .map((_, i) => (
-                <StarIcon
-                  key={i}
-                  color={i < property.rating ? 'teal.500' : 'gray.300'}
-                />
-              ))}
+          {
+            [...Array(5)]
+            .fill('')
+            .map((_, i) => (
+              <StarIcon
+                key={i}
+                color={i <= rating -1 ? "teal.500" : "gray.300"}
+              />
+            ))
+          }
             {/* <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               {property.reviewCount} reviews
             </Box> */}
