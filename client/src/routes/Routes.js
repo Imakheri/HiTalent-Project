@@ -5,7 +5,9 @@ import { firebase } from "../firebase/firebase-config";
 import { login } from "../actions/auth";
 // import { Private } from './Private';
 import Home from "../components/Home/Home";
-import Landing from "../components/Landing/Landing";
+// import Landing from "../components/Landing/Landing";
+import Land from "../components/Landing/Land";
+
 import Validate from "../components/Register/Validate";
 import Register from "../components/Register/Register";
 import TalentForm from "../components/Talents/TalentForm";
@@ -46,7 +48,7 @@ export const Rout = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/" element={<Land />} />
         <Route exact path="/ResetPassword" element={<ResetPassword />} />
         {/* <Route exact path="/NewPassword" element={<NewPassword />} /> */}
         <Route path="/createTalent" element={<TalentForm />} />
