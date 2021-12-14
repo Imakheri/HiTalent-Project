@@ -17,23 +17,19 @@ export const POST_QUESTION = "POST_QUESTION";
 export const GET_POST_QUESTION = "GET_POST_QUESTION";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const GET_POST_REVIEW = "GET_POST_REVIEW";
-export const FILTRO_CAT = 'FILTRO_CAT';
-export const TALENT_BY_RATING = 'TALENT_BY_RATING';
-export const POST_ORDER = 'POST_ORDER';
+export const FILTRO_CAT = "FILTRO_CAT";
+export const TALENT_BY_RATING = "TALENT_BY_RATING";
+export const POST_ORDER = "POST_ORDER";
+export const CARGANDO = "CARGANDO";
 
 export function getTalents() {
-  return function (dispatch) {
-    axios
-      .get("http://localhost:3001/post")
-      .then((talents) => {
-        dispatch({
-          type: GET_TALENT,
-          payload: talents.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  return async function (dispatch) {
+    dispatch({ type: CARGANDO });
+    var talents = await axios.get("http://localhost:3001/post");
+    return dispatch({
+      type: GET_TALENT,
+      payload: talents.data,
+    });
   };
 }
 
@@ -62,7 +58,7 @@ export function searchTalent(search) {
         });
       })
       .catch((error) => {
-        console.log('no se encontró el curso')
+        console.log("no se encontró el curso");
       });
   };
 }
@@ -277,7 +273,7 @@ export function getTalentByRating(rating) {
       console.log(error);
     }
   };
-};
+}
 
 // export function postOrder(payload) {
 //   console.log('action', payload)

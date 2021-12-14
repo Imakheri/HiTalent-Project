@@ -16,7 +16,8 @@ import {
   SORT_BY_PRICE,
   GET_POST_REVIEW,
   FILTRO_CAT,
-  TALENT_BY_RATING
+  TALENT_BY_RATING,
+  CARGANDO,
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -35,6 +36,7 @@ const initialState = {
   categories: [],
   questionsPost: [],
   ownerQuestion: "",
+  cargando: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -44,6 +46,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         talents: action.payload,
         filteredTalents: action.payload,
+        cargando: false,
       };
     case SEARCH_TALENT:
       return {
@@ -92,10 +95,10 @@ export default function rootReducer(state = initialState, action) {
         qa: action.payload,
       };
     case PUT_ANSWER:
-        return{
-            ...state,
-            qa: action.payload
-        }
+      return {
+        ...state,
+        qa: action.payload,
+      };
     case GET_CATEGORIES:
       return {
         ...state,
@@ -144,8 +147,10 @@ export default function rootReducer(state = initialState, action) {
     case TALENT_BY_RATING:
       return {
         ...state,
-        filteredTalents: action.payload
+        filteredTalents: action.payload,
       };
+    case CARGANDO:
+      return { ...state, cargando: true };
     default:
       return state;
   }

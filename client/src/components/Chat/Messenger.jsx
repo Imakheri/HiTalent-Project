@@ -1,6 +1,6 @@
 import React from "react";
 import "./messenger.css";
-import Nav from "../Home/Nav";
+import Nav from "../Profile/Nav";
 import Conversation from "./Conversation/Conversation";
 import Message from "./Message/Message";
 import ChatOnline from "./ChatOnline/ChatOnline";

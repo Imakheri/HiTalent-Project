@@ -11,6 +11,7 @@ import QyAanswer from "./Q&Aanswer";
 import Reviews from "./Reviews";
 import axios from "axios";
 import { addToCart } from "../../actions/shoppingActions";
+import Spinner from "../Spinner/Spinner";
 
 export default function SeeMore() {
   const toast = useToast();
@@ -25,20 +26,21 @@ export default function SeeMore() {
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-      let payload = {carrito: []}
+    let payload = { carrito: [] };
 
-      payload.carrito.push({
+    payload.carrito.push({
       user_id: user?.id,
       post_id: seemore.id,
       title: seemore.title,
-      price: seemore.cost
-    })
-      console.log('ordenes', payload)
-      axios.post("http://localhost:3001/orden", payload)
-      .then (res => console.log('res de seemore',res))
-      .catch (error => console.log('err de seemore',error))
+      price: seemore.cost,
+    });
+    console.log("ordenes", payload);
+    axios
+      .post("http://localhost:3001/orden", payload)
+      .then((res) => console.log("res de seemore", res))
+      .catch((error) => console.log("err de seemore", error));
 
-    console.log('mercadopago',mercadopago);
+    console.log("mercadopago", mercadopago);
     e.preventDefault();
     let response = await axios.post(
       "http://localhost:3001/checkout/mercadopago/",
@@ -108,15 +110,15 @@ export default function SeeMore() {
 
             <Box>
               <Box as="span" color="gray.600 fontSize=-sm">
-                Idioma: 
-                </Box>
+                Idioma:
+              </Box>
               {seemore?.language}
             </Box>
 
             <Box>
               <Box as="span" color="gray.600 fontSize=-sm">
-                Huso horario: 
-                </Box>
+                Huso horario:
+              </Box>
               {seemore?.timeZone}
             </Box>
 
@@ -157,7 +159,7 @@ export default function SeeMore() {
           </Box>
         </Box>
       ) : (
-        <p>Cargando</p>
+        <Spinner />
       )}
       <Footer />
     </div>
