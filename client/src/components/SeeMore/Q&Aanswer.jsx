@@ -10,7 +10,7 @@ export default function QyAanswer() {
 
   useEffect(() => {
     dispatch(getPostQuestion(qya.id));
-  }, [dispatch, qya.id]);
+  }, [dispatch]);
 
   return (
     <div class="h-1/4 m-3">

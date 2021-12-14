@@ -19,7 +19,8 @@ function TalentForm(){
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch])
-    
+
+    const [previewSource,setPreviewSource]=useState()
     const [file, setFile]=useState(null)
     const [form, setForm] = useState({
         title: "",
@@ -39,6 +40,7 @@ function TalentForm(){
         if(e.target.name === "image"){
             console.log("IMAGEN",e.target.value)
             setFile(e.target.files[0])
+            previewFile(e.target.files[0])
         }
         else{
             setForm({
@@ -66,6 +68,14 @@ function TalentForm(){
         e.preventDefault();
         setVentanaModal(!ventanaModal)
     }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
+    
+    }
     
     function onSubmitForm(e){
         e.preventDefault()
@@ -86,6 +96,7 @@ function TalentForm(){
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))
         .catch(err => console.log(err));
+            setPreviewSource(null)
           alert("Curso creado satisfactoriamente")
           navigate("/home");
     }
@@ -117,6 +128,7 @@ function TalentForm(){
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
+                            {!previewSource ? console.log('no hay imagen') : previewSource&&<img src={previewSource} className='flex justify-center rounded'/>}
                         </div>
                     <div>
                         <div className='flex flex-col space-y-2'>
@@ -242,7 +254,7 @@ function TalentForm(){
                             </div>
                             <div className='flex flex-col bg-semilight'>
                                 <div className="flex justify-center h-2/3 bg-semilight">
-                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-2/5 rounded border-2 border-white">
+                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-3/6 rounded border-2 border-white">
                                         <div>
                                             <label className='mr-4 text-2xl'>Titulo: </label>
                                             <input 

@@ -65,7 +65,7 @@ export default function Reviews() {
 
   return (
     <div class="m-3">
-      <h3 class="text-xl font-semibold">Reviews del talento</h3> <hr />
+      <h3 class="text-xl font-semibold">Reviews del talento</h3> 
       {review?.reviews?.length > 0 ? (
         <Box display="flex" mt="2" alignItems="center">
           {[...Array(5)].fill("").map((_, i) => (
@@ -83,6 +83,24 @@ export default function Reviews() {
               review?.reviews?.map((e) => (
                 <div class="bg-light mb-2 rounded-md">{e?.description}</div>
               ))
+          <Box as="span" ml="2" color="gray.600" fontSize="sm">
+            {review?.reviews ? (
+              review?.reviews?.map((e) => <div class="bg-light mb-2 rounded-md"> 
+              <div>
+              {
+              [...Array(5)]
+              .fill('')
+              .map((_, i) => (
+                 <StarIcon
+                   key={i}
+                   color={i <= (e.qualification)-1 ? "teal.500" : "gray.300"
+                   }
+                 />
+               )) 
+               }
+              </div>
+               {e?.description}
+               </div>)
             ) : (
               <span>No han dejado ningún comentario</span>
             )}
@@ -121,6 +139,8 @@ export default function Reviews() {
       ) : (
         <br />
       )}
+      <hr />
     </div>
+    
   );
 }

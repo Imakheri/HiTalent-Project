@@ -3,17 +3,17 @@ import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux";
 import Nav from "../Home/Nav";
 import Footer from "../Landing/Footer";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { Button, useToast } from "@chakra-ui/react";
-import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions'
-import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
+import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions';
+import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 
 export default function ShoppingCart() {
 const cart = useSelector(state => state.cart)
 const user = useSelector(state => state.index.user)
-const reducer = (a, b) => a + b;
-let mercadopago = cart.cart.length > 0 ? { title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost * e.quantity))).reduce(reducer) } : 'Algo fallo en el carrito, reintente luego.';
+// const reducer = (a, b) => a + b;
+// let mercadopago = cart.cart.length > 0 ? [{ title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost))), quantity: 1 }] : 'Algo fallo en el carrito, reintente luego.';
 const dispatch = useDispatch()
 const toast = useToast()
 let total = 0 // Voy a ir sumando los totales para mostrar en el carrito
@@ -22,23 +22,35 @@ cart?.cart?.map((item) => total += (item?.quantity * item?.cost)) // Asigno los 
 async function handleCheckOut(e) {
     e.preventDefault();
     let payload = {carrito: []}
+    let payloadMp = {items: []}
+    cart?.cart?.length > 0 ? (cart?.cart?.map((e) => payloadMp.items.push({
+        title: e.title,
+        unit_price: e.cost,
+        quantity: e.quantity}))) : console.log('mercadopago')
     
-    cart.cart.length > 0 ? (cart.cart.map((e) => payload.carrito.push({
+    cart?.cart?.length > 0 ? (cart?.cart?.map((e) => payload.carrito.push({
         user_id: user?.id,
         post_id: e.id,
         title: e.title,
         price: e.cost
-    }))) : (alert("Llena el carrito antes de comprar"))
-        
+    }))) : toast({
+        title: 'Debes agregar algo para comprar',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+                //Enviar el carrito\\
         axios.post("http://localhost:3001/orden", payload)
         .then (res => console.log(res))
         .catch (error => console.log(error))
         // dispatch(postOrder(payload))
         console.log('order payload', payload)
-        console.log("MP carrito",mercadopago);
+        console.log("MP carrito",payloadMp);
+
+                //Enviar a MercadoPago\\
         let response = await axios.post(
             "http://localhost:3001/checkout/mercadopago/",
-            mercadopago
+            {payloadMp}
           );
           console.log(response);
           window.location.href = response.data.init_points;
@@ -85,7 +97,9 @@ async function handleCheckOut(e) {
                     <Td>{e.quantity}</Td>
                     <Td isNumeric>${e.cost}</Td>
                     <Td isNumeric>${e.quantity * e.cost}</Td>
+                    <Td>
                     <Button class="w-5 rounded-full bg-red text-white font-semibold" onClick={onClick} value={e.id}>X</Button>
+                    </Td>
                     </Tr>
                     )) 
                     : 
