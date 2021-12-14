@@ -42,7 +42,7 @@ export function getTalentById(id) {
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log("error getTalentById");
     }
   };
 }
