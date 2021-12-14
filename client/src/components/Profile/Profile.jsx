@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Orders from './Orders/Orders';
 import User from './User';
 import Reviews from './Reviews/Reviews';
@@ -6,14 +6,26 @@ import Movements from './Movements/Movements';
 import Qas from './QandA/QAs';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Nav from '../Profile/Nav';
 import Image from './Image';
+import { useParams } from 'react-router-dom';
+import { getUserbyId } from '../../actions';
 
 
 export default function Profile(){
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
     const [modal, setModal] = useState(false);
     const user = useSelector((state) => state.index.user)
     console.log("user: ", user)
+
+    useEffect(() => {
+        dispatch(getUserbyId(id));
+        console.log('Estoy dentro del useEffect de Profile')
+    },[modal])
+
     return(
         <section className='flex flex-col w-full h-screen bg-semilight'>
             <Nav/>

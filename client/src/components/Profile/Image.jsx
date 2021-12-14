@@ -28,7 +28,7 @@ export default function Image({modal, isModal}){
         .catch(err => console.log(err));
         dispatch(getUserbyId(id));
         setPreviewSource(null)
-        isModal(modal);
+        isModal(!modal);
     }
 
     function previewFile(file) {
