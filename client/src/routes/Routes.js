@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { firebase } from "../firebase/firebase-config";
-import { login } from "../actions/auth";
 // import { Private } from './Private';
 import Home from "../components/Home/Home";
 import Landing from "../components/Landing/Landing";
@@ -22,26 +18,6 @@ import Messenger from "../components/Chat/Messenger";
 import AboutUs from "../components/AboutUs/AboutUs";
 
 export const Rout = () => {
-  const dispatch = useDispatch();
-  const [checking, setChecking] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user?.uid) {
-        dispatch(login(user.uid, user.displayName));
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-      setChecking(false);
-    });
-  }, [dispatch, checking, isLoggedIn]);
-
-  // No se para que es esto
-  //   if (checking) {
-  //     return <h3>Cargando...</h3>;
-  //   }
 
   return (
     <BrowserRouter>

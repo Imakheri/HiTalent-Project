@@ -11,6 +11,7 @@ import { SortByPrice } from "../Sort/SortByPrice";
 import { Link } from "react-router-dom";
 import { filteredCat } from "../../actions";
 import { SortByQuali } from "../Sort/SortByQuali";
+import { auth, firebase } from "../../firebase/firebase-config";
 
 
 export default function Home() {
@@ -42,6 +43,18 @@ export default function Home() {
     e.preventDefault();
     dispatch(filteredCat(e.target.value));
   };
+
+  const userx = firebase.auth().currentUser;
+  console.log("USUARIO: ",userx)
+
+  //todo ESTA ES LA PERSISTENCIA DE DATOS
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(() => {
+    console.log("funciona persistencia?")
+  })
+  .catch((error) => {
+    console.log("error en la persistencia: Home-52 ", error)
+  });
 
 
   return (

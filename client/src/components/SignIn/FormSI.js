@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import { useDispatch } from "react-redux";
-import { startFacebookAuth, startGoogleAuth } from '../../actions/auth';
 import axios from 'axios';
 import { cargarUsuario } from '../../actions/index';
 import {useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase-config";
+import Login from "../FirebaseButtons/Login";
+
 
 function Form({ onModalClick, onModalChange }){
 
@@ -49,13 +51,7 @@ function handleOnChange(e) {
 
   const [modalIsOpen, setIsOpen] = useState(true);
 
-  const handleGoogleAuth = () => {
-    dispatch(startGoogleAuth());
-  };
 
-  const handleFacebookAuth = () => {
-    dispatch(startFacebookAuth());
-  };
 
     async function handleOnSubmit(e){
         e.preventDefault();     
@@ -71,6 +67,7 @@ function handleOnChange(e) {
             case "Usuario incorrecto":
                 return(alert("Usuario incorrecto"))
             default:
+                auth.signInWithEmailAndPassword(respuesta.email, userLogin.password)
                 dispatch(cargarUsuario(respuesta))
                 setIsOpen(false)
                 navigate("/home");
@@ -117,15 +114,12 @@ function handleOnChange(e) {
                         <input className='ml-2' onChange={handleSession} value="" type="checkbox"/>
                         <Link to="/user/emailresetpassword" className="ml-14">Olvide mi contraseña</Link>
                     </div>
+                    <Login />
                     <div className='flex'>
                         <button className='btn-custom btn-colors mb-2 mr-2'>Ingresar</button>
                         <button onClick={onModalClick} className="btn-custom btn-colors ml-2">Cancelar</button>
                     </div>
                 </form>
-                <div className='flex flex-col space-y-4'>
-                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-7 mr-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
-                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
-                </div>
                 <div className='flex justify-center content-center items-center m-4'>
                     <p className='text-sm mr-2'>¿No tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>¡Registrate ahora!</button>
                 </div>

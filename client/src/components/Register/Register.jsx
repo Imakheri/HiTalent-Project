@@ -1,16 +1,12 @@
 import React from 'react';
+import { auth } from '../../firebase/firebase-config';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
 import ReactModal from 'react-modal';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
 import axios from 'axios';
-
 export default function Register({ onModaleClick, onModalChange }) {
 
-const dispatch = useDispatch();
 
 const [modalIsOpen, setIsOpen] = useState(true);
 const [state, setState] = useState({
@@ -65,6 +61,7 @@ function createPass(){
             birthdate: ''
         })
         setIsOpen(false)
+
     }
 }
 
@@ -78,18 +75,23 @@ function passCheck(a, b){
     alert("Las contraseñas no coinciden")
 }
 
+// function handleOnSubmit(e){
+//     e.preventDefault();
+//     passCheck(input.password, input.password2)
+// }
+
 function handleOnSubmit(e){
+    //todo REGISTRO QUE CREA TAMBIEN EN FIREBASE
     e.preventDefault();
-    passCheck(input.password, input.password2)
+    auth.createUserWithEmailAndPassword(input.email, input.password)
+      .then(() => {
+        passCheck(input.password, input.password2)
+      })
+      .catch((error) => {
+        console.log("ERROR: ", error)
+      });
 }
 
-const handleGoogleAuth = () => {
-    dispatch(startGoogleAuth());
-}
-
-const handleFacebookAuth = () => {
-    dispatch(startFacebookAuth());
-}
 
 
     return(
@@ -119,12 +121,8 @@ const handleFacebookAuth = () => {
                         </div>
                 <div className='flex justify-center m-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
-                </div>      
+                </div>    
                     </form>
-                <div className=''>
-                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
-                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
-                </div>  
                 <div className='flex justify-center content-center items-center m-4'>
                     <p className='text-sm mr-2'>¿Ya tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>Iniciar sesión</button>
                 </div>

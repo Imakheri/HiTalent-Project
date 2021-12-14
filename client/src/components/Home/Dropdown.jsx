@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from '../../assets/profile_default.png'
 import { cargarUsuario,getUserbyId } from "../../actions";
+import { auth } from "../../firebase/firebase-config";
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
@@ -20,6 +21,10 @@ export default function Dropdown() {
   const logOut = (e) => {
   e.preventDefault();
   dispatch(cargarUsuario([]))
+  auth.signOut()
+  .then(()=>{
+    alert("Usuario deslogueado")
+  })
   }     
   useEffect(()=>{
     getImage()
