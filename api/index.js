@@ -106,7 +106,8 @@ conn.sync({ force: true }).then(() => {
       email: "franco.benitez@gmail.com",
       country: "Bolivia",
       aprobado:true,
-      email_verified:true
+      email_verified:true,
+      resume: 'Músico profesional, a cargo de la academia de talentos de buenos aires, tutor y coaching personalizado.'
     });
     var testuser3 = await Users.create({
       //usuario test 3
@@ -129,7 +130,8 @@ conn.sync({ force: true }).then(() => {
       email: "agus1gonzalez@gmail.com",
       country: "Brasil",
       aprobado:true,
-      email_verified:true
+      email_verified:true,
+      resume: 'Técnica agrónoma, Lic. en Comunicaciones. Si te interesa mi curso de Botánica no dudes en comprarlo y comenzar con tu propia huerta en casa'
     });
     var testUserProfile = await Users.create({
       //usuario test 3
@@ -141,7 +143,8 @@ conn.sync({ force: true }).then(() => {
       email: "santi_alvarez@gmail.com",
       country: "Argentina",
       aprobado:true,
-      email_verified:true
+      email_verified:true,
+      resume: 'Fullstack developer egresado de Henry, apasionado de la innnovación tecnológica. También incursiono en técnicas de relajación y autocontrol...ya viste mi nuevo curso de Yoga?.'
     });
     var userToDelete = await Users.create({
       //test delete
@@ -164,7 +167,8 @@ conn.sync({ force: true }).then(() => {
       email: "ricky123@gmail.com",
       country: "Argentina",
       aprobado:true,
-      email_verified:true
+      email_verified:true,
+      resume: 'Profesional de la construcción, egresado de la UDC (universidad del constructor), cuento con más de 10 años de experiencia comprobable en el rubro.'
     });
 
 

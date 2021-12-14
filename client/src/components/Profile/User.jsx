@@ -6,6 +6,8 @@ import { getUserbyId } from '../../actions';
 import defaultImage from '../../assets/profile_default.png'
 import {useState} from "react"
 import axios from "axios"
+//import { Box, Image, Button } from '@chakra-ui/react';
+
 
 export default function Profile(){
     const { id } = useParams();
@@ -15,6 +17,7 @@ export default function Profile(){
     const[file,setFile]=useState(null)
     const [previewSource,setPreviewSource]=useState()
     const [flag,setFlag]=useState(false)
+    //const [resumen, setResumen]= useState('');
 
     useEffect(() => {
         dispatch(getUserbyId(id));
@@ -55,6 +58,13 @@ export default function Profile(){
         setFile(e.target.files[0])
         previewFile(e.target.files[0])
     }
+    // function handleOnChange(e){
+    //    setResumen(e.target.value)
+    // }
+    // function onSubmit(e){
+    //     e.preventDefault();
+    //     setResumen(e.target.value)
+    // }
     return(
         <div>
         {!user ? (<h2>Cargando...</h2>) : (
@@ -81,14 +91,41 @@ export default function Profile(){
                     </ div>
                 </div>
             </div> */}
-            <div>
-                <p>Usuario desde: {user.createdAt}</p>
-            </div>
+            {/* <div>
+                <p className='font-medium'>Usuario desde:</p>
+                <p> {user.createdAt.slice(0, 10)}</p>
+            </div> */}
             <div className='flex flex-col justify-start space-y-6'>
+
+            {/* <Box overflowY='scroll' maxH="100px">
+            <label class="text-lg" >Sobre mi: {user.resume}</label>
+                            <textarea 
+                                onChange={handleOnChange} 
+                                className="resize-none overflow-y-auto justify-self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 text-center p-8"  
+                                name="description" 
+                                rows="11" cols="25"  
+                                //placeholder=" Sobre mi..." 
+                                required
+                                />
+                                <div>
+                                <button onSubmit={(e) => onSubmit(e)}className="btn-primary btn-colors"> Agregar </button>
+                                </div>
+             </Box> */}
+
+             <div>
+                <p className='font-medium'>Usuario desde:</p>
+                <p> {user.createdAt.slice(0, 10)}</p>
+            </div>
+
+                <div>
+                    <p className='font-medium'>Sobre mi: </p>
+                    <p>{user.resume}</p>
+                </div>
+
                 <div>
                     <p>{user.country}</p>
                 </div>
-                <div>
+                {/* <div>
                     <p>{user.id}</p>
                 </div>
                 <div>
@@ -100,12 +137,13 @@ export default function Profile(){
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/card.png'/></button>
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='Paypal logo' src='https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg'/></button>
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='MercadoPago logo' src='http://codes.unidepix.com/img/mercadopago.png'/></button>    
-                </div>
-                    <h5 className='font-medium'>Redes sociales:</h5>
+                </div> */}
+                    <h5 className='font-medium'>Redes sociales</h5>
                 <div>
                     <button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>
                     {/* {!user.social ? '' : (<button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>)} */}
                     <button><img className='w-7 h-7 mr-2' alt='Google logo' src='http://codes.unidepix.com/img/google.svg'/></button>
+                    
                 </div>
             </div>
         </div>

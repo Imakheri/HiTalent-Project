@@ -51,11 +51,11 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT, // ojo aca ver esto
       allowNull: true,
     },
-    score: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 0,
-    },
+    // score: {
+    //   type: DataTypes.FLOAT,
+    //   allowNull: true,
+    //   defaultValue: 0,
+    // },
     country: {
       type: DataTypes.STRING,
     },
@@ -69,6 +69,10 @@ module.exports = (sequelize) => {
       type:DataTypes.BOOLEAN,
       defaultValue:false,
       allowNull:true
-    }
+    },
+    resume: {
+      type: DataTypes.TEXT, 
+      allowNull: true,
+    },
   });
 };
