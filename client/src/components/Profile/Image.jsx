@@ -31,10 +31,13 @@ export default function Image({modal, isModal}){
         isModal(!modal);
     }
 
-    function previewFile(file) {
+    function  previewFile(file) {
         const reader=new FileReader()
         reader.readAsDataURL(file)
-        setPreviewSource(reader.result)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
+    
     }
 
     function  handleFile(e) {

@@ -21,6 +21,7 @@ function TalentForm(){
     }, [dispatch])
     
     const [file, setFile]=useState(null)
+    const [previewSource,setPreviewSource]=useState()
     const [form, setForm] = useState({
         title: "",
         description: "",
@@ -39,6 +40,7 @@ function TalentForm(){
         if(e.target.name === "image"){
             console.log("IMAGEN",e.target.value)
             setFile(e.target.files[0])
+            previewFile(e.target.files[0])
         }
         else{
             setForm({
@@ -89,7 +91,15 @@ function TalentForm(){
           alert("Curso creado satisfactoriamente")
           navigate("/home");
     }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
     
+    }
+
     return(
         <div className='box-border w-full h-screen'>
             <Nav/>
@@ -117,6 +127,7 @@ function TalentForm(){
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
+                            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
                         </div>
                     <div>
                         <div className='flex flex-col space-y-2'>
@@ -176,7 +187,7 @@ function TalentForm(){
                             placeholder="Horas"
                             required
                             />
-                            <select className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            {/* <select className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange}
                             name='timeZone'
                             required/>
@@ -218,7 +229,7 @@ function TalentForm(){
                                 name="cost"  
                                 placeholder="Dólares"
                                 required
-                                />
+                                /> */}
                         </div>
                         <div className='flex flex-row items-center justify-center space-x-4 my-8'>
                             <button className="btn-primary btn-colors"> Revisar </button>
@@ -262,6 +273,7 @@ function TalentForm(){
                                                 placeholder="Ingrese la descripcion del curso" 
                                                 />  
                                         </div>
+                                        {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
                                         <div>
                                             <label className='mr-4 text-xl'>Categoria: </label>
                                             <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
@@ -293,7 +305,7 @@ function TalentForm(){
                                                 placeholder="Duracion | Horas"
                                                 />
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <label className='mr-4 text-2xl'>Precio: </label>
                                             <input 
                                                 className='bg-dark'
@@ -323,7 +335,7 @@ function TalentForm(){
                                                 name="language"  
                                                 value={form.language}
                                                 />
-                                        </div>
+                                        </div> */}
                                 <div className='bg-dark flex flex-row justify-center items-center'>
                                     <button type='submit' className='btn-primary btn-colors mx-2'>Crear curso</button>
                                     <Link to="/home">
