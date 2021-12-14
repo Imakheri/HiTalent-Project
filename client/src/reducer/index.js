@@ -18,6 +18,7 @@ import {
   FILTRO_CAT,
   TALENT_BY_RATING,
   CARGANDO,
+  REFRESH,
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -108,6 +109,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         questionsPost: action.payload,
+        cargando: false,
       };
     case POST_QUESTION:
       return {
@@ -150,6 +152,8 @@ export default function rootReducer(state = initialState, action) {
         filteredTalents: action.payload,
       };
     case CARGANDO:
+      return { ...state, cargando: true };
+    case REFRESH:
       return { ...state, cargando: true };
     default:
       return state;

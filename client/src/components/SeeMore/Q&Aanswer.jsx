@@ -7,10 +7,11 @@ export default function QyAanswer() {
   const dispatch = useDispatch();
   const qya = useSelector((state) => state.index.moreTalent);
   const questionsPost = useSelector((state) => state.index.questionsPost);
+  const cargando = useSelector((state) => state.index.cargando);
 
   useEffect(() => {
     dispatch(getPostQuestion(qya.id));
-  }, [dispatch]);
+  }, [cargando, dispatch]);
 
   return (
     <div class="h-1/4 m-3">
@@ -29,7 +30,6 @@ export default function QyAanswer() {
               </div>
             </>
           ))
-
         ) : (
           <span class="text-gray-400">Aún no hay preguntas</span>
         )}
