@@ -128,7 +128,7 @@ function TalentForm(){
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
-                            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
+                            {!previewSource ? console.log('no hay imagen') : previewSource&&<img src={previewSource} className='flex justify-center rounded'/>}
                         </div>
                     <div>
                         <div className='flex flex-col space-y-2'>
@@ -254,7 +254,7 @@ function TalentForm(){
                             </div>
                             <div className='flex flex-col bg-semilight'>
                                 <div className="flex justify-center h-2/3 bg-semilight">
-                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-2/5 rounded border-2 border-white">
+                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-3/6 rounded border-2 border-white">
                                         <div>
                                             <label className='mr-4 text-2xl'>Titulo: </label>
                                             <input 
