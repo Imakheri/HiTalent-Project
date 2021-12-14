@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Orders from './Orders/Orders';
 import User from './User';
 import Reviews from './Reviews/Reviews';
@@ -7,10 +7,11 @@ import Qas from './QandA/QAs';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import Nav from '../Profile/Nav';
+import Image from './Image';
 
 
 export default function Profile(){
-
+    const [modal, setModal] = useState(false);
     const user = useSelector((state) => state.index.user)
     console.log("user: ", user)
     return(
@@ -22,9 +23,10 @@ export default function Profile(){
             <div className='flex flex-row'>
             <div className='w-96 mx-6 mt-6'>
                 <sidebar className='w-1/4'>
-                    <User />
+                    <User modal={setModal} />
                 </sidebar>
             </div>
+            <Image modal={modal} isModal={setModal}/>
             <div className='flex flex-col mt-6 mx-6 w-3/6 space-y-4'>
                 <section className='space-y-4'>
                     <section>
