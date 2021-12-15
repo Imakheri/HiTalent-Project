@@ -5,18 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { PROXY, publicProfile } from "../../actions";
 import Nav from "../Profile/Nav";
-import Footer from '../Landing/Footer'
+import Footer from "../Landing/Footer";
 import Chat from "./Chat";
 import defaultImage from '../../assets/profile_default.png'
 import { StarIcon } from "@chakra-ui/icons";
+
 export default function ProfilePublic() {
   const id = useParams();
   // const user = useSelector((state) => state.index.user);
   // const orders = useSelector((state) => state.index.profile);
-  const sellerProfile = useSelector((state) => state.index.public_profile)
+  const sellerProfile = useSelector((state) => state.index.public_profile);
   // let navigate = useNavigate();
   // const [order, setOrder] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // console.log(sellerProfile)
 
   // let body = {
@@ -25,9 +26,9 @@ export default function ProfilePublic() {
   // };
 
   useEffect(() => {
-    dispatch(publicProfile(id.idVendedor))
+    dispatch(publicProfile(id.idVendedor));
     // console.log('id user effect',id.idVendedor)
-  }, [ dispatch, id.idVendedor ])
+  }, [dispatch, id.idVendedor]);
 
   // async function onClick(e) {
   //   e.preventDefault();
