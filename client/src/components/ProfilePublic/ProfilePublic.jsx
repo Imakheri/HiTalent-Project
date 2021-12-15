@@ -14,7 +14,7 @@ export default function ProfilePublic() {
   const id = useParams();
   // const user = useSelector((state) => state.index.user);
   // const orders = useSelector((state) => state.index.profile);
-  const sellerProfile = useSelector((state) => state.index.public_profile)
+  const sellerProfile = useSelector((state) => state?.index.public_profile)
   // let navigate = useNavigate();
   // const [order, setOrder] = useState([]);
   const dispatch = useDispatch()
@@ -59,7 +59,7 @@ export default function ProfilePublic() {
       <Nav/>
       <div class="flex flex-col min-h-screen p-2 bg-semilight">
         <div class="flex flex-col items-center">
-            <img class="rounded-full w-64" src={sellerProfile?.image? sellerProfile?.image : defaultImage} alt="" />
+            <img class="rounded-full h-64 w-64 object-cover" src={sellerProfile?.image ? sellerProfile?.image : defaultImage} alt="" />
         </div>
             <div class="bg-dark p-2 rounded-md mt-5 mb-5">
               <h3 class="font-semibold text-xl text-white">Datos personales</h3>
@@ -67,7 +67,7 @@ export default function ProfilePublic() {
                   <h3 class="">Nombre completo: {sellerProfile?.fullName}</h3>
                   <h4 class="">Username: {sellerProfile?.username}</h4>
                   <h4>Email: {sellerProfile?.email}</h4>
-                  <h4>Pais: {sellerProfile.country}</h4>
+                  <h4>Pais: {sellerProfile?.country}</h4>
                 </div>
             </div>
             <div class="bg-dark p-2 rounded-md mt-5 mb-5">
@@ -77,10 +77,10 @@ export default function ProfilePublic() {
             <div class="bg-dark p-2 rounded-md mt-5 mb-5"> 
               <h3 class="font-semibold text-xl text-white">Publicaciones</h3>
               
-              {sellerProfile.posts.map((item) =>  
+              {sellerProfile?.posts?.map((item) =>  
                 <div class="bg-light rounded-md mb-2 mt-2 p-2">
-                  <h4 class="font-semibold text-dark">{item.title}</h4>
-                  <p>{item.description}</p> 
+                  <h4 class="font-semibold text-dark">{item?.title}</h4>
+                  <p>{item?.description}</p> 
                 </div>
               )}
 
