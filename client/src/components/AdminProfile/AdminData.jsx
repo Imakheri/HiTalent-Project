@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BotonOptions from "./BotonOptions";
 import { PROXY } from '../../actions/index'
+import { Alert, AlertIcon, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+
+
 function AdminData({ pestaña, data, setData }) {
   let [put, setPut] = useState(false);
 
@@ -47,93 +50,105 @@ function AdminData({ pestaña, data, setData }) {
       {
         //Caso de que sea la pestaña usuarios
         pestaña === "user" ? (
-          <table>
-            <tr>
-              <th>FullName</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Verificado</th>
-              <th>Estado</th>
-              <th>Opciones</th>
-            </tr>
-            {data[`${pestaña}`].map((el) => {
-              return (
-                <tr key={el.id} className="bg-dark border w-max">
-                  <td>{el.fullName}</td>
-                  <td>{el.username}</td>
-                  <td>{el.email}</td>
-                  {el.email_verified ? <td>Si</td> : <td>No</td>}
-                  {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
-                  <td>
-                    <BotonOptions
-                      estado={el.aprobado}
-                      value={el.id}
-                      botonClick={botonClick}
-                      funcionBorrar={funcionBorrar}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </table>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>FullName</Th>
+                <Th>Username</Th>
+                <Th>Email</Th>
+                <Th>Verificado</Th>
+                <Th>Estado</Th>
+                <Th>Opciones</Th>
+              </Tr>
+            </Thead>
+              {data[`${pestaña}`].map((el) => {
+                return (
+                  <Tbody>
+                    <Tr key={el.id} className="bg-semilight border w-max">
+                      <Td>{el.fullName}</Td>
+                      <Td>{el.username}</Td>
+                      <Td>{el.email}</Td>
+                      {el.email_verified ? <Td>Si</Td> : <Td>No</Td>}
+                      {el.aprobado ? <Td>Aprobado</Td> : <Td>Pendiente</Td>}
+                      <Td>
+                        <BotonOptions
+                          estado={el.aprobado}
+                          value={el.id}
+                          botonClick={botonClick}
+                          funcionBorrar={funcionBorrar}
+                        />
+                      </Td>
+                    </Tr>
+                  </Tbody>
+                );
+              })}
+          </Table>
         ) : //Caso de que sea la pestaña Post
         pestaña === "post" ? (
-          <table>
-            <tr>
-              <th>Titulo</th>
-              <th>Docente</th>
-              <th>Costo</th>
-              <th>Puntaje</th>
-              <th>Estado</th>
-              <th>Opciones</th>
-            </tr>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Titulo</Th>
+                <Th>Docente</Th>
+                <Th>Costo</Th>
+                <Th>Puntaje</Th>
+                <Th>Estado</Th>
+                <Th>Opciones</Th>
+              </Tr>
+            </Thead>
             {data[`${pestaña}`].map((el) => {
               return (
-                <tr key={el.id} className="bg-semidark border w-max">
-                  <td>{el.title}</td>
-                  <td>{el[`user.username`]}</td>
-                  <td>{el.cost}</td>
-                  <td>{el.rating}</td>
-                  {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
-                  <td>
-                    <BotonOptions
-                      value={el.id}
-                      botonClick={botonClick}
-                      funcionBorrar={funcionBorrar}
-                    />
-                  </td>
-                </tr>
+                <Tbody>
+                  <Tr key={el.id} className="bg-semilight border w-max">
+                    <Td>{el.title}</Td>
+                    <Td>{el[`user.username`]}</Td>
+                    <Td>{el.cost}</Td>
+                    <Td>{el.rating}</Td>
+                    {el.aprobado ? <Td>Aprobado</Td> : <Td>Pendiente</Td>}
+                    <Td>
+                      <BotonOptions
+                        value={el.id}
+                        botonClick={botonClick}
+                        funcionBorrar={funcionBorrar}
+                      />
+                    </Td>
+                  </Tr>
+                </Tbody>
               );
             })}
-          </table>
+          </Table>
         ) : (
           //Caso de que sea la pestaña Review
-          <table>
-            <tr>
-              <th>Usuario</th>
-              <th>Calificacion</th>
-              <th>Reseña</th>
-              <th>Estado</th>
-              <th>Opciones</th>
-            </tr>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Usuario</Th>
+                <Th>Calificacion</Th>
+                <Th>Reseña</Th>
+                <Th>Estado</Th>
+                <Th>Opciones</Th>
+              </Tr>
+            </Thead>
             {data[`${pestaña}`].map((el) => {
               return (
-                <tr key={el.id} className="bg-semilight border w-max">
-                  <td>{el[`user.username`]}</td>
-                  <td>{el.qualification}</td>
-                  <td>{el.description}</td>
-                  {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
-                  <td>
-                    <BotonOptions
-                      value={el.id}
-                      botonClick={botonClick}
-                      funcionBorrar={funcionBorrar}
-                    />
-                  </td>
-                </tr>
+                <Tbody>
+                  <Tr key={el.id} className="bg-semilight border w-max">
+                    <Td>{el[`user.username`]}</Td>
+                    <Td>{el.qualification}</Td>
+                    <Td>{el.description}</Td>
+                    {el.aprobado ? <Td>Aprobado</Td> : <Td>Pendiente</Td>}
+                    <Td>
+                      <BotonOptions
+                        value={el.id}
+                        botonClick={botonClick}
+                        funcionBorrar={funcionBorrar}
+                      />
+                    </Td>
+                  </Tr>
+                </Tbody>
               );
             })}
-          </table>
+          </Table>
         )
       }
     </div>
