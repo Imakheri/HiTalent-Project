@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BotonOptions from "./BotonOptions";
-
+import { PROXY } from '../../actions/index'
 function AdminData({ pestaña, data, setData }) {
   let [put, setPut] = useState(false);
 
