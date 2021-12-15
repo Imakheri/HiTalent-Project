@@ -2,6 +2,7 @@ import React from "react";
 import "./conversation.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { PROXY } from "../../../actions";
 
 export default function Conversation({ conversation, currentUser }) {
   console.log(conversation, currentUser);
@@ -12,7 +13,7 @@ export default function Conversation({ conversation, currentUser }) {
     console.log(friendId);
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/user/" + friendId);
+        const res = await axios.get(`${PROXY}/user/` + friendId);
         setUser(res.data);
       } catch (error) {
         console.log(error);

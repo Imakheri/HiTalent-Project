@@ -6,6 +6,7 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react'
+import { PROXY } from '../../actions';
 
 export default function Chat() {
   const id  = useParams()
@@ -23,7 +24,7 @@ export default function Chat() {
     async function onClick(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3001/conversation", body);
+      const res = await axios.post(`${PROXY}/conversation`, body);
       console.log(res.data);
       navigate("/messenger");
     } catch (error) {

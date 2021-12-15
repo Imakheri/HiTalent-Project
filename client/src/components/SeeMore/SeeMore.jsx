@@ -53,14 +53,14 @@ export default function SeeMore() {
 
     console.log("ordenes", payloadMp);
     axios
-      .post("http://localhost:3001/orden", { payloadMp })
+      .post(`${PROXY}/orden`, { payloadMp })
       .then((res) => console.log("res de seemore", res))
       .catch((error) => console.log("err de seemore", error));
 
     console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
-      "http://localhost:3001/checkout/mercadopago/",
+      `${PROXY}/checkout/mercadopago/`,
       { payloadMp }
     );
     console.log(response);

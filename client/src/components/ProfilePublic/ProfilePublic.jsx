@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 // import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { publicProfile } from "../../actions";
+import { PROXY, publicProfile } from "../../actions";
 import Nav from "../Profile/Nav";
 import Footer from '../Landing/Footer'
 import Chat from "./Chat";
 import defaultImage from '../../assets/profile_default.png'
 import { StarIcon } from "@chakra-ui/icons";
-
 export default function ProfilePublic() {
   const id = useParams();
   // const user = useSelector((state) => state.index.user);
@@ -33,7 +32,7 @@ export default function ProfilePublic() {
   // async function onClick(e) {
   //   e.preventDefault();
   //   try {
-  //     const res = await axios.post("http://localhost:3001/conversation", body);
+  //     const res = await axios.post(`${PROXY}/conversation`, body);
   //     console.log(res.data);
   //     navigate("/messenger");
   //   } catch (error) {
@@ -67,7 +66,7 @@ export default function ProfilePublic() {
                   <h3 class="">Nombre completo: {sellerProfile?.fullName}</h3>
                   <h4 class="">Username: {sellerProfile?.username}</h4>
                   <h4>Email: {sellerProfile?.email}</h4>
-                  <h4>Pais: {sellerProfile.country}</h4>
+                  <h4>Pais: {sellerProfile?.country}</h4>
                 </div>
             </div>
             <div class="bg-dark p-2 rounded-md mt-5 mb-5">
@@ -77,7 +76,7 @@ export default function ProfilePublic() {
             <div class="bg-dark p-2 rounded-md mt-5 mb-5"> 
               <h3 class="font-semibold text-xl text-white">Publicaciones</h3>
               
-              {sellerProfile.posts.map((item) =>  
+              {sellerProfile?.posts?.map((item) =>  
                 <div class="bg-light rounded-md mb-2 mt-2 p-2">
                   <h4 class="font-semibold text-dark">{item.title}</h4>
                   <p>{item.description}</p> 

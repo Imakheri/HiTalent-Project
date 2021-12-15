@@ -2,14 +2,14 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getUserbyId } from '../../actions';
+import { getUserbyId, PROXY } from '../../actions';
 import defaultImage from '../../assets/profile_default.png'
 import {useState} from "react"
 import axios from "axios"
 //import { Box, Image, Button } from '@chakra-ui/react';
 
-
 export default function Profile({modal}){
+
     const { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
@@ -17,7 +17,6 @@ export default function Profile({modal}){
     useEffect(() => {
         dispatch(getUserbyId(id));
     },[modal])
-
 
     function handleOnClick(e){
         e.preventDefault();

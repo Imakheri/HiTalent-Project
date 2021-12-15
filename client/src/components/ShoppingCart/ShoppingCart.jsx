@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button, useToast } from "@chakra-ui/react";
 import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions';
 import { Alert, AlertIcon, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { PROXY } from "../../actions";
 
 export default function ShoppingCart() {
 const cart = useSelector(state => state.cart)
@@ -37,13 +38,13 @@ async function handleCheckOut(e) {
         isClosable: true,
       })
       //Enviar el carrito\\
-      axios.post("http://localhost:3001/orden", payload)
+      axios.post(`${PROXY}/orden`, payload)
       .then (res => console.log(res))
         .catch (error => console.log(error))
 
         //Enviar a MercadoPago\\
         let response = await axios.post(
-            "http://localhost:3001/checkout/mercadopago/",
+            `${PROXY}/checkout/mercadopago/`,
             {payloadMp}
             );
             console.log(response);

@@ -1,5 +1,5 @@
 import axios from "axios";
-export const PROXY = "https://hitalent-project.herokuapp.com/"
+export const PROXY = "https://hitalent-project.herokuapp.com"
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
@@ -28,7 +28,7 @@ export const REFRESH = "REFRESH";
 export function getTalents() {
   return async function (dispatch) {
     dispatch({ type: CARGANDO });
-    var talents = await axios.get("http://localhost:3001/post");
+    var talents = await axios.get(`${PROXY}/post`);
     return dispatch({
       type: GET_TALENT,
       payload: talents.data,
@@ -189,7 +189,7 @@ export function createAnswer(answer) {
   return async function (dispatch) {
     try {
       var info = await axios.put(
-        "http://localhost:3001/question/answer",
+        `${PROXY}/question/answer`,
         answer
       );
       console.log(info.data);
@@ -206,7 +206,7 @@ export function createAnswer(answer) {
 export function postQuestion(body) {
   console.log("body de la action", body);
   return async function (dispatch) {
-    const question = await axios.post("http://localhost:3001/question", body);
+    const question = await axios.post(`${PROXY}/question`, body);
     console.log("data", question.data);
     return dispatch({
       type: POST_QUESTION,
@@ -247,7 +247,7 @@ export function sortByPrice(order) {
 export function getPostReview(idPost) {
   return async function (dispatch) {
     try {
-      var review = await axios.get("http://localhost:3001/review/" + idPost); //el id es el del usuario(perfil)
+      var review = await axios.get(`${PROXY}/review/` + idPost); //el id es el del usuario(perfil)
       return dispatch({
         type: GET_POST_REVIEW,
         payload: review.data,
@@ -268,7 +268,7 @@ export function filteredCat(payload) {
 export function getTalentByRating(rating) {
   return async function (dispatch) {
     try {
-      let json = await axios.get("http://localhost:3001/post/rating/" + rating);
+      let json = await axios.get(`${PROXY}/post/rating/` + rating);
       return dispatch({
         type: TALENT_BY_RATING,
         payload: json.data,
@@ -283,7 +283,7 @@ export function getTalentByRating(rating) {
 //   console.log('action', payload)
 //   return async function() {
 //     try {
-//       let order = axios.post("http://localhost:3001/orden", payload)
+//       let order = axios.post(`${PROXY}/orden`, payload)
 //       return {
 //         type: "POST_ORDER",
 //         payload: order.payload
@@ -298,7 +298,7 @@ export function getTalentByRating(rating) {
 export function publicProfile(id) {
   return async function (dispatch) {
     try {
-      let publicProf = await axios.get("http://localhost:3001/user/" + id);
+      let publicProf = await axios.get(`${PROXY}/user/` + id);
       return dispatch({
         type: SELLER_PROFILE,
         payload: publicProf.data,
