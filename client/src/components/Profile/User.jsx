@@ -9,77 +9,33 @@ import axios from "axios"
 //import { Box, Image, Button } from '@chakra-ui/react';
 
 
-export default function Profile(){
+export default function Profile({modal}){
     const { id } = useParams();
-    
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
-    const[file,setFile]=useState(null)
-    const [previewSource,setPreviewSource]=useState()
-    const [flag,setFlag]=useState(false)
-    //const [resumen, setResumen]= useState('');
-
-    useEffect(() => {
-        dispatch(getUserbyId(id));
-    },[dispatch, id])
-    useEffect(() => {
-        dispatch(getUserbyId(id));
-    },[flag])
-
-    function  handleSubmit(e) {
-        if(!file){
-            return console.log("no hay foto")
-        }
-        let fb=new FormData()
-        fb.append("username",user.username)
-        fb.append("image",file)
-        axios({
-            method: "put",
-            url: "http://localhost:3001/user",
-            data: fb,
-            headers: { "Content-Type": "multipart/form-data" },
-        }).then(res => console.log(res))
-        .catch(err => console.log(err));
-        dispatch(getUserbyId(id));
-        setPreviewSource(null)
-        setFile(null)
-        setFlag(!flag)
-
-    }
-    function  previewFile(file) {
-        const reader=new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend=()=>{
-            setPreviewSource(reader.result)
-        }
     
+    useEffect(() => {
+        dispatch(getUserbyId(id));
+    },[modal])
+
+
+    function handleOnClick(e){
+        e.preventDefault();
+        modal(true);
     }
-    function  handleFile(e) {
-        setFile(e.target.files[0])
-        previewFile(e.target.files[0])
-    }
-    // function handleOnChange(e){
-    //    setResumen(e.target.value)
-    // }
-    // function onSubmit(e){
-    //     e.preventDefault();
-    //     setResumen(e.target.value)
-    // }
+
     return(
         <div>
         {!user ? (<h2>Cargando...</h2>) : (
-        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
+        <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6 '>
             <div>
-                <img className='rounded-full border-4 border-semilight w-72 h-72 object-cover' src={user.image? user.image : defaultImage} alt={user.username}/>
+                <div>
+                    <img className='rounded-full border-4 border-semilight w-72' src={user.image? user.image : defaultImage} alt={user.username}/>
+                </div>
+                <div className='flex opacity-30 relative bottom-14 left-52 justify-center items-center w-12 h-12 bg-gray rounded-full shadow-xl hover:opacity-100 duration-70'>
+                    <button  onClick={(e) => handleOnClick(e)}><img width='44px' heigth='44px' src='https://codes.unidepix.com/img/photo.svg' alt='Photo icon' /></button>
+                </div>
             </div>
-            <button onClick={handleSubmit}>agregar imagen</button>
-            <label>imagen de perfil</label>
-            <input  
-                                onChange={handleFile} 
-                                type="file" 
-                                name="image"
-                                required />
-            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
             <div className='flex flex-col w-full'>
                 <h4 className='text-2xl font-medium italic underline'>{user.fullName}</h4>
                 <h5 className='text-xl text-gray'>{user.username}</h5>
