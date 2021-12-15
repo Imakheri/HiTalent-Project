@@ -1,6 +1,12 @@
 import ReactModal from "react-modal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 
 export default function CheckoutMP() {
   const [modalIsOpen, setIsOpen] = useState(true);
@@ -9,23 +15,32 @@ export default function CheckoutMP() {
       isOpen={modalIsOpen}
       contentLabel="Example Modal"
       overlayClassName="fixed inset-0 bg-black bg-opacity-40"
-      className="absolute m-auto max-w-max h-96 inset-x-0 top-40 bg-dark border-2 border-white rounded-lg"
+      className="absolute m-auto max-w-max inset-x-0 top-40  rounded-lg"
     >
-      <div className="h-96 flex justify-around text-center flex-col">
-        <h1 className="text-white text-3xl underline font-semibold">
-          ¡Gracias por su compra!
-        </h1>
-        <h2 className="text-white text-2xl font-medium p-10">
-          Ahora podes coordinar con tu docente digital accediendo al chat desde
-          su perfil.
-        </h2>
+        <Alert
+        status='success'
+        variant='subtle'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='center'
+        textAlign='center'
+        height='200px'
+        >
+          <AlertIcon boxSize='40px' mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize='lg'>
+            Muchas gracias por tu compra!
+          </AlertTitle>
+          <AlertDescription maxWidth='sm'>
+            Vuelve al sitio para el siguiente paso, contacta con tu docente digital accediendo al chat desde su perfil.
+          </AlertDescription>
         <Link
           to="/home"
-          className="bg-dark font-bold self-center text-2xl border-2 w-40 rounded hover:bg-light hover:border-black"
+          className="bg-semidark font-bold self-center text-xl border-2 w-40 rounded-lg m-2 hover:bg-light hover:border-black"
         >
           Entendido
         </Link>
-      </div>
+        </Alert>
+      {/* </div> */}
     </ReactModal>
   );
 }

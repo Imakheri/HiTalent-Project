@@ -7,9 +7,8 @@ export default function Footer() {
             <div class="grid col-start-1 col-end-2 m-3">
             <img
             src="https://codes.unidepix.com/img/hi.png"
-            alt="logo hitalent"
+            alt="logo-hitalent"
             width='160px'
-            alt='hitalent logo'
           />
                 <small>
                     En nuestra plataforma puedes conectar con personas que esten interesadas en compartir su talento contigo, podras aprender lo que quieras en solo un click. Deja tu valoracion para que ellos puedan ganar prestigio!
@@ -27,7 +26,6 @@ export default function Footer() {
                     <Link to='/about'>
                     <li>Acerca de nosotros</li>
                     </Link>
-                    <li>Corporate</li>
                 </ul>
             </div>
             <div class="grid col-start-3 col-end-4 m-3">

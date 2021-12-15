@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
+import {
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react'
 
 export default function Chat() {
   const id  = useParams()
@@ -46,12 +50,15 @@ export default function Chat() {
         {order ? (
         <button
           onClick={onClick}
-          className="btn-custom btn-colors mt-10"
+          className="flex items-center bg-dark rounded-full text-white h-8 mt-10 p-5 hover:bg-semidark"
         >
           Comenzar conversación
         </button>
       ) : (
-        <p>Para comenzar una conversación debes adquirir un curso</p>
+        <Alert status='warning'>
+        <AlertIcon />
+        Para comenzar una conversación debes adquirir un curso
+      </Alert>
       )}
       </div>
     )
