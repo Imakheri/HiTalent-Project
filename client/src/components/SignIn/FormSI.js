@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { PROXY } from '../../actions';
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -58,7 +59,7 @@ function Form({ onModalClick, onModalChange }) {
   async function handleOnSubmit(e) {
     e.preventDefault();
     let respuesta = await axios
-      .post("http://localhost:3001/user/loggin/", userLogin)
+      .post(`${PROXY}/user/loggin/`, userLogin)
       .then((res) => res.data);
     switch (respuesta) {
       case "Contraseña incorrecta":

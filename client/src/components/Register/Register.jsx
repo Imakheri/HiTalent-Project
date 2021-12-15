@@ -1,4 +1,5 @@
 import React from 'react';
+import { PROXY } from '../../actions';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -69,7 +70,7 @@ function createPass(){
 }
 
 function createUser(input){
-    axios.post('http://localhost:3001/user', input)
+    axios.post(`${PROXY}/user`, input)
 }
 
 function passCheck(a, b){

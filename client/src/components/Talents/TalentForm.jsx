@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { PROXY } from '../../actions';
 import ReactModal from 'react-modal';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -22,6 +23,7 @@ function TalentForm(){
 
     const [previewSource,setPreviewSource]=useState()
     const [file, setFile]=useState(null)
+    const [previewSource,setPreviewSource]=useState()
     const [form, setForm] = useState({
         title: "",
         description: "",
@@ -91,7 +93,7 @@ function TalentForm(){
         fb.append("language",form.language)
         axios({
             method: "post",
-            url: "http://localhost:3001/post",
+            url: `${PROXY}/post`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))
@@ -100,7 +102,15 @@ function TalentForm(){
           alert("Curso creado satisfactoriamente")
           navigate("/home");
     }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
     
+    }
+
     return(
         <div className='box-border w-full h-screen'>
             <Nav/>
@@ -192,7 +202,6 @@ function TalentForm(){
                             onChange={handleOnChange}
                             name='timeZone'
                             required/> */}
-                              
                             <label className='text-lg'>Zona horaria: </label>
                             <select onChange={handleOnChange} 
                             className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
@@ -207,7 +216,6 @@ function TalentForm(){
                                 <option value='GMT-4'>GMT-4</option>
                                 <option value='GMT-5'>GMT-5</option>
                                 <option value='GMT-6'>GMT-6</option>
-                      
                             </select>
                             <label className='text-lg'>Idioma:</label>
                             <select 
@@ -233,7 +241,7 @@ function TalentForm(){
                                 name="cost"  
                                 placeholder="Dólares"
                                 required
-                                />
+                                /> */}
                         </div>
                         <div className='flex flex-row items-center justify-center space-x-4 my-8'>
                             <button className="btn-primary btn-colors"> Revisar </button>
@@ -277,6 +285,7 @@ function TalentForm(){
                                                 placeholder="Ingrese la descripcion del curso" 
                                                 />  
                                         </div>
+                                        {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
                                         <div>
                                             <label className='mr-4 text-xl'>Categoria: </label>
                                             <select className='bg-dark text-lg' onChange={e => handleOnSelect(e)}>
@@ -308,7 +317,7 @@ function TalentForm(){
                                                 placeholder="Duracion | Horas"
                                                 />
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <label className='mr-4 text-2xl'>Precio: </label>
                                             <input 
                                                 className='bg-dark'
@@ -338,7 +347,7 @@ function TalentForm(){
                                                 name="language"  
                                                 value={form.language}
                                                 />
-                                        </div>
+                                        </div> */}
                                 <div className='bg-dark flex flex-row justify-center items-center'>
                                     <button type='submit' className='btn-primary btn-colors mx-2'>Crear curso</button>
                                     <Link to="/home">

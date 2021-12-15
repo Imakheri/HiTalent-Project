@@ -6,6 +6,7 @@ import AdminData from "./AdminData";
 import Nav from "./Nav";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { PROXY } from "../../actions";
 
 function AdminProfile() {
   let [data, setData] = useState({
@@ -18,7 +19,7 @@ function AdminProfile() {
   let [pestaña, setPestaña] = useState("user");
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/admin`).then((res) =>
+    axios.get(`${PROXY}/admin`).then((res) =>
       setData({
         user: res.data.users,
         post: res.data.posts,

@@ -8,18 +8,24 @@ import {
   MenuGroup
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from '../../assets/profile_default.png'
 import { cargarUsuario,getUserbyId } from "../../actions";
+import { clearItemsCart } from '../../actions/shoppingActions'
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
+  const navigate = useNavigate()
+
   let dispatch = useDispatch();
   const [image,setImage]=useState()
+
   const logOut = (e) => {
   e.preventDefault();
   dispatch(cargarUsuario([]))
+  dispatch(clearItemsCart())
+  navigate('/home')
   }     
   useEffect(()=>{
     getImage()

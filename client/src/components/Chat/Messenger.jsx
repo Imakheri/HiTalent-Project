@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { PROXY } from "../../actions";
 
 export default function Messenger() {
   const user = useSelector((state) => state.index.user);
@@ -49,7 +50,7 @@ export default function Messenger() {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3001/conversation/" + user.id
+          `${PROXY}/conversation/` + user.id
         );
         console.log(res.data);
         setConversations(res.data);
@@ -64,7 +65,7 @@ export default function Messenger() {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3001/messages/" + currentChat?.id
+          `${PROXY}/messages/` + currentChat?.id
         );
         setMessages(res.data);
       } catch (error) {
@@ -91,7 +92,7 @@ export default function Messenger() {
     });
 
     try {
-      const res = await axios.post("http://localhost:3001/messages", message);
+      const res = await axios.post(`${PROXY}/messages`, message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (error) {
