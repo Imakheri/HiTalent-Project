@@ -17,6 +17,7 @@ import { clearItemsCart } from '../../actions/shoppingActions'
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
   const navigate = useNavigate()
+
   let dispatch = useDispatch();
   const [image,setImage]=useState()
 
