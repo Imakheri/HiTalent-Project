@@ -3,7 +3,8 @@ import ReactModal from "react-modal";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom'
-import { getUserbyId } from "../../actions";
+import { getUserbyId, PROXY } from "../../actions";
+
 
 export default function Image({modal, isModal}){
     const { id } = useParams();
@@ -19,7 +20,7 @@ export default function Image({modal, isModal}){
         fb.append("image",file)
         axios({
             method: "put",
-            url: "http://localhost:3001/user",
+            url: `${PROXY}/user`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))
