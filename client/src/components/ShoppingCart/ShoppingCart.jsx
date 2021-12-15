@@ -6,14 +6,11 @@ import Footer from "../Landing/Footer";
 import { Link } from 'react-router-dom';
 import { Button, useToast } from "@chakra-ui/react";
 import { clearItemsCart, deleteTalent } from '../../actions/shoppingActions';
-import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
-
+import { Alert, AlertIcon, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 export default function ShoppingCart() {
 const cart = useSelector(state => state.cart)
 const user = useSelector(state => state.index.user)
-// const reducer = (a, b) => a + b;
-// let mercadopago = cart.cart.length > 0 ? [{ title: cart?.cart?.map((e) => e.title), unit_price: (cart?.cart?.map((e) => (e.cost))), quantity: 1 }] : 'Algo fallo en el carrito, reintente luego.';
 const dispatch = useDispatch()
 const toast = useToast()
 let total = 0 // Voy a ir sumando los totales para mostrar en el carrito
@@ -39,21 +36,18 @@ async function handleCheckOut(e) {
         duration: 3000,
         isClosable: true,
       })
-                //Enviar el carrito\\
-        axios.post("http://localhost:3001/orden", payload)
-        .then (res => console.log(res))
+      //Enviar el carrito\\
+      axios.post("http://localhost:3001/orden", payload)
+      .then (res => console.log(res))
         .catch (error => console.log(error))
-        // dispatch(postOrder(payload))
-        console.log('order payload', payload)
-        console.log("MP carrito",payloadMp);
 
-                //Enviar a MercadoPago\\
+        //Enviar a MercadoPago\\
         let response = await axios.post(
             "http://localhost:3001/checkout/mercadopago/",
             {payloadMp}
-          );
-          console.log(response);
-          window.location.href = response.data.init_points;
+            );
+            console.log(response);
+            window.location.href = response.data.init_points;
 }
 
     function clearCart() {
@@ -103,7 +97,12 @@ async function handleCheckOut(e) {
                     </Tr>
                     )) 
                     : 
-                    (<Td>Tu carrito se encuentra vacio</Td>)
+                    (<Td>  
+                        <Alert status='warning'>
+                        <AlertIcon />
+                        Tu carrito se encuentra vacio, agrega items para poder comprar
+                        </Alert>
+                  </Td>)
             }
             <Tr class="font-semibold">
             <Td>Total</Td>

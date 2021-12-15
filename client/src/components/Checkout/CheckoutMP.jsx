@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Alert,
@@ -7,9 +7,19 @@ import {
   AlertTitle,
   AlertDescription,
 } from '@chakra-ui/react'
+import { clearItemsCart } from "../../actions/shoppingActions";
+import { useDispatch } from "react-redux";
 
 export default function CheckoutMP() {
+
   const [modalIsOpen, setIsOpen] = useState(true);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(clearItemsCart())
+  }, [dispatch])
+
+
   return (
     <ReactModal
       isOpen={modalIsOpen}
