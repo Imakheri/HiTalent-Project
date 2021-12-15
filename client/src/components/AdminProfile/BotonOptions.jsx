@@ -1,13 +1,13 @@
 
-function BotonOptions({estado ,botonClick, value, funcionBorrar}){
+function BotonOptions({estado ,botonClick, value, funcionBorrar, name}){
     return(
         <div>
           {estado ?
             <button value={value} onClick={funcionBorrar}>Eliminar</button> 
             : (
             <div>
-              <button value={value} onClick={botonClick}>Aprobar</button>
-              <button value={value} onClick={funcionBorrar}>Eliminar</button>
+              <button className="mr-3" name={name} value={value} onClick={botonClick}>Aprobar</button>
+              <button className="ml-3" value={value} onClick={funcionBorrar}>Eliminar</button>
             </div>
             )
           }

@@ -34,6 +34,7 @@ function AdminData({ pestaña, data, setData }) {
 
   function funcionBorrar(e) {
     e.preventDefault();
+    console.log("E.TARGET.name", e.target.name)
     let aux = {
       id: e.target.value,
       name: pestaña,
@@ -62,6 +63,7 @@ function AdminData({ pestaña, data, setData }) {
               </Tr>
             </Thead>
               {data[`${pestaña}`].map((el) => {
+                if(el.username === "admin") return;
                 return (
                   <Tbody>
                     <Tr key={el.id} className="bg-semilight border w-max">
@@ -74,6 +76,7 @@ function AdminData({ pestaña, data, setData }) {
                         <BotonOptions
                           estado={el.aprobado}
                           value={el.id}
+                          name={el[`user.email`]}
                           botonClick={botonClick}
                           funcionBorrar={funcionBorrar}
                         />
