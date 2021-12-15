@@ -21,6 +21,7 @@ export const FILTRO_CAT = "FILTRO_CAT";
 export const TALENT_BY_RATING = "TALENT_BY_RATING";
 export const POST_ORDER = "POST_ORDER";
 export const CARGANDO = "CARGANDO";
+export const REFRESH = "REFRESH";
 
 export function getTalents() {
   return async function (dispatch) {
@@ -182,12 +183,13 @@ export function getQAbyId(idUser) {
   };
 }
 
-export function createAnswer(answer, id) {
+export function createAnswer(answer) {
   return async function (dispatch) {
     try {
-      var info = await axios.put("http://localhost:3001/question/" + id, {
-        answer,
-      });
+      var info = await axios.put(
+        "http://localhost:3001/question/answer",
+        answer
+      );
       console.log(info.data);
       return dispatch({
         type: PUT_ANSWER,
@@ -290,3 +292,9 @@ export function getTalentByRating(rating) {
 //     }
 //   }
 // }
+
+export function refresh() {
+  return {
+    type: REFRESH,
+  };
+}

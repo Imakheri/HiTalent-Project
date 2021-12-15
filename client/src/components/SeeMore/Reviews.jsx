@@ -13,6 +13,7 @@ export default function Reviews() {
   const review = useSelector((state) => state.index.review);
   const orders = useSelector((state) => state.index.profile);
   const user = useSelector((state) => state.index.user);
+  const [refresh, setRefresh] = useState(false);
   const [buyPost, setBuyPost] = useState();
   const [newReview, setNewReview] = useState({
     qualification: "",
@@ -24,7 +25,8 @@ export default function Reviews() {
 
   useEffect(() => {
     dispatch(getPostReview(id));
-  }, [dispatch, id]);
+    setRefresh(false);
+  }, [refresh, dispatch, id]);
 
   useEffect(() => {
     let buy = orders.orders?.find((o) => o.postId === id);
@@ -37,6 +39,7 @@ export default function Reviews() {
       const res = await axios.post("http://localhost:3001/review", newReview);
       console.log(res);
       console.log(newReview);
+      setRefresh(true);
       setNewReview({
         qualification: "",
         description: "",
