@@ -1,16 +1,16 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { authReducer } from '../reducer/auth';
-import rootReducer from '../reducer';
-import shoppingReducer from '../reducer/shoppingReducer'
+import { rootReducers } from '../reducer/combineReducers';
+
+import { persistStore } from 'redux-persist';
+import persistReducer from '../reducer/combineReducers'
 // const composeEnhancers =
 //     ( typeof window !== 'undefined' && window.__REDUX_DEVTOOL_EXTENSION_COMPOSE__ ) || compose;
 
-const reducers = combineReducers ({
-    auth: authReducer,
-    index : rootReducer,
-    cart: shoppingReducer
-});
 
-export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+
+export const store = createStore(persistReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const persistor = persistStore(store)
+
+export default {store, persistor}

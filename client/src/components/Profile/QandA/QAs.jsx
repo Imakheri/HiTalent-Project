@@ -9,23 +9,34 @@ export default function Qas() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const qa = useSelector((state) => state.index.qa);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   function handleChange(e) {
     e.preventDefault();
-    setAnswer(e.target.value);
+    setAnswer({
+      answer: e.target.value,
+      idQuestion: e.target.name,
+    });
+    console.log("Esta es la respuesta", answer);
   }
 
-  function handleOnSubmit(e, id) {
+  function handleOnSubmit(e) {
     e.preventDefault();
-    dispatch(createAnswer(answer, id));
-    setAnswer("");
-    console.log("Este es el id del input " + id);
+    dispatch(createAnswer(answer));
+    setRefresh(true);
+    setAnswer({
+      answer: "",
+      idQuestion: "",
+    });
+
+    console.log("Esta es la respuesta" + answer);
   }
 
   useEffect(() => {
     dispatch(getQAbyId(id));
-  }, [dispatch, id]);
+    setRefresh(false);
+  }, [refresh, dispatch, id]);
 
   return (
     <div className="flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 h-full py-4">
@@ -47,12 +58,13 @@ export default function Qas() {
                   {!e.answer ? (
                     <form
                       className=" w-full pb-3 pt-3"
-                      onSubmit={(e) => handleOnSubmit(e, e.id)}
+                      onSubmit={(e) => handleOnSubmit(e)}
                     >
                       <input
                         className="w-full rounded bg-semidark text-white placeholder-light pl-10 w-full"
-                        name={answer}
-                        value={answer}
+                        name={e.id}
+                        id={e.id}
+                        value={answer[`${id}`]}
                         onChange={(e) => handleChange(e)}
                         placeholder="Añade tu respuesta aquí..."
                       />

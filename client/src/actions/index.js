@@ -21,7 +21,11 @@ export const FILTRO_CAT = "FILTRO_CAT";
 export const TALENT_BY_RATING = "TALENT_BY_RATING";
 export const POST_ORDER = "POST_ORDER";
 export const CARGANDO = "CARGANDO";
+<<<<<<< HEAD
 export const SELLER_PROFILE = 'SELLER_PROFILE';
+=======
+export const REFRESH = "REFRESH";
+>>>>>>> 1a3edc498f88590dbc47a5dda64ab5330b59709d
 
 export function getTalents() {
   return async function (dispatch) {
@@ -43,7 +47,7 @@ export function getTalentById(id) {
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log("error getTalentById");
     }
   };
 }
@@ -183,12 +187,13 @@ export function getQAbyId(idUser) {
   };
 }
 
-export function createAnswer(answer, id) {
+export function createAnswer(answer) {
   return async function (dispatch) {
     try {
-      var info = await axios.put("http://localhost:3001/question/" + id, {
-        answer,
-      });
+      var info = await axios.put(
+        "http://localhost:3001/question/answer",
+        answer
+      );
       console.log(info.data);
       return dispatch({
         type: PUT_ANSWER,
@@ -292,6 +297,7 @@ export function getTalentByRating(rating) {
 //   }
 // }
 
+<<<<<<< HEAD
 export function publicProfile(id) {
   return async function (dispatch) {
     try {
@@ -303,5 +309,10 @@ export function publicProfile(id) {
     } catch (error) {
       console.log(error);
     }
+=======
+export function refresh() {
+  return {
+    type: REFRESH,
+>>>>>>> 1a3edc498f88590dbc47a5dda64ab5330b59709d
   };
 }

@@ -26,7 +26,7 @@ export default function SeeMore() {
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-      // let payload = {carrito: []}
+    // let payload = {carrito: []}
     //   let carrito = []
 
     //   carrito.push({
@@ -35,27 +35,26 @@ export default function SeeMore() {
     //   title: seemore.title,
     //   price: seemore.cost
     // })
-    
-    let payloadMp = {items: [
-  {    title: seemore.title,
-      unit_price: seemore.cost,
-      quantity: 1}
-    ]}
+
+    let payloadMp = {
+      items: [{ title: seemore.title, unit_price: seemore.cost, quantity: 1 }],
+    };
     // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
     //     title: e.title,
     //     unit_price: e.cost,
     //     quantity: e.quantity}))) : console.log('mercadopago')
-    
-      console.log('ordenes', payloadMp)
-      axios.post("http://localhost:3001/orden", {payloadMp})
-      .then (res => console.log('res de seemore',res))
-      .catch (error => console.log('err de seemore',error))
 
-    console.log('mercadopago',payloadMp);
+    console.log("ordenes", payloadMp);
+    axios
+      .post("http://localhost:3001/orden", { payloadMp })
+      .then((res) => console.log("res de seemore", res))
+      .catch((error) => console.log("err de seemore", error));
+
+    console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
       "http://localhost:3001/checkout/mercadopago/",
-      {payloadMp}
+      { payloadMp }
     );
     console.log(response);
     window.location.href = response.data.init_points;
@@ -142,7 +141,7 @@ export default function SeeMore() {
               </Box>
               {seemore.cost}
             </Box>
-            {seemore.user_id !== user.id ? (
+            {seemore.user_id !== user.id && user.id ? (
               <Box class="flex flex-col items-center" m="2">
                 <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
@@ -154,6 +153,15 @@ export default function SeeMore() {
                   </button>
                 </Link> */}
               </Box>
+            ) : !user.id ? (
+              <>
+                <br />
+                <hr />
+                <div>
+                  Ingresa a tu cuenta para adquirir este curso o hacer una
+                  pregunta
+                </div>
+              </>
             ) : (
               <>
                 <br />

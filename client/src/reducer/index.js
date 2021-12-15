@@ -19,8 +19,8 @@ import {
   TALENT_BY_RATING,
   CARGANDO,
   SELLER_PROFILE,
+  REFRESH,
 } from "../actions";
-
 import { ASCENDENTE } from "../const";
 
 const initialState = {
@@ -110,6 +110,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         questionsPost: action.payload,
+        cargando: false,
       };
     case POST_QUESTION:
       return {
@@ -153,12 +154,14 @@ export default function rootReducer(state = initialState, action) {
       };
     case CARGANDO:
       return { ...state, cargando: true };
+    case REFRESH:
+      return { ...state, cargando: true };
+      case SELLER_PROFILE:
+        return {
+          ...state,
+          public_profile: action.payload
+        }
     default:
       return state;
-    case SELLER_PROFILE:
-      return {
-        ...state,
-        public_profile: action.payload
-      }
   }
 }
