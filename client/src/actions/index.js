@@ -1,4 +1,5 @@
 import axios from "axios";
+export const PROXY = "https://hitalent-project.herokuapp.com/"
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
@@ -38,7 +39,7 @@ export function getTalents() {
 export function getTalentById(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get("http://localhost:3001/post/" + id);
+      let json = await axios.get(`${PROXY}/post/` + id);
       return dispatch({
         type: GET_TALENT_BY_ID,
         payload: json.data,
@@ -52,7 +53,7 @@ export function getTalentById(id) {
 export function searchTalent(search) {
   return function (dispatch) {
     axios
-      .get("http://localhost:3001/post/title/" + search)
+      .get(`${PROXY}/post/title/` + search)
       .then((talents) => {
         dispatch({
           type: SEARCH_TALENT,
@@ -74,7 +75,7 @@ export function cargarUsuario(payload) {
 
 export function createUser(payload) {
   return async function (dispatch) {
-    const newUser = await axios.post("http://localhost:3001/user", payload);
+    const newUser = await axios.post(`${PROXY}/user`, payload);
     return dispatch({
       type: POST_USER,
       payload: newUser,
@@ -86,7 +87,7 @@ export function getUserbyToken(token) {
   return async function (dispatch) {
     try {
       var json = await axios.post(
-        "http://localhost:3001/user/confirm/" + token
+        `${PROXY}/user/confirm/` + token
       );
       return dispatch({
         type: GET_USER_TOKEN,
@@ -101,7 +102,7 @@ export function getUserbyToken(token) {
 export function getUserbyId(id) {
   return async function (dispatch) {
     try {
-      var user = await axios.get("http://localhost:3001/user/" + id);
+      var user = await axios.get(`${PROXY}/user/` + id);
       return dispatch({
         type: GET_USER_ID,
         payload: user.data,
@@ -115,7 +116,7 @@ export function getUserbyId(id) {
 export function getOrderbyId(id) {
   return async function (dispatch) {
     try {
-      var order = await axios.get("http://localhost:3001/user/" + id); //Aquí hay que cambiarle
+      var order = await axios.get(`${PROXY}/user/` + id); //Aquí hay que cambiarle
       // console.log(order)
       return dispatch({
         type: GET_ORDER_ID,
@@ -130,7 +131,7 @@ export function getOrderbyId(id) {
 export function getReviewbyId(id) {
   return async function (dispatch) {
     try {
-      var review = await axios.get("http://localhost:3001/review/all/" + id); //el id es el del usuario(perfil)
+      var review = await axios.get(`${PROXY}/review/all/` + id); //el id es el del usuario(perfil)
       return dispatch({
         type: GET_REVIEW_ID,
         payload: review.data,
@@ -144,7 +145,7 @@ export function getReviewbyId(id) {
 export function getUserofReviewbyId(id) {
   return async function (dispatch) {
     try {
-      var review = await axios.get("http://localhost:3001/review/" + id);
+      var review = await axios.get(`${PROXY}/review/` + id);
       return dispatch({
         type: GET_REVIEW_ID,
         payload: review.data,
@@ -158,7 +159,7 @@ export function getUserofReviewbyId(id) {
 export function getMovebyId(id) {
   return async function (dispatch) {
     try {
-      var movement = await axios.get("http://localhost:3001/user/" + id);
+      var movement = await axios.get(`${PROXY}/user/` + id);
       // console.log(movement)
       return dispatch({
         type: GET_MOVE_ID,
@@ -173,7 +174,7 @@ export function getMovebyId(id) {
 export function getQAbyId(idUser) {
   return async function (dispatch) {
     try {
-      var qa = await axios.get("http://localhost:3001/question/all/" + idUser);
+      var qa = await axios.get(`${PROXY}/question/all/` + idUser);
       return dispatch({
         type: GET_QA_ID,
         payload: qa.data,
@@ -217,7 +218,7 @@ export function postQuestion(body) {
 export function getPostQuestion(idPost) {
   return async function (dispatch) {
     const questions = await axios.get(
-      "http://localhost:3001/question/" + idPost
+      `${PROXY}/question/` + idPost
     );
     return dispatch({
       type: GET_POST_QUESTION,
@@ -228,7 +229,7 @@ export function getPostQuestion(idPost) {
 
 export function getCategories() {
   return async function (dispatch) {
-    const allCategories = await axios.get("http://localhost:3001/categories");
+    const allCategories = await axios.get(`${PROXY}/categories`);
     return dispatch({
       type: GET_CATEGORIES,
       payload: allCategories.data,

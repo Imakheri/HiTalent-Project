@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { PROXY } from '../../actions';
 import ReactModal from 'react-modal';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -91,7 +92,7 @@ function TalentForm(){
         fb.append("language",form.language)
         axios({
             method: "post",
-            url: "http://localhost:3001/post",
+            url: `${PROXY}/post`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))

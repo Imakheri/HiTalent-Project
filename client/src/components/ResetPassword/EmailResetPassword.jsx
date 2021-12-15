@@ -1,7 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import { PROXY } from '../../actions';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function EmailResetPassword() {
   const [input, setInput] = useState("");
