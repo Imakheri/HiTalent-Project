@@ -14,11 +14,7 @@ export default function ProfilePublic() {
   const id = useParams();
   // const user = useSelector((state) => state.index.user);
   // const orders = useSelector((state) => state.index.profile);
-<<<<<<< HEAD
   const sellerProfile = useSelector((state) => state?.index.public_profile)
-=======
-  const sellerProfile = useSelector((state) => state.index.public_profile);
->>>>>>> 892f296312e8d3be47747b21e48e51c7e65ffdaa
   // let navigate = useNavigate();
   // const [order, setOrder] = useState([]);
   const dispatch = useDispatch();

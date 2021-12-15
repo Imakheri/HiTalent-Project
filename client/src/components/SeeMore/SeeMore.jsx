@@ -27,43 +27,39 @@ export default function SeeMore() {
   const seemore = useSelector((state) => state.index.moreTalent);
   const user = useSelector((state) => state.index.user);
   // let mercadopago = [{ title: seemore.title, total: seemore.cost }];
+  let payloadMp =  { items: [
+ {   title: seemore.title, 
+    unit_price: seemore.cost, 
+    quantity: 1}
+  ]}
 
   useEffect(() => {
     dispatch(getTalentById(id));
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-    // let payload = {carrito: []}
-    //   let carrito = []
-
-    //   carrito.push({
-    //   user_id: user?.id,
-    //   post_id: seemore.id,
-    //   title: seemore.title,
-    //   price: seemore.cost
-    // })
-
-    let payloadMp = {
-      items: [{ title: seemore.title, unit_price: seemore.cost, quantity: 1 }],
+    let payloadOrder = {
+      carrito: [{ title: seemore.title, price: seemore.cost, quantity: 1, post_id: seemore.id, user_id: user?.id}],
     };
     // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
     //     title: e.title,
     //     unit_price: e.cost,
     //     quantity: e.quantity}))) : console.log('mercadopago')
 
-    console.log("ordenes", payloadMp);
+    console.log("ordenes", payloadOrder);
     axios
-      .post(`${PROXY}/orden`, { payloadMp })
-      .then((res) => console.log("res de seemore", res))
+      .post(/*`${PROXY}/orden`*/ "http://localhost:3001/orden/", payloadOrder )
+      .then((res) => console.log("post order", res))
       .catch((error) => console.log("err de seemore", error));
 
     console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
-      `${PROXY}/checkout/mercadopago/`,
-      { payloadMp }
+      // `${PROXY}/checkout/mercadopago/`,
+      "http://localhost:3001/checkout/mercadopago/",
+      {payloadMp}
     );
-    console.log(response);
+    console.log('res',response);
     window.location.href = response.data.init_points;
   }
 
@@ -100,7 +96,7 @@ export default function SeeMore() {
 
           <Box p="6">
           <Link to={"/profilePublic/" + seemore?.user_id}>
-            <h4 class="text-dark">Autor: {seemore?.user?.username}</h4>
+            <h4 class="text-dark text-sm hover:text-semilight">by {seemore?.user?.username}</h4>
           </Link>
             {/* <Box display="flex" alignItems="baseline">
               <Box
@@ -165,24 +161,11 @@ export default function SeeMore() {
               <AlertIcon />
               Ingresa a tu cuenta para adquirir este curso o hacer una pregunta
               </Alert>
-              // <>
-              //   <br />
-              //   <hr />
-              //   <div>
-              //     Ingresa a tu cuenta para adquirir este curso o hacer una
-              //     pregunta
-              //   </div>
-              // </>
             ) : (
               <Alert status='info'>
                 <AlertIcon />
                   Esta publicacion te pertenece
                 </Alert>
-              // <>
-              //   <br />
-              //   <hr />
-              //   <div>Esta publicacion te pertenece</div>
-              // </>
             )}
           </Box>
           <QyAanswer />

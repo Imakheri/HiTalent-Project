@@ -26,7 +26,7 @@ export default function Profile(){
     },[modal])
 
     return(
-        <section className='flex flex-col w-full h-screen bg-semilight'>
+        <section className='flex flex-col w-full h-full bg-semilight'>
             <Nav/>
         <div className='flex full-w'>
         {
@@ -48,10 +48,10 @@ export default function Profile(){
                         <h2 className='text-2xl font-medium pl-4'>Reseñas</h2>
                             <Reviews />
                     </section>
-                    <section>
+                    {/* <section>
                         <h2 className='text-2xl font-medium pl-4'>Movimientos</h2>
                             <Movements />
-                    </section>
+                    </section> */}
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Preguntas</h2>
                             <Qas />

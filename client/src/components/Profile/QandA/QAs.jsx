@@ -61,7 +61,7 @@ export default function Qas() {
                       onSubmit={(e) => handleOnSubmit(e)}
                     >
                       <input
-                        className="w-full rounded bg-semidark text-white placeholder-light pl-10 w-full"
+                        className="rounded bg-semidark text-white placeholder-light pl-10 w-full"
                         name={e.id}
                         id={e.id}
                         value={answer[`${id}`]}
