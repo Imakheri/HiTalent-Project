@@ -13,11 +13,15 @@ import {
   GET_CATEGORIES,
   GET_POST_QUESTION,
   POST_QUESTION,
-  SORT_BY_PRICE
+  SORT_BY_PRICE,
+  GET_POST_REVIEW,
+  FILTRO_CAT,
+  TALENT_BY_RATING,
+  CARGANDO,
+  SELLER_PROFILE,
+  REFRESH,
 } from "../actions";
-
-import { ASCENDENTE } from "../const"
-
+import { ASCENDENTE } from "../const";
 
 const initialState = {
   user: [],
@@ -32,6 +36,9 @@ const initialState = {
   moreTalent: [],
   categories: [],
   questionsPost: [],
+  ownerQuestion: "",
+  cargando: false,
+  public_profile: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -41,6 +48,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         talents: action.payload,
         filteredTalents: action.payload,
+        cargando: false,
       };
     case SEARCH_TALENT:
       return {
@@ -88,11 +96,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         qa: action.payload,
       };
-    // case PUT_ANSWER:
-    //     return{
-    //         ...state,
-    //         qa: action.payload
-    //     }
+    case PUT_ANSWER:
+      return {
+        ...state,
+        qa: action.payload,
+      };
     case GET_CATEGORIES:
       return {
         ...state,
@@ -102,27 +110,57 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         questionsPost: action.payload,
+        cargando: false,
       };
     case POST_QUESTION:
       return {
         ...state,
-        questionsPost: [...initialState.questionsPost, action.payload],
+        questionsPost: action.payload,
       };
-     case SORT_BY_PRICE:
-            let talentPrice = [...state.filteredTalents]
-            talentPrice = talentPrice.sort((a, b) => {
-                if (a.cost < b.cost) {
-                    return action.payload === ASCENDENTE ? -1 : 1;
-                }
-                if (a.cost > b.cost) {
-                    return action.payload === ASCENDENTE ? 1 : -1;
-                }
-                return 0
-            })
-            return{
-                ...state,
-                filteredTalents: talentPrice
-            }
+    case SORT_BY_PRICE:
+      let talentPrice = [...state.filteredTalents];
+      talentPrice = talentPrice.sort((a, b) => {
+        if (a.cost < b.cost) {
+          return action.payload === ASCENDENTE ? -1 : 1;
+        }
+        if (a.cost > b.cost) {
+          return action.payload === ASCENDENTE ? 1 : -1;
+        }
+        return 0;
+      });
+      return {
+        ...state,
+        filteredTalents: talentPrice,
+      };
+    case GET_POST_REVIEW:
+      return {
+        ...state,
+        review: action.payload,
+      };
+    case FILTRO_CAT:
+      let allCat = state.talents;
+      let fil =
+        action.payload === "todas"
+          ? allCat
+          : allCat.filter((el) => el?.category?.title === action.payload);
+      return {
+        ...state,
+        filteredTalents: fil,
+      };
+    case TALENT_BY_RATING:
+      return {
+        ...state,
+        filteredTalents: action.payload,
+      };
+    case CARGANDO:
+      return { ...state, cargando: true };
+    case REFRESH:
+      return { ...state, cargando: true };
+      case SELLER_PROFILE:
+        return {
+          ...state,
+          public_profile: action.payload
+        }
     default:
       return state;
   }

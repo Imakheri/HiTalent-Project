@@ -2,38 +2,84 @@ import React, { useEffect } from "react";
 import { PROXY } from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getTalentById } from "../../actions";
+import { getTalentById, getUserbyId, publicProfile } from "../../actions";
 import Nav from "../Home/Nav";
 import Footer from "../Landing/Footer";
 import { Link } from "react-router-dom";
 import { Box, useToast, Button, Image } from "@chakra-ui/react";
-// import { StarIcon } from "@chakra-ui/icons";
 import QyA from "./Q&A";
 import QyAanswer from "./Q&Aanswer";
 import Reviews from "./Reviews";
 import axios from "axios";
+import { addToCart } from "../../actions/shoppingActions";
+import Spinner from "../Spinner/Spinner";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 
 export default function SeeMore() {
   const toast = useToast();
   const dispatch = useDispatch();
   const { id } = useParams();
   const seemore = useSelector((state) => state.index.moreTalent);
+  const user = useSelector((state) => state.index.user);
+  // let mercadopago = [{ title: seemore.title, total: seemore.cost }];
 
   useEffect(() => {
     dispatch(getTalentById(id));
   }, [dispatch, id]);
 
-  let mercadopago = { title: seemore.title, total: seemore.cost };
-
   async function handleCheckOut(e) {
-    console.log(mercadopago);
+    // let payload = {carrito: []}
+    //   let carrito = []
+
+    //   carrito.push({
+    //   user_id: user?.id,
+    //   post_id: seemore.id,
+    //   title: seemore.title,
+    //   price: seemore.cost
+    // })
+
+    let payloadMp = {
+      items: [{ title: seemore.title, unit_price: seemore.cost, quantity: 1 }],
+    };
+    // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
+    //     title: e.title,
+    //     unit_price: e.cost,
+    //     quantity: e.quantity}))) : console.log('mercadopago')
+
+    console.log("ordenes", payloadMp);
+    axios
+      .post("http://localhost:3001/orden", { payloadMp })
+      .then((res) => console.log("res de seemore", res))
+      .catch((error) => console.log("err de seemore", error));
+
+    console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
-      `${PROXY}/checkout/mercadopago/`,
-      mercadopago
+      "http://localhost:3001/checkout/mercadopago/",
+      { payloadMp }
     );
     console.log(response);
     window.location.href = response.data.init_points;
+  }
+
+  function onClick(e) {
+    e.preventDefault();
+    dispatch(
+      addToCart({ title: seemore.title, cost: seemore.cost, id: seemore.id })
+    );
+    toast({
+      position: "bottom-right",
+      render: () => (
+        <Box color="white" p={3} bg="green.500">
+          Agregado al carrito
+        </Box>
+      ),
+    });
   }
 
   return (
@@ -53,7 +99,10 @@ export default function SeeMore() {
           <Image src={seemore.image} alt="talent_image" />
 
           <Box p="6">
-            <Box display="flex" alignItems="baseline">
+          <Link to={"/profilePublic/" + seemore?.user_id}>
+            <h4 class="text-dark">Autor: {seemore?.user?.username}</h4>
+          </Link>
+            {/* <Box display="flex" alignItems="baseline">
               <Box
                 color="gray.500"
                 fontWeight="semibold"
@@ -62,9 +111,9 @@ export default function SeeMore() {
                 textTransform="uppercase"
                 ml="2"
               >
-                {/* By: {seemore.user.username} */}
+                By: {seemore.user.username}
               </Box>
-            </Box>
+            </Box> */}
 
             <Box
               mt="2"
@@ -80,48 +129,66 @@ export default function SeeMore() {
             <Box>{seemore.description}</Box>
 
             <Box>
+              <Box as="span" color="gray.600 fontSize=-sm">
+                Idioma:
+              </Box>
+              {seemore?.language}
+            </Box>
+
+            <Box>
+              <Box as="span" color="gray.600 fontSize=-sm">
+                Huso horario:
+              </Box>
+              {seemore?.timeZone}
+            </Box>
+
+            <Box>
               <Box as="span" color="gray.600" fontSize="sm">
                 $
               </Box>
               {seemore.cost}
             </Box>
-
-            {/* <Box display='flex' mt='2' alignItems='center'>
-      {Array(5)
-        .fill('')
-        .map((_, i) => (
-          <StarIcon
-          key={i}
-          color={i < seemore.rating ? 'teal.500' : 'gray.300'}
-          />
-          ))}
-      <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-        {seemore.reviewCount} reviews
-      </Box>
-    </Box> */}
-            <Box class="flex flex-col items-center" m="2">
-              <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
-              <Box as="span" m="2" color="gray.600" fontSize="sm">
-                <Button
-                  onClick={() =>
-                    toast({
-                      position: "bottom-right",
-                      render: () => (
-                        <Box color="white" p={3} bg="green.500">
-                          Agregado al carrito
-                        </Box>
-                      ),
-                    })
-                  }
-                >
-                  Agregar al carrito
-                </Button>
+            {seemore.user_id !== user.id && user.id ? (
+              <Box class="flex flex-col items-center" m="2">
+                <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
+                <Box as="span" m="2" color="gray.600" fontSize="sm">
+                  <Button onClick={onClick}>Agregar al carrito</Button>
+                </Box>
+                {/* <Link to={"/profilePublic/" + seemore.user_id}>
+                  <button className="btn-custom btn-colors mt-10">
+                    Ver perfil
+                  </button>
+                </Link> */}
               </Box>
-            </Box>
+            ) : !user.id ? (
+              <Alert status='warning'>
+              <AlertIcon />
+              Ingresa a tu cuenta para adquirir este curso o hacer una pregunta
+              </Alert>
+              // <>
+              //   <br />
+              //   <hr />
+              //   <div>
+              //     Ingresa a tu cuenta para adquirir este curso o hacer una
+              //     pregunta
+              //   </div>
+              // </>
+            ) : (
+              <Alert status='info'>
+                <AlertIcon />
+                  Esta publicacion te pertenece
+                </Alert>
+              // <>
+              //   <br />
+              //   <hr />
+              //   <div>Esta publicacion te pertenece</div>
+              // </>
+            )}
           </Box>
           <QyAanswer />
-          <QyA />
           <Reviews />
+          {seemore.user_id !== user.id && <QyA />}
+
           <Box>
             <Link to="/home">
               <Button m="2">Volver</Button>
@@ -129,7 +196,7 @@ export default function SeeMore() {
           </Box>
         </Box>
       ) : (
-        <p>Cargando</p>
+        <Spinner />
       )}
       <Footer />
     </div>

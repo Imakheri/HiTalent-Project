@@ -1,25 +1,25 @@
 const { Users, Question, Posts } = require("../db");
 
 async function question(req, res, next) {
-  console.log("probando ruta", body);
+  console.log("probando ruta", req.body);
   let { title, question, user_id, post_id } = req.body;
   try {
     let newQuestion = await Question.create({
       title,
       question,
+      user_id,
+      post_id,
     });
-    let userId = Users.findByPk(user_id);
-    let postId = Posts.findByPk(post_id);
-    newQuestion.setUser(userId);
-    newQuestion.setPost(postId);
-    res.json(newQuestion);
+    newQuestion.setUser(user_id);
+    newQuestion.setPost(post_id);
+    res.send(newQuestion);
   } catch (err) {
     next(err);
   }
 }
 async function answer(req, res, next) {
-  let { answer } = req.body;
-  let { idQuestion } = req.params;
+  let { answer, idQuestion } = req.body;
+  console.log("probando puuuuuuuut", req.body);
   try {
     let newAnswer = await Question.findByPk(idQuestion);
     newAnswer.answer = answer;
@@ -94,7 +94,7 @@ async function getPostQuestions(req, res, next) {
         include: [
           {
             model: Question,
-            attributes: ["title", "question", "answer"],
+            attributes: ["title", "question", "answer", "userId"],
             order: [["createdAt", "DESC"]],
           },
         ],

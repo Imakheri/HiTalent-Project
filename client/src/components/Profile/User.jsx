@@ -4,26 +4,82 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserbyId } from '../../actions';
 import defaultImage from '../../assets/profile_default.png'
+import {useState} from "react"
+import axios from "axios"
+//import { Box, Image, Button } from '@chakra-ui/react';
+
 
 export default function Profile(){
     const { id } = useParams();
-    console.log(id);
+    
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
+    const[file,setFile]=useState(null)
+    const [previewSource,setPreviewSource]=useState()
+    const [flag,setFlag]=useState(false)
+    //const [resumen, setResumen]= useState('');
 
     useEffect(() => {
         dispatch(getUserbyId(id));
     },[dispatch, id])
+    useEffect(() => {
+        dispatch(getUserbyId(id));
+    },[flag])
 
+    function  handleSubmit(e) {
+        if(!file){
+            return console.log("no hay foto")
+        }
+        let fb=new FormData()
+        fb.append("username",user.username)
+        fb.append("image",file)
+        axios({
+            method: "put",
+            url: "http://localhost:3001/user",
+            data: fb,
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then(res => console.log(res))
+        .catch(err => console.log(err));
+        dispatch(getUserbyId(id));
+        setPreviewSource(null)
+        setFile(null)
+        setFlag(!flag)
 
+    }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
+    
+    }
+    function  handleFile(e) {
+        setFile(e.target.files[0])
+        previewFile(e.target.files[0])
+    }
+    // function handleOnChange(e){
+    //    setResumen(e.target.value)
+    // }
+    // function onSubmit(e){
+    //     e.preventDefault();
+    //     setResumen(e.target.value)
+    // }
     return(
         <div>
         {!user ? (<h2>Cargando...</h2>) : (
         <div className='flex flex-col items-center py-10 px-8 bg-dark border-2 text-white border-white rounded-lg space-y-6'>
             <div>
-                <img className='rounded-full border-4 border-semilight w-72' src={user.image? user.image : defaultImage} alt={user.username}/>
+                <img className='rounded-full border-4 border-semilight w-72 h-72 object-cover' src={user.image? user.image : defaultImage} alt={user.username}/>
             </div>
-
+            <button onClick={handleSubmit}>agregar imagen</button>
+            <label>imagen de perfil</label>
+            <input  
+                                onChange={handleFile} 
+                                type="file" 
+                                name="image"
+                                required />
+            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
             <div className='flex flex-col w-full'>
                 <h4 className='text-2xl font-medium italic underline'>{user.fullName}</h4>
                 <h5 className='text-xl text-gray'>{user.username}</h5>
@@ -35,14 +91,41 @@ export default function Profile(){
                     </ div>
                 </div>
             </div> */}
-            <div>
-                <p>Usuario desde: {user.createdAt}</p>
-            </div>
+            {/* <div>
+                <p className='font-medium'>Usuario desde:</p>
+                <p> {user.createdAt.slice(0, 10)}</p>
+            </div> */}
             <div className='flex flex-col justify-start space-y-6'>
+
+            {/* <Box overflowY='scroll' maxH="100px">
+            <label class="text-lg" >Sobre mi: {user.resume}</label>
+                            <textarea 
+                                onChange={handleOnChange} 
+                                className="resize-none overflow-y-auto justify-self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 text-center p-8"  
+                                name="description" 
+                                rows="11" cols="25"  
+                                //placeholder=" Sobre mi..." 
+                                required
+                                />
+                                <div>
+                                <button onSubmit={(e) => onSubmit(e)}className="btn-primary btn-colors"> Agregar </button>
+                                </div>
+             </Box> */}
+
+             <div>
+                <p className='font-medium'>Usuario desde:</p>
+                <p> {user.createdAt.slice(0, 10)}</p>
+            </div>
+
+                <div>
+                    <p className='font-medium'>Sobre mi: </p>
+                    <p>{user.resume}</p>
+                </div>
+
                 <div>
                     <p>{user.country}</p>
                 </div>
-                <div>
+                {/* <div>
                     <p>{user.id}</p>
                 </div>
                 <div>
@@ -54,12 +137,13 @@ export default function Profile(){
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/card.png'/></button>
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='Paypal logo' src='https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg'/></button>
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='MercadoPago logo' src='http://codes.unidepix.com/img/mercadopago.png'/></button>    
-                </div>
-                    <h5 className='font-medium'>Redes sociales:</h5>
+                </div> */}
+                    <h5 className='font-medium'>Redes sociales</h5>
                 <div>
                     <button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>
                     {/* {!user.social ? '' : (<button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>)} */}
                     <button><img className='w-7 h-7 mr-2' alt='Google logo' src='http://codes.unidepix.com/img/google.svg'/></button>
+                    
                 </div>
             </div>
         </div>

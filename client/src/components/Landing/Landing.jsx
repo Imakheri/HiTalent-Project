@@ -12,7 +12,7 @@ export default function Landing() {
 
     const [ventanaLogIn, setVentanaLogIn] = useState(false)
     const [ ventanaRegister, setVentanaRegister ] = useState(false)
-    
+
     function onModalClick(e){
         e.preventDefault()
         setVentanaLogIn(!ventanaLogIn)
@@ -30,7 +30,7 @@ export default function Landing() {
     }
 
     return (
-        <div class="bg-semilight min-h-screen select-none">
+        <div class="bg-semilight min-h-screen max-w-full select-none">
             <Navbar onModalClick={onModalClick} onModaleClick={onModaleClick} />
             <div class="flex justify-around items-center content-center bg-landingImg bg-cover min-h-screen object-cover">
                 {

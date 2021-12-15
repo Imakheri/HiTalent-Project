@@ -22,11 +22,11 @@ export default function Reviews() {
           review.posts.map((e) => (
             <div className="flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-auto m-1">
               <span className="p-2">{e.title}</span>
-              <span className="px-2">{e.reviews[0]?.description}</span>
+              {/* <span className="px-2">{e.reviews[0]?.description}</span> */}
               <span className="px-2 font-black italic">
                 {e.reviews[0]?.user?.username}
               </span>
-              <span>{e.reviews[0].rating}</span>
+              <span>{e.reviews[0]?.qualification}</span>
             </div>
           ))
         ) : (

@@ -16,22 +16,23 @@ export const PUT_ANSWER = "PUT_ANSWER";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const POST_QUESTION = "POST_QUESTION";
 export const GET_POST_QUESTION = "GET_POST_QUESTION";
-export const SORT_BY_PRICE = 'SORT_BY_PRICE';
-
+export const SORT_BY_PRICE = "SORT_BY_PRICE";
+export const GET_POST_REVIEW = "GET_POST_REVIEW";
+export const FILTRO_CAT = "FILTRO_CAT";
+export const TALENT_BY_RATING = "TALENT_BY_RATING";
+export const POST_ORDER = "POST_ORDER";
+export const CARGANDO = "CARGANDO";
+export const SELLER_PROFILE = 'SELLER_PROFILE';
+export const REFRESH = "REFRESH";
 
 export function getTalents() {
-  return function (dispatch) {
-    axios
-      .get(`${PROXY}/post`)
-      .then((talents) => {
-        dispatch({
-          type: GET_TALENT,
-          payload: talents.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  return async function (dispatch) {
+    dispatch({ type: CARGANDO });
+    var talents = await axios.get("http://localhost:3001/post");
+    return dispatch({
+      type: GET_TALENT,
+      payload: talents.data,
+    });
   };
 }
 
@@ -44,7 +45,7 @@ export function getTalentById(id) {
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log("error getTalentById");
     }
   };
 }
@@ -60,7 +61,7 @@ export function searchTalent(search) {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log("no se encontró el curso");
       });
   };
 }
@@ -184,12 +185,13 @@ export function getQAbyId(idUser) {
   };
 }
 
-export function createAnswer(answer, id) {
+export function createAnswer(answer) {
   return async function (dispatch) {
     try {
-      var info = await axios.put(`${PROXY}/question/` + id, {
-        answer,
-      });
+      var info = await axios.put(
+        "http://localhost:3001/question/answer",
+        answer
+      );
       console.log(info.data);
       return dispatch({
         type: PUT_ANSWER,
@@ -204,9 +206,7 @@ export function createAnswer(answer, id) {
 export function postQuestion(body) {
   console.log("body de la action", body);
   return async function (dispatch) {
-    const question = await axios.post(`${PROXY}/question`, {
-      body,
-    });
+    const question = await axios.post("http://localhost:3001/question", body);
     console.log("data", question.data);
     return dispatch({
       type: POST_QUESTION,
@@ -240,6 +240,77 @@ export function getCategories() {
 export function sortByPrice(order) {
   return {
     type: SORT_BY_PRICE,
-    payload: order
+    payload: order,
+  };
+}
+
+export function getPostReview(idPost) {
+  return async function (dispatch) {
+    try {
+      var review = await axios.get("http://localhost:3001/review/" + idPost); //el id es el del usuario(perfil)
+      return dispatch({
+        type: GET_POST_REVIEW,
+        payload: review.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function filteredCat(payload) {
+  return {
+    type: FILTRO_CAT,
+    payload,
+  };
+}
+
+export function getTalentByRating(rating) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get("http://localhost:3001/post/rating/" + rating);
+      return dispatch({
+        type: TALENT_BY_RATING,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+// export function postOrder(payload) {
+//   console.log('action', payload)
+//   return async function() {
+//     try {
+//       let order = axios.post("http://localhost:3001/orden", payload)
+//       return {
+//         type: "POST_ORDER",
+//         payload: order.payload
+//       }
+//     }
+//     catch(err) {
+//       console.log(err)
+//     }
+//   }
+// }
+
+export function publicProfile(id) {
+  return async function (dispatch) {
+    try {
+      let publicProf = await axios.get("http://localhost:3001/user/" + id);
+      return dispatch({
+        type: SELLER_PROFILE,
+        payload: publicProf.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
+}
+
+export function refresh() {
+  return {
+    type: REFRESH,
+  };
 }
