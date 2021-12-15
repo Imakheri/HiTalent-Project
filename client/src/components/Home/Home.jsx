@@ -51,6 +51,7 @@ export default function Home() {
         onModaleClick={onModaleClick}
         onModalClick={onModalClick}
       />
+
       <div>
         {ventanaLogIn ? (
           <Form onModalClick={onModalClick} onModalChange={onModalChange} />
@@ -125,15 +126,15 @@ export default function Home() {
             skill?.map((talent) => {
               return (
                 <TalentCard
-                key={talent.id}
-                category={talent?.category?.title}
-                id={talent.id}
-                username={talent?.user?.username}
-                title={talent.title}
-                description={talent.description}
-                image={talent.image}
-                cost={talent.cost}
-                rating={talent.rating}
+                  key={talent.id}
+                  category={talent?.category?.title}
+                  id={talent.id}
+                  username={talent?.user?.username}
+                  title={talent.title}
+                  description={talent.description}
+                  image={talent.image}
+                  cost={talent.cost}
+                  rating={talent.rating}
                 />
               );
             })

@@ -4,6 +4,8 @@ import NavAdmin from "./NavAdmin";
 import AdminData from "./AdminData";
 // import NavBar from '../Talents/BarraNav/NavBar';
 import Nav from "./Nav";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function AdminProfile() {
   let [data, setData] = useState({
@@ -12,6 +14,7 @@ function AdminProfile() {
     review: [],
   });
 
+  let usuarioLogueado = useSelector((state) => state.index.user);
   let [pestaña, setPestaña] = useState("user");
 
   useEffect(() => {
@@ -25,12 +28,21 @@ function AdminProfile() {
   }, [pestaña]);
 
   return (
-    <div className="bg-light h-screen">
-      <Nav />
-      <div className="flex flex-col">
-        <NavAdmin setPestaña={setPestaña} />
-        <AdminData pestaña={pestaña} data={data} setData={setData} />
-      </div>
+    <div>
+      {!usuarioLogueado.isAdmin ? (
+        <div>
+          <h1>Permisos denegados</h1>
+          <Link to="/home">Regresar</Link>
+        </div>
+      ) : (
+        <div className="bg-light h-screen">
+          <Nav />
+          <div className="flex flex-col">
+            <NavAdmin setPestaña={setPestaña} />
+            <AdminData pestaña={pestaña} data={data} setData={setData} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

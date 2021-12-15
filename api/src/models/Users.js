@@ -75,7 +75,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     isAdmin: {
-      type: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: true,
     },
