@@ -2,12 +2,11 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getUserbyId } from '../../actions';
+import { getUserbyId, PROXY } from '../../actions';
 import defaultImage from '../../assets/profile_default.png'
 import {useState} from "react"
 import axios from "axios"
 //import { Box, Image, Button } from '@chakra-ui/react';
-
 
 export default function Profile(){
     const { id } = useParams();
@@ -35,7 +34,7 @@ export default function Profile(){
         fb.append("image",file)
         axios({
             method: "put",
-            url: "http://localhost:3001/user",
+            url: `${PROXY}/user`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))

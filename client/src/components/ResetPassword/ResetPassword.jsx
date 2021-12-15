@@ -23,7 +23,7 @@ export default function ResetPassword() {
   }
 
   function resetPassword(body) {
-    axios.put("http://localhost:3001/user/editPassword", body);
+    axios.put(`${PROXY}/user/editPassword`, body);
   }
 
   function handleChangeEmail(e) {

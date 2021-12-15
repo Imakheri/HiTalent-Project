@@ -7,7 +7,7 @@ function AdminData({ pestaña, data, setData }) {
 
   console.log("DATA: ", data);
   useEffect(() => {
-    axios.get(`http://localhost:3001/admin`).then((res) =>
+    axios.get(`${PROXY}/admin`).then((res) =>
       setData({
         user: res.data.users,
         post: res.data.posts,
@@ -24,7 +24,7 @@ function AdminData({ pestaña, data, setData }) {
     };
     setPut(!put);
     axios
-      .put(`http://localhost:3001/admin`, aux)
+      .put(`${PROXY}/admin`, aux)
       .then((res) => res)
       .catch((err) => console.log("ESTE ES EL ERROR DEL PUT: ", err));
   }
@@ -37,7 +37,7 @@ function AdminData({ pestaña, data, setData }) {
     };
     setPut(!put);
     axios
-      .delete("http://localhost:3001/admin", { data: aux })
+      .delete(`${PROXY}/admin`, { data: aux })
       .then((res) => console.log(res))
       .catch((err) => console.log("ESTE ES EL ERROR DEL DELETE: ", err));
   }
