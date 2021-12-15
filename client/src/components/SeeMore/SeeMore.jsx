@@ -26,7 +26,7 @@ export default function SeeMore() {
   }, [dispatch, id]);
 
   async function handleCheckOut(e) {
-      // let payload = {carrito: []}
+    // let payload = {carrito: []}
     //   let carrito = []
 
     //   carrito.push({
@@ -35,27 +35,26 @@ export default function SeeMore() {
     //   title: seemore.title,
     //   price: seemore.cost
     // })
-    
-    let payloadMp = {items: [
-  {    title: seemore.title,
-      unit_price: seemore.cost,
-      quantity: 1}
-    ]}
+
+    let payloadMp = {
+      items: [{ title: seemore.title, unit_price: seemore.cost, quantity: 1 }],
+    };
     // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
     //     title: e.title,
     //     unit_price: e.cost,
     //     quantity: e.quantity}))) : console.log('mercadopago')
-    
-      console.log('ordenes', payloadMp)
-      axios.post("http://localhost:3001/orden", {payloadMp})
-      .then (res => console.log('res de seemore',res))
-      .catch (error => console.log('err de seemore',error))
 
-    console.log('mercadopago',payloadMp);
+    console.log("ordenes", payloadMp);
+    axios
+      .post("http://localhost:3001/orden", { payloadMp })
+      .then((res) => console.log("res de seemore", res))
+      .catch((error) => console.log("err de seemore", error));
+
+    console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
       "http://localhost:3001/checkout/mercadopago/",
-      {payloadMp}
+      { payloadMp }
     );
     console.log(response);
     window.location.href = response.data.init_points;

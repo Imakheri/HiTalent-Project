@@ -9,18 +9,28 @@ export default function Qas() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const qa = useSelector((state) => state.index.qa);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState({
+    answer: "",
+    idQuestion: "",
+  });
 
   function handleChange(e) {
     e.preventDefault();
-    setAnswer(e.target.value);
+    setAnswer({
+      answer: "",
+      idQuestion: "",
+    });
+    console.log("Esta es la respuesta" + answer);
   }
 
-  function handleOnSubmit(e, id) {
+  function handleOnSubmit(e) {
     e.preventDefault();
-    dispatch(createAnswer(answer, id));
-    setAnswer("");
-    console.log("Este es el id del input " + id);
+    dispatch(createAnswer(answer));
+    setAnswer({
+      answer: "",
+      idQuestion: "",
+    });
+    console.log("Esta es la respuesta" + answer);
   }
 
   useEffect(() => {
@@ -51,8 +61,8 @@ export default function Qas() {
                     >
                       <input
                         className="w-full rounded bg-semidark text-white placeholder-light pl-10 w-full"
-                        name={answer}
-                        value={answer}
+                        name="idQuestion"
+                        value={answer.idQuestion}
                         onChange={(e) => handleChange(e)}
                         placeholder="Añade tu respuesta aquí..."
                       />
