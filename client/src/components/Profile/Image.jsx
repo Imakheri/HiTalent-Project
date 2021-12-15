@@ -10,10 +10,8 @@ export default function Image({modal, isModal}){
     const dispatch = useDispatch();
     const[file,setFile]=useState(null)
     const [previewSource,setPreviewSource]=useState()
-    var flag=false
 
     const user = useSelector((state) => state.index.profile)
-
 
     function  handleSubmit(e) {
         let fb=new FormData()

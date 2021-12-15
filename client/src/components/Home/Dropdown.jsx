@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   Menu,
   MenuButton,
@@ -15,7 +16,12 @@ import { cargarUsuario } from "../../actions";
 
 export default function Dropdown() {
   const userState = useSelector((state) => state.index.user);
+  const userImage = useSelector((state) => state.index.profile);
   let dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('Estoy dentro del useEffect de Dropdown')
+    },[userImage])
 
 const logOut = (e) => {
   e.preventDefault();
@@ -26,7 +32,7 @@ const logOut = (e) => {
       <MenuButton class="m-3 h-9 w-9" as={Button}>
         <img
           class="h-9 w-9 border-solid border-black rounded-full"
-          src={userState.image? userState.image : defaultImage}
+          src={userState.image? userImage.image : defaultImage}
           alt="user_image"
         />
       </MenuButton>
