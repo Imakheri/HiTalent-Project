@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { PROXY } from "../../../actions";
 import "./chatOnline.css";
-
 export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   const [friends, setFriends] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
 
   // useEffect(() => {
   //   const getFriends = async ()=>{
-  //     const res = await axios.get("http://localhost:3001/user/friends" + currentId)
+  //     const res = await axios.get(`${PROXY}/user/friends` + currentId)
   //     setFriends(res.data)
   //   }
   //   getFriends()

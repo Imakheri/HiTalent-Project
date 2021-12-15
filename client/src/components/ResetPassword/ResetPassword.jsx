@@ -1,7 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import { PROXY } from '../../actions';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ResetPassword() {
   const [input, setInput] = useState({
@@ -22,8 +23,7 @@ export default function ResetPassword() {
   }
 
   function resetPassword(body) {
-    axios.put("http://localhost:3001/user/editPassword", body);
-    console.log(body);
+    axios.put(`${PROXY}/user/editPassword`, body);
   }
 
   function handleChangeEmail(e) {

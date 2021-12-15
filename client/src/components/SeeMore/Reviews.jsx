@@ -4,7 +4,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostReview } from "../../actions/index";
+import { getPostReview, PROXY } from "../../actions/index";
 import axios from "axios";
 
 export default function Reviews() {
@@ -36,7 +36,7 @@ export default function Reviews() {
   async function onClick(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3001/review", newReview);
+      const res = await axios.post(`${PROXY}/review`, newReview);
       console.log(res);
       console.log(newReview);
       setRefresh(true);
