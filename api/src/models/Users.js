@@ -65,13 +65,18 @@ module.exports = (sequelize) => {
     code: {
       type: DataTypes.STRING, //para confirmar email
     },
-    aprobado:{
-      type:DataTypes.BOOLEAN,
-      defaultValue:false,
-      allowNull:true
+    aprobado: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: true,
     },
     resume: {
-      type: DataTypes.TEXT, 
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    isAdmin: {
+      type: DataTypes.STRING,
+      defaultValue: false,
       allowNull: true,
     },
   });

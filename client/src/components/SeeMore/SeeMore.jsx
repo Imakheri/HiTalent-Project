@@ -138,7 +138,7 @@ export default function SeeMore() {
               </Box>
               {seemore.cost}
             </Box>
-            {seemore.user_id !== user.id ? (
+            {seemore.user_id !== user.id && user.id ? (
               <Box class="flex flex-col items-center" m="2">
                 <Button onClick={(e) => handleCheckOut(e)}>Comprar</Button>
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
@@ -150,6 +150,15 @@ export default function SeeMore() {
                   </button>
                 </Link>
               </Box>
+            ) : !user.id ? (
+              <>
+                <br />
+                <hr />
+                <div>
+                  Ingresa a tu cuenta para adquirir este curso o hacer una
+                  pregunta
+                </div>
+              </>
             ) : (
               <>
                 <br />

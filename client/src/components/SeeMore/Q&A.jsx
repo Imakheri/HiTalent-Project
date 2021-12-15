@@ -71,17 +71,23 @@ export default function QyA() {
   }
 
   return (
-    <div class="m-3">
-      <h3 class="text-xl font-semibold">Haz una pregunta</h3>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <Input
-          value={question}
-          onChange={onChange}
-          placeholder="Ingrese su pregunta"
-          size="md"
-        />
-        <Button onClick={onClick}>Enviar</Button>
-      </form>
-    </div>
+    <>
+      {user.id ? (
+        <div class="m-3">
+          <h3 class="text-xl font-semibold">Haz una pregunta</h3>
+          <form onSubmit={(e) => onSubmit(e)}>
+            <Input
+              value={question}
+              onChange={onChange}
+              placeholder="Ingrese su pregunta"
+              size="md"
+            />
+            <Button onClick={onClick}>Enviar</Button>
+          </form>
+        </div>
+      ) : (
+        <br />
+      )}
+    </>
   );
 }
