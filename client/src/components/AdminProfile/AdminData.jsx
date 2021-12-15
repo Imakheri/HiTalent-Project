@@ -16,10 +16,6 @@ function AdminData({ pestaña, data, setData }) {
     );
   }, [put]);
 
-  // let prueba = data.user.find(el => el.id === data.post[4].user_id);
-
-  // console.log("PRUEBA12: ", data.user.find(el => el.id === data.post[0].user_id))
-
   function botonClick(e) {
     e.preventDefault();
     let aux = {
@@ -56,6 +52,7 @@ function AdminData({ pestaña, data, setData }) {
               <th>FullName</th>
               <th>Username</th>
               <th>Email</th>
+              <th>Verificado</th>
               <th>Estado</th>
               <th>Opciones</th>
             </tr>
@@ -65,6 +62,7 @@ function AdminData({ pestaña, data, setData }) {
                   <td>{el.fullName}</td>
                   <td>{el.username}</td>
                   <td>{el.email}</td>
+                  {el.email_verified ? <td>Si</td> : <td>No</td>}
                   {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
                   <td>
                     <BotonOptions
@@ -90,13 +88,10 @@ function AdminData({ pestaña, data, setData }) {
               <th>Opciones</th>
             </tr>
             {data[`${pestaña}`].map((el) => {
-              //Problemitas tecnicos aca
-              let persona = data.user.find((el) => el.user_id === data.user.id);
-              console.log("ALGO: ", persona);
               return (
                 <tr key={el.id} className="bg-semidark border w-max">
                   <td>{el.title}</td>
-                  <td>{persona.fullName}</td>
+                  <td>{el[`user.username`]}</td>
                   <td>{el.cost}</td>
                   <td>{el.rating}</td>
                   {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
@@ -124,7 +119,7 @@ function AdminData({ pestaña, data, setData }) {
             {data[`${pestaña}`].map((el) => {
               return (
                 <tr key={el.id} className="bg-semilight border w-max">
-                  <td>{el.userId}</td>
+                  <td>{el[`user.username`]}</td>
                   <td>{el.qualification}</td>
                   <td>{el.description}</td>
                   {el.aprobado ? <td>Aprobado</td> : <td>Pendiente</td>}
