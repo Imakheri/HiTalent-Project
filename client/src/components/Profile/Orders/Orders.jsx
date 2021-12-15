@@ -29,7 +29,7 @@ export default function Orders(){
                                 <h3>{item.title}</h3>
                                 <h3>{item.id}</h3>
                                 <h3>${item.price}</h3>
-                                </div>
+                            </div>
                         )
                         :
                         <div>No hay pedidos</div>

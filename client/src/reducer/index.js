@@ -18,6 +18,7 @@ import {
   FILTRO_CAT,
   TALENT_BY_RATING,
   CARGANDO,
+  SELLER_PROFILE,
 } from "../actions";
 
 import { ASCENDENTE } from "../const";
@@ -37,6 +38,7 @@ const initialState = {
   questionsPost: [],
   ownerQuestion: "",
   cargando: false,
+  public_profile: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -153,5 +155,10 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, cargando: true };
     default:
       return state;
+    case SELLER_PROFILE:
+      return {
+        ...state,
+        public_profile: action.payload
+      }
   }
 }

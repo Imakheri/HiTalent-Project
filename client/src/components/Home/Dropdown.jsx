@@ -56,6 +56,9 @@ export default function Dropdown() {
         <Link to={"/cart"}>
           <MenuItem>Carrito</MenuItem>
         </Link>
+        <Link to={"/messenger"}>
+          <MenuItem>Chat</MenuItem>
+        </Link>
         <Link to="/faq">
           <MenuItem>Preguntas frecuentes</MenuItem>
         </Link>

@@ -19,7 +19,7 @@ export default function Reviews() {
     <div class="m-3">
       <h3 class="text-xl font-semibold">Reviews del talento</h3> 
       {review?.reviews?.length > 0 ? (
-        <Box display="flex" mt="2" alignItems="center">
+        <Box class="w-min-full" display="flex" mt="2" alignItems="center">
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             {review?.reviews ? (
               review?.reviews?.map((e) => <div class="bg-light mb-2 rounded-md"> 

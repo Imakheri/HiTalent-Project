@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getTalentById } from "../../actions";
+import { getTalentById, getUserbyId, publicProfile } from "../../actions";
 import Nav from "../Home/Nav";
 import Footer from "../Landing/Footer";
 import { Link } from "react-router-dom";
@@ -93,7 +93,10 @@ export default function SeeMore() {
           <Image src={seemore.image} alt="talent_image" />
 
           <Box p="6">
-            <Box display="flex" alignItems="baseline">
+          <Link to={"/profilePublic/" + seemore?.user_id}>
+            <h4 class="text-dark">Autor: {seemore?.user?.username}</h4>
+          </Link>
+            {/* <Box display="flex" alignItems="baseline">
               <Box
                 color="gray.500"
                 fontWeight="semibold"
@@ -102,9 +105,9 @@ export default function SeeMore() {
                 textTransform="uppercase"
                 ml="2"
               >
-                {/* By: {seemore.user.username} */}
+                By: {seemore.user.username}
               </Box>
-            </Box>
+            </Box> */}
 
             <Box
               mt="2"
@@ -145,11 +148,11 @@ export default function SeeMore() {
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
                   <Button onClick={onClick}>Agregar al carrito</Button>
                 </Box>
-                <Link to={"/profilePublic/" + seemore.user_id}>
+                {/* <Link to={"/profilePublic/" + seemore.user_id}>
                   <button className="btn-custom btn-colors mt-10">
                     Ver perfil
                   </button>
-                </Link>
+                </Link> */}
               </Box>
             ) : (
               <>

@@ -21,6 +21,7 @@ export const FILTRO_CAT = "FILTRO_CAT";
 export const TALENT_BY_RATING = "TALENT_BY_RATING";
 export const POST_ORDER = "POST_ORDER";
 export const CARGANDO = "CARGANDO";
+export const SELLER_PROFILE = 'SELLER_PROFILE';
 
 export function getTalents() {
   return async function (dispatch) {
@@ -290,3 +291,17 @@ export function getTalentByRating(rating) {
 //     }
 //   }
 // }
+
+export function publicProfile(id) {
+  return async function (dispatch) {
+    try {
+      let publicProf = await axios.get("http://localhost:3001/user/" + id);
+      return dispatch({
+        type: SELLER_PROFILE,
+        payload: publicProf.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

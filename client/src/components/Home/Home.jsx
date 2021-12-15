@@ -68,11 +68,11 @@ export default function Home() {
         {/* <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr /> */}
         <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
-        <Link to="/messenger">
+        {/* <Link to="/messenger">
           <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">
             Chat
           </button>
-        </Link>
+        </Link> */}
       </div>
 
       <div class="flex justify-center space-x-10 font-semibold text-xl">
@@ -117,9 +117,9 @@ export default function Home() {
       ) : (
         <div class="flex flex-row flex-wrap items-center content-around justify-around">
           {skill?.length === 0 ? (
-            <div class="text-4xl font-bold m-4">
+            <div class="text-4xl min-h-screen font-bold m-4">
               {" "}
-              <h3>Ups! no encontramos lo que buscas, intenta de nuevo</h3>
+              <h3 class="m-auto">Ups! no encontramos lo que buscas, intenta de nuevo</h3>
             </div>
           ) : (
             skill?.map((talent) => {
