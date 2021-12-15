@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 
 export default function Chat() {
-  const { id } = useParams()
+  const id  = useParams()
+  console.log('id params', id)
   let navigate = useNavigate();
   const user = useSelector((state) => state.index.user);
   const orders = useSelector((state) => state.index.profile);

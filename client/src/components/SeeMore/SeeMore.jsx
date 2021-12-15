@@ -12,6 +12,12 @@ import Reviews from "./Reviews";
 import axios from "axios";
 import { addToCart } from "../../actions/shoppingActions";
 import Spinner from "../Spinner/Spinner";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 
 export default function SeeMore() {
   const toast = useToast();
@@ -154,20 +160,28 @@ export default function SeeMore() {
                 </Link> */}
               </Box>
             ) : !user.id ? (
-              <>
-                <br />
-                <hr />
-                <div>
-                  Ingresa a tu cuenta para adquirir este curso o hacer una
-                  pregunta
-                </div>
-              </>
+              <Alert status='warning'>
+              <AlertIcon />
+              Ingresa a tu cuenta para adquirir este curso o hacer una pregunta
+              </Alert>
+              // <>
+              //   <br />
+              //   <hr />
+              //   <div>
+              //     Ingresa a tu cuenta para adquirir este curso o hacer una
+              //     pregunta
+              //   </div>
+              // </>
             ) : (
-              <>
-                <br />
-                <hr />
-                <div>Esta publicacion te pertenece</div>
-              </>
+              <Alert status='info'>
+                <AlertIcon />
+                  Esta publicacion te pertenece
+                </Alert>
+              // <>
+              //   <br />
+              //   <hr />
+              //   <div>Esta publicacion te pertenece</div>
+              // </>
             )}
           </Box>
           <QyAanswer />
