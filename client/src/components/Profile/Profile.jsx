@@ -23,23 +23,22 @@ export default function Profile(){
 
     useEffect(() => {
         dispatch(getUserbyId(id));
-        console.log('Estoy dentro del useEffect de Profile')
     },[modal])
 
     return(
         <section className='flex flex-col w-full h-screen bg-semilight'>
             <Nav/>
-        <div className='flex'>
+        <div className='flex full-w'>
         {
             user.length === 0 ? (<h1>No estas registrado, no podes acceder al perfil</h1>) : (
-            <div className='flex flex-row'>
+            <div className='flex flex-row w-full'>
             <div className='w-96 mx-6 mt-6'>
                 <sidebar className='w-1/4'>
                     <User modal={setModal} />
                 </sidebar>
             </div>
             <Image modal={modal} isModal={setModal}/>
-            <div className='flex flex-col mt-6 mx-6 w-3/6 space-y-4'>
+            <div className='flex flex-col mt-6 mx-6 w-full space-y-4'>
                 <section className='space-y-4'>
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Pedidos</h2>
@@ -57,17 +56,16 @@ export default function Profile(){
                         <h2 className='text-2xl font-medium pl-4'>Preguntas</h2>
                             <Qas />
                     </section>
-                </section>
-                <div className='flex justify-center'>
-                    <Link to="/home">
-                        <button className="btn-custom btn-colors">Volver</button>
-                    </Link>
-                </div>
+              </section>
+              <div className="flex justify-center">
+                <Link to="/home">
+                  <button className="btn-custom btn-colors">Volver</button>
+                </Link>
+              </div>
             </div>
-            </div>
-            ) 
-        }
-        </div>
-        </section>
-    )
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

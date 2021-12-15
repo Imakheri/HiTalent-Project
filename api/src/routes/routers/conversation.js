@@ -6,10 +6,10 @@ const { Op } = require("sequelize");
 //Crear nueva conversacion
 router.post("/", async (req, res, next) => {
   const { senderId, receiverId } = req.body;
-
+  console.log(senderId, receiverId);
   try {
-    let newConversation = await Conversation.create({
-      members: [senderId, receiverId],
+    let newConversation = await Conversation.findOrCreate({
+      where: { members: [senderId, receiverId] },
     });
     res.json(newConversation);
   } catch (error) {

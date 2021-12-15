@@ -43,8 +43,23 @@
   height: 90px;
   padding: 10px;
 }
-.chatMenuInfo {
-  background-color: #cde3fc;
+.chatMenuInfo1 {
+  background-color: #f3f0d7;
+  margin-top: 7px;
+  border-radius: 3px;
+  width: 90%;
+  padding: 7%;
+}
+.chatMenuInfo2 {
+  background-color: #fed2aa;
+  margin-top: 7px;
+  border-radius: 3px;
+  width: 90%;
+  padding: 7%;
+}
+
+.chatMenuInfo3 {
+  background-color: #ffbf86;
   margin-top: 7px;
   border-radius: 3px;
   width: 90%;

@@ -1,11 +1,16 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Button } from "@chakra-ui/react";
-import { postQuestion, getTalentById, getPostQuestion } from "../../actions";
-import { useDispatch, useSelector  } from "react-redux";
+import {
+  postQuestion,
+  getTalentById,
+  getPostQuestion,
+  refresh,
+} from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import QyAanswer from "./Q&Aanswer";
-import { useToast } from '@chakra-ui/react'
+import { useToast } from "@chakra-ui/react";
 
 export default function QyA() {
   const questionsPost = useSelector((state) => state.index.questionsPost);
@@ -14,7 +19,7 @@ export default function QyA() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [question, setQuestion] = useState("");
-  const toast = useToast()
+  const toast = useToast();
 
   // useEffect(() => {
   //     dispatch(postQuestion(userState.id))
@@ -53,29 +58,36 @@ export default function QyA() {
     e.preventDefault();
     dispatch(postQuestion(body));
     dispatch(getPostQuestion(id));
+    dispatch(refresh());
     setQuestion("");
     toast({
-      title: 'Pregunta enviada',
-      status: 'success',
+      title: "Pregunta enviada",
+      status: "success",
       duration: 4000,
       isClosable: true,
-    })
+    });
     navigate(`/talent/${id}`); //La pregunta se va a mostrar, el usuario la tiene que responder desde su panel
     // <QyAanswer />;
   }
 
   return (
-    <div class="m-3">
-      <h3 class="text-xl font-semibold">Haz una pregunta</h3>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <Input
-          value={question}
-          onChange={onChange}
-          placeholder="Ingrese su pregunta"
-          size="md"
-        />
-        <Button onClick={onClick}>Enviar</Button>
-      </form>
-    </div>
+    <>
+      {user.id ? (
+        <div class="m-3">
+          <h3 class="text-xl font-semibold">Haz una pregunta</h3>
+          <form onSubmit={(e) => onSubmit(e)}>
+            <Input
+              value={question}
+              onChange={onChange}
+              placeholder="Ingrese su pregunta"
+              size="md"
+            />
+            <Button onClick={onClick}>Enviar</Button>
+          </form>
+        </div>
+      ) : (
+        <br />
+      )}
+    </>
   );
 }

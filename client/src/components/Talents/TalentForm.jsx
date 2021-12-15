@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { PROXY } from '../../actions';
 import ReactModal from 'react-modal';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -19,7 +20,8 @@ function TalentForm(){
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch])
-    
+
+    const [previewSource,setPreviewSource]=useState()
     const [file, setFile]=useState(null)
     const [previewSource,setPreviewSource]=useState()
     const [form, setForm] = useState({
@@ -68,6 +70,14 @@ function TalentForm(){
         e.preventDefault();
         setVentanaModal(!ventanaModal)
     }
+    function  previewFile(file) {
+        const reader=new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend=()=>{
+            setPreviewSource(reader.result)
+        }
+    
+    }
     
     function onSubmitForm(e){
         e.preventDefault()
@@ -83,11 +93,12 @@ function TalentForm(){
         fb.append("language",form.language)
         axios({
             method: "post",
-            url: "http://localhost:3001/post",
+            url: `${PROXY}/post`,
             data: fb,
             headers: { "Content-Type": "multipart/form-data" },
         }).then(res => console.log(res))
         .catch(err => console.log(err));
+            setPreviewSource(null)
           alert("Curso creado satisfactoriamente")
           navigate("/home");
     }
@@ -127,7 +138,7 @@ function TalentForm(){
                                 placeholder="Ingrese la descripcion del curso" 
                                 required
                                 />
-                            {previewSource&&<img src={previewSource} style={{height:"150px"}}/>}
+                            {!previewSource ? console.log('no hay imagen') : previewSource&&<img src={previewSource} className='flex justify-center rounded'/>}
                         </div>
                     <div>
                         <div className='flex flex-col space-y-2'>
@@ -190,12 +201,13 @@ function TalentForm(){
                             {/* <select className="h-10 w-full pl-2 justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
                             onChange={handleOnChange}
                             name='timeZone'
-                            required/>
-                              
-                            <label className='text-lg'>Idioma: </label>
-                            <select name="timeZone"
-                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3">
-                                <option >Selecciona una zona horaria:</option>
+                            required/> */}
+                            <label className='text-lg'>Zona horaria: </label>
+                            <select onChange={handleOnChange} 
+                            className="h-8 w-full justify-self-center self-center border-2 rounded-md border-white bg-dark text-white placeholder-white border-opacity-70 px-3"
+                            required
+                            name="timeZone">
+                                <option name="timeZone">Selecciona una zona horaria:</option>
                                 <option value='GMT+1'>GMT+1</option>
                                 <option value='GMT-0'>GMT 0</option>
                                 <option value='GMT-1'>GMT-1</option>
@@ -212,7 +224,7 @@ function TalentForm(){
                             name="language"  
                             required
                             >
-                                <option name="timeZone">Selecciona el idioma:</option>
+                                <option name="language">Selecciona el idioma:</option>
                                 <option value='Alemán'>Alemán 🇩🇪</option>
                                 <option value='Español'>Español 🇪🇸</option>
                                 <option value='Francés'>Francés 🇫🇷</option>
@@ -250,7 +262,7 @@ function TalentForm(){
                             </div>
                             <div className='flex flex-col bg-semilight'>
                                 <div className="flex justify-center h-2/3 bg-semilight">
-                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-2/5 rounded border-2 border-white">
+                                    <form onSubmit={e => onSubmitForm(e)} className="flex flex-col pl-2 bg-dark text-white py-4 space-y-4 w-3/6 rounded border-2 border-white">
                                         <div>
                                             <label className='mr-4 text-2xl'>Titulo: </label>
                                             <input 

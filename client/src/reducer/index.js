@@ -16,9 +16,11 @@ import {
   SORT_BY_PRICE,
   GET_POST_REVIEW,
   FILTRO_CAT,
-  //SORT_BY_QUALI
+  TALENT_BY_RATING,
+  CARGANDO,
+  SELLER_PROFILE,
+  REFRESH,
 } from "../actions";
-
 import { ASCENDENTE } from "../const";
 
 const initialState = {
@@ -33,8 +35,10 @@ const initialState = {
   qa: [],
   moreTalent: [],
   categories: [],
-  questionsPost: []
-
+  questionsPost: [],
+  ownerQuestion: "",
+  cargando: false,
+  public_profile: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -44,6 +48,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         talents: action.payload,
         filteredTalents: action.payload,
+        cargando: false,
       };
     case SEARCH_TALENT:
       return {
@@ -91,20 +96,21 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         qa: action.payload,
       };
-    // case PUT_ANSWER:
-    //     return{
-    //         ...state,
-    //         qa: action.payload
-    //     }
+    case PUT_ANSWER:
+      return {
+        ...state,
+        qa: action.payload,
+      };
     case GET_CATEGORIES:
       return {
         ...state,
-        categories: action.payload
+        categories: action.payload,
       };
     case GET_POST_QUESTION:
       return {
         ...state,
         questionsPost: action.payload,
+        cargando: false,
       };
     case POST_QUESTION:
       return {
@@ -132,14 +138,29 @@ export default function rootReducer(state = initialState, action) {
         review: action.payload,
       };
     case FILTRO_CAT:
-      let allCat = state.talents
-      let fil = action.payload === 'todas' ? allCat : allCat.filter(el => el?.category?.title === action.payload)
+      let allCat = state.talents;
+      let fil =
+        action.payload === "todas"
+          ? allCat
+          : allCat.filter((el) => el?.category?.title === action.payload);
       return {
         ...state,
-        filteredTalents: fil
+        filteredTalents: fil,
       };
-    //case SORT_BY_QUALI:
-     
+    case TALENT_BY_RATING:
+      return {
+        ...state,
+        filteredTalents: action.payload,
+      };
+    case CARGANDO:
+      return { ...state, cargando: true };
+    case REFRESH:
+      return { ...state, cargando: true };
+      case SELLER_PROFILE:
+        return {
+          ...state,
+          public_profile: action.payload
+        }
     default:
       return state;
   }
