@@ -340,6 +340,24 @@ async function getUserById(req, res, next) {
   }
 }
 
+async function editProfile(req, res, next){
+  let { resume, country, username } = req.body;
+  
+  try {
+    let user = await Users.findOne({
+      where: {
+        username: username
+      }
+    });
+    if (resume) user.resume= resume;
+    if(country) user.country= country;
+    await user.save();
+    res.send(user.toJSON());
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createUser,
   deleteUser,
@@ -350,4 +368,5 @@ module.exports = {
   emailResetPassword,
   editPassword,
   getUserById,
+  editProfile
 };

@@ -4,6 +4,7 @@ import { Link }  from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderbyId } from '../../../actions';
+import { Alert, AlertIcon, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 export default function Orders(){
 
@@ -17,28 +18,32 @@ export default function Orders(){
     },[dispatch, id])
 
     return(
-        <div className='flex flex-col justify-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>
+        <div className='flex flex-col justify-center bg-semidark border-2 text-white border-white rounded-lg w-11/12 py-4'>
             <div className='flex flex-col items-center py-2'>
-            <div className='flex flex-row justify-around bg-dark border border-dark w-11/12 h-auto space-x-6 mb-2'>
-                <span>Talento</span><span>Numero de orden</span><span>Monto</span>
-            </div>
-                        {order?.orders?.length > 0 ?
+                <Table>
+                    <Thead>
+                        <Tr class="bg-semidark">
+                            <Th>Talento</Th>
+                            <Th>Numero de orden</Th>
+                            <Th>Estado</Th>
+                            <Th>Monto</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                    {order?.orders?.length > 0 ?
                         order?.orders.map((item) => 
-                            <div className='flex flex-row justify-around items-center bg-semidark border space-x-6 border-white w-11/12 h-12 m-2'>
-                            {/* <div class="bg-dark flex flex-col"> */}
-                                <h3>{item.title}</h3>
-                                <h3>{item.id}</h3>
-                                <h3>${item.price}</h3>
-                            </div>
+                            <Tr className='bg-semidark border space-x-6 border-white w-11/12 h-12 m-2'>
+                                <Td>{item?.title}</Td>
+                                <Td>{item?.id}</Td>
+                                <Td>{item?.status}</Td>
+                                <Td>${item?.price}</Td>
+                            </Tr>
                         )
                         :
-                        <div>No hay pedidos</div>
-                        
-                        }
-                    {/* <span>{order.username}</span>
-                    <span>{order.talent}</span>
-                    <Link to='/order'><button className='btn-primary btn-colors'>Ver pedido</button></Link>
-                    <Link to='/order'><button className='btn-primary btn-colors'>Comunicate</button></Link> */}
+                        <Td>No hay pedidos para mostrar</Td> 
+                    }
+                    </Tbody>
+                </Table>
                 </div>
             </div>
         // </div>

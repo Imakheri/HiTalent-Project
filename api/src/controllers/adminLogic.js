@@ -10,20 +10,11 @@ const {
   getTemplatePostDestroy,
 } = require("../config/mail.config");
 
-async function getAll(req, res, next) {
-  var users = await Users.findAll({ include: [{ model: Posts }] });
-  var posts = await Posts.findAll({
-    include: [{ model: Users, attributes: ["username"] }],
-    raw: true,
-  });
-  var review = await Review.findAll({
-    include: [
-      { model: Users, attributes: ["username"] },
-      { model: Posts, attributes: ["title"] },
-    ],
-    raw: true,
-  });
-  res.json({ users, posts, review });
+async function getAll(req,res,next){
+  var users=await Users.findAll({include:[{model:Posts}]})
+  var posts=await Posts.findAll({include:[{model:Users,attributes:["username","email"]}],raw:true})
+  var review=await Review.findAll({include:[{model:Users,attributes:["username","email"]},{model:Posts,attributes:["title"]}],raw:true})
+  res.json({users,posts,review})
 }
 async function aprobar(req, res, next) {
   let id = req.body.id;
