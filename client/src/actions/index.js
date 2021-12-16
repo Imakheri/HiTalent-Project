@@ -24,6 +24,7 @@ export const POST_ORDER = "POST_ORDER";
 export const CARGANDO = "CARGANDO";
 export const SELLER_PROFILE = "SELLER_PROFILE";
 export const REFRESH = "REFRESH";
+export const GET_SALES = "GET_SALES"
 
 export function getTalents() {
   return async function (dispatch) {
@@ -306,4 +307,20 @@ export function refresh() {
   return {
     type: REFRESH,
   };
+}
+
+export function getSales(id) {
+  return async function(dispatch) {
+    try {
+      console.log("ID GET SALES", id)
+      let sales = await axios.get("http://localhost:3001/orden/ventas/" + id)
+      return dispatch ({
+        type: GET_SALES,
+        payload: sales.data
+      })
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
 }
