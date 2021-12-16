@@ -1,5 +1,5 @@
 import axios from "axios";
-export const PROXY = "http://localhost:3001";
+export const PROXY = "https://hitalent-project.herokuapp.com";
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
