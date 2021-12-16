@@ -6,18 +6,18 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { publicProfile } from "../../actions";
 import Nav from "../Profile/Nav";
-import Footer from '../Landing/Footer'
+import Footer from "../Landing/Footer";
 import Chat from "./Chat";
-import defaultImage from '../../assets/profile_default.png'
+import defaultImage from "../../assets/profile_default.png";
 
 export default function ProfilePublic() {
   const id = useParams();
   // const user = useSelector((state) => state.index.user);
   // const orders = useSelector((state) => state.index.profile);
-  const sellerProfile = useSelector((state) => state.index.public_profile)
+  const sellerProfile = useSelector((state) => state.index.public_profile);
   // let navigate = useNavigate();
   // const [order, setOrder] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // console.log(sellerProfile)
 
   // let body = {
@@ -26,9 +26,9 @@ export default function ProfilePublic() {
   // };
 
   useEffect(() => {
-    dispatch(publicProfile(id.idVendedor))
+    dispatch(publicProfile(id.idVendedor));
     // console.log('id user effect',id.idVendedor)
-  }, [ dispatch, id.idVendedor ])
+  }, [dispatch, id.idVendedor]);
 
   // async function onClick(e) {
   //   e.preventDefault();
@@ -56,13 +56,17 @@ export default function ProfilePublic() {
   // }, [orders, id]);
   return (
     <div class="">
-      <Nav/>
+      <Nav />
       <div class="min-h-screen m-2">
-            <img class="rounded-full" src={sellerProfile.image? sellerProfile.image : defaultImage} alt="" />
-            {sellerProfile.fullName}
-            {sellerProfile.username} 
-            <Chat/>
-      {/* {order ? (
+        <img
+          class="rounded-full"
+          src={sellerProfile?.image ? sellerProfile?.image : defaultImage}
+          alt=""
+        />
+        {sellerProfile?.fullName}
+        {sellerProfile?.username}
+        <Chat />
+        {/* {order ? (
         <button
           onClick={(e) => onClick(e)}
           className="btn-custom btn-colors mt-10"
@@ -79,10 +83,10 @@ export default function ProfilePublic() {
         <button className="btn-custom btn-colors">Volver</button>
       </Link> */}
       </div>
-      <Link to='/home'>
-      <button class="bg-dark w-28 rounded-lg m-2 text-white">Volver</button>
+      <Link to="/home">
+        <button class="bg-dark w-28 rounded-lg m-2 text-white">Volver</button>
       </Link>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
