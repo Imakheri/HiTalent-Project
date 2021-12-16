@@ -18,8 +18,8 @@ export default function Orders(){
     },[dispatch, id])
 
     return(
-        <div className='flex flex-col justify-center bg-semidark border-2 text-white border-white rounded-lg w-11/12 py-4'>
-            <div className='flex flex-col items-center py-2'>
+        <div className='flex flex-col justify-center  border-2 text-white border-white rounded-lg w-11/12 pt-4'>
+            <div className='flex flex-col items-center pt-2'>
                 <Table>
                     <Thead>
                         <Tr class="bg-semidark">

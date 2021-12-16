@@ -41,17 +41,17 @@ export default function Profile(){
             <div className='flex flex-col mt-6 mx-6 w-full space-y-4'>
                 <section className='space-y-4'>
                     <section>
-                        <h2 className='text-2xl font-medium pl-4'>Pedidos</h2>
+                        <h2 className='text-2xl font-medium pl-4'>Compras</h2>
                             <Orders />
+                    </section>
+                    <section>
+                        <h2 className='text-2xl font-medium pl-4'>Ventas</h2>
+                            <Movements />
                     </section>
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Reseñas</h2>
                             <Reviews />
                     </section>
-                    {/* <section>
-                        <h2 className='text-2xl font-medium pl-4'>Movimientos</h2>
-                            <Movements />
-                    </section> */}
                     <section>
                         <h2 className='text-2xl font-medium pl-4'>Preguntas</h2>
                             <Qas />
