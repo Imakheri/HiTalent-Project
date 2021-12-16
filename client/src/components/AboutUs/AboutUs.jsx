@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import Navbar from '../Landing/Navbar'
 import linkedIn from '../../assets/linkedin-icon.svg'
 import gitHub from '../../assets/github-icon.svg'
 import Footer from '../Landing/Footer'
 import { Link } from "react-router-dom";
+import Nav from "../Profile/Nav";
 
 export default function AboutUs() {
     let creators = [
@@ -53,7 +53,7 @@ export default function AboutUs() {
     ]
     return (
         <div class="bg-semilight">
-            <Navbar/>
+            <Nav/>
             <h1 class="flex justify-center font-semibold text-4xl text-dark m-4">Quienes somos?</h1>
             <p class="text-lg m-3">Estudiantes prontos a terminar el bootcamp de Soy Henry, del cual adquirimos las habilidades necesarias para realizar este proyecto grupal, aplicando todos los conocimientos y mas.</p>
             <div class="grid grid-cols-3 m-10 bg-light rounded-md">
