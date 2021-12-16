@@ -25,7 +25,7 @@ export default function Dropdown() {
   e.preventDefault();
   dispatch(cargarUsuario([]))
   dispatch(clearItemsCart())
-  navigate('/home')
+  navigate('/')
   }     
   useEffect(()=>{
     getImage()
@@ -33,7 +33,7 @@ export default function Dropdown() {
       getImage()
       dispatch(getUserbyId(userState.id));
     }
-  },[])
+  },[dispatch, userState.id])
     function  getImage() {
       dispatch(getUserbyId(userState.id));
       if (!userState.image)return defaultImage
@@ -46,7 +46,7 @@ export default function Dropdown() {
         <img
           class="h-9 w-9 border-solid border-black rounded-full"
           // src={userState.image ? userState.image : defaultImage}
-          src={getImage()}
+          src={userState?.image? userState?.image : defaultImage}
           alt="user_image"
         />
       </MenuButton>
