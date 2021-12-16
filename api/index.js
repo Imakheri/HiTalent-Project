@@ -1,4 +1,21 @@
-const server = require("./src/app.js");
+const app = require("./src/app.js");
+// const http = require("http");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+// const server = http.createServer(app);
+// const io = socketio.listen(server);
+
+// let io = require("socket.io").listen(server.listener);
+require("./sockets")(io);
+
 const {
   conn,
   Users,
@@ -17,7 +34,7 @@ const { getMaxListeners } = require("./src/app.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, async () => {
+  httpServer.listen(app.get("PORT"), async () => {
     Categories.bulkCreate([
       { title: "Programación y Tecnologias" },
       { title: "Arte" },
@@ -417,6 +434,6 @@ conn.sync({ force: true }).then(() => {
       text: "Hola Santi",
     });
 
-    console.log("%s listening at 3001 ahi va!!!!"); // eslint-disable-line no-console
+    console.log("%s listening at ahi va!!!!", app.get("PORT")); // eslint-disable-line no-console
   });
 });
