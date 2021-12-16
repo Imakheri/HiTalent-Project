@@ -1,5 +1,5 @@
 import React from 'react';
-import { PROXY } from '../../actions';
+import { cargarUsuario, PROXY } from '../../actions';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -48,7 +48,7 @@ let regexPw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 let regexUsername = /^(?=.{4,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
 let fecha = input.birthdate.split("-")
 
-function createPass(){
+async function createPass(){
     if(!regexMail.test(input.email)) alert("Ingrese un mail valido")
     else if(!regexUsername.test(input.username)) alert("Usuario: No puede tener _ ni al principio ni al final, no puede tener __ ni _. dentro y debe tener entre 4-16 caracteres")
     else if(!regexPw.test(input.password)) alert("Ingrese una contraseña valida. Debe contener 1 Mayuscula, 1 numero y 8-16 caracteres")
@@ -56,6 +56,13 @@ function createPass(){
     else{
         createUser(input)
         alert('¡El usuario ha sido creado correctamente!')
+        let userLogin = {
+            username: `${input.username}`,
+            password: `${input.password}`
+        }
+        let respuesta = await axios
+        .post(`${PROXY}/user/loggin/`, userLogin)
+        .then((res) => res.data);
         setInput({
             name: '',
             lastName: '',
@@ -65,6 +72,7 @@ function createPass(){
             password2: "",
             birthdate: ''
         })
+        dispatch(cargarUsuario(respuesta));
         setIsOpen(false)
     }
 }

@@ -20,7 +20,8 @@ import {
   CARGANDO,
   SELLER_PROFILE,
   REFRESH,
-  GET_SALES
+  GET_SALES,
+  DESLOGUEAR
 } from "../actions";
 import { ASCENDENTE } from "../const";
 
@@ -68,6 +69,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+    case DESLOGUEAR:
+      return {
+        ...state,
+        user: [],
+        profile : []
+      }
     case GET_USER_TOKEN:
       return {
         ...state,

@@ -257,7 +257,7 @@ function TalentForm() {
                   onChange={handleOnChange}
                   type="number"
                   name="cost"
-                  placeholder="Dólares"
+                  placeholder="Pesos"
                   required
                 />{" "}
               </div>

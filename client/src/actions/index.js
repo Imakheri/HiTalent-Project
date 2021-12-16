@@ -1,5 +1,5 @@
 import axios from "axios";
-export const PROXY = "https://hitalent-project.herokuapp.com";
+export const PROXY = "http://localhost:3001";
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
@@ -25,6 +25,7 @@ export const CARGANDO = "CARGANDO";
 export const SELLER_PROFILE = "SELLER_PROFILE";
 export const REFRESH = "REFRESH";
 export const GET_SALES = "GET_SALES"
+export const DESLOGUEAR = "DESLOGUEAR"
 
 export function getTalents() {
   return async function (dispatch) {
@@ -322,5 +323,11 @@ export function getSales(id) {
     catch(err) {
       console.log(err)
     }
+  }
+}
+
+export function desloguear(){
+  return{
+    type: DESLOGUEAR,
   }
 }
