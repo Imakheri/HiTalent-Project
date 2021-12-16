@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const mercadopago = require("mercadopago");
-const { PROXY } = require("../../../../client/src/actions");
+const PROXY  = "https://hitalent-project.herokuapp.com"
 
 // const nodemailer = require("nodemailer");
 // const { templateSuccess, templateFailure, templatePending } = require('../utils/Templates/emailTemplates');
