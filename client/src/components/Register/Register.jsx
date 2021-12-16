@@ -3,7 +3,6 @@ import { cargarUsuario, PROXY } from '../../actions';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { startGoogleAuth, startFacebookAuth } from '../../actions/auth';
 import ReactModal from 'react-modal';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
@@ -92,14 +91,6 @@ function handleOnSubmit(e){
     passCheck(input.password, input.password2)
 }
 
-const handleGoogleAuth = () => {
-    dispatch(startGoogleAuth());
-}
-
-const handleFacebookAuth = () => {
-    dispatch(startFacebookAuth());
-}
-
 
     return(
         <ReactModal 
@@ -129,11 +120,7 @@ const handleFacebookAuth = () => {
                 <div className='flex justify-center m-2'>
                     <button className='btn-custom btn-colors' type='submit'>Registrarme</button>
                 </div>      
-                    </form>
-                <div className=''>
-                    <button className='btn-social' onClick={handleGoogleAuth}><img className='w-7 h-5 m-2' alt='Google logo'  src='http://codes.unidepix.com/img/google.svg'/>Inicia sesión con Google</button>
-                    <button className='btn-social' onClick={handleFacebookAuth}><img className='w-7 h-5 m-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/>Inicia sesión con Facebook</button>
-                </div>  
+                    </form> 
                 <div className='flex justify-center content-center items-center m-4'>
                     <p className='text-sm mr-2'>¿Ya tienes cuenta?</p><button onClick={onModalChange} className='text-1xl font-semibold'>Iniciar sesión</button>
                 </div>

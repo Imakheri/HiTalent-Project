@@ -94,7 +94,7 @@ export default function Reviews() {
           </Box>
         </Box>
       ) : (
-        <span>Esta publicación no tiene comentarios por el momento</span>
+        <span>Esta publicación no tiene reviews por el momento</span>
       )}
       <hr />
 

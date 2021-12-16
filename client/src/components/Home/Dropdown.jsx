@@ -15,6 +15,13 @@ import { desloguear, getUserbyId } from "../../actions";
 import { clearItemsCart } from '../../actions/shoppingActions'
 
 export default function Dropdown() {
+
+  let emailVerificado = useSelector(state => state.index.user.email_verified)
+  let usuarioAprobado = useSelector(state => state.index.user.aprobado)
+  let accesoAlChat = useSelector(state => state.index.profile.orders)
+
+
+
   const userState = useSelector((state) => state.index.user);
   const navigate = useNavigate()
 
@@ -56,15 +63,32 @@ export default function Dropdown() {
         <Link to={"/profile/" + userState.id}>
           <MenuItem>Mi perfil</MenuItem>
         </Link>
-        <Link to="/createTalent">
+        {emailVerificado || usuarioAprobado ? 
+        (<Link to="/createTalent">
           <MenuItem>Publicar</MenuItem>
-        </Link>
-        <Link to={"/cart"}>
+        </Link>) :
+        <MenuItem color="#c7aeab">Publicar</MenuItem>}
+        {/* <Link to="/createTalent">
+          <MenuItem>Publicar</MenuItem>
+        </Link> */}
+        {emailVerificado || usuarioAprobado ? 
+        (<Link to={"/cart"}>
           <MenuItem>Carrito</MenuItem>
-        </Link>
-        <Link to={"/messenger"}>
-          <MenuItem>Chat</MenuItem>
-        </Link>
+         </Link>) :
+        <MenuItem color="#c7aeab">Carrito</MenuItem>}
+        {/* <Link to={"/cart"}>
+          <MenuItem>Carrito</MenuItem>
+        </Link> */}
+        {
+          accesoAlChat.length === 0 ? 
+          <MenuItem color="#c7aeab">Chat</MenuItem> :
+          (
+            <Link to={"/messenger"}>
+              <MenuItem>Chat</MenuItem>
+            </Link>
+          )
+        }
+        
         <Link to="/faq">
           <MenuItem>Preguntas frecuentes</MenuItem>
         </Link>
