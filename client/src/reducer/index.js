@@ -20,6 +20,7 @@ import {
   CARGANDO,
   SELLER_PROFILE,
   REFRESH,
+  GET_SALES
 } from "../actions";
 import { ASCENDENTE } from "../const";
 
@@ -38,7 +39,8 @@ const initialState = {
   questionsPost: [],
   ownerQuestion: "",
   cargando: false,
-  public_profile: []
+  public_profile: [],
+  sales: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -161,6 +163,11 @@ export default function rootReducer(state = initialState, action) {
           ...state,
           public_profile: action.payload
         }
+    case GET_SALES:
+      return {
+        ...state,
+        sales: action.payload
+      }
     default:
       return state;
   }

@@ -2,30 +2,46 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovebyId } from '../../../actions/index';
+import { getMovebyId, getSales } from '../../../actions/index';
+import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 export default function Movements(){
 
     const { id } = useParams();
     const dispatch = useDispatch();
-    const movement = useSelector((state) => state.index.movement)
+    const user = useSelector((state) => state.index.profile)
+    const sales = useSelector((state) => state.index.sales)
+    console.log("VENTAS", sales)
+    console.log("USUARIO", user)
     
     useEffect(() => {
-        dispatch(getMovebyId(id));
+        dispatch(getSales(id));
     },[dispatch, id])
 
     return (
-        <div className='flex flex-col items-center bg-dark border-2 text-white border-white rounded-lg w-11/12 py-4'>
-            <div className='flex flex-row justify-around bg-dark border border-dark w-11/12 h-auto space-x-6 mb-2'>
-                <span>Acción</span><span>Usuario</span><span>Talento</span><span>Fecha</span><span>Monto</span>
-            </div>
-            <div className='flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-auto m-1'>
-                <span>{movement.type}</span>
-                <span>{movement.username}</span>
-                <span>{movement.talent}</span>
-                <span>{movement.date}</span>
-                <span>${movement.amount}</span>
-            </div>
+        <div className='flex flex-col items-center border-2 text-white border-white rounded-lg w-11/12 pt-4'>
+                <Table>
+                    <Thead>
+                        <Tr class="bg-semidark">
+                            <Th>Talento</Th>
+                            <Th>Numero de orden</Th>
+                            <Th>Monto</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                    {sales?.length > 0 ?
+                        sales.map((item) => 
+                            <Tr className='bg-semidark border space-x-6 border-white w-11/12 h-12 m-2'>
+                                <Td>{item?.title}</Td>
+                                <Td>{item?.id}</Td>
+                                <Td>${item?.price}</Td>
+                            </Tr>
+                        )
+                        :
+                        <Td>No hay pedidos para mostrar</Td> 
+                    }
+                    </Tbody>
+                </Table>
         </div>
     )
 }

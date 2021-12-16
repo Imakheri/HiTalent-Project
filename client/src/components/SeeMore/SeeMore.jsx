@@ -26,12 +26,11 @@ export default function SeeMore() {
   const { id } = useParams();
   const seemore = useSelector((state) => state.index.moreTalent);
   const user = useSelector((state) => state.index.user);
-  // let mercadopago = [{ title: seemore.title, total: seemore.cost }];
   let payloadMp =  { items: [
- {   title: seemore.title, 
-    unit_price: seemore.cost, 
-    quantity: 1}
-  ]}
+    {   title: seemore.title, 
+       unit_price: seemore.cost, 
+       quantity: 1}
+     ]}
 
   useEffect(() => {
     dispatch(getTalentById(id));
@@ -39,24 +38,19 @@ export default function SeeMore() {
 
   async function handleCheckOut(e) {
     let payloadOrder = {
-      carrito: [{ title: seemore.title, price: seemore.cost, quantity: 1, post_id: seemore.id, user_id: user?.id}],
-    };
-    // seemore?.length > 0 ? (seemore?.map((e) => payloadMp.items.push({
-    //     title: e.title,
-    //     unit_price: e.cost,
-    //     quantity: e.quantity}))) : console.log('mercadopago')
-
+      carrito: [{ title: seemore.title, price: seemore.cost, quantity: 1, post_id: seemore.id, user_id: user?.id}]
+    }
     console.log("ordenes", payloadOrder);
     axios
-      .post(/*`${PROXY}/orden`*/ "http://localhost:3001/orden/", payloadOrder )
+      .post(`${PROXY}/orden/`/*"http://localhost:3001/orden/" */, payloadOrder )
       .then((res) => console.log("post order", res))
       .catch((error) => console.log("err de seemore", error));
 
     console.log("mercadopago", payloadMp);
     e.preventDefault();
     let response = await axios.post(
-      // `${PROXY}/checkout/mercadopago/`,
-      "http://localhost:3001/checkout/mercadopago/",
+      `${PROXY}/checkout/mercadopago/`,
+      // "http://localhost:3001/checkout/mercadopago/",
       {payloadMp}
     );
     console.log('res',response);
@@ -98,19 +92,6 @@ export default function SeeMore() {
           <Link to={"/profilePublic/" + seemore?.user_id}>
             <h4 class="text-dark text-sm hover:text-semilight">by {seemore?.user?.username}</h4>
           </Link>
-            {/* <Box display="flex" alignItems="baseline">
-              <Box
-                color="gray.500"
-                fontWeight="semibold"
-                letterSpacing="wide"
-                fontSize="xs"
-                textTransform="uppercase"
-                ml="2"
-              >
-                By: {seemore.user.username}
-              </Box>
-            </Box> */}
-
             <Box
               mt="2"
               fontWeight="semibold"
@@ -150,11 +131,6 @@ export default function SeeMore() {
                 <Box as="span" m="2" color="gray.600" fontSize="sm">
                   <Button onClick={onClick}>Agregar al carrito</Button>
                 </Box>
-                {/* <Link to={"/profilePublic/" + seemore.user_id}>
-                  <button className="btn-custom btn-colors mt-10">
-                    Ver perfil
-                  </button>
-                </Link> */}
               </Box>
             ) : !user.id ? (
               <Alert status='warning'>
