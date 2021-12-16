@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { searchTalent } from "../../actions";
+import Searchbar from "../Searchbar/Searchbar";
 
 export default function Nav({ onModalClick, onModaleClick, onModalChange }) {
   const [state, setState] = useState("");
@@ -31,7 +32,7 @@ export default function Nav({ onModalClick, onModaleClick, onModalChange }) {
             alt="hitalent logo"
           />
         </Link>
-        <div class="flex">
+        {/* <div class="flex">
           <form onSubmit={onSubmit}>
             <div class="searchbar-inner bg-gray-200">
               <div class="searchbar-input-wrap container flex justify-center items-center px-4 sm:px-6 lg:px-8">
@@ -58,8 +59,10 @@ export default function Nav({ onModalClick, onModaleClick, onModalChange }) {
               </div>
             </div>
           </form>
-        </div>
-        {usuario.length === 0 ? (
+        </div> */}
+        <Searchbar/>
+        {
+        usuario.length === 0 ? (
           <div>
             <button onClick={onModalClick} class="m-4 font-semibold">
               Ingreso
@@ -79,7 +82,8 @@ export default function Nav({ onModalClick, onModaleClick, onModalChange }) {
           </Link>
         ) : (
           <Dropdown />
-        )}
+        )
+        }
       </div>
     </nav>
   );

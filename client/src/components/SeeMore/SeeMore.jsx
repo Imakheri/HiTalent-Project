@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { PROXY } from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getTalentById, getUserbyId, publicProfile } from "../../actions";
-import Nav from "../Home/Nav";
+import { getTalentById } from "../../actions";
+import Nav from "../Profile/Nav";
 import Footer from "../Landing/Footer";
 import { Link } from "react-router-dom";
 import { Box, useToast, Button, Image } from "@chakra-ui/react";
@@ -16,8 +16,6 @@ import Spinner from "../Spinner/Spinner";
 import {
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from '@chakra-ui/react'
 
 export default function SeeMore() {
