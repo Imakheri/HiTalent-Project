@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const router = Router();
 const mercadopago = require("mercadopago");
+const { PROXY } = require("../../../../client/src/actions");
+
 // const nodemailer = require("nodemailer");
 // const { templateSuccess, templateFailure, templatePending } = require('../utils/Templates/emailTemplates');
 
@@ -31,9 +33,9 @@ router.post("/mercadopago", async (req, res) => {
     items: itemsCart,
 
     back_urls: {
-      success: "http://localhost:3000/checkoutApro",
-      failure: "http://localhost:3000/home",
-      pending: "http://localhost:3000/home",
+      success: `${PROXY}/checkoutApro`,
+      failure: `${PROXY}/home`,
+      pending: `${PROXY}/home`,
     },
   };
 

@@ -313,7 +313,7 @@ export function getSales(id) {
   return async function(dispatch) {
     try {
       console.log("ID GET SALES", id)
-      let sales = await axios.get("http://localhost:3001/orden/ventas/" + id)
+      let sales = await axios.get(`${PROXY}/orden/ventas/` + id)
       return dispatch ({
         type: GET_SALES,
         payload: sales.data
