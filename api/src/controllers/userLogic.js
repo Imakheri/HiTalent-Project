@@ -70,7 +70,7 @@ async function createUser(req, res, next) {
     const template = getTemplate(name, token);
 
     //-----ENVIAR EL EMAIL------
-    await sendEmail(email, "Este es un email de prueba", template);
+    await sendEmail(email, "¡Te damos la bienvenida!", template);
     await newUser.save();
 
     res.json({
@@ -137,12 +137,8 @@ const confirm = async (req, res) => {
 };
 
 async function getUser(req, res, next) {
-  if(req.query.filter)
   var all = await Users.findAll({
-    where: {
-      score: req.query.filter
-    },
-    order: [['username', 'ASC']]
+    order: [["username", "ASC"]],
   });
   res.json(all);
 }
@@ -232,7 +228,7 @@ async function emailResetPassword(req, res, next) {
     const template = getTemplatePassword();
 
     //-----ENVIAR EL EMAIL------
-    await sendEmailPassword(email, "Recuperar", template);
+    await sendEmailPassword(email, "Recuperación de contraseña", template);
 
     res.json({
       success: true,
@@ -244,6 +240,7 @@ async function emailResetPassword(req, res, next) {
 }
 const editPassword = async (req, res, next) => {
   let { email, password } = req.body;
+  console.log(email, password);
   try {
     let user = await Users.findOne({ where: { email: email } });
     let passwordHash = await bcrypt.hash(password, 10);
@@ -272,6 +269,18 @@ async function getUserById(req, res, next) {
           {
             model: Orders,
             order: [["createdAt", "DESC"]],
+            include: [
+              {
+                model: Posts,
+                attributes: ["id", "title"],
+                include: [
+                  {
+                    model: Users,
+                    attributes: ["id", "username"],
+                  },
+                ],
+              },
+            ],
           },
           {
             model: Posts,
@@ -280,19 +289,17 @@ async function getUserById(req, res, next) {
           },
           {
             model: Review,
-
             attributes: { exclude: ["user_id", "post_id", "updatedAt"] },
             order: [["createdAt", "DESC"]],
             include: [
               {
                 model: Users,
                 attributes: ["id", "username", "name", "fullName", "lastName"],
-                //order: [["score", "DESC"], ["createdAt", "DESC"], ["username", "ASC"]],
               },
               {
                 model: Posts,
                 attributes: ["id", "title"],
-                order: [["createdAt", "DESC"]]
+                order: [["createdAt", "DESC"]],
               },
             ],
           },

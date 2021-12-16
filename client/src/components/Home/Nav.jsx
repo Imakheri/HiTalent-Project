@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchTalent } from "../../actions";
 
-export default function Nav() {
+export default function Nav({ onModalClick, onModaleClick, onModalChange }) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
+  let usuario = useSelector((state) => state.index.user);
 
   function onSubmit(e) {
     e.preventDefault();
     dispatch(searchTalent(state));
   }
+
   function onChange(e) {
     e.preventDefault();
     setState(e.target.value);
@@ -19,11 +21,14 @@ export default function Nav() {
 
   return (
     <nav class="bg-semidark">
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center py-1">
         <Link to="/home">
           <img
-            src="https://www.vectorlogo.zone/logos/trayio/trayio-ar21.svg"
+            className="flex items-center pl-4"
+            src="http://codes.unidepix.com/img/hi.png"
             alt="logo hitalent"
+            width="140px"
+            alt="hitalent logo"
           />
         </Link>
         <div class="flex">
@@ -33,13 +38,13 @@ export default function Nav() {
                 <input
                   onChange={onChange}
                   type="search"
-                  class="h-10 w-52 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-                  placeholder="Prueba con 'cocinar'"
+                  class="h-10 w-64 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
+                  placeholder="Prueba con 'yoga'"
                 />
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    class="h-8 w-8 pl-1 text-white"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -54,7 +59,27 @@ export default function Nav() {
             </div>
           </form>
         </div>
-        <Dropdown />
+        {usuario.length === 0 ? (
+          <div>
+            <button onClick={onModalClick} class="m-4 font-semibold">
+              Ingreso
+            </button>
+            <button
+              onClick={onModaleClick}
+              class="m-2 bg-transparent hover:bg-semilight  font-semibold hover:text-black py-2 px-4 border border-dark hover:border-semilight rounded p-0"
+            >
+              Registro
+            </button>
+          </div>
+        ) : usuario.isAdmin ? (
+          <Link to="/admin">
+            <button class="m-4 font-semibold">
+              Volver al panel de Administrador
+            </button>
+          </Link>
+        ) : (
+          <Dropdown />
+        )}
       </div>
     </nav>
   );

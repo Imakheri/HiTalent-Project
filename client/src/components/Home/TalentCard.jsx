@@ -5,15 +5,15 @@ import { StarIcon } from '@chakra-ui/icons'
 import { useSelector } from "react-redux";
 
 
-export default function TalentCard({ title, username, description, image, cost, id }) {
+export default function TalentCard({ title, username, description, image, cost, id, category, rating }) {
     
   const property = useSelector(state => state.index.filteredTalents)
   
     return (
       <div class='user-select-none'>
 
-      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-        <Image src={image} alt="talent_image" />
+      <Box m='2' maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' h="530px">
+        <Image src={image} alt="talent_image" h="250px" w="sm"/>
   
         <Box p='6'>
           <Box display='flex' alignItems='baseline'>
@@ -27,10 +27,10 @@ export default function TalentCard({ title, username, description, image, cost, 
               fontSize='xs'
               ml='2'
             >
-              By: {username}
+              <span>By: {username}</span><br />
+              <span className='text-sm'>Categoria: {category}</span>
             </Box>
           </Box>
-  
           <Box
             mt='1'
             fontWeight='semibold'
@@ -41,7 +41,7 @@ export default function TalentCard({ title, username, description, image, cost, 
             {title}
           </Box>
 
-          <Box>
+          <Box overflowY='scroll' maxH="100px">
             {description}
           </Box>
   
@@ -52,14 +52,16 @@ export default function TalentCard({ title, username, description, image, cost, 
           </Box>
   
           <Box display='flex' mt='2' alignItems='center'>
-            {Array(5)
-              .fill('')
-              .map((_, i) => (
-                <StarIcon
-                  key={i}
-                  color={i < property.rating ? 'teal.500' : 'gray.300'}
-                />
-              ))}
+          {
+            [...Array(5)]
+            .fill('')
+            .map((_, i) => (
+              <StarIcon
+                key={i}
+                color={i <= rating -1 ? "teal.500" : "gray.300"}
+              />
+            ))
+          }
             {/* <Box as='span' ml='2' color='gray.600' fontSize='sm'>
               {property.reviewCount} reviews
             </Box> */}

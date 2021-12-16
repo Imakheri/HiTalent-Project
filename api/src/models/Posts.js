@@ -43,7 +43,24 @@ module.exports = (sequelize) => {
       type:DataTypes.FLOAT,
       allowNull:false
     },
-    
+    aprobado:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false,
+      allowNull:true
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    timeZone: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    language: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
 
   });
 };
