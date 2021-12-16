@@ -61,7 +61,7 @@ export default function Qas() {
                       onSubmit={(e) => handleOnSubmit(e)}
                     >
                       <input
-                        className="rounded bg-semidark text-white placeholder-light pl-10 w-full"
+                        className="flex flex-row justify-around items-center border w-full p-1"
                         name={e.id}
                         id={e.id}
                         value={answer[`${id}`]}
@@ -76,7 +76,9 @@ export default function Qas() {
                       </button>
                     </form>
                   ) : (
-                    e.answer
+                    <div class="flex flex-row justify-around items-center border w-full p-1">
+                      {e.answer}
+                    </div>
                   )}
                 </div>
               </div>
