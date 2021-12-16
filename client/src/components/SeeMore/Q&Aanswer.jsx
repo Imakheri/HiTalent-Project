@@ -14,8 +14,8 @@ export default function QyAanswer() {
   }, [cargando, dispatch]);
 
   return (
-    <div class="h-1/4 m-3">
-      <h3 class="text-xl font-semibold">Preguntas</h3>
+    <div className="h-1/4 m-3">
+      <h3 className="text-xl font-semibold">Preguntas</h3>
       <div>
         {questionsPost?.questions?.length > 0 ? (
           questionsPost.questions.map((e) => (

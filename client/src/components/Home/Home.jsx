@@ -68,7 +68,7 @@ export default function Home() {
         )}
         {/* <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr /> */}
-        <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
+        {/* <h1 class="text-4xl font-bold m-4">TALENTOS</h1> */}
         {/* <Link to="/messenger">
           <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">
             Chat
@@ -113,6 +113,9 @@ export default function Home() {
           <SortByQuali />
         </div>
       </div>
+        <div className='flex flex-col items-center justify-center w-full space-y-4 mb-6'>
+            <h2 className='text-3xl font-bold underline underline-offset-4 '>¡Aventurate al desafio de enseñar y aprender nuevos talentos!</h2>
+        </div>
       {cargando ? (
         <Spinner />
       ) : (

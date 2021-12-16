@@ -70,7 +70,7 @@ export default function AboutUs() {
                 )}
             </div>
             <div class="flex justify-center">
-                    <Link to='/home'>
+                    <Link to='/'>
                     <button class="flex justify-center m-4 bg-dark rounded-lg text-lg text-white w-96">Volver</button>
                     </Link>
             </div>

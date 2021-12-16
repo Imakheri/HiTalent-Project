@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PROXY } from '../../actions';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -17,6 +17,8 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react'
+import Form from "../SignIn/FormSI";
+import Register from "../Register/Register";
 
 export default function SeeMore() {
   const toast = useToast();
@@ -54,6 +56,26 @@ export default function SeeMore() {
     console.log('res',response);
     window.location.href = response.data.init_points;
   }
+  
+  const [ventanaLogIn, setVentanaLogIn] = useState(false);
+  const [ventanaRegister, setVentanaRegister] = useState(false);
+
+  function onModalClick(e) {
+    console.log("click login")
+    e.preventDefault();
+    setVentanaLogIn(!ventanaLogIn);
+  }
+  function onModaleClick(e) {
+    console.log("click registro")
+    e.preventDefault();
+    setVentanaRegister(!ventanaRegister);
+  }
+  function onModalChange(e) {
+    e.preventDefault();
+    setVentanaLogIn(!ventanaLogIn);
+    setVentanaRegister(!ventanaRegister);
+  }
+
 
   function onClick(e) {
     e.preventDefault();
@@ -71,10 +93,26 @@ export default function SeeMore() {
   }
 
   return (
+    
     <div className="seemore">
-      <Nav />
+      <Nav 
+        onModalChange={onModalChange}
+        onModaleClick={onModaleClick}
+        onModalClick={onModalClick}/>
+
+      <div>
+        {ventanaLogIn ? 
+        <Form onModalClick={onModalClick} onModalChange={onModalChange} /> :
+        console.log("ingreso")}
+
+        {ventanaRegister ? 
+        <Register onModaleClick={onModaleClick} onModalChange={onModalChange}/> : 
+        console.log("registro")
+        }
+      </div>
+
       {seemore ? (
-        <Box
+        <Box 
           m="auto"
           mt="2"
           mb="2"
@@ -82,11 +120,23 @@ export default function SeeMore() {
           maxH="80em"
           borderWidth="2px"
           borderRadius="lg"
-          overflow="hidden"
+          overflow="scroll"
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: "#5E8B7E",
+              borderRadius: '24px',
+            },
+          }}
         >
           <Image src={seemore.image} alt="talent_image" />
 
-          <Box p="6">
+          <Box  p="6">
           <Link to={"/profilePublic/" + seemore?.user_id}>
             <h4 class="text-dark text-sm hover:text-semilight">by {seemore?.user?.username}</h4>
           </Link>

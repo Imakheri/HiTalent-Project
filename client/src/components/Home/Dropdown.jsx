@@ -11,7 +11,7 @@ import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from '../../assets/profile_default.png'
-import { cargarUsuario,getUserbyId } from "../../actions";
+import { desloguear, getUserbyId } from "../../actions";
 import { clearItemsCart } from '../../actions/shoppingActions'
 
 export default function Dropdown() {
@@ -23,7 +23,7 @@ export default function Dropdown() {
 
   const logOut = (e) => {
   e.preventDefault();
-  dispatch(cargarUsuario([]))
+  dispatch(desloguear())
   dispatch(clearItemsCart())
   navigate('/')
   }     
