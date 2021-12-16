@@ -6,6 +6,7 @@ import { getUserbyId, PROXY } from '../../actions';
 import defaultImage from '../../assets/profile_default.png'
 import {useState} from "react"
 import axios from "axios"
+import FormUser from './FormUser';
 //import { Box, Image, Button } from '@chakra-ui/react';
 
 export default function Profile({modal}){
@@ -14,6 +15,13 @@ export default function Profile({modal}){
     const dispatch = useDispatch();
     const user = useSelector((state) => state.index.profile)
     
+    const [profile, setProfile] = useState({
+        username: `${user.username}`,
+        resume: `${user.resume}`,
+        country: `${user.country}`,
+        editable: false,
+    })
+
     useEffect(() => {
         dispatch(getUserbyId(id));
     },[modal])
@@ -21,6 +29,13 @@ export default function Profile({modal}){
     function handleOnClick(e){
         e.preventDefault();
         modal(true);
+    }
+
+    function editProfile(e){
+        setProfile({
+            ...profile,
+            editable: true
+        })
     }
 
     return(
@@ -71,15 +86,37 @@ export default function Profile({modal}){
                 <p className='font-medium'>Usuario desde:</p>
                 <p> {user.createdAt.slice(0, 10)}</p>
             </div>
-
+            {profile.editable ? (<FormUser profile={profile} setProfile={setProfile} />) : (
                 <div>
+                    <div className='flex justify-center pb-6'>
+                        <button onClick={(e) => editProfile(e)} className='btn-custom btn-colors border border-semilight w-11/12'>Editar perfil</button>
+                    </div>
+
+                    <div className='pb-4'>
+                        <p className='font-bold text-lg pb-2'>Sobre mi: </p>
+                        <p>{user.resume}</p>
+                    </div>
+
+                    <div className='pb-4'>
+                        <p className='font-bold text-lg pb-2'>Pais: </p>
+                        <p>{user.country}</p>
+                    </div>
+
+                    {/* <div>
+                        <p className='font-bold text-lg pb-2'>Idiomas: </p>
+                        <p>{user.language}</p>
+                    </div> */}
+
+                </div>
+                )}
+                {/* <div>
                     <p className='font-medium'>Sobre mi: </p>
                     <p>{user.resume}</p>
                 </div>
 
                 <div>
                     <p>{user.country}</p>
-                </div>
+                </div> */}
                 {/* <div>
                     <p>{user.id}</p>
                 </div>
@@ -93,13 +130,13 @@ export default function Profile({modal}){
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='Paypal logo' src='https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg'/></button>
                     <button><img className='h-6 bg-semilight rounded border-2 border-semilight mr-2' alt='MercadoPago logo' src='http://codes.unidepix.com/img/mercadopago.png'/></button>    
                 </div> */}
-                    <h5 className='font-medium'>Redes sociales</h5>
+                    {/* <h5 className='font-medium'>Redes sociales</h5>
                 <div>
-                    <button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>
+                    <button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button> */}
                     {/* {!user.social ? '' : (<button><img className='w-7 h-7 mr-2' alt='Facebook logo' src='http://codes.unidepix.com/img/facebook.svg'/></button>)} */}
-                    <button><img className='w-7 h-7 mr-2' alt='Google logo' src='http://codes.unidepix.com/img/google.svg'/></button>
+                    {/* <button><img className='w-7 h-7 mr-2' alt='Google logo' src='http://codes.unidepix.com/img/google.svg'/></button>
                     
-                </div>
+                </div> */}
             </div>
         </div>
         )}
