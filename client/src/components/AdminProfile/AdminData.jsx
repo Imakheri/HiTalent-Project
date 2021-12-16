@@ -34,7 +34,7 @@ function AdminData({ pestaña, data, setData }) {
 
   function funcionBorrar(e) {
     e.preventDefault();
-    console.log("E.TARGET.name", e.target.name)
+    console.log("E.TARGET.name", e)
     let aux = {
       id: e.target.value,
       name: pestaña,
@@ -75,8 +75,7 @@ function AdminData({ pestaña, data, setData }) {
                       <Td>
                         <BotonOptions
                           estado={el.aprobado}
-                          value={el.id}
-                          name={el[`user.email`]}
+                          value={el.id, el[`user.email`] }
                           botonClick={botonClick}
                           funcionBorrar={funcionBorrar}
                         />
