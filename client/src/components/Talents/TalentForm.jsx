@@ -141,15 +141,16 @@ function TalentForm() {
                 placeholder="Ingrese la descripcion del curso"
                 required
               />
-              {!previewSource
-                ? console.log("no hay imagen")
-                : previewSource && (
-                    // eslint-disable-next-line jsx-a11y/alt-text
+              <div className='w-48'>
+                {!previewSource
+                  ? console.log("no hay imagen")
+                  : previewSource && (
                     <img
-                      src={previewSource}
-                      className="flex justify-center rounded"
+                    src={previewSource}
+                    className="flex justify-center rounded"
                     />
-                  )}
+                    )}
+              </div>
             </div>
             <div>
               <div className="flex flex-col space-y-2">
@@ -257,9 +258,9 @@ function TalentForm() {
                   onChange={handleOnChange}
                   type="number"
                   name="cost"
-                  placeholder="Dólares"
+                  placeholder="ARS"
                   required
-                />{" "}
+                />
               </div>
               <div className="flex flex-row items-center justify-center space-x-4 my-8">
                 <button className="btn-primary btn-colors"> Revisar </button>

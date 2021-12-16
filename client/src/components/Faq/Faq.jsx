@@ -111,13 +111,13 @@ export default function Faq(){
                                 <h3>
                                 <AccordionButton>
                                     <Box flex='1' class="font-semibold" textAlign='left'>
-                                    <h1 className='font-semibold text-xl'>¿Por qué las cuotas son definidas en dólares?</h1>
+                                    <h1 className='font-semibold text-xl'>¿Por qué las cuotas son definidas en pesos argentinos?</h1>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                                 </h3>
                                 <AccordionPanel pb={4}>
-                                <p>Los precios son fíjados en dólares ya que es la moneda más conocida y usada en la mayoría de los países. ¡Existe mucha gente talentosa y llena de ganas de aprender alrededor de todo el mundo!</p>
+                                <p>Los precios son fíjados en pesos argentinos ya que HiTalent es una empresa que tiene como base la Argentina. Sin embargo, existe mucha gente talentosa y llena de ganas de aprender alrededor de todo el mundo.</p>
                                 </AccordionPanel>
                             </AccordionItem>
 

@@ -68,15 +68,13 @@ export default function Home() {
         )}
         {/* <h1 class="text-4xl font-bold m-4">CATEGORIAS</h1>
         <Categories /> <hr /> */}
-        <h1 class="text-4xl font-bold m-4">TALENTOS</h1>
         {/* <Link to="/messenger">
           <button class="font-semibold bg-light rounded-md w-40 p-1 m-3">
-            Chat
+          Chat
           </button>
         </Link> */}
       </div>
-
-      <div class="flex justify-center space-x-10 font-semibold text-xl">
+      <div class="flex justify-center space-x-10 font-semibold text-xl py-4">
         <div>
           <span>Categorias: </span>
           <select onChange={(e) => handleCatFilter(e)}>
@@ -112,6 +110,12 @@ export default function Home() {
         <div>
           <SortByQuali />
         </div>
+      </div>
+      <div className='flex flex-col items-center justify-center w-full space-y-4 mb-6'>
+        <div>
+          <img width='200px' src='http://codes.unidepix.com/img/hi.png' />
+        </div>
+          <h2 className='text-3xl font-bold'>¡Aventurate al desafio de ense~ar y aprender nuevos talentos!</h2>
       </div>
       {cargando ? (
         <Spinner />

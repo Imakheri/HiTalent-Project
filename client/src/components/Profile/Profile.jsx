@@ -16,7 +16,6 @@ import { getUserbyId } from '../../actions';
 export default function Profile(){
     const { id } = useParams();
     const dispatch = useDispatch();
-
     const [modal, setModal] = useState(false);
     const user = useSelector((state) => state.index.user)
     console.log("user: ", user)
@@ -26,7 +25,7 @@ export default function Profile(){
     },[modal])
 
     return(
-        <section className='flex flex-col w-full h-screen bg-semilight'>
+        <section className='flex flex-col w-full h-full bg-semilight'>
             <Nav/>
         <div className='flex full-w'>
         {
