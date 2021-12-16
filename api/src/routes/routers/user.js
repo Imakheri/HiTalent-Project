@@ -10,6 +10,7 @@ const {
   emailResetPassword,
   editPassword,
   getUserById,
+  editProfile,
 } = require("../../controllers/userLogic");
 const { uploader } = require("../../middleware/uploader");
 
@@ -22,5 +23,6 @@ router.get("/confirm/:token", confirm);
 router.post("/emailResetPassword", emailResetPassword);
 router.put("/editPassword", editPassword);
 router.get("/:idUser", getUserById);
+router.put('/editProfile', editProfile);
 
 module.exports = router;

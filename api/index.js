@@ -114,6 +114,7 @@ conn.sync({ force: true }).then(() => {
       country: "NewYorkCity",
       aprobado: true,
       email_verified: true,
+      resume: 'Espíritu motivador, coaching profesional para lograr el liderazgo que estás buscando y sobresalir de tu grupo remarcando tu personalidad.'
     });
     var usuarioPrueba4 = await Users.create({
       name: "Sebastian",
@@ -125,6 +126,7 @@ conn.sync({ force: true }).then(() => {
       country: "NewYorkCity",
       aprobado: true,
       email_verified: true,
+      resume: 'Hola soy Sebastián, emprendedor por natulareza y en constante expansión del conocimento, contactame si necesitas una recomendación de tu talento y los cursos que tienes disponibles.'
     });
     var testuser1 = await Users.create({
       //creo usuario test1
@@ -151,6 +153,7 @@ conn.sync({ force: true }).then(() => {
       country: "Uruguay",
       aprobado: true,
       email_verified: true,
+      resume: 'Técnico en reparación de aires acondicionados, emprendedor y autodidacta. Consultame por mas información sobre mis cursos.'
     });
     var testUserProfile2 = await Users.create({
       name: "Agustina",
