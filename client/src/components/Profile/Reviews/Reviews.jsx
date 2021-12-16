@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getReviewbyId } from "../../../actions/index";
-import { Alert, AlertIcon, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 export default function Reviews() {
   const { id } = useParams();
@@ -41,23 +41,6 @@ export default function Reviews() {
         )}
         </Tbody>
       </Table>
-{/*                 
-        {!(review.posts?.length > 0) ? (
-          <h2>No tienes publicaciones para obtener reseñas...</h2>
-        ) : review.posts[0].reviews.length > 0 ? (
-          review.posts.map((e) => (
-            <div className="flex flex-row justify-around items-center bg-semidark border border-white w-11/12 h-auto m-1">
-              <span className="p-2">{e.title}</span>
-              <span className="px-2 font-black italic">
-                {e.reviews[0]?.user?.username}
-              </span>
-              <span>{e.reviews[0]?.qualification}</span>
-            </div>
-          ))
-        ) : (
-          <h1>No tienes reseñas por el momento...</h1>
-        )}
-         */}
       </div>
   );
 }
