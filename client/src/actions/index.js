@@ -1,5 +1,5 @@
 import axios from "axios";
-export const PROXY = "https://hitalent-project.herokuapp.com"
+export const PROXY = "http://localhost:3001";
 export const SEARCH_TALENT = "SEARCH_TALENT";
 export const CARGAR_USUARIO = "CARGAR_USUARIO";
 export const POST_USER = "POST_USER";
@@ -22,7 +22,7 @@ export const FILTRO_CAT = "FILTRO_CAT";
 export const TALENT_BY_RATING = "TALENT_BY_RATING";
 export const POST_ORDER = "POST_ORDER";
 export const CARGANDO = "CARGANDO";
-export const SELLER_PROFILE = 'SELLER_PROFILE';
+export const SELLER_PROFILE = "SELLER_PROFILE";
 export const REFRESH = "REFRESH";
 
 export function getTalents() {
@@ -86,9 +86,7 @@ export function createUser(payload) {
 export function getUserbyToken(token) {
   return async function (dispatch) {
     try {
-      var json = await axios.post(
-        `${PROXY}/user/confirm/` + token
-      );
+      var json = await axios.post(`${PROXY}/user/confirm/` + token);
       return dispatch({
         type: GET_USER_TOKEN,
         payload: json.data,
@@ -188,10 +186,7 @@ export function getQAbyId(idUser) {
 export function createAnswer(answer) {
   return async function (dispatch) {
     try {
-      var info = await axios.put(
-        `${PROXY}/question/answer`,
-        answer
-      );
+      var info = await axios.put(`${PROXY}/question/answer`, answer);
       console.log(info.data);
       return dispatch({
         type: PUT_ANSWER,
@@ -217,9 +212,7 @@ export function postQuestion(body) {
 
 export function getPostQuestion(idPost) {
   return async function (dispatch) {
-    const questions = await axios.get(
-      `${PROXY}/question/` + idPost
-    );
+    const questions = await axios.get(`${PROXY}/question/` + idPost);
     return dispatch({
       type: GET_POST_QUESTION,
       payload: questions.data,
@@ -306,7 +299,7 @@ export function publicProfile(id) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function refresh() {

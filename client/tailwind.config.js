@@ -11,19 +11,19 @@ module.exports = {
       black: "#000000",
       purple: "#4C0070",
       gray: "#e5e7eb",
-      grey: '#B2B1B9',
-      red: "#FB0B0B"
+      grey: "#B2B1B9",
+      red: "#FB0B0B",
     },
     extend: {
       backgroundImage: {
-        'landingImg': "url('assets/image-landing.jpg')",
-        'landingImg2': "url('assets/landing-img.jpg')",
-        'logo': "url('assets/logo.png')"
-      }
+        landingImg: "url('assets/image-landing.jpg')",
+        landingImg2: "url('assets/landing-img.jpg')",
+        logo: "url('assets/logo.png')",
+      },
     },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};
