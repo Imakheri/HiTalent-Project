@@ -105,7 +105,7 @@ async function deleteNoAprobado(req, res, next) {
     var post = await Posts.findByPk(id);
     if (!post) return res.status(400).json({ message: "post no encontrado" });
     const template = getTemplatePostDestroy();
-    await sendEmailPostDestroy(email, "Tu publicación fue eliminada", template);
+    await sendEmailPostDestroy(email, "Tu reseña fue eliminada", template);
     await Posts.destroy({
       // de existir, lo destruye
       where: {

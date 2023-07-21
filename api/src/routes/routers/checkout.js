@@ -1,10 +1,9 @@
 const { Router } = require("express");
 const router = Router();
 const mercadopago = require("mercadopago");
-const PROXY  = "https://hitalent-project.herokuapp.com"
-
 // const nodemailer = require("nodemailer");
 // const { templateSuccess, templateFailure, templatePending } = require('../utils/Templates/emailTemplates');
+const PROXY  = "https://hitalent-project.herokuapp.com"
 
 mercadopago.configure({
   access_token:

@@ -15,11 +15,9 @@ import Spinner from "../Spinner/Spinner";
 
 export default function Home() {
   let skill = useSelector((state) => state.index.filteredTalents);
-  let skillAprobados = skill.filter(el => el.aprobado === true);
-
+  //let skillAprobados = skill.filter(el => el.aprobado === true);
   const cargando = useSelector((state) => state.index.cargando);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getTalents());
   }, [dispatch]);
@@ -121,13 +119,13 @@ export default function Home() {
         <Spinner />
       ) : (
         <div class="flex flex-row flex-wrap items-center content-around justify-around">
-          {skillAprobados?.length === 0 ? (
+          {skill?.length === 0 ? (
             <div class="text-4xl min-h-screen font-bold m-4">
               {" "}
               <h3 class="m-auto">Ups! no encontramos lo que buscas, intenta de nuevo</h3>
             </div>
           ) : (
-            skillAprobados?.map((talent) => {
+            skill?.map((talent) => {
               return (
                 <TalentCard
                   key={talent.id}
